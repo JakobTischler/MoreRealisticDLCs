@@ -29,21 +29,24 @@ local getData = function()
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
 
 		-- engine
-		local hp = getXMLFloat(xmlFile, key .. '.engine#hp') or 100;
-		local topSpeed = getXMLFloat(xmlFile, key .. '.engine#topSpeed') or 50;
-		local reverseSpeed = getXMLFloat(xmlFile, key .. '.engine#reverseSpeed') or 20;
-		local maxFuelUsage = getXMLFloat(xmlFile, key .. '.engine#maxFuelUsage');
+		local kW = getXMLFloat(xmlFile, key .. '.engine#kW') or 100;
+		local realMaxVehicleSpeed = getXMLFloat(xmlFile, key .. '.engine#realMaxVehicleSpeed') or 50;
+		local realMaxReverseSpeed = getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed') or 20;
+		local realMaxFuelUsage = getXMLFloat(xmlFile, key .. '.engine#realMaxFuelUsage');
 
-		local braking = getXMLFloat(xmlFile, key .. '.engine#braking') or 4;
+		local realBrakingDeceleration = getXMLFloat(xmlFile, key .. '.engine#realBrakingDeceleration') or 4;
 
 
 		-- dimensions
 		local width = getXMLFloat(xmlFile, key .. '.dimensions#width') or 3;
+		assert(width, ('ERROR: "dimensions#width" missing for %q'):format(configFileName));
 		local height = getXMLFloat(xmlFile, key .. '.dimensions#height') or 3;
+		assert(height, ('ERROR: "dimensions#height" missing for %q'):format(configFileName));
 
 
 		-- weights
 		local weight = getXMLFloat(xmlFile, key .. '.weights#weight');
+		assert(weight, ('ERROR: "weights#weight" missing for %q'):format(configFileName));
 		local maxWeight = getXMLFloat(xmlFile, key .. '.weights#maxWeight') or weight * 1.55;
 
 
@@ -72,9 +75,10 @@ local getData = function()
 			if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
 			attacherJoints[#attacherJoints + 1] = {
-				maxRot = getXMLFloat(xmlFile, ajKey .. '#maxRot') or 0.2,
-				maxRot2 = getXMLFloat(xmlFile, ajKey .. '#maxRot2') or -0.2, --TODO: automatically use maxRot * -1
-				minRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround') or 1,
+				maxRot = getXMLString(xmlFile, ajKey .. '#maxRot') or '0.2 0 0',
+				maxRot2 = getXMLString(xmlFile, ajKey .. '#maxRot2') or '-0.2 0 0',
+				maxRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround'),
+				minRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround'),
 
 				-- cutter attacher joint
 				lowerDistanceToGround 	  =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround'),
@@ -96,8 +100,10 @@ local getData = function()
 			if not hasXMLProperty(xmlFile, compKey) then break; end;
 
 			components[#components + 1] = {
-				center = getXMLString(xmlFile, compKey .. '#center'),
-				mass = getXMLFloat(xmlFile, compKey .. '#mass')
+				centerOfMass = getXMLString(xmlFile, compKey .. '#centerOfMass'),
+				realMassWanted = getXMLFloat(xmlFile, compKey .. '#realMassWanted'),
+				realTransWithMass = getXMLString(xmlFile, compKey .. '#realTransWithMass'),
+				realTransWithMassMax = getXMLString(xmlFile, compKey .. '#realTransWithMassMax')
 			};
 
 			c = c + 1;
@@ -152,11 +158,11 @@ local getData = function()
 			configFileName = configFileName,
 			vehicleType = modName .. '.' .. vehicleType,
 			doDebug = doDebug,
-			kW = hp * 0.745699872,
-			topSpeed = topSpeed,
-			reverseSpeed = reverseSpeed,
-			braking = braking,
-			maxFuelUsage = maxFuelUsage,
+			kW = kW,
+			realMaxVehicleSpeed = realMaxVehicleSpeed,
+			realMaxReverseSpeed = realMaxReverseSpeed,
+			realBrakingDeceleration = realBrakingDeceleration,
+			realMaxFuelUsage = realMaxFuelUsage,
 			width = width,
 			height = height,
 			weight = weight,
@@ -252,7 +258,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.downForce', 'int', 0);
 
 			setValue(xmlFile, 'vehicle.realPtoPowerKW', 'flt', mrData.kW * 0.92);
-			setValue(xmlFile, 'vehicle.realMaxFuelUsage', 'flt', mrData.maxFuelUsage);
+			setValue(xmlFile, 'vehicle.realMaxFuelUsage', 'flt', mrData.realMaxFuelUsage);
 			setValue(xmlFile, 'vehicle.realDisplaySlip', 'bool', true);
 
 			-- combine
@@ -281,10 +287,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- relevant MR values
 		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale', 'flt', mrData.weight * 0.25);
-		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				 'flt', mrData.topSpeed);
-		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				 'flt', mrData.reverseSpeed);
+		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				 'flt', mrData.realMaxVehicleSpeed);
+		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				 'flt', mrData.realMaxReverseSpeed);
 		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			 'flt', mrData.maxWeight * 1.5);
-		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			 'flt', mrData.braking);
+		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			 'flt', mrData.realBrakingDeceleration);
 		setValue(xmlFile, 'vehicle.realSCX', 							 'flt', mrData.width * mrData.height * 0.68);
 
 
@@ -335,18 +341,21 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				removeProperty(xmlFile, ajKey .. '#maxRotLimit');
 				removeProperty(xmlFile, ajKey .. '#minRot2');
 				removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
+				removeProperty(xmlFile, ajKey .. '#maxRotDistanceToGround');
 				removeProperty(xmlFile, ajKey .. '#maxTransLimit');
 
 				local ajMrData = mrData.attacherJoints[a + 1];
-				setValue(xmlFile, ajKey .. '#maxRot', 				  'flt', ajMrData.maxRot);
-				setValue(xmlFile, ajKey .. '#maxRot2', 				  'flt', ajMrData.maxRot2);
+				setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
+				setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
 				setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
+				setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
 
 				a = a + 1;
 			end;
 
 		elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
 			local ajMrData = mrData.attacherJoints[1];
+			removeProperty(xmlFile, 'vehicle.attacherJoint#upperDistanceToGround');
 			setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',     'flt', ajMrData.lowerDistanceToGround);
 			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit', 'str', ajMrData.realWantedLoweredRotLimit);
 			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',  'str', ajMrData.realWantedRaisedRotLimit);
@@ -357,8 +366,11 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- components
 		for i=1, getXMLInt(xmlFile, 'vehicle.components#count') do
-			setValue(xmlFile, ('vehicle.components.component%d#centerOfMass'):format(i), 'str', mrData.components[i].center);
-			setValue(xmlFile, ('vehicle.components.component%d#realMassWanted'):format(i), 'flt', mrData.components[i].mass);
+			local compKey = ('vehicle.components.component%d'):format(i);
+			setValue(xmlFile, compKey .. '#centerOfMass',		  'str', mrData.components[i].centerOfMass);
+			setValue(xmlFile, compKey .. '#realMassWanted',		  'flt', mrData.components[i].realMassWanted);
+			setValue(xmlFile, compKey .. '#realTransWithMass',	  'str', mrData.components[i].realTransWithMass);
+			setValue(xmlFile, compKey .. '#realTransWithMassMax', 'str', mrData.components[i].realTransWithMassMax);
 		end;
 
 
@@ -378,7 +390,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive', 'bool', mrData.workTool.realResistanceOnlyWhenActive);
 				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt', mrData.workTool.resistanceDecreaseFx);
 
-				if mrData.workTool.caRealTractionResistance then --TODO: does it really have to be divided for each ca, or same total value for each ca?
+				if mrData.workTool.caRealTractionResistance then
 					local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
 					local tractionResistancePerCa = mrData.workTool.caRealTractionResistance / caCount;
 					local tractionResistanceWithLoadMassPerCa = mrData.workTool.caRealTractionResistanceWithLoadMass / caCount;
