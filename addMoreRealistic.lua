@@ -29,6 +29,7 @@ local getData = function()
 		assert(vehicleType, ('ERROR: "mrVehicleType" missing for %q'):format(configFileName));
 		local category = getXMLString(xmlFile, key .. '#category');
 		assert(category, ('ERROR: "category" missing for %q'):format(configFileName));
+		local doDebug = getXMLBool(xmlFile, key .. '#debug');
 
 		-- engine
 		local hp = getXMLFloat(xmlFile, key .. '.engine#hp') or 100;
@@ -57,8 +58,8 @@ local getData = function()
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
 			wheels[#wheels + 1] = {
-				driveMode = getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
-				deltaY = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				driveMode =  getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
+				deltaY =   getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
 				brakeRatio = getXMLInt(xmlFile, wheelKey .. '#brakeRatio') or 1
 			};
 
@@ -74,9 +75,16 @@ local getData = function()
 			if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
 			attacherJoints[#attacherJoints + 1] = {
-				maxRot = Utils.getNoNil(getXMLFloat(xmlFile, ajKey .. '#maxRot'), 0.2),
-				maxRot2 = Utils.getNoNil(getXMLFloat(xmlFile, ajKey .. '#maxRot2'), -0.2),
-				minRotDistanceToGround = Utils.getNoNil(getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround'), 1);
+				maxRot = getXMLFloat(xmlFile, ajKey .. '#maxRot') or 0.2,
+				maxRot2 = getXMLFloat(xmlFile, ajKey .. '#maxRot2') or -0.2,
+				minRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround') or 1,
+
+				-- cutter attacher joint
+				lowerDistanceToGround 	  =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround'),
+				realWantedLoweredRotLimit = getXMLString(xmlFile, ajKey .. '#realWantedLoweredRotLimit'),
+				realWantedRaisedRotLimit  = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit'),
+				realWantedLoweredRot2 	  =  getXMLFloat(xmlFile, ajKey .. '#realWantedLoweredRot2'),
+				realWantedRaisedRotInc 	  =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc')
 			};
 
 			a = a + 1;
@@ -105,24 +113,33 @@ local getData = function()
 			realWorkingSpeedLimit 	 = getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
 			resistanceDecreaseFx 	 = getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
 			caRealTractionResistance = getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
+
+			-- cutter
+			realCutterPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption');
+			realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc');
+			realCutterSpeedLimit		  = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit');
 		};
 
 
 		-- combine
 		local combine = {
-			realAiMinDistanceBeforeTurning 	 = getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
-			realAiManeuverSpeed 			 = getXMLFloat(xmlFile, key .. '.combine#realAiManeuverSpeed');
-			realPtoPowerKW 					 = getXMLFloat(xmlFile, key .. '.combine#realPtoPowerKW');
-			realTransmissionEfficiency 		 = getXMLFloat(xmlFile, key .. '.combine#realTransmissionEfficiency');
-			realMaxPowerToTransmission 		 = getXMLFloat(xmlFile, key .. '.combine#realMaxPowerToTransmission');
-			realHydrostaticTransmission 	 = getXMLBool( xmlFile, key .. '.combine#realHydrostaticTransmission');
-			realUnloadingPowerBoost 		 = getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
-			realUnloadingPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
-			realThreshingPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
-			realThreshingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
-			realChopperPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
-			realChopperPowerConsumptionInc 	 = getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
-			realThreshingScale 				 = getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
+			realSpeedLevel					 = getXMLString(xmlFile, key .. '.combine.realSpeedLevel') or '5 6 9';
+			baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed');
+			minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed');
+			maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed');
+			realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
+			realAiManeuverSpeed 			 =  getXMLFloat(xmlFile, key .. '.combine#realAiManeuverSpeed');
+			realPtoPowerKW 					 =  getXMLFloat(xmlFile, key .. '.combine#realPtoPowerKW');
+			realTransmissionEfficiency 		 =  getXMLFloat(xmlFile, key .. '.combine#realTransmissionEfficiency');
+			realMaxPowerToTransmission 		 =  getXMLFloat(xmlFile, key .. '.combine#realMaxPowerToTransmission');
+			realHydrostaticTransmission 	 =   getXMLBool(xmlFile, key .. '.combine#realHydrostaticTransmission');
+			realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
+			realUnloadingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
+			realThreshingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
+			realThreshingPowerConsumptionInc =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
+			realChopperPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
+			realChopperPowerConsumptionInc 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
+			realThreshingScale 				 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
 		};
 
 		--------------------------------------------------
@@ -131,6 +148,7 @@ local getData = function()
 			category = category,
 			configFileName = configFileName,
 			vehicleType = modName .. '.' .. vehicleType,
+			doDebug = doDebug,
 			kW = hp * 0.745699872,
 			topSpeed = topSpeed,
 			reverseSpeed = reverseSpeed,
@@ -143,6 +161,7 @@ local getData = function()
 			wheels = wheels,
 			attacherJoints = attacherJoints,
 			workTool = workTool,
+			combine = combine,
 			components = components
 		};
 
@@ -155,16 +174,29 @@ local getData = function()
 end;
 
 getData();
+local mrData;
 
 local prmSetXMLFn = {
 	bool = setXMLBool,
-	float = setXMLFloat,
+	flt = setXMLFloat,
 	int = setXMLInt,
 	str = setXMLString
 };
 local setValue = function(xmlFile, parameter, prmType, value)
 	if value ~= nil then
 		prmSetXMLFn[prmType](xmlFile, parameter, value);
+		if mrData and mrData.doDebug then
+			print(('\tset parameter %q (type %s) to %q'):format(parameter, prmType, tostring(value)));
+		end;
+	end;
+end;
+
+local removeProperty = function(xmlFile, property)
+	if getXMLString(xmlFile, property) ~= nil or hasXMLProperty(xmlFile, property) then
+		removeXMLProperty(xmlFile, property);
+		if mrData and mrData.doDebug then
+			print(('\tremove property %q'):format(tostring(property)));
+		end;
 	end;
 end;
 
@@ -178,7 +210,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 	-- 
 	local addMrData = false;
-	local mrData;
 	local cfnStart, _ = configFile:find('/pdlc/');
 	if cfnStart then
 		print(('%s load: typeName=%q, configFileName=%q'):format(tostring(self.name), tostring(self.typeName), tostring(self.configFileName)));
@@ -204,28 +235,29 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 	if addMrData then
-		removeXMLProperty(xmlFile, 'vehicle.motor');
+		removeProperty(xmlFile, 'vehicle.motor');
 
 		if mrData.category == 'steerable' or mrData.category == 'combine' then
 			-- accelerationSpeed
-			setXMLInt(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration', 1);
-			setXMLInt(xmlFile, 'vehicle.accelerationSpeed#deceleration', 1);
-			setXMLInt(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed', 3);
-			removeXMLProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
+			setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration', 'int', 1);
+			setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration', 'int', 1);
+			setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed', 'int', 3);
+			removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
 
 			-- fuel usage, downforce
-			setXMLInt(xmlFile, 'vehicle.fuelUsage', 0);
-			setXMLInt(xmlFile, 'vehicle.downForce', 0);
+			setValue(xmlFile, 'vehicle.fuelUsage', 'int', 0);
+			setValue(xmlFile, 'vehicle.downForce', 'int', 0);
 
-			setXMLFloat(xmlFile, 'vehicle.realPtoPowerKW', mrData.kW * 0.92);
+			setValue(xmlFile, 'vehicle.realPtoPowerKW', 'flt', mrData.kW * 0.92);
 			setValue(xmlFile, 'vehicle.realMaxFuelUsage', 'flt', mrData.maxFuelUsage);
-			setXMLBool(xmlFile, 'vehicle.realDisplaySlip', true);
+			setValue(xmlFile, 'vehicle.realDisplaySlip', 'bool', true);
 
+			-- combine
 			if mrData.category == 'combine' then
-				setXMLString(xmlFile, 'vehicle.realSpeedLevel', '5 6 9');
-				setXMLInt(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 5);
-				setXMLInt(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', mrData.workTool.realWorkingSpeedLimit or 12);
-				setXMLInt(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 3);
+				setValue(xmlFile, 'vehicle.realSpeedLevel', 				  'str',  mrData.combine.realSpeedLevel);
+				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.combine.baseSpeed);
+				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.minSpeed);
+				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.combine.maxSpeed);
 
 				setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',   'flt',  mrData.combine.realAiMinDistanceBeforeTurning);
 				setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 			  'flt',  mrData.combine.realAiManeuverSpeed);
@@ -240,51 +272,55 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
 				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
 				setValue(xmlFile, 'vehicle.realPtoPowerKW', 				  'flt',  mrData.combine.realPtoPowerKW);
-
 			end;
 		end;
 
+
 		-- relevant MR values
-		setXMLFloat(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale', 0.25 * mrData.weight);
-		setXMLFloat(xmlFile, 'vehicle.realMaxVehicleSpeed', mrData.topSpeed);
-		setXMLFloat(xmlFile, 'vehicle.realMaxReverseSpeed', mrData.reverseSpeed);
-		setXMLFloat(xmlFile, 'vehicle.realBrakeMaxMovingMass', 1.5 * mrData.maxWeight);
-		setXMLFloat(xmlFile, 'vehicle.realBrakingDeceleration', mrData.braking);
-		setXMLFloat(xmlFile, 'vehicle.realSCX', mrData.width * mrData.height * 0.68);
-	   
+		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale', 'flt', mrData.weight * 0.25);
+		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				 'flt', mrData.topSpeed);
+		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				 'flt', mrData.reverseSpeed);
+		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			 'flt', mrData.maxWeight * 1.5);
+		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			 'flt', mrData.braking);
+		setValue(xmlFile, 'vehicle.realSCX', 							 'flt', mrData.width * mrData.height * 0.68);
+
+
 		-- wheels
-		setXMLFloat(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 1);
 		local wheelI = 0;
 		while true do
 			local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
 			local repr = getXMLString(xmlFile, wheelKey .. '#repr');
 			if not repr or repr == '' then break; end;
+			if wheelI == 0 then
+				setValue(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 'flt', 1);
+			end;
 			print('wheels: ' .. wheelI);
 
 			local wheelMrData = mrData.wheels[wheelI + 1];
 
-			removeXMLProperty(xmlFile, wheelKey .. '#lateralStiffness');
-			removeXMLProperty(xmlFile, wheelKey .. '#longitudalStiffness');
-			setXMLInt(xmlFile, wheelKey .. '#driveMode', wheelMrData.driveMode);
-			setXMLInt(xmlFile, wheelKey .. '#brakeRatio', wheelMrData.brakeRatio);
-			setXMLInt(xmlFile, wheelKey .. '#damper', 20);
-			setXMLInt(xmlFile, wheelKey .. '#mass', 1);
+			removeProperty(xmlFile, wheelKey .. '#lateralStiffness');
+			removeProperty(xmlFile, wheelKey .. '#longitudalStiffness');
+			setValue(xmlFile, wheelKey .. '#driveMode',  'int', wheelMrData.driveMode);
+			setValue(xmlFile, wheelKey .. '#brakeRatio', 'int', wheelMrData.brakeRatio);
+			setValue(xmlFile, wheelKey .. '#damper',     'int', 20);
+			setValue(xmlFile, wheelKey .. '#mass',       'int', 1);
 
 			local suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
 			local deltaY = getXMLFloat(xmlFile, wheelKey .. '#deltaY');
 			if suspTravel == nil or suspTravel == '' or suspTravel < 0.05 then
 				suspTravel = 0.08;
-				setXMLFloat(xmlFile, wheelKey .. '#suspTravel', suspTravel);
+				setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel);
 			end;
-			setXMLFloat(xmlFile, wheelKey .. '#spring', 278 * (mrData.maxWeight * 0.25) / (suspTravel * 100 - 2));
+			setValue(xmlFile, wheelKey .. '#spring', 'flt', 278 * (mrData.maxWeight * 0.25) / (suspTravel * 100 - 2));
 			if deltaY == nil or deltaY == '' or deltaY == 0 and not wheelMrData.deltaY then
-				setXMLFloat(xmlFile, wheelKey .. '#deltaY', suspTravel * 0.9);
+				setValue(xmlFile, wheelKey .. '#deltaY', 'flt', suspTravel * 0.9);
 			else
-				setValue(xmlFile, wheelKey .. '#deltaY', 'flt',  wheelMrData.deltaY);
+				setValue(xmlFile, wheelKey .. '#deltaY', 'flt', wheelMrData.deltaY);
 			end;
 
 			wheelI = wheelI + 1;
 		end;
+
 
 		-- attacherJoints
 		if mrData.category == 'steerable' or mrData.category == 'combine' then
@@ -293,19 +329,28 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
 				if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
-				removeXMLProperty(xmlFile, ajKey .. '#maxRotLimit');
-				removeXMLProperty(xmlFile, ajKey .. '#minRot2');
-				removeXMLProperty(xmlFile, ajKey .. '#minRotRotationOffset');
-				removeXMLProperty(xmlFile, ajKey .. '#maxTransLimit');
+				removeProperty(xmlFile, ajKey .. '#maxRotLimit');
+				removeProperty(xmlFile, ajKey .. '#minRot2');
+				removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
+				removeProperty(xmlFile, ajKey .. '#maxTransLimit');
 
 				local ajMrData = mrData.attacherJoints[a + 1];
-				setXMLFloat(xmlFile, ajKey .. '#maxRot', ajMrData.maxRot);
-				setXMLFloat(xmlFile, ajKey .. '#maxRot2', ajMrData.maxRot2);
-				setXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround', ajMrData.minRotDistanceToGround);
+				setValue(xmlFile, ajKey .. '#maxRot', 				  'flt', ajMrData.maxRot);
+				setValue(xmlFile, ajKey .. '#maxRot2', 				  'flt', ajMrData.maxRot2);
+				setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
 
 				a = a + 1;
 			end;
+
+		elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
+			local ajMrData = mrData.attacherJoints[1];
+			setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',     'flt', ajMrData.lowerDistanceToGround);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit', 'str', ajMrData.realWantedLoweredRotLimit);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',  'str', ajMrData.realWantedRaisedRotLimit);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRot2',     'flt', ajMrData.realWantedLoweredRot2);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotInc',    'flt', ajMrData.realWantedRaisedRotInc);
 		end;
+
 
 		-- components
 		for i=1, getXMLInt(xmlFile, 'vehicle.components#count') do
@@ -313,8 +358,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, ('vehicle.components.component%d#realMassWanted'):format(i), 'flt', mrData.components[i].mass);
 		end;
 
+
 		-- workTool
-		if mrData.category == 'tool' or mrData.category == 'combine' then
+		if mrData.category == 'tool' then
 			setValue(xmlFile, 'vehicle.realPowerConsumption', 'flt', mrData.workTool.realPowerConsumption);
 			setValue(xmlFile, 'vehicle.realWorkingSpeedLimit', 'flt', mrData.workTool.realWorkingSpeedLimit);
 			setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt', mrData.workTool.resistanceDecreaseFx);
@@ -323,9 +369,14 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
 				local resistanceDecreaseFxPerCa = mrData.workTool.caRealTractionResistance / caCount;
 				for i=1, caCount do
-					setXMLFloat(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#resistanceDecreaseFxPerCa'):format(i), resistanceDecreaseFxPerCa);
+					setValue(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#resistanceDecreaseFxPerCa'):format(i), 'flt', resistanceDecreaseFxPerCa);
 				end;
 			end;
+
+			-- cutter
+			setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);
+			setValue(xmlFile, 'vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
+			setValue(xmlFile, 'vehicle.realCutterSpeedLimit', 'int', mrData.workTool.realCutterSpeedLimit);
 		end;
 
 		-- edit store item
@@ -361,7 +412,9 @@ local setMoreRealisticDamping = function(self, i3dNode, arguments)
 		for i,comp in ipairs(self.components) do
 			setAngularDamping(comp.node, 0);
 			setLinearDamping(comp.node, 0);
-			print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
+			if mrData and mrData.doDebug then
+				print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
+			end;
 		end;
 	end;
 end;
