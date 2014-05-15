@@ -65,8 +65,8 @@
 
 	<!-- (1.2) TOOLS
 	<!-- (1.2.1) HORSCH MAESTRO 12SW -->
-	<vehicle category="tool" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker" debug="false">
-		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" resistanceDecreaseFx="0.7" caRealTractionResistance="8.5" />
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker" debug="true">
+		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="7.175" maxWeight="17" /> <!-- in t -->
 		<wheels>

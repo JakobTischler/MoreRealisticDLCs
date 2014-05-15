@@ -1,8 +1,4 @@
 ﻿--[[
-Case IH Puma 160 load: typeName="pdlc_titaniumAddon.tractor_wheelExtension", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIHPuma160.xml"
-Case IH Magnum 340 load: typeName="pdlc_titaniumAddon.tractor_wheelExtension", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml"
-Case IH Magnum 340 load: typeName="pdlc_titaniumAddon.tractor_wheelExtension", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml"
-Case IH Axial Flow 7130 load: typeName="pdlc_titaniumAddon.combine_extended", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIH7130.xml"
 Case IH Axial Flow 9230 load: typeName="pdlc_titaniumAddon.combine_extended", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIH9230.xml"
 Case IH Axial Flow 9230 Quadtrac load: typeName="pdlc_titaniumAddon.combine_extended_crawler", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIH9230Crawler.xml"
 Krone BigX 1100 load: typeName="pdlc_titaniumAddon.combine_extended", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/krone/kroneBigX1100.xml"
@@ -29,6 +25,7 @@ local getData = function()
 		assert(vehicleType, ('ERROR: "mrVehicleType" missing for %q'):format(configFileName));
 		local category = getXMLString(xmlFile, key .. '#category');
 		assert(category, ('ERROR: "category" missing for %q'):format(configFileName));
+		local subCategory = getXMLString(xmlFile, key .. '#subCategory') or '';
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
 
 		-- engine
@@ -76,7 +73,7 @@ local getData = function()
 
 			attacherJoints[#attacherJoints + 1] = {
 				maxRot = getXMLFloat(xmlFile, ajKey .. '#maxRot') or 0.2,
-				maxRot2 = getXMLFloat(xmlFile, ajKey .. '#maxRot2') or -0.2,
+				maxRot2 = getXMLFloat(xmlFile, ajKey .. '#maxRot2') or -0.2, --TODO: automatically use maxRot * -1
 				minRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround') or 1,
 
 				-- cutter attacher joint
@@ -109,24 +106,29 @@ local getData = function()
 
 		-- workTool
 		local workTool = {
-			realPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
-			realWorkingSpeedLimit 	 = getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
-			resistanceDecreaseFx 	 = getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
-			caRealTractionResistance = getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
+			realPowerConsumption 				 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
+			realPowerConsumptionWhenWorking		 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
+			realPowerConsumptionWhenWorkingInc	 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
+			realWorkingSpeedLimit 				 = getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
+			realRollingResistance				 = getXMLFloat(xmlFile, key .. '.workTool#realRollingResistance') or 0;
+			realResistanceOnlyWhenActive		 = Utils.getNoNil(getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive'), false);
+			resistanceDecreaseFx 				 = getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
+			caRealTractionResistance			 = getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
+			caRealTractionResistanceWithLoadMass = getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
 
 			-- cutter
-			realCutterPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption');
-			realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc');
-			realCutterSpeedLimit		  = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit');
+			realCutterPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
+			realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc') or 2.5;
+			realCutterSpeedLimit		  = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit') or 14;
 		};
 
 
 		-- combine
 		local combine = {
-			realSpeedLevel					 = getXMLString(xmlFile, key .. '.combine.realSpeedLevel') or '5 6 9';
-			baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed');
-			minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed');
-			maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed');
+			realSpeedLevel					 = getXMLString(xmlFile, key .. '.combine#realSpeedLevel') or '5 6 9';
+			baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed') or 5;
+			minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed') or 3;
+			maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
 			realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
 			realAiManeuverSpeed 			 =  getXMLFloat(xmlFile, key .. '.combine#realAiManeuverSpeed');
 			realPtoPowerKW 					 =  getXMLFloat(xmlFile, key .. '.combine#realPtoPowerKW');
@@ -146,6 +148,7 @@ local getData = function()
 
 		vehicleData[configFileName] = {
 			category = category,
+			subCategory = subCategory,
 			configFileName = configFileName,
 			vehicleType = modName .. '.' .. vehicleType,
 			doDebug = doDebug,
@@ -361,22 +364,30 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- workTool
 		if mrData.category == 'tool' then
-			setValue(xmlFile, 'vehicle.realPowerConsumption', 'flt', mrData.workTool.realPowerConsumption);
-			setValue(xmlFile, 'vehicle.realWorkingSpeedLimit', 'flt', mrData.workTool.realWorkingSpeedLimit);
-			setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt', mrData.workTool.resistanceDecreaseFx);
+			-- cutter
+			if mrData.subCategory == 'cutter' then
+				setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);
+				setValue(xmlFile, 'vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realCutterSpeedLimit', 'int', mrData.workTool.realCutterSpeedLimit);
 
-			if mrData.workTool.caRealTractionResistance then
-				local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
-				local resistanceDecreaseFxPerCa = mrData.workTool.caRealTractionResistance / caCount;
-				for i=1, caCount do
-					setValue(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#resistanceDecreaseFxPerCa'):format(i), 'flt', resistanceDecreaseFxPerCa);
+			-- others
+			else
+				setValue(xmlFile, 'vehicle.realPowerConsumption', 'flt', mrData.workTool.realPowerConsumption);
+				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit', 'flt', mrData.workTool.realWorkingSpeedLimit);
+				setValue(xmlFile, 'vehicle.realRollingResistance', 'flt', mrData.workTool.realRollingResistance);
+				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive', 'bool', mrData.workTool.realResistanceOnlyWhenActive);
+				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt', mrData.workTool.resistanceDecreaseFx);
+
+				if mrData.workTool.caRealTractionResistance then --TODO: does it really have to be divided for each ca, or same total value for each ca?
+					local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
+					local tractionResistancePerCa = mrData.workTool.caRealTractionResistance / caCount;
+					local tractionResistanceWithLoadMassPerCa = mrData.workTool.caRealTractionResistanceWithLoadMass / caCount;
+					for i=1, caCount do
+						setValue(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#realTractionResistance'):format(i), 'flt', tractionResistancePerCa);
+						setValue(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#realTractionResistanceWithLoadMass'):format(i), 'flt', tractionResistanceWithLoadMassPerCa);
+					end;
 				end;
 			end;
-
-			-- cutter
-			setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);
-			setValue(xmlFile, 'vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
-			setValue(xmlFile, 'vehicle.realCutterSpeedLimit', 'int', mrData.workTool.realCutterSpeedLimit);
 		end;
 
 		-- edit store item
