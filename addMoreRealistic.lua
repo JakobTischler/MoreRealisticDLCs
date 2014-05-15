@@ -75,8 +75,8 @@ local getData = function()
 			if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
 			attacherJoints[#attacherJoints + 1] = {
-				maxRot = getXMLString(xmlFile, ajKey .. '#maxRot') or '0.2 0 0',
-				maxRot2 = getXMLString(xmlFile, ajKey .. '#maxRot2') or '-0.2 0 0',
+				maxRot = getXMLString(xmlFile, ajKey .. '#maxRot'),
+				maxRot2 = getXMLString(xmlFile, ajKey .. '#maxRot2'),
 				maxRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround'),
 				minRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround'),
 
@@ -156,7 +156,6 @@ local getData = function()
 			category = category,
 			subCategory = subCategory,
 			configFileName = configFileName,
-			vehicleType = modName .. '.' .. vehicleType,
 			doDebug = doDebug,
 			kW = kW,
 			realMaxVehicleSpeed = realMaxVehicleSpeed,
@@ -173,6 +172,12 @@ local getData = function()
 			combine = combine,
 			components = components
 		};
+
+		if Utils.startsWith(vehicleType, 'mr_') then
+			vehicleData[configFileName].vehicleType = modName .. '.' .. vehicleType;
+		else
+			vehicleData[configFileName].vehicleType = vehicleType;
+		end;
 
 		--------------------------------------------------
 
@@ -246,7 +251,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	if addMrData then
 		removeProperty(xmlFile, 'vehicle.motor');
 
-		if mrData.category == 'steerable' or mrData.category == 'combine' then
+		if mrData.category == 'steerable' then
 			-- accelerationSpeed
 			setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration', 'int', 1);
 			setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration', 'int', 1);
@@ -262,7 +267,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.realDisplaySlip', 'bool', true);
 
 			-- combine
-			if mrData.category == 'combine' then
+			if mrData.subCategory == 'combine' then
 				setValue(xmlFile, 'vehicle.realSpeedLevel', 				  'str',  mrData.combine.realSpeedLevel);
 				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.combine.baseSpeed);
 				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.minSpeed);
@@ -332,7 +337,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 		-- attacherJoints
-		if mrData.category == 'steerable' or mrData.category == 'combine' then
+		if mrData.category == 'steerable' then
 			local a = 0;
 			while true do
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
