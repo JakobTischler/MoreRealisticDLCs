@@ -138,12 +138,12 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realImplementNeedsBoostMinPowerCons = getXMLFloat(xmlFile, key .. '.engine#realImplementNeedsBoostMinPowerCons');
 			realMaxBoost 						= getXMLFloat(xmlFile, key .. '.engine#realMaxBoost');
 			realTransmissionEfficiency 			= getXMLFloat(xmlFile, key .. '.engine#realTransmissionEfficiency');
-			realPtoDriveEfficiency				= getXMLFloat(xmlFile, key .. '.engine#realPtoDriveEfficiency');
+			realPtoDriveEfficiency				= getXMLFloat(xmlFile, key .. '.engine#realPtoDriveEfficiency') or 0.92;
 		};
-		engine.realPtoPowerKW 					= getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * 0.92;
+		engine.realPtoPowerKW 					= getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * engine.realPtoDriveEfficiency;
 
 		local realBrakingDeceleration = getXMLFloat(xmlFile, key .. '.engine#realBrakingDeceleration') or 4;
-		local fuelCapacity = getXMLFloat(xmlFile, key .. '.engine#fuelCapacity') or 4;
+		local fuelCapacity = getXMLFloat(xmlFile, key .. '.engine#fuelCapacity');
 
 
 		-- dimensions
@@ -411,6 +411,16 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	if addMrData then
 		removeProperty(xmlFile, 'vehicle.motor');
 
+
+		-- relevant MR values
+		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt', mrData.weights.weight * 0.25);
+		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt', mrData.engine.realMaxVehicleSpeed);
+		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt', mrData.engine.realMaxReverseSpeed);
+		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt', mrData.weights.realBrakeMaxMovingMass);
+		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt', mrData.realBrakingDeceleration);
+		setValue(xmlFile, 'vehicle.realSCX', 							  'flt', mrData.width * mrData.height * 0.68);
+
+
 		if mrData.category == 'steerable' then
 			-- accelerationSpeed
 			setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration',	'int', 1);
@@ -455,15 +465,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
 			end;
 		end;
-
-
-		-- relevant MR values
-		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt', mrData.weights.weight * 0.25);
-		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt', mrData.engine.realMaxVehicleSpeed);
-		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt', mrData.engine.realMaxReverseSpeed);
-		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt', mrData.weights.realBrakeMaxMovingMass);
-		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt', mrData.realBrakingDeceleration);
-		setValue(xmlFile, 'vehicle.realSCX', 							  'flt', mrData.width * mrData.height * 0.68);
 
 
 		-- wheels
