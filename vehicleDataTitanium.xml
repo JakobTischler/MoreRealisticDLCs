@@ -1,29 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) STEERABLES -->
-	<!-- (1.1) CASE PUMA 160 --> <!-- ALMOST DONE (centerOfMass, price, dailyUpkeep) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="123456" dailyUpkeep="9999" debug="true">
-		<engine kW="119" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="60" realSpeedBoost="13" realSpeedBoostMinSpeed="20" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
-		<dimensions width="2.9" height="3" /> <!-- in m -->
-		<weights weight="7.42" maxWeight="11.5" realBrakeMaxMovingMass="17.25" /> <!-- in t -->
+	<!-- (1.1) CASE PUMA 160 --> <!-- DONE -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="111000" dailyUpkeep="175" debug="true">
+		<general fuelCapacity="330" realBrakingDeceleration="6.5" />
+		<engine kW="130" realMaxVehicleSpeed="50" realMaxReverseSpeed="50" realMaxFuelUsage="32" realPtoDriveEfficiency="0.892" realSpeedBoost="22" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="22" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="22" />
+		<dimensions width="2.5" height="3" /> <!-- in m -->
+		<weights weight="8.5" maxWeight="12" realBrakeMaxMovingMass="15" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="1" deltaY="0.2" brakeRatio="0" />
-			<wheel driveMode="1" deltaY="0.2" brakeRatio="0" />
-			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.74" rotMin="-33" rotMax="30" rotSpeed="60" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.74" rotMin="-30" rotMax="33" rotSpeed="60" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" radius="0.96" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" radius="0.96" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint maxRot="-20.864 0 0" maxRot2="20.864 0 0" minRotDistanceToGround="1.0636520385742" />
-			<attacherJoint maxRot="26.714 0 0" maxRot2="-26.714 0 0" minRotDistanceToGround="0.85746765136719" />
+			<attacherJoint jointType="implement" maxRot="-27.147 0 0" maxRot2="27.147 0 0" minRotDistanceToGround="1.16156" />
+			<attacherJoint jointType="implement" maxRot="34.766 0 0" maxRot2="-34.766 0 0" minRotDistanceToGround="0.9501" />
 		</attacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.01 0.1" realMassWanted="7.42" />
+			<component1 centerOfMass="0 0.4 -0.27" realMassWanted="8.6" />
 		</components>
 	</vehicle>
 
 	<!-- (1.2) CASE MAGNUM 340 --> <!-- ALMOST DONE (centerOfMass) -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realBrakingDeceleration="5" realMaxFuelUsage="69" />
+		<general realBrakingDeceleration="5" />
+		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realMaxFuelUsage="69" />
 		<dimensions width="3.2" height="3.37" /> <!-- in m -->
 		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
 		<wheels>
@@ -42,7 +44,8 @@
 
 	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- ALMOST DONE (centerOfMass) -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realBrakingDeceleration="5" realMaxFuelUsage="69" />
+		<general realBrakingDeceleration="5" />
+		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realMaxFuelUsage="69" />
 		<dimensions width="3.2" height="3.37" /> <!-- in m -->
 		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
 		<wheels>
@@ -64,7 +67,8 @@
 	<!-- (2) TOOLS -->
 	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- ALMOST DONE -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_t" debug="false">
-		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0" />
+		<general realRollingResistance="0.05" />
+		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="7.175" maxWeight="17" /> <!-- in t -->
 		<wheels>
@@ -141,8 +145,9 @@
 	<!-- (3) COMBINES -->
 	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- NOT DONE (attacherJoints!) -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="true">
-		<engine kW="309" realMaxVehicleSpeed="25" realMaxReverseSpeed="12" realBrakingDeceleration="3" realTransmissionEfficiency="0.8" realPtoPowerKW="309" realPtoDriveEfficiency="1" realMaxFuelUsage="108" />
-		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="244" realHydrostaticTransmission="true" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" />
+		<general realBrakingDeceleration="3" />
+		<engine kW="309" realMaxVehicleSpeed="25" realMaxReverseSpeed="12" realTransmissionEfficiency="0.8" realPtoPowerKW="309" realPtoDriveEfficiency="1" realMaxFuelUsage="108" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="244" realHydrostaticTransmission="true" />
+		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" />
 		<dimensions width="3.3" height="3.9" /> <!-- in m -->
 		<weights weight="16.2" maxWeight="21" /> <!-- in t -->
 		<wheels>
