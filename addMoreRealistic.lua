@@ -1,16 +1,17 @@
-﻿--[[
-Case IH Axial Flow 9230 load: typeName="pdlc_titaniumAddon.combine_extended", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIH9230.xml"
-Case IH Axial Flow 9230 Quadtrac load: typeName="pdlc_titaniumAddon.combine_extended_crawler", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/caseIH/caseIH9230Crawler.xml"
-Krone BigX 1100 load: typeName="pdlc_titaniumAddon.combine_extended", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/krone/kroneBigX1100.xml"
-Lizard Truck load: typeName="pdlc_titaniumAddon.truck", configFileName="C:/Users/JakobTischler/Documents/My Games/FarmingSimulator2013/pdlc/titaniumAddon/lizard/americanTruck.xml"
---]]
+﻿--
+--MoreRealisticDLCs
+--
+--@authors: modelleicher, Jakob Tischler, Satissis
+--@version: 0.1b
+--
 
 local modDir, modName = g_currentModDirectory, g_currentModName;
-local vehicleData = {};
 
-local getData = function()
-	local vehicleDataPath = Utils.getFilename('vehicleData.xml', modDir);
-	assert(fileExists(vehicleDataPath), 'ERROR: "vehicleData.xml" could not be found');
+-- ##################################################
+
+local vehicleData = {};
+local getMoreRealisticData = function(vehicleDataPath)
+	assert(fileExists(vehicleDataPath), ('ERROR: %q could not be found'):format(vehicleDataPath));
 	local xmlFile = loadXMLFile('vehicleDataFile', vehicleDataPath);
 
 	local i = 0;
@@ -178,6 +179,7 @@ local getData = function()
 			category = category,
 			subCategory = subCategory,
 			configFileName = configFileName,
+			vehicleType = Utils.startsWith(vehicleType, 'mr_') and modName .. '.' .. vehicleType or vehicleType,
 			doDebug = doDebug,
 			engine = engine,
 			realBrakingDeceleration = realBrakingDeceleration,
@@ -192,12 +194,6 @@ local getData = function()
 			components = components
 		};
 
-		if Utils.startsWith(vehicleType, 'mr_') then
-			vehicleData[configFileName].vehicleType = modName .. '.' .. vehicleType;
-		else
-			vehicleData[configFileName].vehicleType = vehicleType;
-		end;
-
 		--------------------------------------------------
 
 		i = i + 1;
@@ -206,7 +202,52 @@ local getData = function()
 	delete(xmlFile);
 end;
 
-getData();
+-- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
+local dlcTest = {
+	Titanium = { '/titaniumAddon/lizard/americanTruck.xml', 'vehicleDataTitanium.xml', false },
+	Lindner = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml', false }
+};
+local dlcExists = false;
+for name, data in pairs(dlcTest) do
+	for _, dir in ipairs(g_dlcsDirectories) do
+		if dir.isLoaded then
+			local path = Utils.getFilename(data[1], dir.path);
+			if fileExists(path) then
+				data[3] = true;
+				local vehicleDataPath = Utils.getFilename(data[2], modDir);
+				print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
+				getMoreRealisticData(vehicleDataPath);
+				dlcExists = true;
+				break;
+			end;
+		end;
+	end;
+end;
+
+-- ABORT EVERYTHING IF THERE ARE NO DLCs
+if not dlcExists then
+	print('MoreRealisticDLCs: you don\'t have any DLCs installed. Script will now be aborted!');
+	return;
+end;
+
+-- ABORT EVERYTHING IF MOREREALISTIC NOT INSTALLED or TOO LOW VERSION NUMBER
+if not RealisticUtils then
+	print('MoreRealisticDLCs: you don\'t have MoreRealistic installed. Script will now be aborted!');
+	return;
+end;
+
+-- ABORT EVERYTHING IF TOO LOW MOREREALISTIC VERSION NUMBER
+local mrModItem = ModsUtil.findModItemByModName(RealisticUtils.modName);
+if mrModItem and mrModItem.version then
+	local version = tonumber(mrModItem.version:sub(1, 3));
+	if version < 1.3 then
+		print(('MoreRealisticDLCs: your MoreRealistic version (%s) is too low. Install v1.3 or higher. Script will now be aborted!'):format(mrModItem.version));
+		return;
+	end;
+end;
+
+-- ##################################################
+
 local mrData;
 
 local prmSetXMLFn = {
@@ -233,6 +274,8 @@ local removeProperty = function(xmlFile, property)
 	end;
 end;
 
+-- ##################################################
+
 local origVehicleLoad = Vehicle.load;
 Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
 	local modName, baseDirectory = Utils.getModNameAndBaseDirectory(configFile);
@@ -245,7 +288,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	local addMrData = false;
 	local cfnStart, _ = configFile:find('/pdlc/');
 	if cfnStart then
-		print(('%s load: typeName=%q, configFileName=%q'):format(tostring(self.name), tostring(self.typeName), tostring(self.configFileName)));
+		print(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
 		print(('\tmodName=%q, baseDirectory=%q'):format(tostring(modName), tostring(baseDirectory)));
 		local cfnShort = configFile:sub(cfnStart + 1, 1000);
 		mrData = vehicleData[cfnShort];
