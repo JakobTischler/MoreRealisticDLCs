@@ -4,6 +4,7 @@
 *.gitignore
 *.idea
 *.iml
+*.WinMerge
 
 # Windows image file caches
 Thumbs.db

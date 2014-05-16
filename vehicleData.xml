@@ -146,7 +146,6 @@
 	<vehicle category="steerable" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerUnitrac92.xml" mrVehicleType="mr_tractor_steerableExtension" debug="true">
 		<engine kW="67" realMaxVehicleSpeed="50" realMaxReverseSpeed="20" realBrakingDeceleration="5" realMaxFuelUsage="22.4" />
 		<dimensions width="2.120" height="2.4" /> <!-- in m -->
-		<!--weights weight="2.99" maxWeight="7.5" /--> <!-- in t -->
 		<weights weight="2.99" maxWeight="7.5" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="2" deltaY="0.115" brakeRatio="1" />
@@ -156,7 +155,6 @@
 		</wheels>
 		<attacherJoints>
 			<attacherJoint minRot="0 0 0" maxRot="0 0 0" maxRot2="0 0 0" maxRotDistanceToGround="0" />
-			<!--attacherJoint minRot="0 0 0" maxRot="27 0 0" maxRot2="-5 0 0" maxRotDistanceToGround="0.94" /-->
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.1 0.55" realMassWanted="2.99" />

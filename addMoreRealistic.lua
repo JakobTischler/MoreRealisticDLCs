@@ -57,9 +57,10 @@ local getData = function()
 			local wheelKey = key .. ('.wheels.wheel(%d)'):format(w);
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
-			-- TODO: (Jakob) Would like to ba able to set the spring manually + rotMax and rotMin for akerman steering setup.
 			wheels[#wheels + 1] = {
 				driveMode =  getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
+				rotMax =   getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
+				rotMin =   getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
 				deltaY =   getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
 				brakeRatio = getXMLInt(xmlFile, wheelKey .. '#brakeRatio') or 1
 			};
@@ -75,20 +76,24 @@ local getData = function()
 			local ajKey = key .. ('.attacherJoints.attacherJoint(%d)'):format(a);
 			if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
-			-- TODO: (Jakob) Skip this section if allowsLowering=false (jointType="unitrac" do not need these values, so far only jointType="implement" need these)
-			attacherJoints[#attacherJoints + 1] = {
-				maxRot = getXMLString(xmlFile, ajKey .. '#maxRot'),
-				maxRot2 = getXMLString(xmlFile, ajKey .. '#maxRot2'),
-				maxRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround'),
-				minRotDistanceToGround = getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround'),
+			local ajData = {};
+			local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
+			if jointType and jointType == 'implement' or jointType == 'cutter' then
+				ajData.jointType = jointType;
+				ajData.maxRot				  = getXMLString(xmlFile, ajKey .. '#maxRot');
+				ajData.maxRot2				  = getXMLString(xmlFile, ajKey .. '#maxRot2'); --TODO: always maxRot * -1 ?
+				ajData.maxRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround');
+				ajData.minRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround');
 
 				-- cutter attacher joint
-				lowerDistanceToGround 	  =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround'),
-				realWantedLoweredRotLimit = getXMLString(xmlFile, ajKey .. '#realWantedLoweredRotLimit'),
-				realWantedRaisedRotLimit  = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit'),
-				realWantedLoweredRot2 	  =  getXMLFloat(xmlFile, ajKey .. '#realWantedLoweredRot2'),
-				realWantedRaisedRotInc 	  =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc')
-			};
+				ajData.lowerDistanceToGround 	 =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround');
+				ajData.realWantedLoweredRotLimit = getXMLString(xmlFile, ajKey .. '#realWantedLoweredRotLimit');
+				ajData.realWantedRaisedRotLimit  = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit');
+				ajData.realWantedLoweredRot2 	 =  getXMLFloat(xmlFile, ajKey .. '#realWantedLoweredRot2');
+				ajData.realWantedRaisedRotInc 	 =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc');
+			end;
+
+			attacherJoints[#attacherJoints + 1] = ajData;
 
 			a = a + 1;
 		end;
@@ -314,10 +319,11 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 			local wheelMrData = mrData.wheels[wheelI + 1];
 
-			-- TODO: (Jakob) Would like to ba able to set the spring manually + rotMax and rotMin for akerman steering setup.
 			removeProperty(xmlFile, wheelKey .. '#lateralStiffness');
 			removeProperty(xmlFile, wheelKey .. '#longitudalStiffness');
 			setValue(xmlFile, wheelKey .. '#driveMode',  'int', wheelMrData.driveMode);
+			setValue(xmlFile, wheelKey .. '#rotMax',     'flt', wheelMrData.rotMax);
+			setValue(xmlFile, wheelKey .. '#rotMin',     'flt', wheelMrData.rotMin);
 			setValue(xmlFile, wheelKey .. '#brakeRatio', 'int', wheelMrData.brakeRatio);
 			setValue(xmlFile, wheelKey .. '#damper',     'int', 20);
 			setValue(xmlFile, wheelKey .. '#mass',       'int', 1);
@@ -346,18 +352,20 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
 				if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
-				-- TODO: (Jakob) Skip this section if allowsLowering=false (jointType="unitrac" do not need these values, so far only jointType="implement" need these)
-				removeProperty(xmlFile, ajKey .. '#maxRotLimit');
-				removeProperty(xmlFile, ajKey .. '#minRot2');
-				removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
-				removeProperty(xmlFile, ajKey .. '#maxRotDistanceToGround');
-				removeProperty(xmlFile, ajKey .. '#maxTransLimit');
+				local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
+				if jointType and jointType == 'implement' or jointType == 'cutter' then
+					removeProperty(xmlFile, ajKey .. '#maxRotLimit');
+					removeProperty(xmlFile, ajKey .. '#minRot2');
+					removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
+					removeProperty(xmlFile, ajKey .. '#maxRotDistanceToGround');
+					removeProperty(xmlFile, ajKey .. '#maxTransLimit');
 
-				local ajMrData = mrData.attacherJoints[a + 1];
-				setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
-				setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
-				setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
-				setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
+					local ajMrData = mrData.attacherJoints[a + 1];
+					setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
+					setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
+					setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
+					setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
+				end;
 
 				a = a + 1;
 			end;
@@ -424,13 +432,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 	--** DURAL
 	--** checking an additionnal y offset for vehicle which have their wheels under the '0' plane in Giants editor (avoid the vehicle to tip over when spawned)
-	--print('loading mod ' .. tostring(modName));
 	local additionnalOffsetY = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.size#yOffset'), 0);
 	offsetY = offsetY + additionnalOffsetY;
 
-	--Vehicle.springScale = 10000;
-	--print('test Vehicle.springScale : ' .. tostring(Vehicle.springScale));
-   
 	if asyncCallbackFunction ~= nil then
 		Utils.loadSharedI3DFile(getXMLString(xmlFile, 'vehicle.filename'), baseDirectory, true, true, self.loadFinished, self, {xmlFile, positionX, offsetY, positionZ, yRot, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments});
 	else
@@ -444,9 +448,7 @@ local setMoreRealisticDamping = function(self, i3dNode, arguments)
 		for i,comp in ipairs(self.components) do
 			setAngularDamping(comp.node, 0);
 			setLinearDamping(comp.node, 0);
-			if mrData and mrData.doDebug then
-				print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
-			end;
+			print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
 		end;
 	end;
 end;
