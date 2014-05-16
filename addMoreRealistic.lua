@@ -549,8 +549,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
 				if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
-				local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
-				if jointType and jointType == 'implement' or jointType == 'cutter' then
+				-- local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
+				-- if jointType and jointType == 'implement' or jointType == 'cutter' then
+				local rotationNode = getXMLString(xmlFile, ajKey .. '#rotationNode');
+				if rotationNode then
 					removeProperty(xmlFile, ajKey .. '#maxRotLimit');
 					removeProperty(xmlFile, ajKey .. '#minRot2');
 					removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
