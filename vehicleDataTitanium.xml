@@ -134,4 +134,23 @@
 			<component2 realMassWanted="0.2" />
 		</components>
 	</vehicle>
+
+	<!-- ################################################## -->
+
+	<!-- (4) TRAILERS -->
+	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- NOT DONE -->
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon" debug="true">
+		<workTool realWorkingSpeedLimit="20" realWorkingPowerConsumption="18" realOverloaderUnloadingPowerConsumption="60" />
+		<dimensions width="3" height="4" /> <!-- in m -->
+		<weights weight="6.7" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="0" deltaY="0" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0" brakeRatio="1" />
+		</wheels>
+		<components>
+			<component1 centerOfMass="0.5 0.5 0" realMassWanted="6.25" />
+			<component2 realMassWanted="0.35" />
+			<component3 realMassWanted="0.1" />
+		</components>
+	</vehicle>
 </vehicles>

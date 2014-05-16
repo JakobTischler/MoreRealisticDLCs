@@ -9,6 +9,35 @@ local modDir, modName = g_currentModDirectory, g_currentModName;
 
 -- ##################################################
 
+-- REGISTER CUSTOM SPECIALIZATIONS
+local customSpecsRegistered = false;
+local registerCustomSpecs = function()
+	print('MoreRealisticDLCs registerCustomSpecs()');
+	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
+	local specsKey = 'modDesc.customSpecializations';
+	local numCustomSpecs = getXMLInt(modDesc, specsKey .. '#num') or 0;
+	if numCustomSpecs > 0 then
+		for i=0, numCustomSpecs-1 do
+			local key = ('%s.specialization(%d)'):format(specsKey, i);
+			local specName = getXMLString(modDesc, key .. '#name');
+			local className = getXMLString(modDesc, key .. '#className');
+			local fileName = getXMLString(modDesc, key .. '#filename');
+			if specName and className and fileName then
+				specName = modName .. '.' .. specName;
+				className = modName .. '.' .. className;
+				fileName = Utils.getFilename(fileName, modDir);
+				print(('\tregisterSpecialization(): specName=%q, className=%q, fileName=%q'):format(specName, className, fileName));
+				SpecializationUtil.registerSpecialization(specName, className, fileName, modName);
+			end;
+		end;
+	end;
+	delete(modDesc);
+	customSpecsRegistered = true;
+end;
+
+-- ##################################################
+
+-- REGISTER CUSTOM VEHICLE TYPES
 local vehicleTypesPath = Utils.getFilename('vehicleTypes.xml', modDir);
 assert(fileExists(vehicleTypesPath), ('ERROR: %q could not be found'):format(vehicleTypesPath));
 local vehicleTypesFile = loadXMLFile('vehicleTypesFile', vehicleTypesPath);
@@ -17,7 +46,7 @@ local registerVehicleTypes = function(dlcName)
 
 	local i = 0
 	while true do
-		local key = ('vehicleTypes%s.type(%d)'):format(dlcName, i);
+		local key = ('vehicleTypes.%s.type(%d)'):format(dlcName, i);
 		local typeName = getXMLString(vehicleTypesFile, key .. '#name');
 		if typeName == nil then break; end;
 
@@ -34,8 +63,11 @@ local registerVehicleTypes = function(dlcName)
 				if SpecializationUtil.specializations[specName] == nil then
 					specName = modName .. '.' .. specName;
 				end;
-				-- print(('\t\tspecName=%q'):format(tostring(specName)));
-				specializationNames[#specializationNames + 1] = specName;
+				if SpecializationUtil.specializations[specName] == nil then
+					print(('\t\tspecName=%q: spec could not be found!'):format(tostring(specName)));
+				else
+					specializationNames[#specializationNames + 1] = specName;
+				end;
 				j = j + 1;
 			end;
 			print(('\t\tspecializationNames=%s'):format(table.concat(specializationNames, ', ')));
@@ -46,6 +78,9 @@ local registerVehicleTypes = function(dlcName)
 	end;
 end;
 
+-- ##################################################
+
+-- GET VEHICLE MR DATA
 local vehicleData = {};
 local getMoreRealisticData = function(vehicleDataPath, dlcName)
 	registerVehicleTypes(dlcName);
@@ -86,7 +121,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 
 		-- dimensions
-		local width = getXMLFloat(xmlFile, key .. '.dimensions#width') or 3;
+		local width  = getXMLFloat(xmlFile, key .. '.dimensions#width') or 3;
 		assert(width, ('ERROR: "dimensions#width" missing for %q'):format(configFileName));
 		local height = getXMLFloat(xmlFile, key .. '.dimensions#height') or 3;
 		assert(height, ('ERROR: "dimensions#height" missing for %q'):format(configFileName));
@@ -94,10 +129,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- weights
 		local weights = {};
-		weights.weight = getXMLFloat(xmlFile, key .. '.weights#weight');
+		weights.weight					= getXMLFloat(xmlFile, key .. '.weights#weight');
 		assert(weights.weight, ('ERROR: "weights#weight" missing for %q'):format(configFileName));
-		weights.maxWeight = getXMLFloat(xmlFile, key .. '.weights#maxWeight') or weights.weight * 1.55;
-		weights.realBrakeMaxMovingMass = getXMLFloat(xmlFile, key .. '.weights#realBrakeMaxMovingMass') or weights.maxWeight * 1.5;
+		weights.maxWeight				= getXMLFloat(xmlFile, key .. '.weights#maxWeight') or weights.weight * 1.55;
+		weights.realBrakeMaxMovingMass	= getXMLFloat(xmlFile, key .. '.weights#realBrakeMaxMovingMass') or weights.maxWeight * 1.5;
 
 
 		-- wheels
@@ -174,15 +209,17 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- workTool
 		local workTool = {
-			realPowerConsumption 				 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
-			realPowerConsumptionWhenWorking		 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
-			realPowerConsumptionWhenWorkingInc	 = getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
-			realWorkingSpeedLimit 				 = getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
-			realRollingResistance				 = getXMLFloat(xmlFile, key .. '.workTool#realRollingResistance') or 0;
-			realResistanceOnlyWhenActive		 = Utils.getNoNil(getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive'), false);
-			resistanceDecreaseFx 				 = getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
-			caRealTractionResistance			 = getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
-			caRealTractionResistanceWithLoadMass = getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
+			realPowerConsumption 					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
+			realPowerConsumptionWhenWorking			= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
+			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
+			realWorkingPowerConsumption				= getXMLFloat(xmlFile, key .. '.workTool#realWorkingPowerConsumption');
+			realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
+			realWorkingSpeedLimit 					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
+			realRollingResistance					= getXMLFloat(xmlFile, key .. '.workTool#realRollingResistance') or 0;
+			realResistanceOnlyWhenActive			= Utils.getNoNil(getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive'), false);
+			resistanceDecreaseFx 					= getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
+			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
+			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
 
 			-- cutter
 			realCutterPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
@@ -241,10 +278,13 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 	delete(xmlFile);
 end;
 
+-- ##################################################
+
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
 local dlcTest = {
-	Titanium = { '/titaniumAddon/lizard/americanTruck.xml', 'vehicleDataTitanium.xml' },
-	Lindner = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' }
+	Lindner =  { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
+	Titanium = { '/titaniumAddon/lizard/americanTruck.xml', 		 'vehicleDataTitanium.xml' },
+	Ursus =    { '/ursusAddon/ursus/ursus15014.xml', 				 'vehicleDataUrsus.xml' }
 };
 local dlcExists = false;
 for name, data in pairs(dlcTest) do
@@ -252,6 +292,9 @@ for name, data in pairs(dlcTest) do
 		if dir.isLoaded then
 			local path = Utils.getFilename(data[1], dir.path);
 			if fileExists(path) then
+				if not customSpecsRegistered then
+					registerCustomSpecs();
+				end;
 				local vehicleDataPath = Utils.getFilename(data[2], modDir);
 				print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
 				getMoreRealisticData(vehicleDataPath, name);
@@ -317,10 +360,10 @@ end;
 
 local origVehicleLoad = Vehicle.load;
 Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
-	local modName, baseDirectory = Utils.getModNameAndBaseDirectory(configFile);
+	local vehicleModName, baseDirectory = Utils.getModNameAndBaseDirectory(configFile);
  	self.configFileName = configFile;
 	self.baseDirectory = baseDirectory;
-	self.customEnvironment = modName;
+	self.customEnvironment = vehicleModName;
 	self.typeName = typeName;
 
 	-- 
@@ -328,7 +371,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	local cfnStart, _ = configFile:find('/pdlc/');
 	if cfnStart then
 		print(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
-		print(('\tmodName=%q, baseDirectory=%q'):format(tostring(modName), tostring(baseDirectory)));
+		-- print(('\tmodName=%q, baseDirectory=%q'):format(tostring(vehicleModName), tostring(baseDirectory)));
 		local cfnShort = configFile:sub(cfnStart + 1, 1000);
 		mrData = vehicleData[cfnShort];
 		if mrData then
@@ -506,11 +549,13 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 			-- others
 			else
-				setValue(xmlFile, 'vehicle.realPowerConsumption', 'flt', mrData.workTool.realPowerConsumption);
-				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit', 'flt', mrData.workTool.realWorkingSpeedLimit);
-				setValue(xmlFile, 'vehicle.realRollingResistance', 'flt', mrData.workTool.realRollingResistance);
-				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive', 'bool', mrData.workTool.realResistanceOnlyWhenActive);
-				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt', mrData.workTool.resistanceDecreaseFx);
+				setValue(xmlFile, 'vehicle.realPowerConsumption',						'flt',  mrData.workTool.realPowerConsumption);
+				setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',				'flt',  mrData.workTool.realWorkingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption',	'flt',  mrData.workTool.realOverloaderUnloadingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',						'flt',  mrData.workTool.realWorkingSpeedLimit);
+				setValue(xmlFile, 'vehicle.realRollingResistance',						'flt',  mrData.workTool.realRollingResistance);
+				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',				'bool', mrData.workTool.realResistanceOnlyWhenActive);
+				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt',  mrData.workTool.resistanceDecreaseFx);
 
 				if mrData.workTool.caRealTractionResistance then
 					local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
