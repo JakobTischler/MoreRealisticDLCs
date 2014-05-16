@@ -121,6 +121,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		assert(category, ('ERROR: "category" missing for %q'):format(configFileName));
 		local subCategory = getXMLString(xmlFile, key .. '#subCategory') or '';
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
+		local store = {
+			price = getXMLInt(xmlFile, key .. '#price');
+			dailyUpkeep = getXMLInt(xmlFile, key .. '#dailyUpkeep');
+		end;
 
 		-- engine
 		local engine = {
@@ -282,6 +286,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			configFileName = configFileName,
 			vehicleType = Utils.startsWith(vehicleType, 'mr_') and modName .. '.' .. vehicleType or vehicleType,
 			doDebug = doDebug,
+			store = store,
 			engine = engine,
 			realBrakingDeceleration = realBrakingDeceleration,
 			fuelCapacity = fuelCapacity,
@@ -588,7 +593,26 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- edit store item
 		local storeItem = StoreItemsUtil.storeItemsByXMLFilename[self.configFileName:lower()];
-		storeItem.name = 'MR ' .. storeItem.name;
+		if storeItem then
+			if not storeItem.nameMRized then
+				storeItem.name = 'MR ' .. storeItem.name;
+				storeItem.nameMRized = true;
+			end;
+			if mrData.store.price and not storeItem.priceMRized then
+				storeItem.price = mrData.store.price;
+				storeItem.priceMRized = true;
+				if mrData.doDebug then
+					print(('set store price to %d'):format(storeItem.price));
+				end;
+			end;
+			if mrData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
+				storeItem.dailyUpkeep = mrData.store.dailyUpkeep;
+				storeItem.dailyUpkeepMRized = true;
+				if mrData.doDebug then
+					print(('set store dailyUpkeep to %d'):format(storeItem.dailyUpkeep));
+				end;
+			end;
+		end;
 	end;
    
 	for i=1, #self.specializations do
