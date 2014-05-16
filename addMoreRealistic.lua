@@ -26,6 +26,13 @@ end;
 
 local modDir, modName = g_currentModDirectory, g_currentModName;
 
+local dlcTest = {
+	Lindner    = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
+	Titanium   = { '/titaniumAddon/lizard/americanTruck.xml', 		   'vehicleDataTitanium.xml' },
+	Ursus	   = { '/ursusAddon/ursus/ursus15014.xml', 				   'vehicleDataUrsus.xml' },
+	Vaederstad = { '/vaderstadPack/vaderstad/vaderstadTopDown500.xml', 'vehicleDataVaederstad.xml' }
+};
+
 -- ##################################################
 
 -- REGISTER CUSTOM SPECIALIZATIONS
@@ -99,6 +106,35 @@ end;
 
 -- ##################################################
 
+-- SET VEHICLE STORE DATA
+local setStoreData = function(configFileNameShort, dlcName, storeData)
+	print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName));
+	local dlcDir = dlcTest[dlcName][3];
+	local path = Utils.getFilename('/' .. configFileNameShort:sub(6, 200), dlcDir);
+	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
+	-- print(('\tdlcDir=%q'):format(tostring(dlcDir)));
+	-- print(('\tpath=%q'):format(tostring(path)));
+	if storeItem then
+		if not storeItem.nameMRized then
+			storeItem.name = 'MR ' .. storeItem.name;
+			storeItem.nameMRized = true;
+			print(('\tchange store name to %s'):format(storeItem.name));
+		end;
+		if storeData.price and not storeItem.priceMRized then
+			print(('\tchange store price to %d (old: %d)'):format(storeData.price, storeItem.price));
+			storeItem.price = storeData.price;
+			storeItem.priceMRized = true;
+		end;
+		if storeData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
+			print(('\tchange store dailyUpkeep to %d (old: %d)'):format(storeData.dailyUpkeep, storeItem.dailyUpkeep));
+			storeItem.dailyUpkeep = storeData.dailyUpkeep;
+			storeItem.dailyUpkeepMRized = true;
+		end;
+	end;
+end;
+
+-- ##################################################
+
 -- GET VEHICLE MR DATA
 local vehicleData = {};
 local getMoreRealisticData = function(vehicleDataPath, dlcName)
@@ -124,7 +160,8 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		local store = {
 			price = getXMLInt(xmlFile, key .. '#price');
 			dailyUpkeep = getXMLInt(xmlFile, key .. '#dailyUpkeep');
-		end;
+		};
+		setStoreData(configFileName, dlcName, store);
 
 		-- engine
 		local engine = {
@@ -286,7 +323,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			configFileName = configFileName,
 			vehicleType = Utils.startsWith(vehicleType, 'mr_') and modName .. '.' .. vehicleType or vehicleType,
 			doDebug = doDebug,
-			store = store,
 			engine = engine,
 			realBrakingDeceleration = realBrakingDeceleration,
 			fuelCapacity = fuelCapacity,
@@ -312,12 +348,6 @@ end;
 -- ##################################################
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
-local dlcTest = {
-	Lindner    = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
-	Titanium   = { '/titaniumAddon/lizard/americanTruck.xml', 		   'vehicleDataTitanium.xml' },
-	Ursus	   = { '/ursusAddon/ursus/ursus15014.xml', 				   'vehicleDataUrsus.xml' },
-	Vaederstad = { '/vaderstadPack/vaderstad/vaderstadTopDown500.xml', 'vehicleDataVaederstad.xml' }
-};
 local dlcExists = false;
 for name, data in pairs(dlcTest) do
 	for _, dir in ipairs(g_dlcsDirectories) do
@@ -327,6 +357,7 @@ for name, data in pairs(dlcTest) do
 				if not customSpecsRegistered then
 					registerCustomSpecs();
 				end;
+				data[3] = dir.path;
 				local vehicleDataPath = Utils.getFilename(data[2], modDir);
 				print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
 				getMoreRealisticData(vehicleDataPath, name);
@@ -589,29 +620,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				-- windrower
 				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',    'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc', 'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
-			end;
-		end;
-
-		-- edit store item
-		local storeItem = StoreItemsUtil.storeItemsByXMLFilename[self.configFileName:lower()];
-		if storeItem then
-			if not storeItem.nameMRized then
-				storeItem.name = 'MR ' .. storeItem.name;
-				storeItem.nameMRized = true;
-			end;
-			if mrData.store.price and not storeItem.priceMRized then
-				storeItem.price = mrData.store.price;
-				storeItem.priceMRized = true;
-				if mrData.doDebug then
-					print(('set store price to %d'):format(storeItem.price));
-				end;
-			end;
-			if mrData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
-				storeItem.dailyUpkeep = mrData.store.dailyUpkeep;
-				storeItem.dailyUpkeepMRized = true;
-				if mrData.doDebug then
-					print(('set store dailyUpkeep to %d'):format(storeItem.dailyUpkeep));
-				end;
 			end;
 		end;
 	end;

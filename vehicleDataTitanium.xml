@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) STEERABLES -->
-	<!-- (1.1) CASE PUMA 160 --> <!-- ALMOST DONE (centerOfMass) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="true">
+	<!-- (1.1) CASE PUMA 160 --> <!-- ALMOST DONE (centerOfMass, price, dailyUpkeep) -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="123456" dailyUpkeep="9999" debug="true">
 		<engine kW="119" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="60" realSpeedBoost="13" realSpeedBoostMinSpeed="20" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
 		<dimensions width="2.9" height="3" /> <!-- in m -->
 		<weights weight="7.42" maxWeight="11.5" realBrakeMaxMovingMass="17.25" /> <!-- in t -->
