@@ -109,6 +109,20 @@
 
 			<specialization name="augerWagonPowerConsumption" />
 		</type>
+
+		<type name="mr_swadro2000_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="attachable" />
+			<specialization name="visualWheels" />
+			<specialization name="animatedVehicle" />
+			<specialization name="cylindered" />
+			<specialization name="windrower" />
+			<specialization name="foldable" />
+			<specialization name="pdlc_titaniumAddon.swadro2000" />
+
+			<specialization name="realisticRake" />
+		</type>
 	</Titanium>
 
 	<!-- ################################################## -->

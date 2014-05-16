@@ -23,7 +23,7 @@
 
 	<!-- (1.2) CASE MAGNUM 340 --> <!-- ALMOST DONE (centerOfMass) -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<engine kW="254" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="100" />
+		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realBrakingDeceleration="5" realMaxFuelUsage="69" />
 		<dimensions width="3.2" height="3.37" /> <!-- in m -->
 		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
 		<wheels>
@@ -42,7 +42,7 @@
 
 	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- ALMOST DONE (centerOfMass) -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<engine kW="254" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="100" />
+		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realBrakingDeceleration="5" realMaxFuelUsage="69" />
 		<dimensions width="3.2" height="3.37" /> <!-- in m -->
 		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
 		<wheels>
@@ -108,6 +108,31 @@
 		</attacherJoints>
 		<components>
 			<component1 realMassWanted="3.066" />
+		</components>
+	</vehicle>
+
+	<!-- (2.4) KRONE SWADRO 2000 -->
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="true">
+		<workTool realPowerConsumption="96" realRakeWorkingPowerConsumption="10" realRakeWorkingPowerConsumptionInc="40" />
+		<dimensions width="3" height="4" /> <!-- in m -->
+		<weights weight="9.4" maxWeight="9.4" /> <!-- in t -->
+		<wheels realNoSteeringAxleDamping="true">
+			<wheel driveMode="0" deltaY="0.27" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0.27" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0.27" brakeRatio="0" />
+			<wheel driveMode="0" deltaY="0.27" brakeRatio="0" />
+		</wheels>
+		<components>
+			<component1  realMassWanted="6.3" />
+			<component2  realMassWanted="0.5" />
+			<component3  realMassWanted="0.4" />
+			<component4  realMassWanted="0.4" />
+			<component5  realMassWanted="0.4" />
+			<component6  realMassWanted="0.4" />
+			<component7  realMassWanted="0.4" />
+			<component8  realMassWanted="0.4" />
+			<component9  realMassWanted="0.1" />
+			<component10 realMassWanted="0.1" />
 		</components>
 	</vehicle>
 

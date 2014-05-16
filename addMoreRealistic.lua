@@ -5,6 +5,25 @@
 --@version: 0.1b
 --
 
+
+-- ABORT IF MOREREALISTIC NOT INSTALLED
+if not RealisticUtils then
+	print('MoreRealisticDLCs: you don\'t have MoreRealistic installed. Script will now be aborted!');
+	return;
+end;
+
+-- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
+local mrModItem = ModsUtil.findModItemByModName(RealisticUtils.modName);
+if mrModItem and mrModItem.version then
+	local version = tonumber(mrModItem.version:sub(1, 3));
+	if version < 1.3 then
+		print(('MoreRealisticDLCs: your MoreRealistic version (%s) is too low. Install v1.3 or higher. Script will now be aborted!'):format(mrModItem.version));
+		return;
+	end;
+end;
+
+-- ##################################################
+
 local modDir, modName = g_currentModDirectory, g_currentModName;
 
 -- ##################################################
@@ -136,6 +155,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 
 		-- wheels
+		local realNoSteeringAxleDamping = getXMLBool(xmlFile, key .. '.wheels#realNoSteeringAxleDamping');
 		local wheels = {};
 		local w = 0;
 		while true do
@@ -225,6 +245,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realCutterPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
 			realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc') or 2.5;
 			realCutterSpeedLimit		  = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit') or 14;
+
+			-- windrower
+			realRakeWorkingPowerConsumption    = getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumption');
+			realRakeWorkingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumptionInc');
 		};
 
 
@@ -264,6 +288,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			height = height,
 			weights = weights,
 			wheels = wheels,
+			realNoSteeringAxleDamping = realNoSteeringAxleDamping,
 			attacherJoints = attacherJoints,
 			workTool = workTool,
 			combine = combine,
@@ -311,22 +336,6 @@ delete(vehicleTypesFile);
 if not dlcExists then
 	print('MoreRealisticDLCs: you don\'t have any DLCs installed. Script will now be aborted!');
 	return;
-end;
-
--- ABORT IF MOREREALISTIC NOT INSTALLED
-if not RealisticUtils then
-	print('MoreRealisticDLCs: you don\'t have MoreRealistic installed. Script will now be aborted!');
-	return;
-end;
-
--- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
-local mrModItem = ModsUtil.findModItemByModName(RealisticUtils.modName);
-if mrModItem and mrModItem.version then
-	local version = tonumber(mrModItem.version:sub(1, 3));
-	if version < 1.3 then
-		print(('MoreRealisticDLCs: your MoreRealistic version (%s) is too low. Install v1.3 or higher. Script will now be aborted!'):format(mrModItem.version));
-		return;
-	end;
 end;
 
 -- ##################################################
@@ -452,6 +461,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 		-- wheels
+		setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping',  'bool', mrData.realNoSteeringAxleDamping);
 		local wheelI = 0;
 		while true do
 			local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
@@ -568,6 +578,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 						setValue(xmlFile, caKey .. '#realTractionResistanceWithLoadMass', 'flt', tractionResistanceWithLoadMassPerCa);
 					end;
 				end;
+
+				-- windrower
+				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',    'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc', 'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
 			end;
 		end;
 
