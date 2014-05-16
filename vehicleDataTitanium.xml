@@ -2,7 +2,7 @@
 <vehicles>
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) CASE PUMA 160 --> <!-- ALMOST DONE (centerOfMass) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="true">
 		<engine kW="119" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="60" realSpeedBoost="13" realSpeedBoostMinSpeed="20" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
 		<dimensions width="2.9" height="3" /> <!-- in m -->
 		<weights weight="7.42" maxWeight="11.5" realBrakeMaxMovingMass="17.25" /> <!-- in t -->
@@ -22,7 +22,7 @@
 	</vehicle>
 
 	<!-- (1.2) CASE MAGNUM 340 --> <!-- ALMOST DONE (centerOfMass) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension" debug="false">
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
 		<engine kW="254" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="100" />
 		<dimensions width="3.2" height="3.37" /> <!-- in m -->
 		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
@@ -41,7 +41,7 @@
 	</vehicle>
 
 	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- ALMOST DONE (centerOfMass) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension" debug="false">
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
 		<engine kW="254" realMaxVehicleSpeed="50" realMaxReverseSpeed="40" realBrakingDeceleration="5" realMaxFuelUsage="100" />
 		<dimensions width="3.2" height="3.37" /> <!-- in m -->
 		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
@@ -63,7 +63,7 @@
 
 	<!-- (2) TOOLS -->
 	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- ALMOST DONE -->
-	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker" debug="false">
+	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_t" debug="false">
 		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="7.175" maxWeight="17" /> <!-- in t -->
@@ -81,7 +81,7 @@
 	</vehicle>
 
 	<!-- (2.1) HORSCH TERRANO 6 FM --> <!-- NOT DONE -->
-	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated" debug="true">
+	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated_t" debug="true">
 		<workTool realWorkingSpeedLimit="20" resistanceDecreaseFx="0.5" caRealTractionResistance="40" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="2" height="2" /> <!-- in m -->
 		<weights weight="6.850" maxWeight="6.850" /> <!-- in t -->
@@ -99,7 +99,7 @@
 	</vehicle>
 
 	<!-- (2.3) CASE 3020 CUTTER --> <!-- NOT DONE (attacherJoints!) -->
-	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3020Cutter.xml" mrVehicleType="mr_cutter_mouseControlled" debug="true">
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3020Cutter.xml" mrVehicleType="mr_cutter_mouseControlled_t" debug="true">
 		<workTool realCutterPowerConsumption="26" realCutterPowerConsumptionInc="2.7" realCutterSpeedLimit="15" />
 		<dimensions width="1.5" height="0.75" /> <!-- in m -->
 		<weights weight="3.066" maxWeight="3.066" /> <!-- in t -->
@@ -115,7 +115,7 @@
 
 	<!-- (3) COMBINES -->
 	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- NOT DONE (attacherJoints!) -->
-	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended" debug="true">
+	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="true">
 		<engine kW="309" realMaxVehicleSpeed="25" realMaxReverseSpeed="12" realBrakingDeceleration="3" realMaxFuelUsage="108" />
 		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realAiManeuverSpeed="8.5" realPtoPowerKW="309" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.8" realMaxPowerToTransmission="244" realHydrostaticTransmission="true" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" />
 		<dimensions width="3.3" height="3.9" /> <!-- in m -->
@@ -139,7 +139,7 @@
 
 	<!-- (4) TRAILERS -->
 	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- NOT DONE -->
-	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon" debug="true">
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="true">
 		<workTool realWorkingSpeedLimit="20" realWorkingPowerConsumption="18" realOverloaderUnloadingPowerConsumption="60" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="6.7" /> <!-- in t -->

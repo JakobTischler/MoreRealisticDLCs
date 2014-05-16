@@ -282,9 +282,10 @@ end;
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
 local dlcTest = {
-	Lindner =  { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
-	Titanium = { '/titaniumAddon/lizard/americanTruck.xml', 		 'vehicleDataTitanium.xml' },
-	Ursus =    { '/ursusAddon/ursus/ursus15014.xml', 				 'vehicleDataUrsus.xml' }
+	Lindner    = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
+	Titanium   = { '/titaniumAddon/lizard/americanTruck.xml', 		   'vehicleDataTitanium.xml' },
+	Ursus	   = { '/ursusAddon/ursus/ursus15014.xml', 				   'vehicleDataUrsus.xml' },
+	Vaederstad = { '/vaderstadPack/vaderstad/vaderstadTopDown500.xml', 'vehicleDataVaederstad.xml' }
 };
 local dlcExists = false;
 for name, data in pairs(dlcTest) do

@@ -2,7 +2,7 @@
 <vehicles>
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) LINDNER UNITRACK 92 -->
-	<vehicle category="steerable" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerUnitrac92.xml" mrVehicleType="mr_tractor_steerableExtension" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerUnitrac92.xml" mrVehicleType="mr_tractor_steerableExtension_l" debug="true">
 		<engine kW="67" realMaxVehicleSpeed="50" realMaxReverseSpeed="20" realBrakingDeceleration="5" realMaxFuelUsage="22.4" />
 		<dimensions width="2.120" height="2.4" /> <!-- in m -->
 		<weights weight="2.99" maxWeight="7.5" /> <!-- in t -->
