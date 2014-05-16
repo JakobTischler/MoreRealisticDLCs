@@ -63,7 +63,7 @@ local getData = function()
 				rotMin     = getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
 				deltaY     = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
 				suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
-				spring     = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				spring     = getXMLFloat(xmlFile, wheelKey .. '#spring'),
 				damper     =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
 				brakeRatio =   getXMLInt(xmlFile, wheelKey .. '#brakeRatio') or 1
 			};
