@@ -9,8 +9,47 @@ local modDir, modName = g_currentModDirectory, g_currentModName;
 
 -- ##################################################
 
+local vehicleTypesPath = Utils.getFilename('vehicleTypes.xml', modDir);
+assert(fileExists(vehicleTypesPath), ('ERROR: %q could not be found'):format(vehicleTypesPath));
+local vehicleTypesFile = loadXMLFile('vehicleTypesFile', vehicleTypesPath);
+local registerVehicleTypes = function(dlcName)
+	print(('registerVehicleTypes(%q)'):format(dlcName));
+
+	local i = 0
+	while true do
+		local key = ('vehicleTypes%s.type(%d)'):format(dlcName, i);
+		local typeName = getXMLString(vehicleTypesFile, key .. '#name');
+		if typeName == nil then break; end;
+
+		typeName = modName .. '.' .. typeName;
+		local className = getXMLString(vehicleTypesFile, key .. '#className');
+		local fileName = getXMLString(vehicleTypesFile, key .. '#filename');
+		print(('\t%s\n\ttypeName=%q, className=%q, fileName=%q'):format(('-'):rep(50), typeName, tostring(className), tostring(fileName)));
+		if className and fileName then
+			fileName = Utils.getFilename(fileName, modDir);
+			local specializationNames, j = {}, 0;
+			while true do
+				local specName = getXMLString(vehicleTypesFile, ('%s.specialization(%d)#name'):format(key, j));
+				if specName == nil then break; end;
+				if SpecializationUtil.specializations[specName] == nil then
+					specName = modName .. '.' .. specName;
+				end;
+				-- print(('\t\tspecName=%q'):format(tostring(specName)));
+				specializationNames[#specializationNames + 1] = specName;
+				j = j + 1;
+			end;
+			print(('\t\tspecializationNames=%s'):format(table.concat(specializationNames, ', ')));
+			print(('\tcall registerVehicleType(%q, %q, %q, %s, %q)'):format(tostring(typeName), tostring(className), tostring(fileName), tostring(specializationNames), tostring(customEnvironment)));
+			VehicleTypeUtil.registerVehicleType(typeName, className, fileName, specializationNames, customEnvironment);
+		end;
+		i = i + 1;
+	end;
+end;
+
 local vehicleData = {};
-local getMoreRealisticData = function(vehicleDataPath)
+local getMoreRealisticData = function(vehicleDataPath, dlcName)
+	registerVehicleTypes(dlcName);
+
 	assert(fileExists(vehicleDataPath), ('ERROR: %q could not be found'):format(vehicleDataPath));
 	local xmlFile = loadXMLFile('vehicleDataFile', vehicleDataPath);
 
@@ -204,8 +243,8 @@ end;
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
 local dlcTest = {
-	Titanium = { '/titaniumAddon/lizard/americanTruck.xml', 'vehicleDataTitanium.xml', false },
-	Lindner = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml', false }
+	Titanium = { '/titaniumAddon/lizard/americanTruck.xml', 'vehicleDataTitanium.xml' },
+	Lindner = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' }
 };
 local dlcExists = false;
 for name, data in pairs(dlcTest) do
@@ -213,30 +252,30 @@ for name, data in pairs(dlcTest) do
 		if dir.isLoaded then
 			local path = Utils.getFilename(data[1], dir.path);
 			if fileExists(path) then
-				data[3] = true;
 				local vehicleDataPath = Utils.getFilename(data[2], modDir);
 				print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
-				getMoreRealisticData(vehicleDataPath);
+				getMoreRealisticData(vehicleDataPath, name);
 				dlcExists = true;
 				break;
 			end;
 		end;
 	end;
 end;
+delete(vehicleTypesFile);
 
--- ABORT EVERYTHING IF THERE ARE NO DLCs
+-- ABORT IF THERE ARE NO DLCs
 if not dlcExists then
 	print('MoreRealisticDLCs: you don\'t have any DLCs installed. Script will now be aborted!');
 	return;
 end;
 
--- ABORT EVERYTHING IF MOREREALISTIC NOT INSTALLED or TOO LOW VERSION NUMBER
+-- ABORT IF MOREREALISTIC NOT INSTALLED
 if not RealisticUtils then
 	print('MoreRealisticDLCs: you don\'t have MoreRealistic installed. Script will now be aborted!');
 	return;
 end;
 
--- ABORT EVERYTHING IF TOO LOW MOREREALISTIC VERSION NUMBER
+-- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
 local mrModItem = ModsUtil.findModItemByModName(RealisticUtils.modName);
 if mrModItem and mrModItem.version then
 	local version = tonumber(mrModItem.version:sub(1, 3));
