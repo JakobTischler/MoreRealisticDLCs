@@ -57,6 +57,7 @@ local getData = function()
 			local wheelKey = key .. ('.wheels.wheel(%d)'):format(w);
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
+			-- TODO: (Jakob) Would like to ba able to set the spring manually + rotMax and rotMin for akerman steering setup.
 			wheels[#wheels + 1] = {
 				driveMode =  getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
 				deltaY =   getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
@@ -74,6 +75,7 @@ local getData = function()
 			local ajKey = key .. ('.attacherJoints.attacherJoint(%d)'):format(a);
 			if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
+			-- TODO: (Jakob) Skip this section if allowsLowering=false (jointType="unitrac" do not need these values, so far only jointType="implement" need these)
 			attacherJoints[#attacherJoints + 1] = {
 				maxRot = getXMLString(xmlFile, ajKey .. '#maxRot'),
 				maxRot2 = getXMLString(xmlFile, ajKey .. '#maxRot2'),
@@ -312,6 +314,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 			local wheelMrData = mrData.wheels[wheelI + 1];
 
+			-- TODO: (Jakob) Would like to ba able to set the spring manually + rotMax and rotMin for akerman steering setup.
 			removeProperty(xmlFile, wheelKey .. '#lateralStiffness');
 			removeProperty(xmlFile, wheelKey .. '#longitudalStiffness');
 			setValue(xmlFile, wheelKey .. '#driveMode',  'int', wheelMrData.driveMode);
@@ -343,6 +346,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
 				if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
+				-- TODO: (Jakob) Skip this section if allowsLowering=false (jointType="unitrac" do not need these values, so far only jointType="implement" need these)
 				removeProperty(xmlFile, ajKey .. '#maxRotLimit');
 				removeProperty(xmlFile, ajKey .. '#minRot2');
 				removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
