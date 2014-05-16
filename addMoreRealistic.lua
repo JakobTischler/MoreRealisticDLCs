@@ -29,12 +29,20 @@ local getData = function()
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
 
 		-- engine
-		local kW = getXMLFloat(xmlFile, key .. '.engine#kW') or 100;
-		local realMaxVehicleSpeed = getXMLFloat(xmlFile, key .. '.engine#realMaxVehicleSpeed') or 50;
-		local realMaxReverseSpeed = getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed') or 20;
-		local realMaxFuelUsage = getXMLFloat(xmlFile, key .. '.engine#realMaxFuelUsage');
+		local engine = {
+			kW 									= getXMLFloat(xmlFile, key .. '.engine#kW') or 100;
+			realMaxVehicleSpeed 				= getXMLFloat(xmlFile, key .. '.engine#realMaxVehicleSpeed') or 50;
+			realMaxReverseSpeed 				= getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed') or 20;
+			realMaxFuelUsage 					= getXMLFloat(xmlFile, key .. '.engine#realMaxFuelUsage');
+			realSpeedBoost 						= getXMLFloat(xmlFile, key .. '.engine#realSpeedBoost');
+			realSpeedBoostMinSpeed 				= getXMLFloat(xmlFile, key .. '.engine#realSpeedBoostMinSpeed');
+			realImplementNeedsBoost 			= getXMLFloat(xmlFile, key .. '.engine#realImplementNeedsBoost');
+			realImplementNeedsBoostMinPowerCons = getXMLFloat(xmlFile, key .. '.engine#realImplementNeedsBoostMinPowerCons');
+			realMaxBoost 						= getXMLFloat(xmlFile, key .. '.engine#realMaxBoost');
+		};
 
 		local realBrakingDeceleration = getXMLFloat(xmlFile, key .. '.engine#realBrakingDeceleration') or 4;
+		local fuelCapacity = getXMLFloat(xmlFile, key .. '.engine#fuelCapacity') or 4;
 
 
 		-- dimensions
@@ -45,9 +53,11 @@ local getData = function()
 
 
 		-- weights
-		local weight = getXMLFloat(xmlFile, key .. '.weights#weight');
-		assert(weight, ('ERROR: "weights#weight" missing for %q'):format(configFileName));
-		local maxWeight = getXMLFloat(xmlFile, key .. '.weights#maxWeight') or weight * 1.55;
+		local weights = {};
+		weights.weight = getXMLFloat(xmlFile, key .. '.weights#weight');
+		assert(weights.weight, ('ERROR: "weights#weight" missing for %q'):format(configFileName));
+		weights.maxWeight = getXMLFloat(xmlFile, key .. '.weights#maxWeight') or weights.weight * 1.55;
+		weights.realBrakeMaxMovingMass = getXMLFloat(xmlFile, key .. '.weights#realBrakeMaxMovingMass') or weights.maxWeight * 1.5;
 
 
 		-- wheels
@@ -61,6 +71,8 @@ local getData = function()
 				driveMode  =   getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
 				rotMax     = getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
 				rotMin     = getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
+				rotSpeed   = getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
+				radius     = getXMLFloat(xmlFile, wheelKey .. '#radius'),
 				deltaY     = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
 				suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
 				spring     = getXMLFloat(xmlFile, wheelKey .. '#spring'),
@@ -167,15 +179,12 @@ local getData = function()
 			subCategory = subCategory,
 			configFileName = configFileName,
 			doDebug = doDebug,
-			kW = kW,
-			realMaxVehicleSpeed = realMaxVehicleSpeed,
-			realMaxReverseSpeed = realMaxReverseSpeed,
+			engine = engine,
 			realBrakingDeceleration = realBrakingDeceleration,
-			realMaxFuelUsage = realMaxFuelUsage,
+			fuelCapacity = fuelCapacity,
 			width = width,
 			height = height,
-			weight = weight,
-			maxWeight = maxWeight,
+			weights = weights,
 			wheels = wheels,
 			attacherJoints = attacherJoints,
 			workTool = workTool,
@@ -207,11 +216,11 @@ local prmSetXMLFn = {
 	str = setXMLString
 };
 local setValue = function(xmlFile, parameter, prmType, value)
-	if value ~= nil then
-		prmSetXMLFn[prmType](xmlFile, parameter, value);
-		if mrData and mrData.doDebug then
-			print(('\tset parameter %q (type %s) to %q'):format(parameter, prmType, tostring(value)));
-		end;
+	if value == nil then return; end;
+
+	prmSetXMLFn[prmType](xmlFile, parameter, value);
+	if mrData and mrData.doDebug then
+		print(('\tset parameter %q (type %s) to %q'):format(parameter, prmType, tostring(value)));
 	end;
 end;
 
@@ -263,18 +272,25 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		if mrData.category == 'steerable' then
 			-- accelerationSpeed
-			setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration', 'int', 1);
-			setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration', 'int', 1);
-			setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed', 'int', 3);
+			setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration',	'int', 1);
+			setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration',		'int', 1);
+			setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed',		'int', 3);
 			removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
 
 			-- fuel usage, downforce
 			setValue(xmlFile, 'vehicle.fuelUsage', 'int', 0);
 			setValue(xmlFile, 'vehicle.downForce', 'int', 0);
 
-			setValue(xmlFile, 'vehicle.realPtoPowerKW', 'flt', mrData.kW * 0.92);
-			setValue(xmlFile, 'vehicle.realMaxFuelUsage', 'flt', mrData.realMaxFuelUsage);
-			setValue(xmlFile, 'vehicle.realDisplaySlip', 'bool', true);
+			setValue(xmlFile, 'vehicle.realSpeedBoost',						  'int',  mrData.engine.realSpeedBoost);
+			setValue(xmlFile, 'vehicle.realSpeedBoost#minSpeed', 			  'int',  mrData.engine.realSpeedBoostMinSpeed);
+			setValue(xmlFile, 'vehicle.realImplementNeedsBoost',			  'int',  mrData.engine.realImplementNeedsBoost);
+			setValue(xmlFile, 'vehicle.realImplementNeedsBoost#minPowerCons', 'int',  mrData.engine.realImplementNeedsBoostMinPowerCons);
+			setValue(xmlFile, 'vehicle.realMaxBoost', 						  'int',  mrData.engine.realMaxBoost);
+			setValue(xmlFile, 'vehicle.realPtoPowerKW',						  'flt',  mrData.engine.kW * 0.92);
+			setValue(xmlFile, 'vehicle.realMaxFuelUsage',					  'flt',  mrData.engine.realMaxFuelUsage);
+
+			setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', true);
+			setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.fuelCapacity);
 
 			-- combine
 			if mrData.subCategory == 'combine' then
@@ -301,12 +317,12 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 		-- relevant MR values
-		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale', 'flt', mrData.weight * 0.25);
-		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				 'flt', mrData.realMaxVehicleSpeed);
-		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				 'flt', mrData.realMaxReverseSpeed);
-		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			 'flt', mrData.maxWeight * 1.5);
-		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			 'flt', mrData.realBrakingDeceleration);
-		setValue(xmlFile, 'vehicle.realSCX', 							 'flt', mrData.width * mrData.height * 0.68);
+		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt', mrData.weights.weight * 0.25);
+		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt', mrData.engine.realMaxVehicleSpeed);
+		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt', mrData.engine.realMaxReverseSpeed);
+		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt', mrData.weights.realBrakeMaxMovingMass);
+		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt', mrData.realBrakingDeceleration);
+		setValue(xmlFile, 'vehicle.realSCX', 							  'flt', mrData.width * mrData.height * 0.68);
 
 
 		-- wheels
@@ -327,6 +343,8 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, wheelKey .. '#driveMode',  'int', wheelMrData.driveMode);
 			setValue(xmlFile, wheelKey .. '#rotMax',     'flt', wheelMrData.rotMax);
 			setValue(xmlFile, wheelKey .. '#rotMin',     'flt', wheelMrData.rotMin);
+			setValue(xmlFile, wheelKey .. '#rotSpeed',   'flt', wheelMrData.rotSpeed);
+			setValue(xmlFile, wheelKey .. '#radius',     'flt', wheelMrData.radius);
 			setValue(xmlFile, wheelKey .. '#brakeRatio', 'int', wheelMrData.brakeRatio);
 			setValue(xmlFile, wheelKey .. '#damper',     'int', wheelMrData.damper);
 			setValue(xmlFile, wheelKey .. '#mass',       'int', 1);
@@ -337,15 +355,14 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			end;
 			setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel);
 
-			-- MR 1.2: setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or 278 * (mrData.maxWeight * 0.25) / (suspTravel * 100 - 2));
-			setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or mrData.maxWeight * 0.25 * 3 / suspTravel);
+			-- MR 1.2: setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or 278 * (mrData.weights.maxWeight * 0.25) / (suspTravel * 100 - 2));
+			setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or mrData.weights.maxWeight * 0.25 * 3 / suspTravel); -- TODO: 0.25 -> num of wheels
 
-			local deltaY = getXMLFloat(xmlFile, wheelKey .. '#deltaY');
-			if deltaY == nil or deltaY == '' or deltaY == 0 and not wheelMrData.deltaY then
-				setValue(xmlFile, wheelKey .. '#deltaY', 'flt', suspTravel * 0.9);
-			else
-				setValue(xmlFile, wheelKey .. '#deltaY', 'flt', wheelMrData.deltaY);
+			local deltaY = wheelMrData.deltaY or getXMLFloat(xmlFile, wheelKey .. '#deltaY');
+			if deltaY == nil or deltaY == '' or deltaY == 0 then
+				deltaY = suspTravel * 0.9;
 			end;
+			setValue(xmlFile, wheelKey .. '#deltaY', 'flt', deltaY);
 
 			wheelI = wheelI + 1;
 		end;
