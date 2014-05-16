@@ -58,11 +58,14 @@ local getData = function()
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
 			wheels[#wheels + 1] = {
-				driveMode =  getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
-				rotMax =   getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
-				rotMin =   getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
-				deltaY =   getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
-				brakeRatio = getXMLInt(xmlFile, wheelKey .. '#brakeRatio') or 1
+				driveMode  =   getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
+				rotMax     = getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
+				rotMin     = getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
+				deltaY     = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
+				spring     = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				damper     =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
+				brakeRatio =   getXMLInt(xmlFile, wheelKey .. '#brakeRatio') or 1
 			};
 
 			w = w + 1;
@@ -251,7 +254,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	local typeDef = VehicleTypeUtil.vehicleTypes[self.typeName];
 	self.specializations = typeDef.specializations;
 
-	local xmlFile = loadXMLFile("TempConfig", configFile);
+	local xmlFile = loadXMLFile('TempConfig', configFile);
 
 
 
@@ -325,16 +328,19 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, wheelKey .. '#rotMax',     'flt', wheelMrData.rotMax);
 			setValue(xmlFile, wheelKey .. '#rotMin',     'flt', wheelMrData.rotMin);
 			setValue(xmlFile, wheelKey .. '#brakeRatio', 'int', wheelMrData.brakeRatio);
-			setValue(xmlFile, wheelKey .. '#damper',     'int', 20);
+			setValue(xmlFile, wheelKey .. '#damper',     'int', wheelMrData.damper);
 			setValue(xmlFile, wheelKey .. '#mass',       'int', 1);
 
-			local suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
-			local deltaY = getXMLFloat(xmlFile, wheelKey .. '#deltaY');
+			local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
 			if suspTravel == nil or suspTravel == '' or suspTravel < 0.05 then
 				suspTravel = 0.08;
-				setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel);
 			end;
-			setValue(xmlFile, wheelKey .. '#spring', 'flt', 278 * (mrData.maxWeight * 0.25) / (suspTravel * 100 - 2));
+			setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel);
+
+			-- MR 1.2: setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or 278 * (mrData.maxWeight * 0.25) / (suspTravel * 100 - 2));
+			setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or mrData.maxWeight * 0.25 * 3 / suspTravel);
+
+			local deltaY = getXMLFloat(xmlFile, wheelKey .. '#deltaY');
 			if deltaY == nil or deltaY == '' or deltaY == 0 and not wheelMrData.deltaY then
 				setValue(xmlFile, wheelKey .. '#deltaY', 'flt', suspTravel * 0.9);
 			else
@@ -412,8 +418,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					local tractionResistancePerCa = mrData.workTool.caRealTractionResistance / caCount;
 					local tractionResistanceWithLoadMassPerCa = mrData.workTool.caRealTractionResistanceWithLoadMass / caCount;
 					for i=1, caCount do
-						setValue(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#realTractionResistance'):format(i), 'flt', tractionResistancePerCa);
-						setValue(xmlFile, ('vehicle.cuttingAreas.cuttingArea%d#realTractionResistanceWithLoadMass'):format(i), 'flt', tractionResistanceWithLoadMassPerCa);
+						local caKey = ('vehicle.cuttingAreas.cuttingArea%d'):format(i);
+						setValue(xmlFile, caKey .. '#realTractionResistance', 			  'flt', tractionResistancePerCa);
+						setValue(xmlFile, caKey .. '#realTractionResistanceWithLoadMass', 'flt', tractionResistanceWithLoadMassPerCa);
 					end;
 				end;
 			end;
