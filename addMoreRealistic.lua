@@ -133,7 +133,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realImplementNeedsBoost 			= getXMLFloat(xmlFile, key .. '.engine#realImplementNeedsBoost');
 			realImplementNeedsBoostMinPowerCons = getXMLFloat(xmlFile, key .. '.engine#realImplementNeedsBoostMinPowerCons');
 			realMaxBoost 						= getXMLFloat(xmlFile, key .. '.engine#realMaxBoost');
+			realTransmissionEfficiency 			= getXMLFloat(xmlFile, key .. '.engine#realTransmissionEfficiency');
+			realPtoDriveEfficiency				= getXMLFloat(xmlFile, key .. '.engine#realPtoDriveEfficiency');
 		};
+		engine.realPtoPowerKW 					= getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * 0.92;
 
 		local realBrakingDeceleration = getXMLFloat(xmlFile, key .. '.engine#realBrakingDeceleration') or 4;
 		local fuelCapacity = getXMLFloat(xmlFile, key .. '.engine#fuelCapacity') or 4;
@@ -260,8 +263,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
 			realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
 			realAiManeuverSpeed 			 =  getXMLFloat(xmlFile, key .. '.combine#realAiManeuverSpeed');
-			realPtoPowerKW 					 =  getXMLFloat(xmlFile, key .. '.combine#realPtoPowerKW');
-			realTransmissionEfficiency 		 =  getXMLFloat(xmlFile, key .. '.combine#realTransmissionEfficiency');
 			realMaxPowerToTransmission 		 =  getXMLFloat(xmlFile, key .. '.combine#realMaxPowerToTransmission');
 			realHydrostaticTransmission 	 =   getXMLBool(xmlFile, key .. '.combine#realHydrostaticTransmission');
 			realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
@@ -421,8 +422,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.realImplementNeedsBoost',			  'int',  mrData.engine.realImplementNeedsBoost);
 			setValue(xmlFile, 'vehicle.realImplementNeedsBoost#minPowerCons', 'int',  mrData.engine.realImplementNeedsBoostMinPowerCons);
 			setValue(xmlFile, 'vehicle.realMaxBoost', 						  'int',  mrData.engine.realMaxBoost);
-			setValue(xmlFile, 'vehicle.realPtoPowerKW',						  'flt',  mrData.engine.kW * 0.92);
+			setValue(xmlFile, 'vehicle.realPtoPowerKW',						  'flt',  mrData.engine.realPtoPowerKW);
+			setValue(xmlFile, 'vehicle.realPtoDriveEfficiency',				  'flt',  mrData.engine.realPtoDriveEfficiency);
 			setValue(xmlFile, 'vehicle.realMaxFuelUsage',					  'flt',  mrData.engine.realMaxFuelUsage);
+			setValue(xmlFile, 'vehicle.realTransmissionEfficiency', 		  'flt',  mrData.engine.realTransmissionEfficiency);
 
 			setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', true);
 			setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.fuelCapacity);
@@ -436,7 +439,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 				setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',   'flt',  mrData.combine.realAiMinDistanceBeforeTurning);
 				setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 			  'flt',  mrData.combine.realAiManeuverSpeed);
-				setValue(xmlFile, 'vehicle.realTransmissionEfficiency', 	  'flt',  mrData.combine.realTransmissionEfficiency);
 				setValue(xmlFile, 'vehicle.realMaxPowerToTransmission', 	  'flt',  mrData.combine.realMaxPowerToTransmission);
 				setValue(xmlFile, 'vehicle.realHydrostaticTransmission', 	  'bool', mrData.combine.realHydrostaticTransmission);
 				setValue(xmlFile, 'vehicle.realUnloadingPowerBoost', 		  'flt',  mrData.combine.realUnloadingPowerBoost);
@@ -446,7 +448,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 	  'flt',  mrData.combine.realChopperPowerConsumption);
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
 				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
-				setValue(xmlFile, 'vehicle.realPtoPowerKW', 				  'flt',  mrData.combine.realPtoPowerKW);
 			end;
 		end;
 
