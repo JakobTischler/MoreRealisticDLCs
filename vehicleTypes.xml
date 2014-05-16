@@ -108,7 +108,6 @@
 			<specialization name="pdlc_titaniumAddon.augerWagon" />
 
 			<specialization name="augerWagonPowerConsumption" />
-			<specialization name="realisticMovingTool" />
 		</type>
 	</Titanium>
 

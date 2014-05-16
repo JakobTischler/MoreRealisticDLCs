@@ -1,6 +1,6 @@
 --[[
 AugerWagonPowerConsumption
-adds power consumption to implements with movingTools
+adds power consumption to the AugerWagon when the pipe is (un)folding / when it's unloading
 
 @author: Jakob Tischler
 @date: 16 May 2014
@@ -15,6 +15,7 @@ end;
 
 function AugerWagonPowerConsumption:load(xmlFile)
 	self.realOverloaderUnloadingPowerConsumption = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption'), 0);
+	self.realWorkingPowerConsumption = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption'), 0);
 	self.realCurrentPowerConsumption = 0;
 end;
 
@@ -28,10 +29,12 @@ function AugerWagonPowerConsumption:keyEvent(unicode, sym, modifier, isDown)
 end;
 
 function AugerWagonPowerConsumption:updateTick(dt)
-	if self.isServer and self.isActive and self.realOverloaderUnloadingPowerConsumption > 0 then
+	if self.isServer and self.isActive then
 		self.realCurrentPowerConsumption = 0;
-		if self.pipeIsUnloading then
+		if self.realOverloaderUnloadingPowerConsumption > 0 and self.pipeIsUnloading then
 			self.realCurrentPowerConsumption = self.realOverloaderUnloadingPowerConsumption;
+		elseif self.realWorkingPowerConsumption > 0 and self:getIsAnimationPlaying('foldingPipe') then
+			self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
 		end;
 	end;
 end;
