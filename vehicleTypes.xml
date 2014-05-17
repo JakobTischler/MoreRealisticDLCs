@@ -138,13 +138,13 @@
 
 			<specialization name="motorized" />
 			<specialization name="steerable" />
-			<specialization name="pdlc_ursusAddon.oldtimer" />
+			<!--<specialization name="pdlc_ursusAddon.oldtimer" />-->
 			<specialization name="cylindered" />
 			<specialization name="hirable" />
 			<specialization name="aiTractor" />
 			<specialization name="bunkerSiloCompacter" />
 			<specialization name="honk" />
-			
+			<specialization name="exhaustFlap" />
 			<specialization name="realisticMotorized"/>
 			<specialization name="realisticSteerable"/>
 		</type>
