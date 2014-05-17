@@ -157,7 +157,7 @@
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="true">
 		<general realBrakingDeceleration="3" />
 		<engine kW="309" realMaxVehicleSpeed="25" realMaxReverseSpeed="12" realTransmissionEfficiency="0.8" realPtoPowerKW="309" realPtoDriveEfficiency="1" realMaxFuelUsage="108" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="244" realHydrostaticTransmission="true" />
-		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="325" />
+		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="325" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="90" realCombineLossesDisplayLosses="true" />
 		<dimensions width="3.3" height="3.9" /> <!-- in m -->
 		<weights weight="16.2" maxWeight="21" /> <!-- in t -->
 		<wheels>

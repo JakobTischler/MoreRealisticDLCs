@@ -360,18 +360,23 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- combine
 		local combine = {};
 		if subCategory == 'combine' then
-			combine.baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed') or 5;
-			combine.minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed') or 3;
-			combine.maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
-			combine.realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
-			combine.realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
-			combine.realUnloadingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
-			combine.realThreshingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
-			combine.realThreshingPowerConsumptionInc =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
-			combine.realChopperPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
-			combine.realChopperPowerConsumptionInc 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
-			combine.realThreshingScale 				 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
-			combine.grainTankUnloadingCapacity 		 =  getXMLFloat(xmlFile, key .. '.combine#grainTankUnloadingCapacity');
+			combine.baseSpeed 						 = getXMLFloat(xmlFile, key .. '.combine#baseSpeed') or 5;
+			combine.minSpeed 						 = getXMLFloat(xmlFile, key .. '.combine#minSpeed') or 3;
+			combine.maxSpeed 						 = getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
+			combine.realAiMinDistanceBeforeTurning 	 = getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
+			combine.realUnloadingPowerBoost 		 = getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
+			combine.realUnloadingPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
+			combine.realThreshingPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
+			combine.realThreshingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
+			combine.realChopperPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
+			combine.realChopperPowerConsumptionInc 	 = getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
+			combine.realThreshingScale 				 = getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
+			combine.grainTankUnloadingCapacity 		 = getXMLFloat(xmlFile, key .. '.combine#grainTankUnloadingCapacity');
+			combine.realCombineLosses = {
+				allowed								 =  getXMLBool(xmlFile, key .. '.combine#realCombineLossesAllowed');
+				maxSqmBeingThreshedBeforeLosses		 = getXMLFloat(xmlFile, key .. '.combine#realCombineLossesMaxSqmBeingThreshedBeforeLosses');
+				displayLosses						 =  getXMLBool(xmlFile, key .. '.combine#realCombineLossesDisplayLosses');
+			};
 		end;
 
 		--------------------------------------------------
@@ -563,6 +568,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
 				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
 				setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 	  'flt',  mrData.combine.grainTankUnloadingCapacity);
+
+				setValue(xmlFile, 'vehicle.realCombineLosses#allowed', 						   'bool', mrData.combine.realCombineLosses.allowed);
+				setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
+				setValue(xmlFile, 'vehicle.realCombineLosses#displayLosses',				   'bool', mrData.combine.realCombineLosses.displayLosses);
 			end;
 		end;
 
