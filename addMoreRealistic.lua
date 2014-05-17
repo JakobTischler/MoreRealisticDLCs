@@ -209,7 +209,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 
 		-- wheels
-		local realNoSteeringAxleDamping = getXMLBool(xmlFile, key .. '.wheels#realNoSteeringAxleDamping');
+		local wheelStuff = {
+			realVehicleFlotationFx    = getXMLFloat(xmlFile, key .. '.wheels#realVehicleFlotationFx');
+			realNoSteeringAxleDamping =  getXMLBool(xmlFile, key .. '.wheels#realNoSteeringAxleDamping');
+		};
 		local wheels = {};
 		local w = 0;
 		while true do
@@ -334,7 +337,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			height = height,
 			weights = weights,
 			wheels = wheels,
-			realNoSteeringAxleDamping = realNoSteeringAxleDamping,
+			wheelStuff = wheelStuff,
 			attacherJoints = attacherJoints,
 			workTool = workTool,
 			combine = combine,
@@ -474,6 +477,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', true);
 			setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
 
+			-- wheels
+			setValue(xmlFile, 'vehicle.realVehicleFlotationFx',				  'flt',  mrData.wheelStuff.realVehicleFlotationFx);
+
 			-- engine
 			setValue(xmlFile, 'vehicle.realSpeedLevel', 					  'str',  mrData.engine.realSpeedLevel);
 			setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 				  'flt',  mrData.engine.realAiManeuverSpeed);
@@ -508,7 +514,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 		-- wheels
-		setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping',  'bool', mrData.realNoSteeringAxleDamping);
+		setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping', 'bool', mrData.wheelStuff.realNoSteeringAxleDamping);
 		local wheelI = 0;
 		while true do
 			local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
