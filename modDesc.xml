@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <modDesc descVersion="16">
-	<author>modelleicher, Jakob Tischler, Satissis, Grisu118</author>
+	<author>modelleicher, Jakob Tischler, Satissis</author>
+	<contributors>dural, Grisu118</contributors>
 	<version>0.1 beta</version>
 	<title>
-		<en>addMoreRealistic</en>
-		<de>addMoreRealistic</de>
+		<en>MoreRealistic DLCs</en>
+		<de>MoreRealistic DLCs</de>
 	</title>
 	<description>
-		<en>addMoreRealistic</en>
-		<de>addMoreRealistic</de>
+		<en>MoreRealistic DLCs</en>
+		<de>MoreRealistic DLCs</de>
 	</description>
 	<extraSourceFiles>
 		<sourceFile filename="addMoreRealistic.lua" />

@@ -2,6 +2,7 @@
 --MoreRealisticDLCs
 --
 --@authors: modelleicher, Jakob Tischler, Satissis
+--@contributors: dural, Grisu118
 --@version: 0.1b
 --
 
