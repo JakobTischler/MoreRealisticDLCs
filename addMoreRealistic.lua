@@ -2,7 +2,7 @@
 --MoreRealisticDLCs
 --
 --@authors: modelleicher, Jakob Tischler, Satissis
---@contributors: dural, Grisu118
+--@contributors: dural, Grisu118, Xentro
 --@version: 0.1b
 --
 
@@ -27,12 +27,12 @@ end;
 
 local modDir, modName = g_currentModDirectory, g_currentModName;
 
-local dlcTest = {
-	Lindner    = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
-	Marshall   = { '/marshallPack/marshall/marshallBC32.xml',		   'vehicleDataMarshall.xml' },
-	Titanium   = { '/titaniumAddon/lizard/americanTruck.xml', 		   'vehicleDataTitanium.xml' },
-	Ursus	   = { '/ursusAddon/ursus/ursus15014.xml', 				   'vehicleDataUrsus.xml' },
-	Vaederstad = { '/vaderstadPack/vaderstad/vaderstadTopDown500.xml', 'vehicleDataVaederstad.xml' }
+local dlcs = {
+	Lindner    = { 'lindnerUnitracPack', 'vehicleDataLindner.xml' },
+	Marshall   = { 'marshallPack',		 'vehicleDataMarshall.xml' },
+	Titanium   = { 'titaniumAddon',		 'vehicleDataTitanium.xml' },
+	Ursus	   = { 'ursusAddon',		 'vehicleDataUrsus.xml' },
+	Vaederstad = { 'vaderstadPack',		 'vehicleDataVaederstad.xml' }
 };
 
 -- ##################################################
@@ -111,8 +111,8 @@ end;
 -- SET VEHICLE STORE DATA
 local setStoreData = function(configFileNameShort, dlcName, storeData)
 	print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName));
-	local dlcDir = dlcTest[dlcName][3];
-	local path = Utils.getFilename(configFileNameShort:sub(6, 200), dlcDir .. '/');
+	local dlcDir = dlcs[dlcName][4];
+	local path = Utils.getFilename(configFileNameShort:sub(6, 200), dlcDir);
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
 	-- print(('\tdlcDir=%q'):format(tostring(dlcDir)));
 	-- print(('\tpath=%q'):format(tostring(path)));
@@ -352,8 +352,8 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- sprayer
 		elseif subCategory == 'sprayer' then
-			realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
-			realSprayingReferenceSpeed	= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
+			workTool.realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
+			workTool.realSprayingReferenceSpeed	= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
 		end;
 
 
@@ -409,22 +409,19 @@ end;
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
 local dlcExists = false;
-for name, data in pairs(dlcTest) do
-	for _, dir in ipairs(g_dlcsDirectories) do
-		if dir.isLoaded then
-			local path = Utils.getFilename(data[1], dir.path);
-			if fileExists(path) then
-				if not customSpecsRegistered then
-					registerCustomSpecs();
-				end;
-				data[3] = dir.path;
-				local vehicleDataPath = Utils.getFilename(data[2], modDir);
-				print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
-				getMoreRealisticData(vehicleDataPath, name);
-				dlcExists = true;
-				break;
-			end;
+for name, data in pairs(dlcs) do
+	local modName = 'pdlc_' .. data[1];
+	if g_modNameToDirectory[modName] ~= nil then
+		data[3] = g_modNameToDirectory[modName];
+		data[4] = data[3]:sub(1, data[3]:len() - data[1]:len() - 1);
+		-- print(('DLC %q: modName=%q, dir=%q, containingDir=%q'):format(data[1], modName, data[3], data[4]));
+		if not customSpecsRegistered then
+			registerCustomSpecs();
 		end;
+		local vehicleDataPath = Utils.getFilename(data[2], modDir);
+		print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
+		getMoreRealisticData(vehicleDataPath, name);
+		dlcExists = true;
 	end;
 end;
 delete(vehicleTypesFile);
@@ -654,7 +651,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 		-- trailerAttacherJoints
-		a = 0;
+		local a = 0;
 		while true do
 			local tajKey = ('vehicle.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
 			if not hasXMLProperty(xmlFile, tajKey) then break; end;
