@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) STEERABLES -->
-	<!-- (1.1) CASE PUMA 160 --> <!-- DONE -->
+	<!-- (1.1) CASE PUMA 160 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="111000" dailyUpkeep="175" debug="true">
 		<general fuelCapacity="330" realBrakingDeceleration="6.5" />
 		<engine kW="130" realMaxVehicleSpeed="50" realMaxReverseSpeed="32" realMaxFuelUsage="31.7" realPtoDriveEfficiency="0.892" realSpeedBoost="20" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
@@ -22,43 +22,43 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.2) CASE MAGNUM 340 --> <!-- ALMOST DONE (centerOfMass) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<general realBrakingDeceleration="5" />
-		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realMaxFuelUsage="69" />
-		<dimensions width="3.2" height="3.37" /> <!-- in m -->
-		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
-		<wheels>
-			<wheel driveMode="2" deltaY="0.2" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.2" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
+	<!-- (1.2) CASE MAGNUM 340 --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="181000" dailyUpkeep="320" debug="false">
+		<general realBrakingDeceleration="6.3" fuelCapacity="635" />
+		<engine kW="275" realMaxVehicleSpeed="50" realMaxReverseSpeed="15" realBrakingDeceleration="6.3" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
+		<dimensions width="2.6" height="3.4" /> <!-- in m -->
+		<weights weight="13.9" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
+		<wheels realVehicleFlotationFx="0.8">
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-44" rotMax="35" rotSpeed="60" />
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-35" rotMax="44" rotSpeed="60" />
+			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
+			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-13.944 0 0" maxRot2="13.944 0 0" minRotDistanceToGround="0.85086822509766" />
+			<attacherJoint jointType="implement" maxRot="-16.822 0 0" maxRot2="16.822 0 0" minRotDistanceToGround="0.905" />
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="12.8" />
+			<component1 centerOfMass="0 0.33 -0.23" realMassWanted="13.45" />
 		</components>
 	</vehicle>
 
-	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- ALMOST DONE (centerOfMass) -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<general realBrakingDeceleration="5" />
-		<engine kW="254" realMaxVehicleSpeed="43" realMaxReverseSpeed="12" realMaxFuelUsage="69" />
-		<dimensions width="3.2" height="3.37" /> <!-- in m -->
-		<weights weight="12.8" maxWeight="18" /> <!-- in t -->
-		<wheels>
-			<wheel driveMode="2" deltaY="0.2" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.2" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
+	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="181000" dailyUpkeep="320" debug="false">
+		<general realBrakingDeceleration="6.3" fuelCapacity="635" />
+		<engine kW="275" realMaxVehicleSpeed="50" realMaxReverseSpeed="15" realBrakingDeceleration="6.3" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
+		<dimensions width="2.6" height="3.4" /> <!-- in m -->
+		<weights weight="13.9" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
+		<wheels realVehicleFlotationFx="0.8">
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-44" rotMax="35" rotSpeed="60" />
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-35" rotMax="44" rotSpeed="60" />
+			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
+			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-13.944 0 0" maxRot2="13.944 0 0" minRotDistanceToGround="0.85086822509766" />
+			<attacherJoint jointType="implement" maxRot="-16.822 0 0" maxRot2="16.822 0 0" minRotDistanceToGround="0.905" />
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="12.8" />
+			<component1 centerOfMass="0 0.33 -0.23" realMassWanted="13.45" />
 		</components>
 	</vehicle>
 
@@ -115,7 +115,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.4) KRONE SWADRO 2000 -->
+	<!-- (2.4) KRONE SWADRO 2000 --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="true">
 		<workTool realPowerConsumption="96" realRakeWorkingPowerConsumption="10" realRakeWorkingPowerConsumptionInc="40" />
 		<dimensions width="3" height="4" /> <!-- in m -->

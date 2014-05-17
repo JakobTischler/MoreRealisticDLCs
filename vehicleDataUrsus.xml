@@ -2,7 +2,7 @@
 <vehicles>
 
 	<!-- (1) STEERABLES -->
-	<!-- (1.1) URSUS 15014 --> <!-- First Try -->
+	<!-- (1.1) URSUS 15014 --> <!-- AUTHOR: Grisu118 --> <!-- First Try -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="moreRealistic.tractor_cylindered" price="74000" dailyUpkeep="130" debug="true">
 		<general fuelCapacity="200" realBrakingDeceleration="6" /> <!--Done-->
 		<engine kW="111" realMaxVehicleSpeed="40" realMaxReverseSpeed="40" realMaxFuelUsage="30" /> <!--Done-->
