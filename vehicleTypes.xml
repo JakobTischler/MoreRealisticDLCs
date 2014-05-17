@@ -139,6 +139,9 @@
 			<specialization name="aiTractor" />
 			<specialization name="bunkerSiloCompacter" />
 			<specialization name="honk" />
+			
+			<specialization name="realisticMotorized"/>
+			<specialization name="realisticSteerable"/>
 		</type>
 
 		<type name="mr_baleWrapper_u" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
