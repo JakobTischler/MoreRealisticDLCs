@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
+<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) CASE PUMA 160 --> <!-- AUTHOR: dural --> <!-- DONE -->
@@ -22,13 +22,13 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.2) CASE MAGNUM 340 --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<!-- (1.2) CASE MAGNUM 340 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="181000" dailyUpkeep="320" debug="false">
 		<general realBrakingDeceleration="6.3" fuelCapacity="635" />
-		<engine kW="275" realMaxVehicleSpeed="50" realMaxReverseSpeed="15" realBrakingDeceleration="6.3" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
+		<engine kW="275" realMaxVehicleSpeed="50" realMaxReverseSpeed="15" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
 		<dimensions width="2.6" height="3.4" /> <!-- in m -->
 		<weights weight="13.9" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
-		<wheels realVehicleFlotationFx="0.8">
+		<wheels>
 			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-44" rotMax="35" rotSpeed="60" />
 			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-35" rotMax="44" rotSpeed="60" />
 			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
@@ -42,23 +42,23 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="181000" dailyUpkeep="320" debug="false">
-		<general realBrakingDeceleration="6.3" fuelCapacity="635" />
-		<engine kW="275" realMaxVehicleSpeed="50" realMaxReverseSpeed="15" realBrakingDeceleration="6.3" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
-		<dimensions width="2.6" height="3.4" /> <!-- in m -->
-		<weights weight="13.9" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
-		<wheels realVehicleFlotationFx="0.8">
-			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-44" rotMax="35" rotSpeed="60" />
-			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.8" rotMin="-35" rotMax="44" rotSpeed="60" />
-			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
-			<wheel driveMode="2" deltaY="0.106" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1" />
+	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- AUTHOR: dural --> <!-- DONE -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false" price="197000" dailyUpkeep="330" >
+		<general realBrakingDeceleration="5.9" fuelCapacity="635" />
+		<engine kW="275" realMaxVehicleSpeed="40" realMaxReverseSpeed="12" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
+		<dimensions width="3" height="3.4" /> <!-- in m -->
+		<weights weight="16.85" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
+		<wheels realVehicleFlotationFx="1.25">
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.81" rotMin="-37" rotMax="33" rotSpeed="60" />
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.81" rotMin="-33" rotMax="37" rotSpeed="60" />
+			<wheel driveMode="2" deltaY="0.102" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1.01" />
+			<wheel driveMode="2" deltaY="0.102" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1.01" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-16.822 0 0" maxRot2="16.822 0 0" minRotDistanceToGround="0.905" />
+			<attacherJoint jointType="implement" maxRot="-17.075 0 0" maxRot2="17.075 0 0" minRotDistanceToGround="0.90987" />
 		</attacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.33 -0.23" realMassWanted="13.45" />
+			<component1 centerOfMass="0 0.25 -0.42" realMassWanted="16.35" />
 		</components>
 	</vehicle>
 
