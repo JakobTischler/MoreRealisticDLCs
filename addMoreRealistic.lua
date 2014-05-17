@@ -168,10 +168,11 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- general
 		local general = {
-			fuelCapacity 				= getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
-			realBrakingDeceleration 	= getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration') or 4;
-			realRollingResistance 		= getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
-			realWorkingPowerConsumption = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
+			fuelCapacity 				 = getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
+			realBrakingDeceleration 	 = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration') or 4;
+			realCanLockWheelsWhenBraking =  getXMLBool(xmlFile, key .. '.general#realCanLockWheelsWhenBraking');
+			realRollingResistance 		 = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
+			realWorkingPowerConsumption  = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
 		};
 
 
@@ -256,11 +257,12 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				ajData.minRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround');
 
 				-- cutter attacher joint
-				ajData.lowerDistanceToGround 	 =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround');
-				ajData.realWantedLoweredRotLimit = getXMLString(xmlFile, ajKey .. '#realWantedLoweredRotLimit');
-				ajData.realWantedRaisedRotLimit  = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit');
-				ajData.realWantedLoweredRot2 	 =  getXMLFloat(xmlFile, ajKey .. '#realWantedLoweredRot2');
-				ajData.realWantedRaisedRotInc 	 =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc');
+				ajData.lowerDistanceToGround 	   =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround');
+				ajData.realWantedLoweredTransLimit = getXMLString(xmlFile, ajKey .. '#realWantedLoweredTransLimit');
+				ajData.realWantedLoweredRotLimit   = getXMLString(xmlFile, ajKey .. '#realWantedLoweredRotLimit');
+				ajData.realWantedRaisedRotLimit	   = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit');
+				ajData.realWantedLoweredRot2 	   =  getXMLFloat(xmlFile, ajKey .. '#realWantedLoweredRot2');
+				ajData.realWantedRaisedRotInc 	   =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc');
 			end;
 
 			attacherJoints[#attacherJoints + 1] = ajData;
@@ -322,6 +324,18 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			-- windrower
 			realRakeWorkingPowerConsumption    = getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumption');
 			realRakeWorkingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumptionInc');
+
+			-- baleLoader
+			realAutoStackerWorkingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realAutoStackerWorkingPowerConsumption');
+
+			-- baler
+			realBalerPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realBalerPowerConsumption');
+			realBalerRam = {
+				strokePowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePowerConsumption');
+				strokePowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePowerConsumptionInc');
+				strokeTimeOffset		  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokeTimeOffset');
+				strokePerMinute			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePerMinute');
+			};
 		};
 
 
@@ -471,14 +485,15 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 
 		-- relevant MR values
-		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt', mrData.weights.weight * 0.25);
-		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt', mrData.engine.realMaxVehicleSpeed);
-		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt', mrData.engine.realMaxReverseSpeed);
-		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt', mrData.weights.realBrakeMaxMovingMass);
-		setValue(xmlFile, 'vehicle.realSCX', 							  'flt', mrData.width * mrData.height * 0.68);
-		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt', mrData.general.realBrakingDeceleration);
-		setValue(xmlFile, 'vehicle.realRollingResistance',				  'flt', mrData.general.realRollingResistance);
-		setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		  'flt', mrData.general.realWorkingPowerConsumption);
+		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt',  mrData.weights.weight * 0.25);
+		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt',  mrData.engine.realMaxVehicleSpeed);
+		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt',  mrData.engine.realMaxReverseSpeed);
+		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt',  mrData.weights.realBrakeMaxMovingMass);
+		setValue(xmlFile, 'vehicle.realSCX', 							  'flt',  mrData.width * mrData.height * 0.68);
+		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt',  mrData.general.realBrakingDeceleration);
+		setValue(xmlFile, 'vehicle.realCanLockWheelsWhenBraking', 		  'bool', mrData.general.realCanLockWheelsWhenBraking);
+		setValue(xmlFile, 'vehicle.realRollingResistance',				  'flt',  mrData.general.realRollingResistance);
+		setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		  'flt',  mrData.general.realWorkingPowerConsumption);
 
 
 		if mrData.category == 'steerable' then
@@ -606,11 +621,12 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 		elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
 			local ajMrData = mrData.attacherJoints[1];
 			removeProperty(xmlFile, 'vehicle.attacherJoint#upperDistanceToGround');
-			setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',     'flt', ajMrData.lowerDistanceToGround);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit', 'str', ajMrData.realWantedLoweredRotLimit);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',  'str', ajMrData.realWantedRaisedRotLimit);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRot2',     'flt', ajMrData.realWantedLoweredRot2);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotInc',    'flt', ajMrData.realWantedRaisedRotInc);
+			setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',	   'flt', ajMrData.lowerDistanceToGround);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit',   'str', ajMrData.realWantedLoweredRotLimit);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',	   'str', ajMrData.realWantedRaisedRotLimit);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRot2',	   'flt', ajMrData.realWantedLoweredRot2);
+			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotInc',	   'flt', ajMrData.realWantedRaisedRotInc);
 		end;
 
 
@@ -666,8 +682,18 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				end;
 
 				-- windrower
-				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',    'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
-				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc', 'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',	'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc',	'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
+
+				-- baleLoader
+				setValue(xmlFile, 'vehicle.realAutoStackerWorkingPowerConsumption', 'flt',  mrData.workTool.realAutoStackerWorkingPowerConsumption);
+
+				-- baler
+				setValue(xmlFile, 'vehicle.realBalerPowerConsumption',				'flt',  mrData.workTool.realBalerPowerConsumption);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumption',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumption);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumptionInc',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokeTimeOffset',			'flt',  mrData.workTool.realBalerRam.strokeTimeOffset);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokePerMinute',			'flt',  mrData.workTool.realBalerRam.strokePerMinute);
 			end;
 		end;
 	end;
