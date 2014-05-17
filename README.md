@@ -46,14 +46,14 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Case 9230 combine
 - [ ] Horsch Maestro 12 SW seeder
 - [ ] Horsch Terrano 6 FM cultivator
-- [ ] Horsch Titan 34 UW auger wagon
+- [x] Horsch Titan 34 UW auger wagon *(dural)*
 - [ ] Kotte Garant VQ 32000 liquid manure spreader
 - [ ] Kramer KL 600
 - [ ] Krone BigX 1100
 - [ ] Krone cutter trailer
 - [ ] Krone Easy Collect 1053 corn header
 - [ ] Krone EasyFlow 300 pickup
-- [ ] Krone Swadro 2000 windrower
+- [ ] Krone Swadro 2000 rake
 - [ ] Krone XDisc 6200 mowing header
 - [ ] Lizard truck
 

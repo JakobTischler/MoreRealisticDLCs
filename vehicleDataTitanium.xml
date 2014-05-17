@@ -157,7 +157,7 @@
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="true">
 		<general realBrakingDeceleration="3" />
 		<engine kW="309" realMaxVehicleSpeed="25" realMaxReverseSpeed="12" realTransmissionEfficiency="0.8" realPtoPowerKW="309" realPtoDriveEfficiency="1" realMaxFuelUsage="108" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="244" realHydrostaticTransmission="true" />
-		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" />
+		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="325" />
 		<dimensions width="3.3" height="3.9" /> <!-- in m -->
 		<weights weight="16.2" maxWeight="21" /> <!-- in t -->
 		<wheels>
@@ -181,7 +181,7 @@
 	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="true">
 		<general realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
-		<workTool  realOverloaderUnloadingPowerConsumption="60" />
+		<workTool realOverloaderUnloadingPowerConsumption="60" pipeUnloadingCapacity="800" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="6.7" realBrakeMaxMovingMass="28" /> <!-- in t -->
 		<wheels>

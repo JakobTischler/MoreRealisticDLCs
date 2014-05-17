@@ -310,7 +310,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realPowerConsumption 					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
 			realPowerConsumptionWhenWorking			= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
 			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
-			realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
 			realWorkingSpeedLimit 					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
 			realResistanceOnlyWhenActive			=  getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive');
 			resistanceDecreaseFx 					= getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
@@ -318,8 +317,13 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
 		};
+		-- trailer
+		if subCategory == 'trailer' then
+			workTool.realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
+			workTool.pipeUnloadingCapacity					 = getXMLFloat(xmlFile, key .. '.workTool#pipeUnloadingCapacity');
+
 		-- cutter
-		if subCategory == 'cutter' then
+		elseif subCategory == 'cutter' then
 			workTool.realCutterPowerConsumption	   = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
 			workTool.realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc') or 2.5;
 			workTool.realCutterSpeedLimit		   = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit') or 14;
@@ -367,6 +371,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			combine.realChopperPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
 			combine.realChopperPowerConsumptionInc 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
 			combine.realThreshingScale 				 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
+			combine.grainTankUnloadingCapacity 		 =  getXMLFloat(xmlFile, key .. '.combine#grainTankUnloadingCapacity');
 		end;
 
 		--------------------------------------------------
@@ -560,6 +565,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 	  'flt',  mrData.combine.realChopperPowerConsumption);
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
 				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
+				setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 	  'flt',  mrData.combine.grainTankUnloadingCapacity);
 			end;
 		end;
 
@@ -684,7 +690,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realPowerConsumption',										 'flt',  mrData.workTool.realPowerConsumption);
 				setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorking',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorking);
 				setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorkingInc',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorkingInc);
-				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption',					 'flt',  mrData.workTool.realOverloaderUnloadingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',										 'flt',  mrData.workTool.realWorkingSpeedLimit);
 				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',								 'bool', mrData.workTool.realResistanceOnlyWhenActive);
 				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx',					 'flt',  mrData.workTool.resistanceDecreaseFx);
@@ -701,8 +706,13 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					end;
 				end;
 
+				-- trailer
+				if mrData.subCategory == 'trailer' then
+					setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption', 'flt', mrData.workTool.realOverloaderUnloadingPowerConsumption);
+					setValue(xmlFile, 'vehicle.pipe#unloadingCapacity', 				 'flt', mrData.workTool.pipeUnloadingCapacity);
+
 				-- rake
-				if mrData.subCategory == 'rake' then
+				elseif mrData.subCategory == 'rake' then
 					setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',	'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
 					setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc',	'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
 
