@@ -29,6 +29,7 @@ local modDir, modName = g_currentModDirectory, g_currentModName;
 
 local dlcTest = {
 	Lindner    = { '/lindnerUnitracPack/lindner/lindnerUnitrac92.xml', 'vehicleDataLindner.xml' },
+	Marshall   = { '/marshallPack/marshall/marshallBC32.xml',		   'vehicleDataMarshall.xml' },
 	Titanium   = { '/titaniumAddon/lizard/americanTruck.xml', 		   'vehicleDataTitanium.xml' },
 	Ursus	   = { '/ursusAddon/ursus/ursus15014.xml', 				   'vehicleDataUrsus.xml' },
 	Vaederstad = { '/vaderstadPack/vaderstad/vaderstadTopDown500.xml', 'vehicleDataVaederstad.xml' }

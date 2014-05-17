@@ -24,9 +24,16 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 ###### Lindner DLC:
 - [x] Lindner Unitrack 92 *(Satis)*
 - [ ] Lindner forage module
-- [ ] Lindner fanure spreader module
+- [ ] Lindner manure spreader module
 - [ ] Lindner tank module
 - [ ] Lindner grain transport module
+
+###### Marshall DLC:
+- [ ] Marshall BC 32 bale trailer
+- [ ] Marshall MS105 manure spreader
+- [ ] Marshall QM 16 trailer
+- [ ] Marshall ST 1800 liquid manure spreader
+- [ ] Marshall VES 2500 manure spreader
 
 ###### Titanium Addon:
 - [x] Case Puma 160 *(dural)*
