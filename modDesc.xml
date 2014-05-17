@@ -17,6 +17,6 @@
 
 	<customSpecializations num="2">
 		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
-		<specialization name="realisticMovingTool" className="realisticMovingTool" filename="scripts/realisticMovingTool.lua" />
+		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
 	</customSpecializations>
 </modDesc>

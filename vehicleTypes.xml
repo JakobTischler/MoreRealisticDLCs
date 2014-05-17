@@ -22,6 +22,11 @@
 
 	<!-- ################################################## -->
 
+	<Marshall>
+	</Marshall>
+
+	<!-- ################################################## -->
+
 	<Titanium>
 		<type name="mr_tractor_wheelExtension_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
 			<specialization name="realisticVehicle" />
