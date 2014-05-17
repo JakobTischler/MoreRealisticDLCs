@@ -144,9 +144,10 @@
 			<specialization name="aiTractor" />
 			<specialization name="bunkerSiloCompacter" />
 			<specialization name="honk" />
-			<specialization name="exhaustFlap" />
+
 			<specialization name="realisticMotorized"/>
 			<specialization name="realisticSteerable"/>
+			<specialization name="exhaustFlap"/>
 		</type>
 
 		<type name="mr_baleWrapper_u" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">

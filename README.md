@@ -3,8 +3,6 @@
 
 A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 
----
-
 **Warning: this is still a work in progress. No success or non-exploding PCs guaranteed!**
 
 ---
@@ -58,8 +56,8 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Krone XDisc 6200 mowing header
 - [ ] Lizard truck
 
-###### Ursus DLC:
-- [ ] Ursus C-45
+###### Ursus Addon:
+- [ ] Ursus C-45 *(Grisu118)*
 - [ ] Ursus C-330
 - [ ] Ursus 5044
 - [ ] Ursus 8014H

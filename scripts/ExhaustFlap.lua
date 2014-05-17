@@ -19,15 +19,19 @@ function ExhaustFlap:load(xmlFile)
 		flap = Utils.indexToObject(self.components, getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#flap')),
 		maxRot = rad(getXMLFloat(xmlFile, 'vehicle.exhaustParticleSystems#maxRot') or 0)
 	};
-	local _,_,curRot = getRotation(self.exhaustFlap.flap);
-	self.exhaustFlap.curRot = curRot;
-	self.exhaustFlap.direction = Utils.sign(self.exhaustFlap.maxRot);
-	self.exhaustFlap.randomExtraUp   = floor(deg(self.exhaustFlap.maxRot) / 5);
-	self.exhaustFlap.randomExtraDown = self.exhaustFlap.direction / -18;
-	if abs(self.exhaustFlap.randomExtraUp) <= abs(self.exhaustFlap.randomExtraDown) then
-		print(('%s: ExhaustFlap WARNING: randomExtraUp needs to have a higher absolute value than randomExtraDown'):format(tostring(self.name)));
-	end;
 	self.exhaustFlap.flappityFlap = self.exhaustFlap.maxRot ~= 0;
+
+	if self.exhaustFlap.flappityFlap then
+		local _,_,curRot = getRotation(self.exhaustFlap.flap);
+		self.exhaustFlap.curRot = curRot;
+		self.exhaustFlap.defaultRot = curRot;
+		self.exhaustFlap.direction = Utils.sign(self.exhaustFlap.maxRot);
+		self.exhaustFlap.randomExtraUp   = floor(deg(self.exhaustFlap.maxRot) /   5);
+		self.exhaustFlap.randomExtraDown = floor(deg(self.exhaustFlap.maxRot) / -18);
+		if abs(self.exhaustFlap.randomExtraUp) <= abs(self.exhaustFlap.randomExtraDown) then
+			print(('%s: ExhaustFlap WARNING: randomExtraUp needs to have a higher absolute value than randomExtraDown'):format(tostring(self.name)));
+		end;
+	end;
 end;
 
 function ExhaustFlap:delete()
@@ -52,8 +56,8 @@ function ExhaustFlap:updateTick(dt)
 				randomRot = rad(random(self.exhaustFlap.randomExtraUp, self.exhaustFlap.randomExtraDown));
 				setRot = Utils.clamp(self.exhaustFlap.maxRot * lastMotorRpm + randomRot, self.exhaustFlap.maxRot, 0);
 			end;
-		elseif self.exhaustFlap.curRot ~= 0 then
-			setRot = 0;
+		elseif self.exhaustFlap.curRot ~= self.exhaustFlap.defaultRot then
+			setRot = self.exhaustFlap.defaultRot;
 		end;
 
 		if setRot then
