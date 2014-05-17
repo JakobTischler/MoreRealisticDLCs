@@ -2,7 +2,7 @@
 <vehicles>
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) CASE PUMA 160 --> <!-- AUTHOR: dural --> <!-- DONE -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="111000" dailyUpkeep="175" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="111000" dailyUpkeep="175" debug="false">
 		<general fuelCapacity="330" realBrakingDeceleration="6.5" />
 		<engine kW="130" realMaxVehicleSpeed="50" realMaxReverseSpeed="32" realMaxFuelUsage="31.7" realPtoDriveEfficiency="0.892" realSpeedBoost="20" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
 		<dimensions width="2.5" height="3" /> <!-- in m -->
@@ -18,7 +18,8 @@
 			<attacherJoint jointType="implement" maxRot="34.608 0 0" maxRot2="-34.608 0 0" minRotDistanceToGround="0.94835" />
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="10 80 80" />
+			<trailerAttacherJoint maxRotLimit="60 55 60" />
+			<trailerAttacherJoint maxRotLimit="60 75 60" /> <!-- trailer low -->
 		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.4 -0.34" realMassWanted="7.7" />
@@ -41,7 +42,7 @@
 			<attacherJoint jointType="implement" maxRot="-16.822 0 0" maxRot2="16.822 0 0" minRotDistanceToGround="0.905" />
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="10 80 80" />
+			<trailerAttacherJoint maxRotLimit="60 90 60" />
 		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.33 -0.23" realMassWanted="13.45" />
@@ -57,14 +58,14 @@
 		<wheels realVehicleFlotationFx="1.25">
 			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.81" rotMin="-37" rotMax="33" rotSpeed="60" />
 			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.81" rotMin="-33" rotMax="37" rotSpeed="60" />
-			<wheel driveMode="2" deltaY="0.102" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1.01" />
-			<wheel driveMode="2" deltaY="0.102" brakeRatio="1" damper="20" spring="200" suspTravel="0.10" radius="1.01" />
+			<wheel driveMode="2" deltaY="0.109" brakeRatio="1" damper="20" spring="260" suspTravel="0.10" radius="1.01" />
+			<wheel driveMode="2" deltaY="0.109" brakeRatio="1" damper="20" spring="260" suspTravel="0.10" radius="1.01" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-17.075 0 0" maxRot2="17.075 0 0" minRotDistanceToGround="0.90987" />
+			<attacherJoint jointType="implement" maxRot="-17.15 0 0" maxRot2="17.15 0 0" minRotDistanceToGround="0.9112" />
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="10 80 80" />
+			<trailerAttacherJoint maxRotLimit="60 90 60" />
 		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.25 -0.42" realMassWanted="16.35" />
@@ -177,20 +178,20 @@
 	<!-- ################################################## -->
 
 	<!-- (4) TRAILERS -->
-	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- NOT DONE -->
+	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="true">
-		<general realWorkingPowerConsumption="18" />
-		<workTool realWorkingSpeedLimit="20" realOverloaderUnloadingPowerConsumption="60" />
+		<general realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
+		<workTool  realOverloaderUnloadingPowerConsumption="60" />
 		<dimensions width="3" height="4" /> <!-- in m -->
-		<weights weight="6.7" /> <!-- in t -->
+		<weights weight="6.7" realBrakeMaxMovingMass="28" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0" brakeRatio="1" />
-			<wheel driveMode="0" deltaY="0" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="600" suspTravel="0.08" radius="1" />
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="600" suspTravel="0.08" radius="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0.5 0.5 0" realMassWanted="6.25" />
-			<component2 realMassWanted="0.35" />
-			<component3 realMassWanted="0.1" />
+			<component1 centerOfMass="0 0.7 -0.05" realMassWanted="6.6" realTransWithMass="0 0.02 -0.029" /> <!-- body -->
+			<component2 realMassWanted="0.01" /> <!-- auger -->
+			<component3 realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 </vehicles>
