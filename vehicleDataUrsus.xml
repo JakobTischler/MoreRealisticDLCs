@@ -16,7 +16,7 @@
 		</wheels>
 		<attacherJoints>
 			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> <!--Done-->
-			<attacherJoint jointType="implement" maxRot="32.669 0 0" maxRot2="32.669 0 0" minRotDistanceToGround="1.0237503051758" /> <!--Not working-->
+			<attacherJoint jointType="implement" maxRot="32.669 0 0" maxRot2="-32.669 0 0" minRotDistanceToGround="1.0237503051758" /> <!--Done-->
 		</attacherJoints>
 		<components>
 			<component1 realMassWanted="6.9" />
