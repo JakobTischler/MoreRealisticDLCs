@@ -1,4 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 
+	<!-- (1) STEERABLES -->
+	<!-- (1.1) URSUS 15014 --> <!-- First Try -->
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="moreRealistic.tractor_cylindered" price="74000" dailyUpkeep="130" debug="true">
+		<general fuelCapacity="200" realBrakingDeceleration="6" /> <!--Done-->
+		<engine kW="111" realMaxVehicleSpeed="40" realMaxReverseSpeed="40" realMaxFuelUsage="30" /> <!--Done-->
+		<dimensions width="2.9" height="2.44" /> <!-- in m --> <!--Done-->
+		<weights weight="6.9" maxWeight="14" realBrakeMaxMovingMass="16" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
+		<wheels>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" rotMin="-33" rotMax="30" rotSpeed="60" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" rotMin="-30" rotMax="33" rotSpeed="60" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" />
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> <!--Done-->
+			<attacherJoint jointType="implement" maxRot="32.669 0 0" maxRot2="32.669 0 0" minRotDistanceToGround="1.0237503051758" /> <!--Not working-->
+		</attacherJoints>
+		<components>
+			<component1 realMassWanted="6.9" />
+		</components>
+	</vehicle>
+
 </vehicles>
