@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <modDesc descVersion="16">
-	<author>modelleicher, Jakob Tischler, Satissis</author>
+	<author>modelleicher, Jakob Tischler, Satissis, Grisu118</author>
 	<version>0.1 beta</version>
 	<title>
 		<en>addMoreRealistic</en>
@@ -14,7 +14,8 @@
 		<sourceFile filename="addMoreRealistic.lua" />
 	</extraSourceFiles>
 
-	<customSpecializations num="1">
+	<customSpecializations num="2">
 		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
+		<specialization name="realisticMovingTool" className="realisticMovingTool" filename="scripts/realisticMovingTool.lua" />
 	</customSpecializations>
 </modDesc>

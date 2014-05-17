@@ -7,6 +7,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 * modelleicher
 * Jakob Tischler
 * Satis
+* Grisu118
 
 #### Contributors:
 dural
