@@ -25,9 +25,8 @@
 	
 	<!-- (1.2) URSUS 15014 FL --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014FL.xml" mrVehicleType="mr_dlcFrontloader_u" price="84000" dailyUpkeep="140" debug="true">
-		<general fuelCapacity="200" realBrakingDeceleration="6" /> <!--Done-->
+		<general fuelCapacity="200" realBrakingDeceleration="6" realWorkingPowerConsumption="25" /> <!--Done-->
 		<engine kW="111" realMaxVehicleSpeed="40" realMaxReverseSpeed="40" realMaxFuelUsage="30" /> <!--Done-->
-		<workTool realWorkingPowerConsumption="25" /> <!--Set the correct value-->
 		<dimensions width="2.9" height="2.44" /> <!-- in m --> <!--Done-->
 		<weights weight="7" maxWeight="14" realBrakeMaxMovingMass="16" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>

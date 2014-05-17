@@ -167,9 +167,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- general
 		local general = {
-			fuelCapacity = getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
-			realBrakingDeceleration = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration') or 4;
-			realRollingResistance = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
+			fuelCapacity 				= getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
+			realBrakingDeceleration 	= getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration') or 4;
+			realRollingResistance 		= getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
+			realWorkingPowerConsumption = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
 		};
 
 
@@ -290,7 +291,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realPowerConsumption 					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
 			realPowerConsumptionWhenWorking			= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
 			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
-			realWorkingPowerConsumption				= getXMLFloat(xmlFile, key .. '.workTool#realWorkingPowerConsumption');
 			realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
 			realWorkingSpeedLimit 					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
 			realResistanceOnlyWhenActive			= Utils.getNoNil(getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive'), false);
@@ -461,6 +461,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 		setValue(xmlFile, 'vehicle.realSCX', 							  'flt', mrData.width * mrData.height * 0.68);
 		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt', mrData.general.realBrakingDeceleration);
 		setValue(xmlFile, 'vehicle.realRollingResistance',				  'flt', mrData.general.realRollingResistance);
+		setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		  'flt', mrData.general.realWorkingPowerConsumption);
 
 
 		if mrData.category == 'steerable' then
@@ -617,7 +618,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			-- others
 			else
 				setValue(xmlFile, 'vehicle.realPowerConsumption',						'flt',  mrData.workTool.realPowerConsumption);
-				setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',				'flt',  mrData.workTool.realWorkingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption',	'flt',  mrData.workTool.realOverloaderUnloadingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',						'flt',  mrData.workTool.realWorkingSpeedLimit);
 				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',				'bool', mrData.workTool.realResistanceOnlyWhenActive);

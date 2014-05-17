@@ -170,7 +170,8 @@
 	<!-- (4) TRAILERS -->
 	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="true">
-		<workTool realWorkingSpeedLimit="20" realWorkingPowerConsumption="18" realOverloaderUnloadingPowerConsumption="60" />
+		<general realWorkingPowerConsumption="18" />
+		<workTool realWorkingSpeedLimit="20" realOverloaderUnloadingPowerConsumption="60" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="6.7" /> <!-- in t -->
 		<wheels>
