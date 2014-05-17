@@ -44,12 +44,12 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.3) Ursus C45 --> <!-- AUTHOR: Grisu118 --> <!-- Start -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC45.xml" mrVehicleType="mr_oldtimer_u" price="74000" dailyUpkeep="130" debug="true">
+	<!-- (1.3) Ursus C45 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC45.xml" mrVehicleType="mr_oldtimer_u" price="12500" dailyUpkeep="95" debug="true">
 		<general fuelCapacity="50" realBrakingDeceleration="2" /> <!--Done-->
 		<engine kW="33" realMaxVehicleSpeed="16.7" realMaxReverseSpeed="8" realMaxFuelUsage="9" /> <!--Done -->
 		<dimensions width="1.8" height="2.3" /> <!-- in m --> <!--Done-->
-		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
+		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> <!--Done-->
 		<wheels>
 			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" />
 			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" />
@@ -58,6 +58,27 @@
 		</wheels>
 		<components>
 			<component1 realMassWanted="3.75" />
+		</components>
+	</vehicle>
+	
+	<!-- (1.4) URSUS 11024 --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="moreRealistic.tractor_cylindered" price="55000" dailyUpkeep="115" debug="true">
+		<general fuelCapacity="180" realBrakingDeceleration="6" /> <!--Done-->
+		<engine kW="81" realMaxVehicleSpeed="40" realMaxReverseSpeed="12" realMaxFuelUsage="22" /> <!--Done-->
+		<dimensions width="2.75" height="2.2" /> <!-- in m --> <!--Done-->
+		<weights weight="4.1" maxWeight="8.5" realBrakeMaxMovingMass="10" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
+		<wheels>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" />
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" maxRot="-16.872 0 0" maxRot2="16.872 0 0" minRotDistanceToGround="0.92118835449219" /> <!--Done-->
+			<attacherJoint jointType="implement" maxRot="23.196 0 0" maxRot2="-23.196 0 0" minRotDistanceToGround="1.0524826049805" /> <!--Done-->
+		</attacherJoints>
+		<components>
+			<component1 realMassWanted="4.1" />
 		</components>
 	</vehicle>
 
