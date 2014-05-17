@@ -17,6 +17,9 @@
 			<attacherJoint jointType="implement" maxRot="-26.96 0 0" maxRot2="26.96 0 0" minRotDistanceToGround="1.1584" />
 			<attacherJoint jointType="implement" maxRot="34.608 0 0" maxRot2="-34.608 0 0" minRotDistanceToGround="0.94835" />
 		</attacherJoints>
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="10 80 80" />
+		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.4 -0.34" realMassWanted="7.7" />
 		</components>
@@ -37,6 +40,9 @@
 		<attacherJoints>
 			<attacherJoint jointType="implement" maxRot="-16.822 0 0" maxRot2="16.822 0 0" minRotDistanceToGround="0.905" />
 		</attacherJoints>
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="10 80 80" />
+		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.33 -0.23" realMassWanted="13.45" />
 		</components>
@@ -57,6 +63,9 @@
 		<attacherJoints>
 			<attacherJoint jointType="implement" maxRot="-17.075 0 0" maxRot2="17.075 0 0" minRotDistanceToGround="0.90987" />
 		</attacherJoints>
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="10 80 80" />
+		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.25 -0.42" realMassWanted="16.35" />
 		</components>

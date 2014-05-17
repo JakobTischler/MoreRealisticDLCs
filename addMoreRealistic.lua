@@ -268,6 +268,21 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		end;
 
 
+		-- trailerAttacherJoints
+		local trailerAttacherJoints = {};
+		a = 0;
+		while true do
+			local tajKey = key .. ('.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
+			if not hasXMLProperty(xmlFile, tajKey) then break; end;
+
+			trailerAttacherJoints[#trailerAttacherJoints + 1] = {
+				maxRotLimit = getXMLString(xmlFile, tajKey .. '#maxRotLimit');
+			};
+
+			a = a + 1;
+		end;
+
+
 		-- components
 		local components = {};
 		local c = 1;
@@ -340,6 +355,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			wheels = wheels,
 			wheelStuff = wheelStuff,
 			attacherJoints = attacherJoints,
+			trailerAttacherJoints = trailerAttacherJoints,
 			workTool = workTool,
 			combine = combine,
 			components = components
@@ -594,6 +610,20 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',  'str', ajMrData.realWantedRaisedRotLimit);
 			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRot2',     'flt', ajMrData.realWantedLoweredRot2);
 			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotInc',    'flt', ajMrData.realWantedRaisedRotInc);
+		end;
+
+
+		-- trailerAttacherJoints
+		a = 0;
+		while true do
+			local tajKey = ('vehicle.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
+			if not hasXMLProperty(xmlFile, tajKey) then break; end;
+
+			if mrData.trailerAttacherJoints[a + 1] then
+				setValue(xmlFile, tajKey .. '#maxRotLimit', 'str', mrData.trailerAttacherJoints[a + 1].maxRotLimit);
+			end;
+
+			a = a + 1;
 		end;
 
 
