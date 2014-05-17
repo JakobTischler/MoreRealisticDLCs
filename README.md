@@ -58,13 +58,13 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Lizard truck
 
 ###### Ursus Addon:
-- [ ] Ursus C-45 *(Grisu118)*
+- [x] Ursus C-45 *(Grisu118)*
 - [ ] Ursus C-330
 - [ ] Ursus 5044
 - [ ] Ursus 8014H
-- [ ] Ursus 11024
-- [ ] Ursus 15014 *(Grisu118)*
-- [ ] Ursus 15014 frontloader *(Grisu118)*
+- [ ] Ursus 11024 *(Grisu118)*
+- [x] Ursus 15014 *(Grisu118)*
+- [x] Ursus 15014 frontloader *(Grisu118)*
 - [ ] Ursus frontloader shovel
 - [ ] Ursus frontloader pallet fork
 - [ ] Ursus frontloader silage fork
