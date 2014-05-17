@@ -193,6 +193,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realAiManeuverSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realAiManeuverSpeed');
 			realMaxPowerToTransmission 			=  getXMLFloat(xmlFile, key .. '.engine#realMaxPowerToTransmission');
 			realHydrostaticTransmission 		=   getXMLBool(xmlFile, key .. '.engine#realHydrostaticTransmission');
+			realMinSpeedForMaxPower 			=  getXMLFloat(xmlFile, key .. '.engine#realMinSpeedForMaxPower');
 		};
 		engine.realPtoPowerKW 					= getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * engine.realPtoDriveEfficiency;
 
@@ -311,48 +312,62 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
 			realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
 			realWorkingSpeedLimit 					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
-			realResistanceOnlyWhenActive			= Utils.getNoNil(getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive'), false);
+			realResistanceOnlyWhenActive			=  getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive');
 			resistanceDecreaseFx 					= getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
+			powerConsumptionWhenWorkingDecreaseFx	= getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
 			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
-
-			-- cutter
-			realCutterPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
-			realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc') or 2.5;
-			realCutterSpeedLimit		  = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit') or 14;
-
-			-- windrower
-			realRakeWorkingPowerConsumption    = getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumption');
-			realRakeWorkingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumptionInc');
-
-			-- baleLoader
-			realAutoStackerWorkingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realAutoStackerWorkingPowerConsumption');
-
-			-- baler
-			realBalerPowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realBalerPowerConsumption');
-			realBalerRam = {
-				strokePowerConsumption	  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePowerConsumption');
-				strokePowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePowerConsumptionInc');
-				strokeTimeOffset		  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokeTimeOffset');
-				strokePerMinute			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePerMinute');
-			};
 		};
+		-- cutter
+		if subCategory == 'cutter' then
+			workTool.realCutterPowerConsumption	   = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
+			workTool.realCutterPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumptionInc') or 2.5;
+			workTool.realCutterSpeedLimit		   = getXMLFloat(xmlFile, key .. '.workTool#realCutterSpeedLimit') or 14;
+
+		-- rake
+		elseif subCategory == 'rake' then
+			workTool.realRakeWorkingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumption');
+			workTool.realRakeWorkingPowerConsumptionInc	= getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumptionInc');
+
+		-- baleLoader
+		elseif subCategory == 'baleLoader' then
+			workTool.realAutoStackerWorkingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realAutoStackerWorkingPowerConsumption');
+
+		-- baler
+		elseif subCategory == 'baler' then
+			workTool.realBalerPowerConsumption			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerPowerConsumption');
+			workTool.realBalerRoundingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realBalerRoundingPowerConsumptionInc');
+			workTool.realBalerRam = {
+				strokePowerConsumption					  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePowerConsumption');
+				strokePowerConsumptionInc				  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePowerConsumptionInc');
+				strokeTimeOffset						  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokeTimeOffset');
+				strokePerMinute							  = getXMLFloat(xmlFile, key .. '.workTool#realBalerRamStrokePerMinute');
+			};
+			workTool.realBalerPickUpPowerConsumptionInc	  = getXMLFloat(xmlFile, key .. '.workTool#realBalerPickUpPowerConsumptionInc');
+			workTool.realBalerOverFillingRatio			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerOverFillingRatio');
+
+		-- sprayer
+		elseif subCategory == 'sprayer' then
+			realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
+			realSprayingReferenceSpeed	= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
+		end;
 
 
 		-- combine
-		local combine = {
-			baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed') or 5;
-			minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed') or 3;
-			maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
-			realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
-			realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
-			realUnloadingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
-			realThreshingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
-			realThreshingPowerConsumptionInc =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
-			realChopperPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
-			realChopperPowerConsumptionInc 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
-			realThreshingScale 				 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
-		};
+		local combine = {};
+		if subCategory == 'combine' then
+			combine.baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed') or 5;
+			combine.minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed') or 3;
+			combine.maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
+			combine.realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
+			combine.realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
+			combine.realUnloadingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
+			combine.realThreshingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
+			combine.realThreshingPowerConsumptionInc =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
+			combine.realChopperPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
+			combine.realChopperPowerConsumptionInc 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
+			combine.realThreshingScale 				 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
+		end;
 
 		--------------------------------------------------
 
@@ -362,6 +377,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			configFileName = configFileName,
 			vehicleType = Utils.startsWith(vehicleType, 'mr_') and modName .. '.' .. vehicleType or vehicleType,
 			doDebug = doDebug,
+
 			general = general,
 			engine = engine,
 			width = width,
@@ -527,7 +543,8 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.realMaxFuelUsage',					  'flt',  mrData.engine.realMaxFuelUsage);
 			setValue(xmlFile, 'vehicle.realTransmissionEfficiency', 		  'flt',  mrData.engine.realTransmissionEfficiency);
 			setValue(xmlFile, 'vehicle.realMaxPowerToTransmission', 		  'flt',  mrData.engine.realMaxPowerToTransmission);
-			setValue(xmlFile, 'vehicle.realHydrostaticTransmission', 		  'bool', mrData.engine.realHydrostaticTransmission);
+			setValue(xmlFile, 'vehicle.realHydrostaticTransmission',		  'bool', mrData.engine.realHydrostaticTransmission);
+			setValue(xmlFile, 'vehicle.realMinSpeedForMaxPower', 			  'flt',  mrData.engine.realMinSpeedForMaxPower);
 
 			-- combine
 			if mrData.subCategory == 'combine' then
@@ -664,11 +681,14 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 			-- others
 			else
-				setValue(xmlFile, 'vehicle.realPowerConsumption',						'flt',  mrData.workTool.realPowerConsumption);
-				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption',	'flt',  mrData.workTool.realOverloaderUnloadingPowerConsumption);
-				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',						'flt',  mrData.workTool.realWorkingSpeedLimit);
-				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',				'bool', mrData.workTool.realResistanceOnlyWhenActive);
-				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx', 'flt',  mrData.workTool.resistanceDecreaseFx);
+				setValue(xmlFile, 'vehicle.realPowerConsumption',										 'flt',  mrData.workTool.realPowerConsumption);
+				setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorking',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorking);
+				setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorkingInc',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorkingInc);
+				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption',					 'flt',  mrData.workTool.realOverloaderUnloadingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',										 'flt',  mrData.workTool.realWorkingSpeedLimit);
+				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',								 'bool', mrData.workTool.realResistanceOnlyWhenActive);
+				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx',					 'flt',  mrData.workTool.resistanceDecreaseFx);
+				setValue(xmlFile, 'vehicle.realTilledGroundBonus#powerConsumptionWhenWorkingDecreaseFx', 'flt',  mrData.workTool.powerConsumptionWhenWorkingDecreaseFx);
 
 				if mrData.workTool.caRealTractionResistance then
 					local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
@@ -681,19 +701,38 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					end;
 				end;
 
-				-- windrower
-				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',	'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
-				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc',	'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
+				-- rake
+				if mrData.subCategory == 'rake' then
+					setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',	'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
+					setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc',	'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
 
 				-- baleLoader
-				setValue(xmlFile, 'vehicle.realAutoStackerWorkingPowerConsumption', 'flt',  mrData.workTool.realAutoStackerWorkingPowerConsumption);
+				elseif mrData.subCategory == 'baleLoader' then
+					setValue(xmlFile, 'vehicle.realAutoStackerWorkingPowerConsumption', 'flt',  mrData.workTool.realAutoStackerWorkingPowerConsumption);
 
 				-- baler
-				setValue(xmlFile, 'vehicle.realBalerPowerConsumption',				'flt',  mrData.workTool.realBalerPowerConsumption);
-				setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumption',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumption);
-				setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumptionInc',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumptionInc);
-				setValue(xmlFile, 'vehicle.realBalerRam#strokeTimeOffset',			'flt',  mrData.workTool.realBalerRam.strokeTimeOffset);
-				setValue(xmlFile, 'vehicle.realBalerRam#strokePerMinute',			'flt',  mrData.workTool.realBalerRam.strokePerMinute);
+				elseif mrData.subCategory == 'baler' then
+					setValue(xmlFile, 'vehicle.realBalerPowerConsumption',				'flt',  mrData.workTool.realBalerPowerConsumption);
+					setValue(xmlFile, 'vehicle.realBalerRoundingPowerConsumptionInc',	'flt',  mrData.workTool.realBalerRoundingPowerConsumptionInc);
+					setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumption',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumption);
+					setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumptionInc',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumptionInc);
+					setValue(xmlFile, 'vehicle.realBalerRam#strokeTimeOffset',			'flt',  mrData.workTool.realBalerRam.strokeTimeOffset);
+					setValue(xmlFile, 'vehicle.realBalerRam#strokePerMinute',			'flt',  mrData.workTool.realBalerRam.strokePerMinute);
+					setValue(xmlFile, 'vehicle.realBalerPickUpPowerConsumptionInc',		'flt',  mrData.workTool.realBalerPickUpPowerConsumptionInc);
+					setValue(xmlFile, 'vehicle.realBalerOverFillingRatio',				'flt',  mrData.workTool.realBalerOverFillingRatio);
+
+					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#fillType', 'str', 'wheat_windrow');
+					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#value',	 'int', 1);
+					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(1)#fillType', 'str', 'barley_windrow');
+					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(1)#value',	 'int', 1);
+					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(2)#fillType', 'str', 'dryGrass_windrow');
+					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(2)#value',	 'flt', 1.25);
+
+				-- sprayer
+				elseif mrData.subCategory == 'sprayer' then
+					setValue(xmlFile, 'vehicle.realFillingPowerConsumption', 'flt',  mrData.workTool.realFillingPowerConsumption);
+					setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',	 'flt',  mrData.workTool.realSprayingReferenceSpeed);
+				end;
 			end;
 		end;
 	end;
