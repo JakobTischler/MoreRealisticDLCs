@@ -38,7 +38,7 @@ local dlcTest = {
 -- REGISTER CUSTOM SPECIALIZATIONS
 local customSpecsRegistered = false;
 local registerCustomSpecs = function()
-	print('MoreRealisticDLCs registerCustomSpecs()');
+	print('MoreRealisticDLCs: registerCustomSpecs()');
 	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
 	local specsKey = 'modDesc.customSpecializations';
 	local numCustomSpecs = getXMLInt(modDesc, specsKey .. '#num') or 0;
@@ -68,7 +68,7 @@ local vehicleTypesPath = Utils.getFilename('vehicleTypes.xml', modDir);
 assert(fileExists(vehicleTypesPath), ('ERROR: %q could not be found'):format(vehicleTypesPath));
 local vehicleTypesFile = loadXMLFile('vehicleTypesFile', vehicleTypesPath);
 local registerVehicleTypes = function(dlcName)
-	print(('registerVehicleTypes(%q)'):format(dlcName));
+	print(('MoreRealisticDLCs: registerVehicleTypes(%q)'):format(dlcName));
 
 	local i = 0
 	while true do
@@ -110,7 +110,7 @@ end;
 local setStoreData = function(configFileNameShort, dlcName, storeData)
 	print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName));
 	local dlcDir = dlcTest[dlcName][3];
-	local path = Utils.getFilename('/' .. configFileNameShort:sub(6, 200), dlcDir);
+	local path = Utils.getFilename(configFileNameShort:sub(6, 200), dlcDir .. '/');
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
 	-- print(('\tdlcDir=%q'):format(tostring(dlcDir)));
 	-- print(('\tpath=%q'):format(tostring(path)));
@@ -475,6 +475,8 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
 
 			-- engine
+			setValue(xmlFile, 'vehicle.realSpeedLevel', 					  'str',  mrData.engine.realSpeedLevel);
+			setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 				  'flt',  mrData.engine.realAiManeuverSpeed);
 			setValue(xmlFile, 'vehicle.realSpeedBoost',						  'int',  mrData.engine.realSpeedBoost);
 			setValue(xmlFile, 'vehicle.realSpeedBoost#minSpeed', 			  'int',  mrData.engine.realSpeedBoostMinSpeed);
 			setValue(xmlFile, 'vehicle.realImplementNeedsBoost',			  'int',  mrData.engine.realImplementNeedsBoost);
@@ -484,8 +486,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.realPtoDriveEfficiency',				  'flt',  mrData.engine.realPtoDriveEfficiency);
 			setValue(xmlFile, 'vehicle.realMaxFuelUsage',					  'flt',  mrData.engine.realMaxFuelUsage);
 			setValue(xmlFile, 'vehicle.realTransmissionEfficiency', 		  'flt',  mrData.engine.realTransmissionEfficiency);
-			setValue(xmlFile, 'vehicle.realSpeedLevel', 					  'str',  mrData.engine.realSpeedLevel);
-			setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 				  'flt',  mrData.engine.realAiManeuverSpeed);
 			setValue(xmlFile, 'vehicle.realMaxPowerToTransmission', 		  'flt',  mrData.engine.realMaxPowerToTransmission);
 			setValue(xmlFile, 'vehicle.realHydrostaticTransmission', 		  'bool', mrData.engine.realHydrostaticTransmission);
 

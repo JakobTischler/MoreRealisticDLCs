@@ -4,21 +4,21 @@
 	<!-- (1.1) CASE PUMA 160 --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" price="111000" dailyUpkeep="175" debug="true">
 		<general fuelCapacity="330" realBrakingDeceleration="6.5" />
-		<engine kW="130" realMaxVehicleSpeed="50" realMaxReverseSpeed="50" realMaxFuelUsage="32" realPtoDriveEfficiency="0.892" realSpeedBoost="22" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="22" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="22" />
+		<engine kW="130" realMaxVehicleSpeed="50" realMaxReverseSpeed="32" realMaxFuelUsage="31.7" realPtoDriveEfficiency="0.892" realSpeedBoost="20" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
 		<dimensions width="2.5" height="3" /> <!-- in m -->
-		<weights weight="8.5" maxWeight="12" realBrakeMaxMovingMass="15" /> <!-- in t -->
+		<weights weight="7.9" maxWeight="12" realBrakeMaxMovingMass="15" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.74" rotMin="-33" rotMax="30" rotSpeed="60" />
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.74" rotMin="-30" rotMax="33" rotSpeed="60" />
-			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" radius="0.96" />
-			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" radius="0.96" />
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.74" rotMin="-33" rotMax="30" rotSpeed="60" />
+			<wheel driveMode="1" deltaY="0.19" brakeRatio="1" damper="20" spring="50" suspTravel="0.25" radius="0.74" rotMin="-30" rotMax="33" rotSpeed="60" />
+			<wheel driveMode="2" deltaY="0.097" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" radius="0.96" />
+			<wheel driveMode="2" deltaY="0.097" brakeRatio="1" damper="20" spring="150" suspTravel="0.10" radius="0.96" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-27.147 0 0" maxRot2="27.147 0 0" minRotDistanceToGround="1.16156" />
-			<attacherJoint jointType="implement" maxRot="34.766 0 0" maxRot2="-34.766 0 0" minRotDistanceToGround="0.9501" />
+			<attacherJoint jointType="implement" maxRot="-26.96 0 0" maxRot2="26.96 0 0" minRotDistanceToGround="1.1584" />
+			<attacherJoint jointType="implement" maxRot="34.608 0 0" maxRot2="-34.608 0 0" minRotDistanceToGround="0.94835" />
 		</attacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.4 -0.27" realMassWanted="8.6" />
+			<component1 centerOfMass="0 0.4 -0.34" realMassWanted="7.7" />
 		</components>
 	</vehicle>
 
@@ -35,7 +35,7 @@
 			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint maxRot="-13.944 0 0" maxRot2="13.944 0 0" minRotDistanceToGround="0.85086822509766" />
+			<attacherJoint jointType="implement" maxRot="-13.944 0 0" maxRot2="13.944 0 0" minRotDistanceToGround="0.85086822509766" />
 		</attacherJoints>
 		<components>
 			<component1 realMassWanted="12.8" />
@@ -55,7 +55,7 @@
 			<wheel driveMode="2" deltaY="0.17" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint maxRot="-13.944 0 0" maxRot2="13.944 0 0" minRotDistanceToGround="0.85086822509766" />
+			<attacherJoint jointType="implement" maxRot="-13.944 0 0" maxRot2="13.944 0 0" minRotDistanceToGround="0.85086822509766" />
 		</attacherJoints>
 		<components>
 			<component1 realMassWanted="12.8" />
