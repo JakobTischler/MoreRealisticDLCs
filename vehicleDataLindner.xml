@@ -7,6 +7,7 @@
 		<engine kW="68" realPtoDriveEfficiency="0.844" realMaxVehicleSpeed="50" realMaxReverseSpeed="20" realMaxFuelUsage="20.4" />
 		<dimensions width="2.385" height="2.4" /> <!-- in m -->
 		<weights weight="3.52" maxWeight="7.5" realBrakeMaxMovingMass="6" /> <!-- in t -->
+		<!-- TODO: Set weight back to 2.99 -->
 		<wheels>
 			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
 			<wheel rotMax="28.05" rotMin="-15.91" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
@@ -14,6 +15,7 @@
 			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.08" spring="36" brakeRatio="1" />
 		</wheels>
 		<components>
+			<!-- TODO: Set realMassWanted back to 2.99 -->
 			<component1 centerOfMass="0 0.1 0.55" realMassWanted="3.52" />
 		</components>
 	</vehicle>

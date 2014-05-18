@@ -27,7 +27,7 @@
 			<specialization name="cylindered" />
 			<specialization name="fillable" />
 			<specialization name="trailer" />
-			<specialization name="pdlc_lindnerUnitracPack.extendedTipper" />
+			<specialization name="pdlc_lindnerUnitracPack.extendedTrailer" />
 
 			<specialization name="realisticTrailer" />
 		</type>
