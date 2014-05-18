@@ -279,7 +279,30 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
 				spring     = getXMLFloat(xmlFile, wheelKey .. '#spring'),
 				damper     =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
-				brakeRatio =   getXMLInt(xmlFile, wheelKey .. '#brakeRatio') or 1
+				brakeRatio = getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1
+			};
+
+			w = w + 1;
+		end;
+
+		-- additionalWheels
+		local additionalWheels = {};
+		w = 0;
+		while true do
+			local wheelKey = key .. ('.additionalWheels.wheel(%d)'):format(w);
+			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
+
+			additionalWheels[#additionalWheels + 1] = {
+				repr	   						 = getXMLString(xmlFile, wheelKey .. '#repr'), 
+				radius	   						 =  getXMLFloat(xmlFile, wheelKey .. '#radius'),
+				deltaY	   						 =  getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				suspTravel 						 =  getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
+				spring	   						 =  getXMLFloat(xmlFile, wheelKey .. '#spring'),
+				damper	   						 =    getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
+				brakeRatio 						 =  getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
+				antiRollFx						 =  getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
+				lateralStiffness 				 =  getXMLFloat(xmlFile, wheelKey .. '#lateralStiffness'),
+				continousBrakeForceWhenNotActive =  getXMLFloat(xmlFile, wheelKey .. '#continousBrakeForceWhenNotActive')
 			};
 
 			w = w + 1;
@@ -466,6 +489,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			weights = weights,
 			wheels = wheels,
 			wheelStuff = wheelStuff,
+			additionalWheels = additionalWheels,
 			attacherJoints = attacherJoints,
 			trailerAttacherJoints = trailerAttacherJoints,
 			workTool = workTool,
@@ -707,6 +731,27 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, wheelKey .. '#deltaY', 'flt', deltaY, '\t');
 
 			wheelI = wheelI + 1;
+		end;
+
+
+		-- additionalWheels
+		for w=1, #mrData.additionalWheels do
+			local wheelMrData = mrData.additionalWheels[w];
+			local wheelKey = ('vehicle.additionalWheels.wheel(%d)'):format(w - 1);
+			if mrData.doDebug then
+				print('\tadditionalWheels: ' .. w - 1);
+			end;
+
+			setValue(xmlFile, wheelKey .. '#repr',							   'str', wheelMrData.repr, '\t');
+			setValue(xmlFile, wheelKey .. '#deltaY',						   'flt', wheelMrData.deltaY, '\t');
+			setValue(xmlFile, wheelKey .. '#radius',						   'flt', wheelMrData.radius, '\t');
+			setValue(xmlFile, wheelKey .. '#suspTravel',					   'flt', wheelMrData.suspTravel, '\t');
+			setValue(xmlFile, wheelKey .. '#spring',						   'flt', wheelMrData.spring, '\t');
+			setValue(xmlFile, wheelKey .. '#damper',						   'flt', wheelMrData.damper, '\t');
+			setValue(xmlFile, wheelKey .. '#brakeRatio',					   'flt', wheelMrData.brakeRatio, '\t');
+			setValue(xmlFile, wheelKey .. '#antiRollFx',					   'flt', wheelMrData.antiRollFx, '\t');
+			setValue(xmlFile, wheelKey .. '#lateralStiffness',				   'flt', wheelMrData.lateralStiffness, '\t');
+			setValue(xmlFile, wheelKey .. '#continousBrakeForceWhenNotActive', 'flt', wheelMrData.continousBrakeForceWhenNotActive, '\t');
 		end;
 
 
