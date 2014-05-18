@@ -17,6 +17,7 @@
 
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
+			<specialization name="exhaustPower" />
 		</type>
 
 		<type name="mr_extendedTipper_l" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -74,6 +75,7 @@
 
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
+			<specialization name="exhaustPower" />
 		</type>
 
 		<type name="mr_sowingMachine_foldableRidgeMarker_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -114,6 +116,7 @@
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
 			<specialization name="realisticCombine" />
+			<specialization name="exhaustPower" />
 		</type>
 
 		<type name="mr_cutter_mouseControlled_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
