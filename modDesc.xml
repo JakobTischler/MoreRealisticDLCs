@@ -20,4 +20,44 @@
 		<specialization name="exhaustFlap" 				  className="ExhaustFlap" 				 filename="scripts/ExhaustFlap.lua" />
 		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
 	</customSpecializations>
+
+	<l10n>
+		<text name="DLC_MRIZED">
+			<en>Converted for MoreRealistic with the MoreRealisticDLCs mod.</en>
+			<de>Für MoreRealistic konvertiert mit dem MoreRealisticDLCs Mod.</de>
+		</text>
+
+		<text name="STORE_SPECS_MAINTENANCE">
+			<en>Maintenance: %s / day</en>
+			<de>Unterhaltskosten: %s / Tag</de>
+		</text>
+		<text name="STORE_SPECS_ENGINE">
+			<en>Max. power: %d kW / %d hp</en>
+			<de>Max. Leistung: %d kW / %d PS</de>
+		</text>
+		<text name="STORE_SPECS_CAPACITY_L">
+			<en>Capacity: %d l</en>
+			<de>Kapazität: %d l</de>
+		</text>
+		<text name="STORE_SPECS_CAPACITY_M3">
+			<en>Capacity: %d m³</en>
+			<de>Kapazität: %d m³</de>
+		</text>
+		<text name="STORE_SPECS_CAPACITY_BALES">
+			<en>Loading capacity: %d bales</en>
+			<de>Ladekapazität: %d Ballen</de>
+		</text>
+		<text name="STORE_SPECS_MAXSPEED">
+			<en>Max speed: %s %s</en>
+			<de>Max. Geschwindigkeit: %s %s</de>
+		</text>
+		<text name="STORE_SPECS_WEIGHT">
+			<en>Weight: %s kg</en>
+			<de>Gewicht: %s kg</de>
+		</text>
+		<text name="STORE_SPECS_WORKWIDTH">
+			<en>Working width: %.1f ft</en>
+			<de>Arbeitsbreite: %.1f m</de>
+		</text>
+	</l10n>
 </modDesc>

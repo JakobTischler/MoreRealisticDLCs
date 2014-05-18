@@ -3,6 +3,7 @@
 	<!-- (1) CULTIVATORS -->
 	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 250 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v">
+		<store maxSpeed="20" weight="7400" workWidth="8.2" />
 		<workTool realPowerConsumption="0" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.45" caRealTractionResistance="35" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="2.5" height="3" /> <!-- in m -->
 		<weights weight="7.4" maxWeight="7.4" /> <!-- in t -->
@@ -24,6 +25,7 @@
 
 	<!-- (1.2) TOP DOWN 500 --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 270-330 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTopDown500.xml" mrVehicleType="mr_cultivator_visualWheels_v">
+		<store maxSpeed="20" weight="7000" workWidth="5" />
 		<workTool realPowerConsumption="0" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.25" caRealTractionResistance="50" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="3" height="3" /> <!-- in m -->
 		<weights weight="7" maxWeight="7" /> <!-- in t -->
@@ -45,6 +47,7 @@
 	<!-- (2) SEEDERS -->
 	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 100-175 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="true">
+		<store maxSpeed="20" capacity="3100" capacityUnit="L" weight="4600" workWidth="3" />
 		<general realWorkingPowerConsumption="36" />
 		<workTool realPowerConsumption="20" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0.4" />
 		<dimensions width="4.05" height="3" /> <!-- in m -->
@@ -63,6 +66,7 @@
 
 	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 180-350 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapidA600S.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="true">
+		<store maxSpeed="20" capacity="4050" capacityUnit="L" weight="8900" workWidth="6" />
 		<general realWorkingPowerConsumption="80" />
 		<workTool realPowerConsumption="60" realWorkingSpeedLimit="15" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0.3" />
 		<dimensions width="3" height="3.1" /> <!-- in m -->
@@ -83,6 +87,7 @@
 
 	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 90-125 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="true">
+		<store maxSpeed="20" capacity="2396" capacityUnit="L" weight="3500" workWidth="6" />
 		<general realWorkingPowerConsumption="36" />
 		<workTool realPowerConsumption="20" realWorkingSpeedLimit="15" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="5" caRealTractionResistanceWithLoadMass="0.3" />
 		<dimensions width="3" height="3.6" /> <!-- in m -->

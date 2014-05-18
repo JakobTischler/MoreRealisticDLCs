@@ -108,6 +108,26 @@ end;
 
 -- ##################################################
 
+local formatNumber = function(number, precision)
+	precision = precision or 0;
+
+	local str = '';
+	local firstDigit, rest, decimal = ('%1.' .. precision .. 'f'):format(number):match('^([^%d]*%d)(%d*).?(%d*)');
+	str = firstDigit .. rest:reverse():gsub('(%d%d%d)', '%1' .. g_i18n:getText('Currency_separator')):reverse();
+	if decimal:len() > 0 then
+		str = str .. '.' .. decimal:sub(1, precision);
+	end;
+	return str;
+end;
+
+local distanceFactors = {
+	en = 3.2808399;
+};
+local distanceFactor = distanceFactors[g_languageShort] or 1;
+local i18nGetDistanceSmall = function(number)
+	return number * distanceFactor;
+end;
+
 -- SET VEHICLE STORE DATA
 local setStoreData = function(configFileNameShort, dlcName, storeData)
 	print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName));
@@ -122,15 +142,42 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 			storeItem.nameMRized = true;
 			print(('\tchange store name to %q'):format(storeItem.name));
 		end;
-		if storeData.price and not storeItem.priceMRized then
+		if storeData.price and storeItem.price ~= storeData.price and not storeItem.priceMRized then
 			print(('\tchange store price to %s (old: %s)'):format(g_i18n:formatMoney(storeData.price), g_i18n:formatMoney(storeItem.price)));
 			storeItem.price = storeData.price;
 			storeItem.priceMRized = true;
 		end;
-		if storeData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
+		if storeData.dailyUpkeep and storeItem.dailyUpkeep ~= storeData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
 			print(('\tchange store dailyUpkeep to %s (old: %s)'):format(g_i18n:formatMoney(storeData.dailyUpkeep), g_i18n:formatMoney(storeItem.dailyUpkeep)));
 			storeItem.dailyUpkeep = storeData.dailyUpkeep;
 			storeItem.dailyUpkeepMRized = true;
+		end;
+		if not storeItem.descriptionMRized then
+			storeItem.description = storeItem.description .. '\n\n' .. tostring(g_i18n:getText('DLC_MRIZED'));
+			storeItem.descriptionMRized = true;
+		end;
+		if not storeItem.specsMRized then
+			local specs = '';
+			if storeData.powerKW then
+				specs = specs .. g_i18n:getText('STORE_SPECS_ENGINE'):format(storeData.powerKW, storeData.powerKW * 1.35962162) .. '\n';
+			end;
+			if storeData.maxSpeed then
+				specs = specs .. g_i18n:getText('STORE_SPECS_MAXSPEED'):format(g_i18n:getSpeed(storeData.maxSpeed), g_i18n:getText('speedometer')) .. '\n';
+			end;
+			if storeData.capacity then
+				local unit = storeData.capacityUnit or 'L';
+				specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(storeData.capacity) .. '\n';
+			end;
+			if storeData.weight then
+				specs = specs .. g_i18n:getText('STORE_SPECS_WEIGHT'):format(formatNumber(storeData.weight)) .. '\n';
+			end;
+			if storeData.workWidth then
+				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(i18nGetDistanceSmall(storeData.workWidth)) .. '\n';
+			end;
+			specs = specs .. g_i18n:getText('STORE_SPECS_MAINTENANCE'):format(g_i18n:formatMoney(storeItem.dailyUpkeep)) .. '\n';
+			storeItem.specs = specs;
+			print(('\tchange specs to\n%s'):format(specs));
+			storeItem.specsMRized = true;
 		end;
 	end;
 end;
@@ -159,11 +206,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		assert(category, ('ERROR: "category" missing for %q'):format(configFileName));
 		local subCategory = getXMLString(xmlFile, key .. '#subCategory') or '';
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
-		local store = {
-			price = getXMLInt(xmlFile, key .. '#price');
-			dailyUpkeep = getXMLInt(xmlFile, key .. '#dailyUpkeep');
-		};
-		setStoreData(configFileName, dlcName, store);
 
 
 		-- general
@@ -392,6 +434,21 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			};
 			combine.realCombineCycleDuration		 = getXMLFloat(xmlFile, key .. '.combine#realCombineCycleDuration');
 		end;
+
+		--------------------------------------------------
+
+		-- STORE DATA
+		local store = {
+			price			=    getXMLInt(xmlFile, key .. '.store#price');
+			dailyUpkeep		=    getXMLInt(xmlFile, key .. '.store#dailyUpkeep');
+			powerKW			=    getXMLInt(xmlFile, key .. '.store#powerKW');
+			maxSpeed		=    getXMLInt(xmlFile, key .. '.store#maxSpeed');
+			weight			=    getXMLInt(xmlFile, key .. '.store#weight');
+			workWidth		=  getXMLFloat(xmlFile, key .. '.store#workWidth');
+			capacity		=    getXMLInt(xmlFile, key .. '.store#capacity');
+			capacityUnit	= getXMLString(xmlFile, key .. '.store#capacityUnit');
+		};
+		setStoreData(configFileName, dlcName, store);
 
 		--------------------------------------------------
 
