@@ -120,14 +120,6 @@ local formatNumber = function(number, precision)
 	return str;
 end;
 
-local distanceFactors = {
-	en = 3.2808399;
-};
-local distanceFactor = distanceFactors[g_languageShort] or 1;
-local i18nGetDistanceSmall = function(number)
-	return number * distanceFactor;
-end;
-
 -- SET VEHICLE STORE DATA
 local setStoreData = function(configFileNameShort, dlcName, storeData)
 	print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName));
@@ -175,7 +167,7 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 				specs = specs .. g_i18n:getText('STORE_SPECS_WEIGHT'):format(formatNumber(storeData.weight)) .. '\n';
 			end;
 			if storeData.workWidth then
-				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(i18nGetDistanceSmall(storeData.workWidth)) .. '\n';
+				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(storeData.workWidth) .. '\n';
 			end;
 			if storeData.capacity then
 				local unit = storeData.capacityUnit or 'L';

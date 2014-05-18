@@ -56,15 +56,15 @@
 			<de>Ladekapazität: %s Ballen</de>
 		</text>
 		<text name="STORE_SPECS_MAXSPEED">
-			<en>Max speed: %s %s</en>
-			<de>Max. Geschwindigkeit: %s %s</de>
+			<en>Max speed: %d %s</en>
+			<de>Max. Geschwindigkeit: %d %s</de>
 		</text>
 		<text name="STORE_SPECS_WEIGHT">
 			<en>Weight: %s kg</en>
 			<de>Gewicht: %s kg</de>
 		</text>
 		<text name="STORE_SPECS_WORKWIDTH">
-			<en>Working width: %.1f ft</en>
+			<en>Working width: %.1f m</en>
 			<de>Arbeitsbreite: %.1f m</de>
 		</text>
 		<text name="STORE_SPECS_FRUITS">
