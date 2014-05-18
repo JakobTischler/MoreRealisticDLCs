@@ -120,15 +120,15 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 		if not storeItem.nameMRized then
 			storeItem.name = 'MR ' .. storeItem.name;
 			storeItem.nameMRized = true;
-			print(('\tchange store name to %s'):format(storeItem.name));
+			print(('\tchange store name to %q'):format(storeItem.name));
 		end;
 		if storeData.price and not storeItem.priceMRized then
-			print(('\tchange store price to %d (old: %d)'):format(storeData.price, storeItem.price));
+			print(('\tchange store price to %s (old: %s)'):format(g_i18n:formatMoney(storeData.price), g_i18n:formatMoney(storeItem.price)));
 			storeItem.price = storeData.price;
 			storeItem.priceMRized = true;
 		end;
 		if storeData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
-			print(('\tchange store dailyUpkeep to %d (old: %d)'):format(storeData.dailyUpkeep, storeItem.dailyUpkeep));
+			print(('\tchange store dailyUpkeep to %s (old: %s)'):format(g_i18n:formatMoney(storeData.dailyUpkeep), g_i18n:formatMoney(storeItem.dailyUpkeep)));
 			storeItem.dailyUpkeep = storeData.dailyUpkeep;
 			storeItem.dailyUpkeepMRized = true;
 		end;
@@ -173,6 +173,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realCanLockWheelsWhenBraking =  getXMLBool(xmlFile, key .. '.general#realCanLockWheelsWhenBraking');
 			realRollingResistance 		 = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
 			realWorkingPowerConsumption  = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
+			realDisplaySlip				 = Utils.getNoNil(getXMLBool(xmlFile, key .. '.general#realDisplaySlip'), true);
 		};
 
 
@@ -307,6 +308,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- workTool
 		local workTool = {
+			capacity								=   getXMLInt(xmlFile, key .. '.workTool#capacity');
 			realPowerConsumption 					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
 			realPowerConsumptionWhenWorking			= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
 			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
@@ -319,6 +321,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		};
 		-- trailer
 		if subCategory == 'trailer' then
+			workTool.realTippingPowerConsumption			 = getXMLFloat(xmlFile, key .. '.workTool#realTippingPowerConsumption');
 			workTool.realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
 			workTool.pipeUnloadingCapacity					 = getXMLFloat(xmlFile, key .. '.workTool#pipeUnloadingCapacity');
 
@@ -368,6 +371,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			combine.realUnloadingPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
 			combine.realThreshingPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
 			combine.realThreshingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
+			combine.realThreshingPowerBoost			 = getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerBoost');
 			combine.realChopperPowerConsumption 	 = getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
 			combine.realChopperPowerConsumptionInc 	 = getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
 			combine.realThreshingScale 				 = getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
@@ -377,6 +381,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				maxSqmBeingThreshedBeforeLosses		 = getXMLFloat(xmlFile, key .. '.combine#realCombineLossesMaxSqmBeingThreshedBeforeLosses');
 				displayLosses						 =  getXMLBool(xmlFile, key .. '.combine#realCombineLossesDisplayLosses');
 			};
+			combine.realCombineCycleDuration		 = getXMLFloat(xmlFile, key .. '.combine#realCombineCycleDuration');
 		end;
 
 		--------------------------------------------------
@@ -469,6 +474,18 @@ end;
 
 -- ##################################################
 
+local capacityMultipliers = {
+	{ fillType = 'wheat', 	  multiplier = 1.00 },
+	{ fillType = 'barley', 	  multiplier = 1.00 },
+	{ fillType = 'maize', 	  multiplier = 1.00 },
+	{ fillType = 'rape', 	  multiplier = 1.00 },
+	{ fillType = 'chaff', 	  multiplier = 1.07 },
+	{ fillType = 'potato', 	  multiplier = 1.04 },
+	{ fillType = 'sugarBeet', multiplier = 1.05 },
+	{ fillType = 'silage', 	  multiplier = 1.09 },
+	{ fillType = 'manure', 	  multiplier = 1.10 },
+};
+
 local origVehicleLoad = Vehicle.load;
 Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
 	local vehicleModName, baseDirectory = Utils.getModNameAndBaseDirectory(configFile);
@@ -531,7 +548,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, 'vehicle.downForce', 'int', 0);
 
 			-- general
-			setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', true);
+			setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', mrData.general.realDisplaySlip);
 			setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
 
 			-- wheels
@@ -564,10 +581,12 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realUnloadingPowerConsumption', 	  'flt',  mrData.combine.realUnloadingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realThreshingPowerConsumption', 	  'flt',  mrData.combine.realThreshingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realThreshingPowerConsumptionInc', 'flt',  mrData.combine.realThreshingPowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realThreshingPowerBoost',		  'flt',  mrData.combine.realThreshingPowerBoost);
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 	  'flt',  mrData.combine.realChopperPowerConsumption);
 				setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
 				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
 				setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 	  'flt',  mrData.combine.grainTankUnloadingCapacity);
+				setValue(xmlFile, 'vehicle.realCombineCycleDuration', 		  'flt',  mrData.combine.realCombineCycleDuration);
 
 				setValue(xmlFile, 'vehicle.realCombineLosses#allowed', 						   'bool', mrData.combine.realCombineLosses.allowed);
 				setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
@@ -714,6 +733,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 				-- trailer
 				if mrData.subCategory == 'trailer' then
+					setValue(xmlFile, 'vehicle.realTippingPowerConsumption', 			 'flt', mrData.workTool.realTippingPowerConsumption);
 					setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption', 'flt', mrData.workTool.realOverloaderUnloadingPowerConsumption);
 					setValue(xmlFile, 'vehicle.pipe#unloadingCapacity', 				 'flt', mrData.workTool.pipeUnloadingCapacity);
 
@@ -748,6 +768,16 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				elseif mrData.subCategory == 'sprayer' then
 					setValue(xmlFile, 'vehicle.realFillingPowerConsumption', 'flt',  mrData.workTool.realFillingPowerConsumption);
 					setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',	 'flt',  mrData.workTool.realSprayingReferenceSpeed);
+				end;
+
+				-- fillable
+				if SpecializationUtil.hasSpecialization(Fillable, self.specializations) then
+					setValue(xmlFile, 'vehicle.capacity',	 'int',  mrData.workTool.capacity);
+					-- capacity multipliers
+					for i=1, #capacityMultipliers do
+						setValue(xmlFile, ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)#fillType'):format(i-1),   'str', capacityMultipliers[i].fillType);
+						setValue(xmlFile, ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)#multiplier'):format(i-1), 'flt', capacityMultipliers[i].multiplier);
+					end;
 				end;
 			end;
 		end;
