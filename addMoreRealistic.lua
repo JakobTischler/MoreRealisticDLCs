@@ -343,6 +343,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
 			if jointType and jointType == 'implement' or jointType == 'cutter' then
 				ajData.jointType = jointType;
+				ajData.minRot				  = getXMLString(xmlFile, ajKey .. '#minRot');
 				ajData.maxRot				  = getXMLString(xmlFile, ajKey .. '#maxRot');
 				ajData.maxRot2				  = getXMLString(xmlFile, ajKey .. '#maxRot2'); --TODO: always maxRot * -1 ?
 				ajData.maxRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround');
@@ -453,7 +454,8 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- sprayer
 		elseif subCategory == 'sprayer' then
 			workTool.realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
-			workTool.realSprayingReferenceSpeed	= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
+			workTool.realSprayingReferenceSpeed		= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
+			workTool.sprayUsageLitersPerSecond		= getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
 		end;
 
 
@@ -765,9 +767,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 		-- additionalWheels
 		for w=1, #mrData.additionalWheels do
 			local wheelMrData = mrData.additionalWheels[w];
-			local wheelKey = ('vehicle.additionalWheels.wheel(%d)'):format(w - 1);
+			local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
 			if mrData.doDebug then
-				print('\tadditionalWheels: ' .. w - 1);
+				print(('\tadditionalWheels: %d (set as wheel %d'):format(w - 1, wheelI));
 			end;
 
 			setValue(xmlFile, wheelKey .. '#repr',							   'str', wheelMrData.repr, '\t');
@@ -780,6 +782,8 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, wheelKey .. '#antiRollFx',					   'flt', wheelMrData.antiRollFx, '\t');
 			setValue(xmlFile, wheelKey .. '#lateralStiffness',				   'flt', wheelMrData.lateralStiffness, '\t');
 			setValue(xmlFile, wheelKey .. '#continousBrakeForceWhenNotActive', 'flt', wheelMrData.continousBrakeForceWhenNotActive, '\t');
+
+			wheelI = wheelI + 1;
 		end;
 
 
@@ -801,6 +805,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					removeProperty(xmlFile, ajKey .. '#maxTransLimit');
 
 					local ajMrData = mrData.attacherJoints[a + 1];
+					setValue(xmlFile, ajKey .. '#minRot', 				  'str', ajMrData.minRot);
 					setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
 					setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
 					setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
@@ -917,8 +922,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 				-- sprayer
 				elseif mrData.subCategory == 'sprayer' then
-					setValue(xmlFile, 'vehicle.realFillingPowerConsumption', 'flt',  mrData.workTool.realFillingPowerConsumption);
-					setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',	 'flt',  mrData.workTool.realSprayingReferenceSpeed);
+					setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
+					setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'flt', mrData.workTool.realSprayingReferenceSpeed);
+					setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
 				end;
 
 				-- fillable
