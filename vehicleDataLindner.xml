@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) STEERABLES -->
-	<!-- (1.1) LINDNER UNITRACK 92 --> <!-- AUTHOR: Satis --> <!-- ALMOST DONE -->
-	<!-- TODO: Find the real price and maybe the dailyUpkeep -->
-	<vehicle category="steerable" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerUnitrac92.xml" mrVehicleType="mr_tractor_steerableExtension_l" debug="true">
-		<general fuelCapacity="95" realBrakingDeceleration="6" />
+	<!-- (1.1) LINDNER UNITRACK 92 --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="steerable" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerUnitrac92.xml" mrVehicleType="mr_tractor_steerableExtension_l" debug="false">
+		<general fuelCapacity="95" realBrakingDeceleration="4.3" realDisplaySlip="false" />
 		<engine kW="68" realPtoDriveEfficiency="0.844" realMaxVehicleSpeed="50" realMaxReverseSpeed="20" realMaxFuelUsage="20.4" />
-		<dimensions width="2.120" height="2.4" /> <!-- in m -->
-		<weights weight="3.52" maxWeight="7.5" /> <!-- in t -->
+		<dimensions width="2.385" height="2.4" /> <!-- in m -->
+		<weights weight="3.52" maxWeight="7.5" realBrakeMaxMovingMass="6" /> <!-- in t -->
 		<wheels>
 			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
 			<wheel rotMax="28.05" rotMin="-15.91" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
@@ -16,6 +15,19 @@
 		</wheels>
 		<components>
 			<component1 centerOfMass="0 0.1 0.55" realMassWanted="3.52" />
+		</components>
+	</vehicle>
+
+	<!-- (2) TOOLS -->
+	<!-- (2.1) LINDNER TRANSPORT MODULE --> <!-- AUTHOR: Satis --> <!-- WIP -->
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerTransporterModule.xml" mrVehicleType="mr_extendedTipper_l" debug="true">
+		<dimensions width="1.87" height="0.4" /> <!-- in m -->
+		<weights weight="0.75" maxWeight="3" /> <!-- in t -->
+		<workTool capacity="2000" realTippingPowerConsumption="12" />
+		<components>
+			<component1 centerOfMass="0 0.3 0" realMassWanted="0.73" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.2 0" />
+			<component2 realMassWanted="0.01" /> <!-- Support -->
+			<component3 realMassWanted="0.01" /> <!-- Support -->
 		</components>
 	</vehicle>
 </vehicles>
