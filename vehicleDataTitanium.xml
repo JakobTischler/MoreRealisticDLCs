@@ -78,9 +78,9 @@
 	<!-- ################################################## -->
 
 	<!-- (2) TOOLS -->
-	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- ALMOST DONE -->
+	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_t" debug="false">
-		<store maxSpeed="12" capacity="9000" capacityUnit="L" weight="7175" workWidth="9" />
+		<store maxSpeed="12" capacity="9000" capacityUnit="L" weight="7175" workWidth="9" requiredPowerKwMin="200" requiredPowerKwMax="300" fruits="maize,sugarBeet" />
 		<general realRollingResistance="0.05" />
 		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="3" height="4" /> <!-- in m -->
@@ -133,6 +133,7 @@
 
 	<!-- (2.4) KRONE SWADRO 2000 --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="false">
+		<store maxSpeed="20" weight="9400" workWidth="19" requiredPowerKwMin="200" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" />
 		<workTool realPowerConsumption="96" realRakeWorkingPowerConsumption="10" realRakeWorkingPowerConsumptionInc="40" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="9.4" maxWeight="9.4" /> <!-- in t -->

@@ -70,7 +70,7 @@ local vehicleTypesPath = Utils.getFilename('vehicleTypes.xml', modDir);
 assert(fileExists(vehicleTypesPath), ('ERROR: %q could not be found'):format(vehicleTypesPath));
 local vehicleTypesFile = loadXMLFile('vehicleTypesFile', vehicleTypesPath);
 local registerVehicleTypes = function(dlcName)
-	print(('MoreRealisticDLCs: registerVehicleTypes(%q)'):format(dlcName));
+	-- print(('MoreRealisticDLCs: registerVehicleTypes(%q)'):format(dlcName));
 
 	local i = 0
 	while true do
@@ -81,7 +81,7 @@ local registerVehicleTypes = function(dlcName)
 		typeName = modName .. '.' .. typeName;
 		local className = getXMLString(vehicleTypesFile, key .. '#className');
 		local fileName = getXMLString(vehicleTypesFile, key .. '#filename');
-		print(('\t%s\n\ttypeName=%q, className=%q, fileName=%q'):format(('-'):rep(50), typeName, tostring(className), tostring(fileName)));
+		-- print(('\t%s\n\ttypeName=%q, className=%q, fileName=%q'):format(('-'):rep(50), typeName, tostring(className), tostring(fileName)));
 		if className and fileName then
 			fileName = Utils.getFilename(fileName, modDir);
 			local specializationNames, j = {}, 0;
@@ -92,14 +92,14 @@ local registerVehicleTypes = function(dlcName)
 					specName = modName .. '.' .. specName;
 				end;
 				if SpecializationUtil.specializations[specName] == nil then
-					print(('\t\tspecName=%q: spec could not be found!'):format(tostring(specName)));
+					-- print(('\t\tspecName=%q: spec could not be found!'):format(tostring(specName)));
 				else
 					specializationNames[#specializationNames + 1] = specName;
 				end;
 				j = j + 1;
 			end;
-			print(('\t\tspecializationNames=%s'):format(table.concat(specializationNames, ', ')));
-			print(('\tcall registerVehicleType(%q, %q, %q, %s, %q)'):format(tostring(typeName), tostring(className), tostring(fileName), tostring(specializationNames), tostring(customEnvironment)));
+			-- print(('\t\tspecializationNames=%s'):format(table.concat(specializationNames, ', ')));
+			-- print(('\tcall registerVehicleType(%q, %q, %q, %s, %q)'):format(tostring(typeName), tostring(className), tostring(fileName), tostring(specializationNames), tostring(customEnvironment)));
 			VehicleTypeUtil.registerVehicleType(typeName, className, fileName, specializationNames, customEnvironment);
 		end;
 		i = i + 1;
@@ -121,26 +121,28 @@ local formatNumber = function(number, precision)
 end;
 
 -- SET VEHICLE STORE DATA
-local setStoreData = function(configFileNameShort, dlcName, storeData)
-	print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName));
+local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
+	if doDebug then print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName)); end;
 	local dlcDir = dlcs[dlcName][4];
 	local path = Utils.getFilename(configFileNameShort:sub(6, 200), dlcDir);
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
-	-- print(('\tdlcDir=%q'):format(tostring(dlcDir)));
-	-- print(('\tpath=%q'):format(tostring(path)));
+	if doDebug then 
+		-- print(('\tdlcDir=%q'):format(tostring(dlcDir)));
+		-- print(('\tpath=%q'):format(tostring(path)));
+	end;
 	if storeItem then
 		if not storeItem.nameMRized then
 			storeItem.name = 'MR ' .. storeItem.name;
 			storeItem.nameMRized = true;
-			print(('\tchange store name to %q'):format(storeItem.name));
+			if doDebug then print(('\tchange store name to %q'):format(storeItem.name)); end;
 		end;
 		if storeData.price and storeItem.price ~= storeData.price and not storeItem.priceMRized then
-			print(('\tchange store price to %s (old: %s)'):format(g_i18n:formatMoney(storeData.price), g_i18n:formatMoney(storeItem.price)));
+			if doDebug then print(('\tchange store price to %s (old: %s)'):format(g_i18n:formatMoney(storeData.price), g_i18n:formatMoney(storeItem.price))); end;
 			storeItem.price = storeData.price;
 			storeItem.priceMRized = true;
 		end;
 		if storeData.dailyUpkeep and storeItem.dailyUpkeep ~= storeData.dailyUpkeep and not storeItem.dailyUpkeepMRized then
-			print(('\tchange store dailyUpkeep to %s (old: %s)'):format(g_i18n:formatMoney(storeData.dailyUpkeep), g_i18n:formatMoney(storeItem.dailyUpkeep)));
+			if doDebug then print(('\tchange store dailyUpkeep to %s (old: %s)'):format(g_i18n:formatMoney(storeData.dailyUpkeep), g_i18n:formatMoney(storeItem.dailyUpkeep))); end;
 			storeItem.dailyUpkeep = storeData.dailyUpkeep;
 			storeItem.dailyUpkeepMRized = true;
 		end;
@@ -173,9 +175,9 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 				local unit = storeData.capacityUnit or 'L';
 				if unit == "M3COMP" then
 					local compressed = storeData.compressedCapacity or storeData.capacity * 1.6;
-					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity), formatNumber(compressed)) .. '\n';
+					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity, 1), formatNumber(compressed, 1)) .. '\n';
 				else
-					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity)) .. '\n';
+					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity, unit == 'M3' and 1 or 0)) .. '\n';
 				end;
 			end;
 			if storeData.fruits then
@@ -194,9 +196,9 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 				specs = specs .. g_i18n:getText('STORE_SPECS_FRUITS'):format(table.concat(fruitNamesI18n, ', ')) .. '\n';
 			end;
 
-			specs = specs .. g_i18n:getText('STORE_SPECS_MAINTENANCE'):format(g_i18n:formatMoney(storeItem.dailyUpkeep)) .. '\n';
+			specs = specs .. g_i18n:getText('STORE_SPECS_MAINTENANCE'):format(g_i18n:formatMoney(storeItem.dailyUpkeep));
 			storeItem.specs = specs;
-			print(('\tchange specs to\n%s'):format(specs));
+			if doDebug then print(('\tchange specs to\n%s'):format(specs)); end;
 			storeItem.specsMRized = true;
 		end;
 	end;
@@ -290,16 +292,17 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
 			wheels[#wheels + 1] = {
-				driveMode  =   getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
-				rotMax     = getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
-				rotMin     = getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
-				rotSpeed   = getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
-				radius     = getXMLFloat(xmlFile, wheelKey .. '#radius'),
-				deltaY     = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
-				suspTravel = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
-				spring     = getXMLFloat(xmlFile, wheelKey .. '#spring'),
-				damper     =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
-				brakeRatio = getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1
+				driveMode  		   =   getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
+				rotMax     		   = getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
+				rotMin     		   = getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
+				rotSpeed   		   = getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
+				radius     		   = getXMLFloat(xmlFile, wheelKey .. '#radius'),
+				deltaY     		   = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				suspTravel 		   = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
+				spring     		   = getXMLFloat(xmlFile, wheelKey .. '#spring'),
+				damper     		   =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
+				brakeRatio 		   = getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
+				realMaxMassAllowed = getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed')
 			};
 
 			w = w + 1;
@@ -490,12 +493,12 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			maxSpeed			=    getXMLInt(xmlFile, key .. '.store#maxSpeed');
 			weight				=    getXMLInt(xmlFile, key .. '.store#weight');
 			workWidth			=  getXMLFloat(xmlFile, key .. '.store#workWidth');
-			capacity			=    getXMLInt(xmlFile, key .. '.store#capacity');
-			compressedCapacity	=    getXMLInt(xmlFile, key .. '.store#compressedCapacity');
+			capacity			=  getXMLFloat(xmlFile, key .. '.store#capacity');
+			compressedCapacity	=  getXMLFloat(xmlFile, key .. '.store#compressedCapacity');
 			capacityUnit		= getXMLString(xmlFile, key .. '.store#capacityUnit');
 			fruits				= getXMLString(xmlFile, key .. '.store#fruits');
 		};
-		setStoreData(configFileName, dlcName, store);
+		setStoreData(configFileName, dlcName, store, doDebug);
 
 		--------------------------------------------------
 
@@ -730,14 +733,15 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 			removeProperty(xmlFile, wheelKey .. '#lateralStiffness', '\t');
 			removeProperty(xmlFile, wheelKey .. '#longitudalStiffness', '\t');
-			setValue(xmlFile, wheelKey .. '#driveMode',  'int', wheelMrData.driveMode, '\t');
-			setValue(xmlFile, wheelKey .. '#rotMax',     'flt', wheelMrData.rotMax, '\t');
-			setValue(xmlFile, wheelKey .. '#rotMin',     'flt', wheelMrData.rotMin, '\t');
-			setValue(xmlFile, wheelKey .. '#rotSpeed',   'flt', wheelMrData.rotSpeed, '\t');
-			setValue(xmlFile, wheelKey .. '#radius',     'flt', wheelMrData.radius, '\t');
-			setValue(xmlFile, wheelKey .. '#brakeRatio', 'int', wheelMrData.brakeRatio, '\t');
-			setValue(xmlFile, wheelKey .. '#damper',     'int', wheelMrData.damper, '\t');
-			setValue(xmlFile, wheelKey .. '#mass',       'int', 1, '\t');
+			setValue(xmlFile, wheelKey .. '#driveMode',			 'int', wheelMrData.driveMode, '\t');
+			setValue(xmlFile, wheelKey .. '#rotMax',			 'flt', wheelMrData.rotMax, '\t');
+			setValue(xmlFile, wheelKey .. '#rotMin',			 'flt', wheelMrData.rotMin, '\t');
+			setValue(xmlFile, wheelKey .. '#rotSpeed',			 'flt', wheelMrData.rotSpeed, '\t');
+			setValue(xmlFile, wheelKey .. '#radius',			 'flt', wheelMrData.radius, '\t');
+			setValue(xmlFile, wheelKey .. '#brakeRatio',		 'int', wheelMrData.brakeRatio, '\t');
+			setValue(xmlFile, wheelKey .. '#damper',			 'int', wheelMrData.damper, '\t');
+			setValue(xmlFile, wheelKey .. '#mass',				 'int', 1, '\t');
+			setValue(xmlFile, wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
 
 			local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
 			if suspTravel == nil or suspTravel == '' or suspTravel < 0.05 then

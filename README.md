@@ -40,11 +40,11 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Case Magnum 340 *(dural)*
 - [x] Case Magnum 340 Twinwheels *(dural)*
 - [ ] Case IH Farmall H
-- [ ] Case 3020 cutter *(Satis)*
-- [ ] Case 3162 cutter *(Satis)*
+- [ ] Case 3020 cutter *(dural)*
+- [ ] Case 3162 cutter *(dural)*
 - [ ] Case 3412 corn header
-- [ ] Case 7130 combine *(Satis)*
-- [ ] Case 9230 combine *(Satis)*
+- [ ] Case 7130 combine *(dural)*
+- [ ] Case 9230 combine *(dural)*
 - [ ] Horsch Maestro 12 SW seeder
 - [ ] Horsch Terrano 6 FM cultivator
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
