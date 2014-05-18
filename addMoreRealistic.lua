@@ -327,6 +327,13 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			workTool.realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
 			workTool.pipeUnloadingCapacity					 = getXMLFloat(xmlFile, key .. '.workTool#pipeUnloadingCapacity');
 
+		-- forageWagon
+		elseif subCategory == 'forageWagon' then
+			workTool.realForageWagonWorkingPowerConsumption	   = getXMLFloat(xmlFile, key .. '.workTool#realForageWagonWorkingPowerConsumption');
+			workTool.realForageWagonWorkingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realForageWagonWorkingPowerConsumptionInc');
+			workTool.realForageWagonDischargePowerConsumption  = getXMLFloat(xmlFile, key .. '.workTool#realForageWagonDischargePowerConsumption');
+			workTool.realForageWagonCompressionRatio		   = getXMLFloat(xmlFile, key .. '.workTool#realForageWagonCompressionRatio');
+
 		-- cutter
 		elseif subCategory == 'cutter' then
 			workTool.realCutterPowerConsumption	   = getXMLFloat(xmlFile, key .. '.workTool#realCutterPowerConsumption') or 25;
@@ -477,15 +484,18 @@ end;
 -- ##################################################
 
 local capacityMultipliers = {
-	{ fillType = 'wheat',	  multiplier = 1.00 },
-	{ fillType = 'barley',	  multiplier = 1.00 },
-	{ fillType = 'maize',	  multiplier = 1.00 },
-	{ fillType = 'rape',	  multiplier = 1.00 },
-	{ fillType = 'chaff',	  multiplier = 1.07 },
-	{ fillType = 'potato',	  multiplier = 1.04 },
-	{ fillType = 'sugarBeet', multiplier = 1.05 },
-	{ fillType = 'silage',	  multiplier = 1.09 },
-	{ fillType = 'manure',	  multiplier = 1.10 }
+	{ fillType = 'wheat',		   multiplier = 1.00 },
+	{ fillType = 'barley',		   multiplier = 1.00 },
+	{ fillType = 'maize',		   multiplier = 1.00 },
+	{ fillType = 'rape',		   multiplier = 1.00 },
+	{ fillType = 'chaff',		   multiplier = 1.07 },
+	{ fillType = 'potato',		   multiplier = 1.04 },
+	{ fillType = 'sugarBeet',	   multiplier = 1.05 },
+	{ fillType = 'silage',		   multiplier = 1.09 },
+	{ fillType = 'manure',		   multiplier = 1.10 },
+	{ fillType = 'grass_windrow',  multiplier = 0.99 },
+	{ fillType = 'wheat_windrow',  multiplier = 0.98 },
+	{ fillType = 'barley_windrow', multiplier = 0.98 }
 };
 
 local origVehicleLoad = Vehicle.load;
@@ -740,6 +750,13 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					setValue(xmlFile, 'vehicle.realTippingPowerConsumption', 			 'flt', mrData.workTool.realTippingPowerConsumption);
 					setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption', 'flt', mrData.workTool.realOverloaderUnloadingPowerConsumption);
 					setValue(xmlFile, 'vehicle.pipe#unloadingCapacity', 				 'flt', mrData.workTool.pipeUnloadingCapacity);
+
+				-- forageWagon
+				elseif mrData.subCategory == 'forageWagon' then
+					setValue(xmlFile, 'vehicle.realForageWagonWorkingPowerConsumption',	   'flt', mrData.workTool.realForageWagonWorkingPowerConsumption);
+					setValue(xmlFile, 'vehicle.realForageWagonWorkingPowerConsumptionInc', 'flt', mrData.workTool.realForageWagonWorkingPowerConsumptionInc);
+					setValue(xmlFile, 'vehicle.realForageWagonDischargePowerConsumption',  'flt', mrData.workTool.realForageWagonDischargePowerConsumption);
+					setValue(xmlFile, 'vehicle.realForageWagonCompressionRatio',		   'flt', mrData.workTool.realForageWagonCompressionRatio);
 
 				-- rake
 				elseif mrData.subCategory == 'rake' then
