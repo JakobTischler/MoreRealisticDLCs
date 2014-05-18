@@ -169,7 +169,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- general
 		local general = {
 			fuelCapacity 				 = getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
-			realBrakingDeceleration 	 = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration') or 4;
+			realBrakingDeceleration 	 = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration');
 			realCanLockWheelsWhenBraking =  getXMLBool(xmlFile, key .. '.general#realCanLockWheelsWhenBraking');
 			realRollingResistance 		 = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
 			realWorkingPowerConsumption  = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
@@ -179,9 +179,9 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- engine
 		local engine = {
-			kW 									=  getXMLFloat(xmlFile, key .. '.engine#kW') or 100;
-			realMaxVehicleSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxVehicleSpeed') or 50;
-			realMaxReverseSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed') or 20;
+			kW 									=  getXMLFloat(xmlFile, key .. '.engine#kW');
+			realMaxVehicleSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxVehicleSpeed');
+			realMaxReverseSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed');
 			realMaxFuelUsage 					=  getXMLFloat(xmlFile, key .. '.engine#realMaxFuelUsage');
 			realSpeedBoost 						=  getXMLFloat(xmlFile, key .. '.engine#realSpeedBoost');
 			realSpeedBoostMinSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realSpeedBoostMinSpeed');
@@ -196,7 +196,9 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realHydrostaticTransmission 		=   getXMLBool(xmlFile, key .. '.engine#realHydrostaticTransmission');
 			realMinSpeedForMaxPower 			=  getXMLFloat(xmlFile, key .. '.engine#realMinSpeedForMaxPower');
 		};
-		engine.realPtoPowerKW 					= getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * engine.realPtoDriveEfficiency;
+		if engine.kW then
+			engine.realPtoPowerKW 				=  getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * engine.realPtoDriveEfficiency;
+		end;
 
 
 		-- dimensions
@@ -211,7 +213,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		weights.weight					= getXMLFloat(xmlFile, key .. '.weights#weight');
 		assert(weights.weight, ('ERROR: "weights#weight" missing for %q'):format(configFileName));
 		weights.maxWeight				= getXMLFloat(xmlFile, key .. '.weights#maxWeight') or weights.weight * 1.55;
-		weights.realBrakeMaxMovingMass	= getXMLFloat(xmlFile, key .. '.weights#realBrakeMaxMovingMass') or weights.maxWeight * 1.5;
+		weights.realBrakeMaxMovingMass	= getXMLFloat(xmlFile, key .. '.weights#realBrakeMaxMovingMass'); -- or weights.maxWeight * 1.5;
 
 
 		-- wheels
@@ -475,15 +477,15 @@ end;
 -- ##################################################
 
 local capacityMultipliers = {
-	{ fillType = 'wheat', 	  multiplier = 1.00 },
-	{ fillType = 'barley', 	  multiplier = 1.00 },
-	{ fillType = 'maize', 	  multiplier = 1.00 },
-	{ fillType = 'rape', 	  multiplier = 1.00 },
-	{ fillType = 'chaff', 	  multiplier = 1.07 },
-	{ fillType = 'potato', 	  multiplier = 1.04 },
+	{ fillType = 'wheat',	  multiplier = 1.00 },
+	{ fillType = 'barley',	  multiplier = 1.00 },
+	{ fillType = 'maize',	  multiplier = 1.00 },
+	{ fillType = 'rape',	  multiplier = 1.00 },
+	{ fillType = 'chaff',	  multiplier = 1.07 },
+	{ fillType = 'potato',	  multiplier = 1.04 },
 	{ fillType = 'sugarBeet', multiplier = 1.05 },
-	{ fillType = 'silage', 	  multiplier = 1.09 },
-	{ fillType = 'manure', 	  multiplier = 1.10 },
+	{ fillType = 'silage',	  multiplier = 1.09 },
+	{ fillType = 'manure',	  multiplier = 1.10 }
 };
 
 local origVehicleLoad = Vehicle.load;
@@ -605,7 +607,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			if wheelI == 0 then
 				setValue(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 'flt', 1);
 			end;
-			print('\twheels: ' .. wheelI);
+			if mrData.doDebug then
+				print('\twheels: ' .. wheelI);
+			end;
 
 			local wheelMrData = mrData.wheels[wheelI + 1];
 
@@ -772,11 +776,11 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 				-- fillable
 				if SpecializationUtil.hasSpecialization(Fillable, self.specializations) then
-					setValue(xmlFile, 'vehicle.capacity',	 'int',  mrData.workTool.capacity);
-					-- capacity multipliers
+					setValue(xmlFile, 'vehicle.capacity', 'int', mrData.workTool.capacity);
 					for i=1, #capacityMultipliers do
-						setValue(xmlFile, ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)#fillType'):format(i-1),   'str', capacityMultipliers[i].fillType);
-						setValue(xmlFile, ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)#multiplier'):format(i-1), 'flt', capacityMultipliers[i].multiplier);
+						local rcmKey = ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)'):format(i-1);
+						setValue(xmlFile, rcmKey .. '#fillType',   'str', capacityMultipliers[i].fillType);
+						setValue(xmlFile, rcmKey .. '#multiplier', 'flt', capacityMultipliers[i].multiplier);
 					end;
 				end;
 			end;
