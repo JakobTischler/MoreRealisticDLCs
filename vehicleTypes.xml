@@ -31,6 +31,22 @@
 
 			<specialization name="realisticTrailer" />
 		</type>
+
+		<type name="mr_manureSpreader_mousecontrolled_l" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="attachable" />
+			<specialization name="animatedVehicle" />
+			<specialization name="mouseControlsVehicle" />
+			<specialization name="cylindered" />
+			<specialization name="fillable" />
+			<specialization name="sprayer" />
+			<specialization name="pdlc_lindnerUnitracPack.planeMover" />
+			<specialization name="manureSpreader" />
+			<specialization name="pdlc_lindnerUnitracPack.extendedSprayer" />
+
+			<specialization name="realisticSprayer"/>
+		</type>
 	</Lindner>
 
 	<!-- ################################################## -->

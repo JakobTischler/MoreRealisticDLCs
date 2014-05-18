@@ -47,4 +47,18 @@
 			<component3 centerOfMass="0 0 -0.8" realMassWanted="0.2" /> <!-- Support -->
 		</components>
 	</vehicle>
+
+	<!-- (2.2) LINDNER MANURE SPREADER MODULE --> <!-- AUTHOR: Satis --> <!-- ALMOST DONE -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerSpreaderModule.xml" mrVehicleType="mr_manureSpreader_mousecontrolled_l" debug="true">
+		<store capacity="2.9" capacityUnit="M3" weight="870" />
+		<general realWorkingPowerConsumption="35" />
+		<dimensions width="0.92" height="1.45" /> <!-- in m -->
+		<weights weight="0.87" maxWeight="3" /> <!-- in t -->
+		<workTool capacity="2883" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
+		<components>
+			<component1 centerOfMass="0 0.5 0" realMassWanted="0.57" realTransWithMass="0 0.05 0" realTransWithMassMax="0 0.5 0" />
+			<component2 centerOfMass="0 0 0" realMassWanted="0.15" /> <!-- Support -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.15" /> <!-- Support -->
+		</components>
+	</vehicle>
 </vehicles>
