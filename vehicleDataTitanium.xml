@@ -100,7 +100,7 @@
 
 	<!-- (2.1) HORSCH TERRANO 6 FM --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated_t" debug="true">
-		<store maxSpeed="20" weight="6850" workWidth="6" />
+		<store maxSpeed="20" weight="6850" workWidth="6" requiredPowerKwMin="110" />
 		<workTool realWorkingSpeedLimit="20" resistanceDecreaseFx="0.5" caRealTractionResistance="40" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="2" height="2" /> <!-- in m -->
 		<weights weight="6.850" maxWeight="6.850" /> <!-- in t -->
@@ -212,7 +212,7 @@
 	<!-- (4) TRAILERS -->
 	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="true">
-		<store capacity="34000" capacityUnit="L" weight="6700" />
+		<store capacity="34000" capacityUnit="L" weight="6700" requiredPowerKwMin="80" fruits="wheat,barley,rape,maize,chaff" />
 		<general realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
 		<workTool realOverloaderUnloadingPowerConsumption="60" pipeUnloadingCapacity="800" />
 		<dimensions width="3" height="4" /> <!-- in m -->

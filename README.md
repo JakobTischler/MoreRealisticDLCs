@@ -13,6 +13,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 * Satis
 
 #### Contributors:
+* dj
 * dural
 * Grisu118
 * Xentro
@@ -22,10 +23,10 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 #### Vehicles:
 ###### Lindner DLC:
 - [x] Lindner Unitrack 92 *(Satis)*
-- [ ] Lindner forage module
+- [ ] Lindner forage module *(Satis)*
 - [ ] Lindner manure spreader module
 - [ ] Lindner tank module
-- [ ] Lindner grain transport module
+- [ ] Lindner grain transport module *(Satis)*
 
 ###### Marshall DLC:
 - [ ] Marshall BC 32 bale trailer
@@ -39,11 +40,11 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Case Magnum 340 *(dural)*
 - [x] Case Magnum 340 Twinwheels *(dural)*
 - [ ] Case IH Farmall H
-- [ ] Case 3020 cutter
-- [ ] Case 3162 cutter
+- [ ] Case 3020 cutter *(Satis)*
+- [ ] Case 3162 cutter *(Satis)*
 - [ ] Case 3412 corn header
-- [ ] Case 7130 combine
-- [ ] Case 9230 combine
+- [ ] Case 7130 combine *(Satis)*
+- [ ] Case 9230 combine *(Satis)*
 - [ ] Horsch Maestro 12 SW seeder
 - [ ] Horsch Terrano 6 FM cultivator
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
@@ -74,14 +75,14 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Ursus N-270 manure spreader
 - [ ] Ursus T-127 bale loader
 - [ ] Ursus T-610A1 trailer
-- [ ] Ursus Z-554 windrower
+- [ ] Ursus Z-554 rake
 - [ ] Ursus Z-586 bale wrapper
 - [ ] Ursus Z-594 baler
 
 ###### Väderstad DLC:
-- [ ] Väderstad Carrier 820 cultivator *(Xentro)*
-- [ ] Väderstad Rapid 300C seeder *(Xentro)*
-- [ ] Väderstad Rapid A 600S seeder *(Xentro)*
-- [ ] Väderstad Tempo F8 seeder *(Xentro)*
-- [ ] Väderstad TopDown 500 cultivator *(Xentro)*
+- [ ] Väderstad Carrier 820 cultivator *(Xentro, dj)*
+- [ ] Väderstad Rapid 300C seeder *(Xentro, dj)*
+- [ ] Väderstad Rapid A 600S seeder *(Xentro, dj)*
+- [ ] Väderstad Tempo F8 seeder *(Xentro, dj)*
+- [ ] Väderstad TopDown 500 cultivator *(Xentro, dj)*
 

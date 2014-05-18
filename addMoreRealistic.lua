@@ -1,8 +1,8 @@
 ﻿--
 --MoreRealisticDLCs
 --
---@authors: modelleicher, Jakob Tischler, Satissis
---@contributors: dural, Grisu118, Xentro
+--@authors: modelleicher, Jakob Tischler, Satis
+--@contributors: dj, dural, Grisu118, Xentro
 --@version: 0.1b
 --
 
@@ -159,14 +159,17 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 		if not storeItem.specsMRized then
 			local specs = '';
 			if storeData.powerKW then
-				specs = specs .. g_i18n:getText('STORE_SPECS_ENGINE'):format(storeData.powerKW, storeData.powerKW * 1.35962162) .. '\n';
+				specs = specs .. g_i18n:getText('STORE_SPECS_MAXPOWER') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.powerKW, storeData.powerKW * 1.35962162) .. '\n';
 			end;
 			if storeData.maxSpeed then
 				specs = specs .. g_i18n:getText('STORE_SPECS_MAXSPEED'):format(g_i18n:getSpeed(storeData.maxSpeed), g_i18n:getText('speedometer')) .. '\n';
 			end;
-			if storeData.capacity then
-				local unit = storeData.capacityUnit or 'L';
-				specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(storeData.capacity) .. '\n';
+			if storeData.requiredPowerKwMin then
+				specs = specs .. g_i18n:getText('STORE_SPECS_POWERREQUIRED') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.requiredPowerKwMin, storeData.requiredPowerKwMin * 1.35962162);
+				if storeData.requiredPowerKwMax then
+					specs = specs .. ' - ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.requiredPowerKwMax, storeData.requiredPowerKwMax * 1.35962162);
+				end;
+				specs = specs .. '\n';
 			end;
 			if storeData.weight then
 				specs = specs .. g_i18n:getText('STORE_SPECS_WEIGHT'):format(formatNumber(storeData.weight)) .. '\n';
@@ -174,6 +177,26 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 			if storeData.workWidth then
 				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(i18nGetDistanceSmall(storeData.workWidth)) .. '\n';
 			end;
+			if storeData.capacity then
+				local unit = storeData.capacityUnit or 'L';
+				specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity)) .. '\n';
+			end;
+			if storeData.fruits then
+				local fruitNames = Utils.splitString(',', storeData.fruits);
+				local fruitNamesI18n = {};
+				for i=1,#fruitNames do
+					if Fillable.fillTypeNameToDesc[ fruitNames[i] ] ~= nil then
+						fruitNamesI18n[#fruitNamesI18n + 1] = Fillable.fillTypeNameToDesc[ fruitNames[i] ].nameI18N;
+					else
+						local fruitTypeDesc = FruitUtil.fruitTypes[ fruitNames[i] ];
+						local fillTypeDesc = FruitUtil.fruitTypeToFillType[fruitTypeDesc.index];
+						fruitNamesI18n[#fruitNamesI18n + 1] = fillTypeDesc.nameI18n;
+					end;
+				end;
+
+				specs = specs .. g_i18n:getText('STORE_SPECS_FRUITS'):format(table.concat(fruitNamesI18n, ', ')) .. '\n';
+			end;
+
 			specs = specs .. g_i18n:getText('STORE_SPECS_MAINTENANCE'):format(g_i18n:formatMoney(storeItem.dailyUpkeep)) .. '\n';
 			storeItem.specs = specs;
 			print(('\tchange specs to\n%s'):format(specs));
@@ -465,11 +488,14 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			price			=    getXMLInt(xmlFile, key .. '.store#price');
 			dailyUpkeep		=    getXMLInt(xmlFile, key .. '.store#dailyUpkeep');
 			powerKW			=    getXMLInt(xmlFile, key .. '.store#powerKW');
+			requiredPowerKwMin = getXMLInt(xmlFile, key .. '.store#requiredPowerKwMin');
+			requiredPowerKwMax = getXMLInt(xmlFile, key .. '.store#requiredPowerKwMax');
 			maxSpeed		=    getXMLInt(xmlFile, key .. '.store#maxSpeed');
 			weight			=    getXMLInt(xmlFile, key .. '.store#weight');
 			workWidth		=  getXMLFloat(xmlFile, key .. '.store#workWidth');
 			capacity		=    getXMLInt(xmlFile, key .. '.store#capacity');
 			capacityUnit	= getXMLString(xmlFile, key .. '.store#capacityUnit');
+			fruits			= getXMLString(xmlFile, key .. '.store#fruits');
 		};
 		setStoreData(configFileName, dlcName, store);
 
