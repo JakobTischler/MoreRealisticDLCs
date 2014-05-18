@@ -171,7 +171,12 @@ local setStoreData = function(configFileNameShort, dlcName, storeData)
 			end;
 			if storeData.capacity then
 				local unit = storeData.capacityUnit or 'L';
-				specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity)) .. '\n';
+				if unit == "M3COMP" then
+					local compressed = storeData.compressedCapacity or storeData.capacity * 1.6;
+					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity), formatNumber(compressed)) .. '\n';
+				else
+					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity)) .. '\n';
+				end;
 			end;
 			if storeData.fruits then
 				local fruitNames = Utils.splitString(',', storeData.fruits);
@@ -477,17 +482,18 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- STORE DATA
 		local store = {
-			price			=    getXMLInt(xmlFile, key .. '.store#price');
-			dailyUpkeep		=    getXMLInt(xmlFile, key .. '.store#dailyUpkeep');
-			powerKW			=    getXMLInt(xmlFile, key .. '.store#powerKW');
-			requiredPowerKwMin = getXMLInt(xmlFile, key .. '.store#requiredPowerKwMin');
-			requiredPowerKwMax = getXMLInt(xmlFile, key .. '.store#requiredPowerKwMax');
-			maxSpeed		=    getXMLInt(xmlFile, key .. '.store#maxSpeed');
-			weight			=    getXMLInt(xmlFile, key .. '.store#weight');
-			workWidth		=  getXMLFloat(xmlFile, key .. '.store#workWidth');
-			capacity		=    getXMLInt(xmlFile, key .. '.store#capacity');
-			capacityUnit	= getXMLString(xmlFile, key .. '.store#capacityUnit');
-			fruits			= getXMLString(xmlFile, key .. '.store#fruits');
+			price				=    getXMLInt(xmlFile, key .. '.store#price');
+			dailyUpkeep			=    getXMLInt(xmlFile, key .. '.store#dailyUpkeep');
+			powerKW				=    getXMLInt(xmlFile, key .. '.store#powerKW');
+			requiredPowerKwMin	=    getXMLInt(xmlFile, key .. '.store#requiredPowerKwMin');
+			requiredPowerKwMax	=    getXMLInt(xmlFile, key .. '.store#requiredPowerKwMax');
+			maxSpeed			=    getXMLInt(xmlFile, key .. '.store#maxSpeed');
+			weight				=    getXMLInt(xmlFile, key .. '.store#weight');
+			workWidth			=  getXMLFloat(xmlFile, key .. '.store#workWidth');
+			capacity			=    getXMLInt(xmlFile, key .. '.store#capacity');
+			compressedCapacity	=    getXMLInt(xmlFile, key .. '.store#compressedCapacity');
+			capacityUnit		= getXMLString(xmlFile, key .. '.store#capacityUnit');
+			fruits				= getXMLString(xmlFile, key .. '.store#fruits');
 		};
 		setStoreData(configFileName, dlcName, store);
 

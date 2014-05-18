@@ -51,6 +51,10 @@
 			<en>Capacity: %s m³</en>
 			<de>Kapazität: %s m³</de>
 		</text>
+		<text name="STORE_SPECS_CAPACITY_M3COMP">
+			<en>Capacity: %d m³ DIN (%d m³ compressed)</en>
+			<de>Kapazität: %d m³ DIN (%d m³ komprimiert)</de>
+		</text>
 		<text name="STORE_SPECS_CAPACITY_BALES">
 			<en>Loading capacity: %s bales</en>
 			<de>Ladekapazität: %s Ballen</de>
