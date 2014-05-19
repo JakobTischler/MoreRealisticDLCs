@@ -194,7 +194,7 @@
 
 			<specialization name="realisticMotorized"/>
 			<specialization name="realisticSteerable"/>
-			<specialization name="exhaustFlap"/>
+			<specialization name="dynamicExhaustingSystem" />
 		</type>
 
 		<type name="mr_baleWrapper_u" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -242,11 +242,11 @@
 			<specialization name="aiTractor" />
 			<specialization name="bunkerSiloCompacter" />
 			<specialization name="honk" />
-			
 
 			<specialization name="realisticMotorized"/>
 			<specialization name="realisticSteerable"/>
 			<specialization name="realisticMovingTool" />
+			<specialization name="dynamicExhaustingSystem" />
 		</type>
 	</Ursus>
 

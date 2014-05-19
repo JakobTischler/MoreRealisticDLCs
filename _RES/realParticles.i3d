@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<i3D name="threshingCutterMiddleParticleSystem" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="GIANTS Editor" version="5.0.1"/>
+  </Asset>
+
+  <Files>
+    <File fileId="2" filename="DynamicExhaustingSystemShader.xml" relativePath="true"/>
+    <File fileId="1" filename="particles.dds" relativePath="true"/>
+  </Files>
+
+
+  <Materials>
+    <Material name="lambert2" materialId="7" ambientColor="1 1 1" alphaBlending="true" customShaderId="2">
+      <Emissivemap fileId="1"/>
+      <CustomParameter name="exhaustingSystem" value="0 0 0 1"/>
+    </Material>
+    <Material name="lambert1" materialId="8" diffuseColor="0.494118 0.494118 0.494118 1" ambientColor="1 1 1">
+    </Material>
+  </Materials>
+
+
+  <Shapes>
+    <IndexedTriangleSet name="pPlaneShape2" shapeId="2" bvCenter="0 0 0" bvRadius="0.0707107" isOptimized="true">
+      <Vertices count="4" normal="true" uv0="true">
+        <v p="-0.05 0 0.05" n="0 1 0" t0="0 0"/>
+        <v p="0.05 0 0.05" n="0 1 0" t0="1 0"/>
+        <v p="0.05 0 -0.05" n="0 1 0" t0="1 0.122944"/>
+        <v p="-0.05 0 -0.05" n="0 1 0" t0="0 0.122944"/>
+      </Vertices>
+      <Triangles count="2">
+        <t vi="0 1 2"/>
+        <t vi="0 2 3"/>
+      </Triangles>
+      <Subsets count="1">
+        <Subset firstVertex="0" numVertices="4" firstIndex="0" numIndices="6"/>
+      </Subsets>
+    </IndexedTriangleSet>
+  </Shapes>
+
+
+  <Dynamics>
+    <ParticleSystem name="emitter1Ref" dynamicId="1" type="sprite" rate="0.04" lifespan="400" maxCount="400" speed="0" speedRandom="0.002" tangentSpeed="0.001" normalSpeed="1" emitterShapeVelocityScale="0.1" spriteScaleX="0.3" spriteScaleY="0.3" spriteScaleXGain="0.002" spriteScaleYGain="0.002" blendFactor="0.35" blendInFactor="0.05" blendOutFactor="0.2" randomInitRotation="true">
+      <Gravity force="0 1 0"/>
+    </ParticleSystem>
+  </Dynamics>
+
+  <Scene>
+    <Dynamic name="emitter1" clipDistance="300" nodeId="23" materialIds="7" dynamicId="1" emitterShapeNodeId="24">
+      <Shape name="pPlaneShape2" translation="0.0135082 0 0.0176628" nodeId="24" materialIds="8" shapeId="2" nonRenderable="true"/>
+    </Dynamic>
+  </Scene>
+
+</i3D>

@@ -32,10 +32,11 @@ end;
 
 function ExhaustPower:update(dt)
 	if self.isServer and self.isActive and self.fuckTheEarth then
-		if not self.isMotorStarted then
+		if not self.isMotorStarted and self.motor.lastMotorRpm ~= 0 then
 			self.motor.lastMotorRpm = 0;
 		else
-			self.motor.lastMotorRpm = RealisticUtils.linearFx(self.realLastMotorFx^0.5, 0.1, 1);
+			-- self.motor.lastMotorRpm = RealisticUtils.linearFx(self.realLastMotorFx^0.5, 0.1, 1);
+			self.motor.lastMotorRpm = Utils.clamp(self.realSoundMotorFx, 0.1, 1);
 		end;
 	end;
 end;

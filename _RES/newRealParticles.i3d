@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<i3D name="untitled" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="GIANTS Editor 64bit" version="5.0.3"/>
+  </Asset>
+
+  <Files>
+    <File fileId="2" filename="DynamicExhaustingSystemShader.xml" relativePath="true"/>
+    <File fileId="1" filename="smokeParticle.dds" relativePath="true"/>
+  </Files>
+
+
+  <Materials>
+    <Material name="smokeParticle_mat" materialId="7" ambientColor="1 1 1" alphaBlending="true" customShaderId="2">
+      <Emissivemap fileId="1"/>
+      <CustomParameter name="alphaScale" value="0.5 0 0 0.5"/>
+    </Material>
+    <Material name="gray_mat" materialId="8" diffuseColor="0.494118 0.494118 0.494118 1" ambientColor="1 1 1">
+    </Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="newRealParticles.i3d.shapes">
+  </Shapes>
+
+
+  <Dynamics>
+    <ParticleSystem name="smokeParticleSystem_emitter1Ref" dynamicId="1" type="sprite" rate="0.06" lifespan="3500" maxCount="200" speed="0.001" speedRandom="0" tangentSpeed="0.205298" normalSpeed="1" spriteScaleX="0.5" spriteScaleY="0.5" spriteScaleXGain="0.0006" spriteScaleYGain="0.0006" blendFactor="0.27451" blendInFactor="0.1" blendOutFactor="0.5" randomInitRotation="true" deltaRotateMin="-0.00110879" deltaRotateMax="0.00119093" textureAtlasSize="4">
+      <Gravity force="0 0 0"/>
+    </ParticleSystem>
+  </Dynamics>
+
+  <Scene>
+    <Dynamic name="smokeParticleSystem_emitter1" scale="0.5 0.7 0.5" clipDistance="100" nodeId="15" materialIds="7" dynamicId="1" emitterShapeNodeId="16">
+      <Shape name="smokeParticleSystemAreaShape" scale="0.5 0.5 0.5" nodeId="16" materialIds="8" shapeId="2" nonRenderable="true"/>
+    </Dynamic>
+  </Scene>
+
+</i3D>

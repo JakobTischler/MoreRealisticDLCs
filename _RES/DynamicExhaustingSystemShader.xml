@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<CustomShader version="2" classRequirement="">
+    <LodLevel startDistance="0">
+		<Parameters>
+            <Parameter name="alphaScale" target="alphaScale" type="float4" defaultValue="1 0 0 0" />
+        </Parameters>
+        <CodeInjections>	
+            <CodeInjection position="MATERIALINFO">
+<![CDATA[
+float4 alphaScale;
+]]>
+            </CodeInjection>	
+            <CodeInjection position="GET_DIFFUSE_LIGHTING_FS">
+<![CDATA[
+float NdotL2 = clamp(dot(lightDir, normal), 0.7, 1.0);
+/*if (NdotL2 < 0) {
+    NdotL2 = -NdotL2*0.8;
+}*/
+return NdotL2 * lightColor * atten;
+]]>
+            </CodeInjection>
+            <CodeInjection position="POST_ALBEDO_FS">
+<![CDATA[
+#if defined(ALBEDO_MAP)
+	albedo.w *= alphaScale.x;
+#endif
+]]>
+	        </CodeInjection>	
+            <CodeInjection position="EMISSIVE_FS">
+<![CDATA[
+#if defined(EMISSIVE_MAP)
+	oColor.w *= alphaScale.w;
+#endif
+]]>
+	        </CodeInjection>			
+        </CodeInjections>
+    </LodLevel>
+</CustomShader>

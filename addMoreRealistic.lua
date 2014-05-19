@@ -283,6 +283,9 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realMaxPowerToTransmission 			=  getXMLFloat(xmlFile, key .. '.engine#realMaxPowerToTransmission');
 			realHydrostaticTransmission 		=   getXMLBool(xmlFile, key .. '.engine#realHydrostaticTransmission');
 			realMinSpeedForMaxPower 			=  getXMLFloat(xmlFile, key .. '.engine#realMinSpeedForMaxPower');
+			newExhaustPS						=   getXMLBool(xmlFile, key .. '.engine#newExhaustPS');
+			newExhaustMinAlpha					=  getXMLFloat(xmlFile, key .. '.engine#newExhaustMinAlpha');
+			newExhaustCapAxis					= getXMLString(xmlFile, key .. '.engine#capAxis');
 		};
 		if engine.kW then
 			engine.realPtoPowerKW 				=  getXMLFloat(xmlFile, key .. '.engine#realPtoPowerKW') or engine.kW * engine.realPtoDriveEfficiency;
@@ -637,6 +640,9 @@ local capacityMultipliers = {
 	{ fillType = 'barley_windrow', multiplier = 0.98 }
 };
 
+local exhaustPsNewPath = '$moddir$' .. modName .. '/_RES/newRealParticles.i3d';
+local exhaustPsOldPath = '$moddir$' .. modName .. '/_RES/realParticles.i3d';
+
 local origVehicleLoad = Vehicle.load;
 Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
 	local vehicleModName, baseDirectory = Utils.getModNameAndBaseDirectory(configFile);
@@ -749,6 +755,55 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realCombineLosses#allowed', 						   'bool', mrData.combine.realCombineLosses.allowed);
 				setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
 				setValue(xmlFile, 'vehicle.realCombineLosses#displayLosses',				   'bool', mrData.combine.realCombineLosses.displayLosses);
+			end;
+
+			-- exhaust PS
+			if mrData.engine.newExhaustPS then
+				local node = getXMLString(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#node');
+				if node then
+					-- remove old PS
+					setValue(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', exhaustPsOldPath);
+					-- setValue(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', exhaustPsNewPath);
+
+					-- set new PS
+					local desKey = 'vehicle.dynamicExhaustingSystem';
+					local minAlpha = mrData.engine.newExhaustMinAlpha or 0.2;
+					setValue(xmlFile, desKey .. '#minAlpha', 'flt', minAlpha); -- 0.05
+					setValue(xmlFile, desKey .. '#maxAlpha', 'flt', 1); -- 0.4
+					setValue(xmlFile, desKey .. '#param',	 'str', 'alphaScale');
+
+					-- start sequence
+					setValue(xmlFile, desKey .. '.startSequence.key(0)#time',  'flt', 0.0);
+					setValue(xmlFile, desKey .. '.startSequence.key(0)#value', 'str', '0 0 0 0');
+					setValue(xmlFile, desKey .. '.startSequence.key(1)#time',  'flt', 0.3);
+					setValue(xmlFile, desKey .. '.startSequence.key(1)#value', 'str', '0 0 0 0.5');
+					setValue(xmlFile, desKey .. '.startSequence.key(2)#time',  'flt', 0.6);
+					setValue(xmlFile, desKey .. '.startSequence.key(2)#value', 'str', '0 0 0 0.8');
+					setValue(xmlFile, desKey .. '.startSequence.key(3)#time',  'flt', 1);
+					setValue(xmlFile, desKey .. '.startSequence.key(3)#value', 'str', '0 0 0 ' .. minAlpha);
+
+					-- exhaust cap
+					if mrData.engine.newExhaustCapAxis then
+						local capNode	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#flap');
+						local capMaxRot	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#maxRot');
+
+						if capNode and capMaxRot then
+							setValue(xmlFile, desKey .. '#cap',		'str', capNode);
+							setValue(xmlFile, desKey .. '#capAxis',	'str', mrData.engine.newExhaustCapAxis);
+							setValue(xmlFile, desKey .. '#maxRot',	'str', capMaxRot);
+						end;
+					end;
+
+					-- second particleSystem
+					--[[
+					local spsKey = desKey .. '.secondParticleSystem';
+					setValue(xmlFile, spsKey .. '#node', 'str', node);
+					setValue(xmlFile, spsKey .. '#position', 'str', '0 0.02 0.02');
+					setValue(xmlFile, spsKey .. '#rotation', 'str', '0 0 0');
+					setValue(xmlFile, spsKey .. '#file', 'str', exhaustPsNewPath);
+					setValue(xmlFile, spsKey .. '#minLoadActive', 'flt', 0.5);
+					]]
+				end;
 			end;
 		end;
 

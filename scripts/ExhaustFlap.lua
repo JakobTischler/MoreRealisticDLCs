@@ -47,7 +47,8 @@ function ExhaustFlap:updateTick(dt)
 	if self.isServer and self.isActive and self.exhaustFlap.flappityFlap then
 		local setRot;
 		if self.isMotorStarted then
-			local lastMotorRpm = RealisticUtils.linearFx(self.realLastMotorFx^0.5, 0.1, 1);
+			-- local lastMotorRpm = RealisticUtils.linearFx(self.realLastMotorFx^0.5, 0.1, 1);
+			local lastMotorRpm = Utils.clamp(self.realSoundMotorFx, 0.1, 1);
 			local randomRot;
 			if self.exhaustFlap.direction == 1 then
 				randomRot = rad(random(self.exhaustFlap.randomExtraDown, self.exhaustFlap.randomExtraUp));
