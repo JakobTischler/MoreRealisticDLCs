@@ -4,8 +4,8 @@
 	<!-- (1.1) LINDNER UNITRACK 92 --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerUnitrac92.xml" mrVehicleType="mr_tractor_steerableExtension_l" debug="false">
 		<store powerKW="68" maxSpeed="50" weight="3520" price="76000" />
-		<general fuelCapacity="95" realBrakingDeceleration="4.3" realDisplaySlip="false" />
-		<engine kW="68" realPtoDriveEfficiency="0.844" realMaxVehicleSpeed="50" realMaxReverseSpeed="20" realMaxFuelUsage="20.4" />
+		<general fuelCapacity="95" realMaxVehicleSpeed="50" realBrakingDeceleration="4.3" realDisplaySlip="false" />
+		<engine kW="68" realPtoDriveEfficiency="0.844" realMaxReverseSpeed="20" realMaxFuelUsage="20.4" />
 		<dimensions width="2.385" height="2.4" /> <!-- in m -->
 		<weights weight="2.99" maxWeight="7.5" realBrakeMaxMovingMass="6" /> <!-- in t -->
 		<wheels>

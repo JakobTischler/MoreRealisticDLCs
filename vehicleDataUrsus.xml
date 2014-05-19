@@ -5,8 +5,8 @@
 	<!-- (1.1) URSUS 15014 --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="moreRealistic.tractor_cylindered" extraSpecs="dynamicExhaustingSystem" debug="true">
 		<store price="74000" dailyUpkeep="130" powerKW="111" maxSpeed="40" weight="6900" />
-		<general fuelCapacity="200" realBrakingDeceleration="6" /> <!--Done-->
-		<engine kW="111" realMaxVehicleSpeed="40" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
+		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
+		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
 		<dimensions width="2.9" height="2.44" /> <!-- in m --> <!--Done-->
 		<weights weight="6.9" maxWeight="14" realBrakeMaxMovingMass="16" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>
@@ -27,8 +27,8 @@
 	<!-- (1.2) URSUS 15014 FL --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014FL.xml" mrVehicleType="mr_dlcFrontloader_u" debug="true">
 		<store price="84000" dailyUpkeep="140" powerKW="111" maxSpeed="40" weight="7000" />
-		<general fuelCapacity="200" realBrakingDeceleration="6" realWorkingPowerConsumption="25" /> <!--Done-->
-		<engine kW="111" realMaxVehicleSpeed="40" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
+		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="25" /> <!--Done-->
+		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
 		<dimensions width="2.9" height="2.44" /> <!-- in m --> <!--Done-->
 		<weights weight="7" maxWeight="14" realBrakeMaxMovingMass="16" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>
@@ -49,8 +49,8 @@
 	<!-- (1.3) Ursus C45 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC45.xml" mrVehicleType="mr_oldtimer_u" debug="true">
 		<store price="12500" dailyUpkeep="95" powerKW="33" maxSpeed="16.7" weight="3750" />
-		<general fuelCapacity="50" realBrakingDeceleration="2" /> <!--Done-->
-		<engine kW="33" realMaxVehicleSpeed="16.7" realMaxReverseSpeed="8" realMaxFuelUsage="9" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" /> <!--Done -->
+		<general fuelCapacity="50" realMaxVehicleSpeed="16.7" realBrakingDeceleration="2" /> <!--Done-->
+		<engine kW="33" realMaxReverseSpeed="8" realMaxFuelUsage="9" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" /> <!--Done -->
 		<dimensions width="1.8" height="2.3" /> <!-- in m --> <!--Done-->
 		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> <!--Done-->
 		<wheels>
@@ -67,8 +67,8 @@
 	<!-- (1.4) URSUS 11024 --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="moreRealistic.tractor_cylindered" extraSpecs="dynamicExhaustingSystem" debug="true">
 		<store price="55000" dailyUpkeep="115" powerKW="81" maxSpeed="40" weight="4100" />
-		<general fuelCapacity="180" realBrakingDeceleration="6" /> <!--Done-->
-		<engine kW="81" realMaxVehicleSpeed="40" realMaxReverseSpeed="12" realMaxFuelUsage="22" newExhaustPS="true" /> <!--Done-->
+		<general fuelCapacity="180" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
+		<engine kW="81" realMaxReverseSpeed="12" realMaxFuelUsage="22" newExhaustPS="true" /> <!--Done-->
 		<dimensions width="2.75" height="2.2" /> <!-- in m --> <!--Done-->
 		<weights weight="4.1" maxWeight="8.5" realBrakeMaxMovingMass="10" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>

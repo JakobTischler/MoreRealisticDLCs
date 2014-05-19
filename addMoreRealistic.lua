@@ -257,6 +257,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- general
 		local general = {
 			fuelCapacity 				 = getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
+			realMaxVehicleSpeed 		 = getXMLFloat(xmlFile, key .. '.general#realMaxVehicleSpeed');
 			realBrakingDeceleration 	 = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration');
 			realCanLockWheelsWhenBraking =  getXMLBool(xmlFile, key .. '.general#realCanLockWheelsWhenBraking');
 			realRollingResistance 		 = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
@@ -268,7 +269,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- engine
 		local engine = {
 			kW 									=  getXMLFloat(xmlFile, key .. '.engine#kW');
-			realMaxVehicleSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxVehicleSpeed');
 			realMaxReverseSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed');
 			realMaxFuelUsage 					=  getXMLFloat(xmlFile, key .. '.engine#realMaxFuelUsage');
 			realSpeedBoost 						=  getXMLFloat(xmlFile, key .. '.engine#realSpeedBoost');
@@ -691,7 +691,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- relevant MR values
 		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt',  mrData.weights.weight * 0.25);
-		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt',  mrData.engine.realMaxVehicleSpeed);
+		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt',  mrData.general.realMaxVehicleSpeed);
 		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt',  mrData.engine.realMaxReverseSpeed);
 		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt',  mrData.weights.realBrakeMaxMovingMass);
 		setValue(xmlFile, 'vehicle.realSCX', 							  'flt',  mrData.width * mrData.height * 0.68);

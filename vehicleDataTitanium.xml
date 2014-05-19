@@ -4,8 +4,8 @@
 	<!-- (1.1) CASE PUMA 160 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
 		<store price="111000" dailyUpkeep="175" powerKW="130" maxSpeed="50" weight="7900" />
-		<general fuelCapacity="330" realBrakingDeceleration="6.5" />
-		<engine kW="130" realMaxVehicleSpeed="50" realMaxReverseSpeed="32" realMaxFuelUsage="31.7" realPtoDriveEfficiency="0.892" realSpeedBoost="20" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
+		<general fuelCapacity="330" realMaxVehicleSpeed="50" realBrakingDeceleration="6.5" />
+		<engine kW="130" realMaxReverseSpeed="32" realMaxFuelUsage="31.7" realPtoDriveEfficiency="0.892" realSpeedBoost="20" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
 		<dimensions width="2.5" height="3" /> <!-- in m -->
 		<weights weight="7.9" maxWeight="12" realBrakeMaxMovingMass="15" /> <!-- in t -->
 		<wheels>
@@ -30,8 +30,8 @@
 	<!-- (1.2) CASE MAGNUM 340 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
 		<store price="181000" dailyUpkeep="320" powerKW="275" maxSpeed="50" weight="13900" />
-		<general realBrakingDeceleration="6.3" fuelCapacity="635" />
-		<engine kW="275" realMaxVehicleSpeed="50" realMaxReverseSpeed="15" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
+		<general realMaxVehicleSpeed="50" realBrakingDeceleration="6.3" fuelCapacity="635" />
+		<engine kW="275" realMaxReverseSpeed="15" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
 		<dimensions width="2.6" height="3.4" /> <!-- in m -->
 		<weights weight="13.9" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
 		<wheels>
@@ -54,8 +54,8 @@
 	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
 		<store price="197000" dailyUpkeep="330" powerKW="275" maxSpeed="50" weight="16850" />
-		<general realBrakingDeceleration="5.9" fuelCapacity="635" />
-		<engine kW="275" realMaxVehicleSpeed="40" realMaxReverseSpeed="12" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5.9" fuelCapacity="635" />
+		<engine kW="275" realMaxReverseSpeed="12" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
 		<dimensions width="3" height="3.4" /> <!-- in m -->
 		<weights weight="16.85" maxWeight="18" realBrakeMaxMovingMass="24" /> <!-- in t -->
 		<wheels realVehicleFlotationFx="1.25">
@@ -167,8 +167,8 @@
 	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- NOT DONE (attacherJoints!) -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="32" weight="17000" />
-		<general realBrakingDeceleration="3" fuelCapacity="950" />
-		<engine kW="305" realMaxVehicleSpeed="32" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
+		<general realMaxVehicleSpeed="32" realBrakingDeceleration="3" fuelCapacity="950" />
+		<engine kW="305" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
 		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" />
 		<dimensions width="3.85" height="4" /> <!-- in m -->
 		<weights weight="17" maxWeight="29" realBrakeMaxMovingMass="25" /> <!-- in t -->
@@ -192,8 +192,8 @@
 	<!-- (3.3) KRONE BIGX 1100 --> <!-- NOT DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/krone/kroneBigX1100.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store powerKW="760" maxSpeed="40" weight="14800" />
-		<general realBrakingDeceleration="4" />
-		<engine kW="760" realMaxVehicleSpeed="40" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realPtoPowerKW="380" realMaxFuelUsage="100" realAiManeuverSpeed="9.5" realMaxPowerToTransmission="380" realHydrostaticTransmission="true" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
+		<engine kW="760" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realPtoPowerKW="380" realMaxFuelUsage="100" realAiManeuverSpeed="9.5" realMaxPowerToTransmission="380" realHydrostaticTransmission="true" />
 		<combine baseSpeed="7.2" minSpeed="4" maxSpeed="15" realAiMinDistanceBeforeTurning="3" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="200" realThreshingPowerConsumptionInc="3" realThreshingScale="0.95" realThreshingPowerBoost="380" realCombineCycleDuration="1" />
 		<dimensions width="3.4" height="4" /> <!-- in m -->
 		<weights weight="14.8" maxWeight="15.5" /> <!-- in t -->
