@@ -375,6 +375,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				ajData.maxRot2				  = getXMLString(xmlFile, ajKey .. '#maxRot2'); --TODO: always maxRot * -1 ?
 				ajData.maxRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround');
 				ajData.minRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround');
+				ajData.moveTime				  =  getXMLFloat(xmlFile, ajKey .. '#moveTime');
 
 				-- cutter attacher joint
 				ajData.lowerDistanceToGround 	   =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround');
@@ -901,6 +902,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
 					setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
 					setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
+					setValue(xmlFile, ajKey .. '#moveTime',				  'flt', ajMrData.moveTime);
 				end;
 
 				a = a + 1;
