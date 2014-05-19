@@ -7,8 +7,7 @@
 		<general fuelCapacity="95" realBrakingDeceleration="4.3" realDisplaySlip="false" />
 		<engine kW="68" realPtoDriveEfficiency="0.844" realMaxVehicleSpeed="50" realMaxReverseSpeed="20" realMaxFuelUsage="20.4" />
 		<dimensions width="2.385" height="2.4" /> <!-- in m -->
-		<weights weight="3.52" maxWeight="7.5" realBrakeMaxMovingMass="6" /> <!-- in t -->
-		<!-- TODO: Set weight back to 2.99 -->
+		<weights weight="2.99" maxWeight="7.5" realBrakeMaxMovingMass="6" /> <!-- in t -->
 		<wheels>
 			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
 			<wheel rotMax="28.05" rotMin="-15.91" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
@@ -16,17 +15,16 @@
 			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.08" spring="36" brakeRatio="1" />
 		</wheels>
 		<components>
-			<!-- TODO: Set realMassWanted back to 2.99 -->
-			<component1 centerOfMass="0 0.1 0.55" realMassWanted="3.52" />
+			<component1 centerOfMass="0 0.1 0.55" realMassWanted="2.99" />
 		</components>
 	</vehicle>
 
 	<!-- (2) TOOLS -->
 	<!-- (2.1) LINDNER TRANSPORT MODULE --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerTransporterModule.xml" mrVehicleType="mr_extendedTipper_l" debug="false">
-		<store capacity="2" capacityUnit="M3" weight="750" />
+		<store capacity="2" capacityUnit="M3" weight="750" fruits="wheat,rape,maize,barley,chaff,potato,sugarBeet" />
 		<dimensions width="1.87" height="0.4" /> <!-- in m -->
-		<weights weight="0.75" maxWeight="3" /> <!-- in t -->
+		<weights weight="0.75" maxWeight="4.4" /> <!-- in t -->
 		<workTool capacity="2000" realTippingPowerConsumption="12" />
 		<components>
 			<component1 centerOfMass="0 0.5 0" realMassWanted="0.45" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.2 0" />
@@ -37,9 +35,9 @@
 
 	<!-- (2.2) LINDNER FORAGE MODULE --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="forageWagon" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerForageModule.xml" mrVehicleType="moreRealistic.forageWagon" debug="false">
-		<store capacity="9.2" compressedCapacity="11.2" capacityUnit="M3COMP" weight="1470" />
+		<store capacity="9.2" compressedCapacity="11.2" capacityUnit="M3COMP" weight="1470" fruits="chaff,grass_windrow,wheat_windrow" />
 		<dimensions width="1.87" height="1.63" /> <!-- in m -->
-		<weights weight="1.47" maxWeight="3" /> <!-- in t -->
+		<weights weight="1.47" maxWeight="4.4" /> <!-- in t -->
 		<workTool capacity="9200" realForageWagonWorkingPowerConsumption="15" realForageWagonWorkingPowerConsumptionInc="40" realForageWagonDischargePowerConsumption="30" realForageWagonCompressionRatio="1.22" />
 		<components>
 			<component1 centerOfMass="0 0.5 -0.8" realMassWanted="1.07" realTransWithMass="0 0.05 0.08" realTransWithMassMax="0 0.5 0.5" />
@@ -48,17 +46,31 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.2) LINDNER MANURE SPREADER MODULE --> <!-- AUTHOR: Satis --> <!-- ALMOST DONE -->
-	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerSpreaderModule.xml" mrVehicleType="mr_manureSpreader_mousecontrolled_l" debug="true">
-		<store capacity="2.9" capacityUnit="M3" weight="870" />
-		<general realWorkingPowerConsumption="35" />
+	<!-- (2.3) LINDNER MANURE SPREADER MODULE --> <!-- AUTHOR: Satis --> <!-- ALMOST DONE -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerSpreaderModule.xml" mrVehicleType="mr_manureSpreader_mousecontrolled_l" debug="false">
+		<store capacity="2.9" capacityUnit="M3" weight="870" workWidth="5" workSpeedMin="8" workSpeedMax="14" />
+		<general realWorkingPowerConsumption="20" />
 		<dimensions width="0.92" height="1.45" /> <!-- in m -->
-		<weights weight="0.87" maxWeight="3" /> <!-- in t -->
-		<workTool capacity="2883" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
+		<weights weight="0.87" maxWeight="4.4" /> <!-- in t -->
+		<workTool capacity="2883" realWorkingSpeedLimit="15" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
 		<components>
-			<component1 centerOfMass="0 0.5 0" realMassWanted="0.57" realTransWithMass="0 0.05 0" realTransWithMassMax="0 0.5 0" />
+			<component1 centerOfMass="0 0.5 0" realMassWanted="0.57" realTransWithMass="0 0.2 0" realTransWithMassMax="0 0.5 0" />
 			<component2 centerOfMass="0 0 0" realMassWanted="0.15" /> <!-- Support -->
 			<component3 centerOfMass="0 0 0" realMassWanted="0.15" /> <!-- Support -->
+		</components>
+	</vehicle>
+
+	<!-- (2.4) LINDNER LIQUID MANURE SPREADER MODULE --> <!-- AUTHOR: Satis --> <!-- DONE-->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerTankModule.xml" mrVehicleType="mr_manureBarrel_extendedSprayer_l" debug="true">
+		<store capacity="3.2" capacityUnit="M3" weight="1150" workWidth="6" workSpeedMin="6" workSpeedMax="12" />
+		<general realWorkingPowerConsumption="35" />
+		<dimensions width="1.15" height="1.25" /> <!-- in m -->
+		<weights weight="1.15" maxWeight="4.4" /> <!-- in t -->
+		<workTool capacity="3220" fillLitersPerSecond="300" realFillingPowerConsumption="25" realWorkingSpeedLimit="13" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="33.5" />
+		<components>
+			<component1 centerOfMass="0 0.5 -0.3" realMassWanted="0.85" realTransWithMass="0 0.15 0.1" realTransWithMassMax="0 0.5 0.3" />
+			<component2 centerOfMass="0 0 -0.3" realMassWanted="0.15" /> <!-- Support -->
+			<component3 centerOfMass="0 0 -0.3" realMassWanted="0.15" /> <!-- Support -->
 		</components>
 	</vehicle>
 </vehicles>

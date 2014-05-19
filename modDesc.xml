@@ -31,50 +31,77 @@
 		<text name="STORE_SPECS_MAINTENANCE">
 			<en>Maintenance: %s / day</en>
 			<de>Unterhaltskosten: %s / Tag</de>
+			<fr>Entretien : %s / jour</fr>
 		</text>
 		<text name="STORE_SPECS_POWER">
 			<en>%d kW/%d hp</en>
 			<de>%d kW/%d PS</de>
+			<fr>%d kW/%d Cv</fr>
 		</text>
 		<text name="STORE_SPECS_MAXPOWER">
 			<en>Max. power:</en>
 			<de>Max. Leistung:</de>
+			<fr>Puissance maxi:</fr>
 		</text>
 		<text name="STORE_SPECS_POWERREQUIRED">
 			<en>Power req.:</en>
 			<de>Ben. Leistung:</de>
+			<fr>Puissance requise:</fr>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_L">
 			<en>Capacity: %s l</en>
 			<de>Kapazität: %s l</de>
+		    <fr>Capacité: %s l</fr>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_M3">
 			<en>Capacity: %s m³</en>
 			<de>Kapazität: %s m³</de>
+			<fr>Capacité: %s m³</fr>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_M3COMP">
 			<en>Capacity: %s m³ DIN (%s m³ compressed)</en>
 			<de>Kapazität: %s m³ DIN (%s m³ komprimiert)</de>
+			<fr>Volume : %s m³ DIN (%s m³ compressé)</fr>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_BALES">
 			<en>Loading capacity: %s bales</en>
 			<de>Ladekapazität: %s Ballen</de>
+			<fr>Capacité de chargement: %s balles</fr>
 		</text>
 		<text name="STORE_SPECS_MAXSPEED">
-			<en>Max speed: %d %s</en>
+			<en>Max speed: %.1f %s</en>
 			<de>Max. Geschwindigkeit: %d %s</de>
+			<fr>Vitesse maxi: %d %s</fr>
+		</text>
+		<text name="STORE_SPECS_WORKINGSPEED">
+			<en>Working speed: %s %s</en>
+			<de>Arbeitsgeschwindigkeit: %s %s</de>
+			<fr>Vitesse de travail conseillée: %s %s</fr>
+		</text>
+		<text name="STORE_SPECS_SPEED">
+			<en>%.1f</en>	<!-- Mph -->
+			<de>%d</de>		<!-- Km/h -->
+			<fr>%d</fr>		<!-- Km/h -->
+		</text>
+		<text name="STORE_SPECS_SPEED_FROM_TO">
+			<en>%.1f-%.1f</en>	<!-- Mph -->
+			<de>%d-%d</de>		<!-- Km/h -->
+			<fr>%d-%d</fr>		<!-- Km/h -->
 		</text>
 		<text name="STORE_SPECS_WEIGHT">
 			<en>Weight: %s kg</en>
 			<de>Gewicht: %s kg</de>
+			<fr>Masse: %s kg</fr>
 		</text>
 		<text name="STORE_SPECS_WORKWIDTH">
 			<en>Working width: %.1f m</en>
 			<de>Arbeitsbreite: %.1f m</de>
+			<fr>Largeur de travail: %.1f m</fr>
 		</text>
 		<text name="STORE_SPECS_FRUITS">
 			<en>Fruit types: %s</en>
 			<de>Fruchtarten: %s</de>
+			<fr>Types de fruits: %s</fr>
 		</text>
 	</l10n>
 </modDesc>

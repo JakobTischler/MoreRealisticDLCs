@@ -171,6 +171,15 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 			if storeData.workWidth then
 				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(storeData.workWidth) .. '\n';
 			end;
+			if storeData.workSpeedMin then
+				local speed = '';
+				if storeData.workSpeedMax then
+					speed = g_i18n:getText('STORE_SPECS_SPEED_FROM_TO'):format(g_i18n:getSpeed(storeData.workSpeedMin), g_i18n:getSpeed(storeData.workSpeedMax));
+				else
+					speed = g_i18n:getText('STORE_SPECS_SPEED'):format(g_i18n:getSpeed(storeData.workSpeedMin));
+				end;
+				specs = specs .. g_i18n:getText('STORE_SPECS_WORKINGSPEED'):format(speed, g_i18n:getText('speedometer')) .. '\n';
+			end;
 			if storeData.capacity then
 				local unit = storeData.capacityUnit or 'L';
 				if unit == "M3COMP" then
@@ -456,6 +465,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			workTool.realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
 			workTool.realSprayingReferenceSpeed		= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
 			workTool.sprayUsageLitersPerSecond		= getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
+			workTool.fillLitersPerSecond			= getXMLFloat(xmlFile, key .. '.workTool#fillLitersPerSecond');
 		end;
 
 
@@ -494,6 +504,8 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			requiredPowerKwMax	=    getXMLInt(xmlFile, key .. '.store#requiredPowerKwMax');
 			maxSpeed			=    getXMLInt(xmlFile, key .. '.store#maxSpeed');
 			weight				=    getXMLInt(xmlFile, key .. '.store#weight');
+			workSpeedMin		=    getXMLInt(xmlFile, key .. '.store#workSpeedMin');
+			workSpeedMax		=    getXMLInt(xmlFile, key .. '.store#workSpeedMax');
 			workWidth			=  getXMLFloat(xmlFile, key .. '.store#workWidth');
 			capacity			=  getXMLFloat(xmlFile, key .. '.store#capacity');
 			compressedCapacity	=  getXMLFloat(xmlFile, key .. '.store#compressedCapacity');
@@ -603,6 +615,7 @@ local capacityMultipliers = {
 	{ fillType = 'sugarBeet',	   multiplier = 1.05 },
 	{ fillType = 'silage',		   multiplier = 1.09 },
 	{ fillType = 'manure',		   multiplier = 1.10 },
+	{ fillType = 'liquidManure',   multiplier = 0.98 },
 	{ fillType = 'grass_windrow',  multiplier = 0.99 },
 	{ fillType = 'wheat_windrow',  multiplier = 0.98 },
 	{ fillType = 'barley_windrow', multiplier = 0.98 }
@@ -925,6 +938,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
 					setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'flt', mrData.workTool.realSprayingReferenceSpeed);
 					setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
+					setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'flt', mrData.workTool.fillLitersPerSecond);
 				end;
 
 				-- fillable
