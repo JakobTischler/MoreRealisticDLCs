@@ -38,6 +38,11 @@
 			<de>%d kW/%d PS</de>
 			<fr>%d kW/%d Cv</fr>
 		</text>
+		<text name="STORE_SPECS_POWER_HP">
+			<en>%d hp</en>
+			<de>%d PS</de>
+			<fr>%d Cv</fr>
+		</text>
 		<text name="STORE_SPECS_MAXPOWER">
 			<en>Max. power:</en>
 			<de>Max. Leistung:</de>

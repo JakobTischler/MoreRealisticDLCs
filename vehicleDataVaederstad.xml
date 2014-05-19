@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) CULTIVATORS -->
-	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro --> <!-- ALMOST DONE ? --> <!-- hp requirement 250 -->
+	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- ALMOST DONE ? --> <!-- hp requirement 250 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v">
 		<store price="54000" dailyUpkeep="9" maxSpeed="20" weight="7400" workWidth="8.2" requiredPowerKwMin="184" />
 		<general realBrakingDeceleration="4" />
@@ -24,7 +24,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.2) TOP DOWN 500 --> <!-- AUTHOR: Xentro --> <!-- DONE --> <!-- hp requirement 270-330 -->
+	<!-- (1.2) TOP DOWN 500 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 270-330 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTopDown500.xml" mrVehicleType="mr_cultivator_visualWheels_v">
 		<store price="68000" dailyUpkeep="11" maxSpeed="20" weight="7000" workWidth="5" requiredPowerKwMin="199" requiredPowerKwMax="243" />
 		<general realBrakingDeceleration="4" />

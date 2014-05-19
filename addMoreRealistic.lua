@@ -54,7 +54,7 @@ local registerCustomSpecs = function()
 				specName = modName .. '.' .. specName;
 				className = modName .. '.' .. className;
 				fileName = Utils.getFilename(fileName, modDir);
-				print(('\tregisterSpecialization(): specName=%q, className=%q, fileName=%q'):format(specName, className, fileName));
+				print(('\tregisterSpecialization(): %s'):format(className));
 				SpecializationUtil.registerSpecialization(specName, className, fileName, modName);
 			end;
 		end;
@@ -159,9 +159,9 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 				specs = specs .. g_i18n:getText('STORE_SPECS_MAXSPEED'):format(g_i18n:getSpeed(storeData.maxSpeed), g_i18n:getText('speedometer')) .. '\n';
 			end;
 			if storeData.requiredPowerKwMin then
-				specs = specs .. g_i18n:getText('STORE_SPECS_POWERREQUIRED') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.requiredPowerKwMin, storeData.requiredPowerKwMin * 1.35962162);
+				specs = specs .. g_i18n:getText('STORE_SPECS_POWERREQUIRED') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(storeData.requiredPowerKwMin * 1.35962162);
 				if storeData.requiredPowerKwMax then
-					specs = specs .. ' - ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.requiredPowerKwMax, storeData.requiredPowerKwMax * 1.35962162);
+					specs = specs .. ' - ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(storeData.requiredPowerKwMax * 1.35962162);
 				end;
 				specs = specs .. '\n';
 			end;
@@ -235,6 +235,23 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		assert(category, ('ERROR: "category" missing for %q'):format(configFileName));
 		local subCategory = getXMLString(xmlFile, key .. '#subCategory') or '';
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
+
+		local extraSpecs;
+		local extraSpecsNames = getXMLString(xmlFile, key .. '#extraSpecs');
+		if extraSpecsNames then
+			extraSpecs = {};
+			extraSpecsNames = Utils.splitString(',', extraSpecsNames);
+			for i=1, #extraSpecsNames do
+				local specName = modName .. '.' .. extraSpecsNames[i];
+				local spec = SpecializationUtil.getSpecialization(specName);
+				if spec == nil then
+					print(('%s: Error: unknown extra specialization %s'):format(configFileName, specName));
+				else
+					print(('%s: add extra specialization %s'):format(configFileName, specName));
+					extraSpecs[#extraSpecs + 1] = spec;
+				end;
+			end;
+		end;
 
 
 		-- general
@@ -519,6 +536,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			subCategory = subCategory,
 			configFileName = configFileName,
 			vehicleType = Utils.startsWith(vehicleType, 'mr_') and modName .. '.' .. vehicleType or vehicleType,
+			extraSpecs = extraSpecs,
 			doDebug = doDebug,
 
 			general = general,
@@ -558,7 +576,7 @@ for name, data in pairs(dlcs) do
 			registerCustomSpecs();
 		end;
 		local vehicleDataPath = Utils.getFilename(data[2], modDir);
-		print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData(%q)'):format(name, vehicleDataPath));
+		print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData("...%s")'):format(name, data[2]));
 		getMoreRealisticData(vehicleDataPath, name);
 		dlcExists = true;
 	end;
@@ -648,6 +666,13 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 	local typeDef = VehicleTypeUtil.vehicleTypes[self.typeName];
 	self.specializations = typeDef.specializations;
+
+	-- extra specs
+	if addMrData and mrData.extraSpecs then
+		for i=1, #mrData.extraSpecs do
+			self.specializations[#self.specializations + 1] = mrData.extraSpecs[i];
+		end;
+	end;
 
 	local xmlFile = loadXMLFile('TempConfig', configFile);
 
