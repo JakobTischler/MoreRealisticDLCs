@@ -119,12 +119,16 @@
 
 	<!-- (2.3) CASE 3020 CUTTER --> <!-- NOT DONE (attacherJoints!) -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3020Cutter.xml" mrVehicleType="mr_cutter_mouseControlled_t" debug="false">
-		<store maxSpeed="15" weight="3066" workWidth="10.5" />
-		<workTool realCutterPowerConsumption="26" realCutterPowerConsumptionInc="2.7" realCutterSpeedLimit="15" />
-		<dimensions width="1.5" height="0.75" /> <!-- in m -->
+		<store maxSpeed="17" weight="3066" workWidth="10.5" />
+		<workTool realCutterPowerConsumption="25" realCutterPowerConsumptionInc="2" realCutterSpeedLimit="17" />
+		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="3.066" maxWeight="3.066" /> <!-- in t -->
+		<additionalWheels>
+			<wheel repr="0>2" radius="0.5" deltaY="0" suspTravel="0.25" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>3" radius="0.5" deltaY="0" suspTravel="0.25" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+		</additionalWheels>
 		<attacherJoints>
-			<attacherJoint lowerDistanceToGround="0.94" realWantedLoweredRotLimit="0.1 0 5" realWantedRaisedRotLimit="0.1 0 5" realWantedLoweredRot2="5" realWantedRaisedRotInc="0" />
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="0" realWantedRaisedRotInc="0" />
 		</attacherJoints>
 		<components>
 			<component1 realMassWanted="3.066" />
@@ -162,23 +166,24 @@
 	<!-- (3) COMBINES -->
 	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- NOT DONE (attacherJoints!) -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="false">
-		<general realBrakingDeceleration="3" />
-		<engine kW="309" realMaxVehicleSpeed="25" realMaxReverseSpeed="12" realTransmissionEfficiency="0.8" realPtoPowerKW="309" realPtoDriveEfficiency="1" realMaxFuelUsage="108" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="244" realHydrostaticTransmission="true" />
-		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="26" realThreshingPowerConsumption="90" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="325" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="90" realCombineLossesDisplayLosses="true" />
-		<dimensions width="3.3" height="3.9" /> <!-- in m -->
-		<weights weight="16.2" maxWeight="21" /> <!-- in t -->
+		<store price="250000" dailyUpkeep="340" powerKW="305" maxSpeed="32" weight="17000" />
+		<general realBrakingDeceleration="3" fuelCapacity="950" />
+		<engine kW="305" realMaxVehicleSpeed="32" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
+		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" />
+		<dimensions width="3.85" height="4" /> <!-- in m -->
+		<weights weight="17" maxWeight="29" realBrakeMaxMovingMass="25" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="2" deltaY="0.18" brakeRatio="1" />
-			<wheel driveMode="2" deltaY="0.18" brakeRatio="1" />
-			<wheel driveMode="1" deltaY="0.2" brakeRatio="1" />
-			<wheel driveMode="1" deltaY="0.2" brakeRatio="1" />
+			<wheel driveMode="1" deltaY="0.1" brakeRatio="0.1" damper="40" spring="100" suspTravel="0.15" radius="0.81" rotMin="-45" rotMax="33" rotSpeed="-60" />
+			<wheel driveMode="1" deltaY="0.1" brakeRatio="0.1" damper="40" spring="100" suspTravel="0.15" radius="0.81" rotMin="-33" rotMax="45" rotSpeed="-60" />
+			<wheel driveMode="2" deltaY="0.06" brakeRatio="1" damper="20" spring="350" suspTravel="0.10" radius="0.95" />
+			<wheel driveMode="2" deltaY="0.06" brakeRatio="1" damper="20" spring="350" suspTravel="0.10" radius="0.95" />			
 		</wheels>
 		<attacherJoints>
-			<attacherJoint minRot="0 0 0" maxRot="27 0 0" maxRot2="-5 0 0" maxRotDistanceToGround="0.94" />
+			<attacherJoint jointType="cutter" minRot="0 0 0" maxRot="25 0 0" maxRot2="0 0 0" maxRotDistanceToGround="0" />
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="16" />
-			<component2 realMassWanted="0.2" />
+			<component1 centerOfMass="0 0.8 0.3" realMassWanted="16.4" />
+			<component2 realMassWanted="0.01" />
 		</components>
 	</vehicle>
 
