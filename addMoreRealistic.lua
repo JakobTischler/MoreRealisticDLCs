@@ -171,12 +171,10 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 			if storeData.workWidth then
 				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(storeData.workWidth) .. '\n';
 			end;
-			if storeData.workSpeedMin then
-				local speed = '';
-				if storeData.workSpeedMax then
-					speed = g_i18n:getText('STORE_SPECS_SPEED_FROM_TO'):format(g_i18n:getSpeed(storeData.workSpeedMin), g_i18n:getSpeed(storeData.workSpeedMax));
-				else
-					speed = g_i18n:getText('STORE_SPECS_SPEED'):format(g_i18n:getSpeed(storeData.workSpeedMin));
+			if storeData.workSpeedMax then
+				local speed = g_i18n:getText('STORE_SPECS_SPEED'):format(g_i18n:getSpeed(storeData.workSpeedMax));
+				if storeData.workSpeedMin then
+					speed = g_i18n:getText('STORE_SPECS_SPEED'):format(g_i18n:getSpeed(storeData.workSpeedMin)) .. ' - ' .. speed;
 				end;
 				specs = specs .. g_i18n:getText('STORE_SPECS_WORKINGSPEED'):format(speed, g_i18n:getText('speedometer')) .. '\n';
 			end;

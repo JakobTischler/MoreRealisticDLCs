@@ -60,7 +60,7 @@
 		</text>
 		<text name="STORE_SPECS_CAPACITY_M3COMP">
 			<en>Capacity: %s m³ DIN (%s m³ compressed)</en>
-			<de>Kapazität: %s m³ DIN (%s m³ komprimiert)</de>
+			<de>Kapazität: %s m³ DIN (%s m³ verdichtet)</de>
 			<fr>Volume : %s m³ DIN (%s m³ compressé)</fr>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_BALES">
@@ -82,11 +82,6 @@
 			<en>%.1f</en>	<!-- Mph -->
 			<de>%d</de>		<!-- Km/h -->
 			<fr>%d</fr>		<!-- Km/h -->
-		</text>
-		<text name="STORE_SPECS_SPEED_FROM_TO">
-			<en>%.1f-%.1f</en>	<!-- Mph -->
-			<de>%d-%d</de>		<!-- Km/h -->
-			<fr>%d-%d</fr>		<!-- Km/h -->
 		</text>
 		<text name="STORE_SPECS_WEIGHT">
 			<en>Weight: %s kg</en>
