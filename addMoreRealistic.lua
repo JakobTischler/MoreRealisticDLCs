@@ -1100,8 +1100,19 @@ local setMoreRealisticDamping = function(self, i3dNode, arguments)
 		for i,comp in ipairs(self.components) do
 			setAngularDamping(comp.node, 0);
 			setLinearDamping(comp.node, 0);
-			print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
+			-- print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
 		end;
 	end;
 end;
 Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, setMoreRealisticDamping);
+
+-- BALES
+local setBaleMrData = function(self, nodeId)
+	if self.i3dFilename and self.i3dFilename:find('pdlc/ursusAddon') then
+		setAngularDamping(self.nodeId, 0);
+		setLinearDamping(self.nodeId, 0);
+		setUserAttribute(self.nodeId, 'isRealistic', 'Boolean', true);
+		-- TODO: fill level
+	end;
+end;
+Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, setBaleMrData);
