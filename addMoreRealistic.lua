@@ -927,6 +927,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
 				if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
+				local ajMrData = mrData.attacherJoints[a + 1];
 				local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
 				-- if jointType and (jointType == 'implement' or jointType == 'cutter') then
 				local rotationNode = getXMLString(xmlFile, ajKey .. '#rotationNode');
@@ -937,7 +938,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					removeProperty(xmlFile, ajKey .. '#maxRotDistanceToGround');
 					removeProperty(xmlFile, ajKey .. '#maxTransLimit');
 
-					local ajMrData = mrData.attacherJoints[a + 1];
 					setValue(xmlFile, ajKey .. '#minRot', 				  'str', ajMrData.minRot);
 					setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
 					setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
@@ -1130,6 +1130,7 @@ local setBaleMrData = function(self, nodeId)
 		setAngularDamping(self.nodeId, 0);
 		setLinearDamping(self.nodeId, 0);
 		setUserAttribute(self.nodeId, 'isRealistic', 'Boolean', true);
+		setUserAttribute(self.nodeId, 'baleValueScale', 'Float', 1.6);
 		-- TODO: fill level
 	end;
 end;
