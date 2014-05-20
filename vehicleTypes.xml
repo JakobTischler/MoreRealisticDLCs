@@ -147,6 +147,24 @@
 
 			<specialization name="realisticCutter" />
 		</type>
+		
+		<type name="mr_cutter_builtInCutterTrailer_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="attachable" />
+			<specialization name="pdlc_titaniumAddon.wheelExtension" />
+			<specialization name="pdlc_titaniumAddon.visualWheels" />
+			<specialization name="animatedVehicle" />
+			<specialization name="mouseControlsVehicle" />
+			<specialization name="cylindered" />
+			<specialization name="cutter" />
+			<specialization name="mountable" />
+			<specialization name="foldable" />
+			<specialization name="pdlc_titaniumAddon.builtInCutterTrailer" />
+			<specialization name="pdlc_titaniumAddon.cutterExtension" />
+
+			<specialization name="realisticCutter" />
+		</type>
 
 		<type name="mr_augerWagon_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
 			<specialization name="realisticVehicle" />
