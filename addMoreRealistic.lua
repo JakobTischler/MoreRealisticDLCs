@@ -386,10 +386,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				ajData.realWantedRaisedRotInc 	   =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc');
 
 			elseif jointType and (jointType == 'trailer' or jointType == 'trailerLow') then
-				maxRotLimit				 = getXMLString(xmlFile, ajKey .. '#maxRotLimit');
-				maxTransLimit			 = getXMLString(xmlFile, ajKey .. '#maxTransLimit');
-				allowsJointLimitMovement =   getXMLBool(xmlFile, ajKey .. '#allowsJointLimitMovement');
-				allowsLowering			 =   getXMLBool(xmlFile, ajKey .. '#allowsLowering');
+				ajData.maxRotLimit				= getXMLString(xmlFile, ajKey .. '#maxRotLimit');
+				ajData.maxTransLimit			= getXMLString(xmlFile, ajKey .. '#maxTransLimit');
+				ajData.allowsJointLimitMovement =   getXMLBool(xmlFile, ajKey .. '#allowsJointLimitMovement');
+				ajData.allowsLowering			=   getXMLBool(xmlFile, ajKey .. '#allowsLowering');
 			end;
 
 			attacherJoints[#attacherJoints + 1] = ajData;
@@ -474,6 +474,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- baler
 		elseif subCategory == 'baler' then
+			workTool.realBalerWorkingSpeedLimit			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerWorkingSpeedLimit');
 			workTool.realBalerPowerConsumption			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerPowerConsumption');
 			workTool.realBalerRoundingPowerConsumptionInc = getXMLFloat(xmlFile, key .. '.workTool#realBalerRoundingPowerConsumptionInc');
 			workTool.realBalerRam = {
@@ -484,6 +485,15 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			};
 			workTool.realBalerPickUpPowerConsumptionInc	  = getXMLFloat(xmlFile, key .. '.workTool#realBalerPickUpPowerConsumptionInc');
 			workTool.realBalerOverFillingRatio			  = getXMLFloat(xmlFile, key .. '.workTool#realBalerOverFillingRatio');
+			workTool.realBalerAddEjectVelZ				  = getXMLFloat(xmlFile, key .. '.workTool#realBalerAddEjectVelZ');
+			workTool.realBalerUseEjectingVelocity		  =  getXMLBool(xmlFile, key .. '.workTool#realBalerUseEjectingVelocity');
+
+			workTool.realBalerLastBaleCol = {
+				index = getXMLString(xmlFile, key .. '.workTool#realBalerLastBaleColIndex');
+				maxBaleTimeBeforeNextBale = getXMLFloat(xmlFile, key .. '.workTool#realBalerLastBaleColMaxBaleTimeBeforeNextBale');
+				componentJoint = getXMLInt(xmlFile, key .. '.workTool#realBalerLastBaleColComponentJoint');
+			};
+
 
 		-- sprayer
 		elseif subCategory == 'sprayer' then
@@ -766,9 +776,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
 				setValue(xmlFile, 'vehicle.realCombineLosses#displayLosses',				   'bool', mrData.combine.realCombineLosses.displayLosses);
 
-				setValue(xmlFile, 'vehicle.pipe.node#rotationSpeeds',  'str', combine.pipeRotationSpeeds);
-				setValue(xmlFile, 'vehicle.pipe.node.state1#rotation', 'str', combine.pipeState1Rotation);
-				setValue(xmlFile, 'vehicle.pipe.node.state2#rotation', 'str', combine.pipeState2Rotation);
+				setValue(xmlFile, 'vehicle.pipe.node#rotationSpeeds',  'str', mrData.combine.pipeRotationSpeeds);
+				setValue(xmlFile, 'vehicle.pipe.node.state1#rotation', 'str', mrData.combine.pipeState1Rotation);
+				setValue(xmlFile, 'vehicle.pipe.node.state2#rotation', 'str', mrData.combine.pipeState2Rotation);
 			end;
 
 			-- exhaust PS
@@ -856,8 +866,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			end;
 			setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel, '\t');
 
-			-- MR 1.2: setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or 278 * (mrData.weights.maxWeight * 0.25) / (suspTravel * 100 - 2), '\t');
-			setValue(xmlFile, wheelKey .. '#spring', 'flt', wheelMrData.spring or mrData.weights.maxWeight * 0.25 * 3 / suspTravel, '\t'); -- TODO: 0.25 -> num of wheels
+			-- MR 1.2: local spring = wheelMrData.spring or 278 * (mrData.weights.maxWeight / #mrData.wheels) / (suspTravel * 100 - 2);
+			local spring = wheelMrData.spring or 3 * mrData.weights.maxWeight / #mrData.wheels / suspTravel;
+			setValue(xmlFile, wheelKey .. '#spring', 'flt', spring, '\t');
 
 			local deltaY = wheelMrData.deltaY or getXMLFloat(xmlFile, wheelKey .. '#deltaY');
 			if deltaY == nil or deltaY == '' or deltaY == 0 then
@@ -955,11 +966,13 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- components
 		for i=1, getXMLInt(xmlFile, 'vehicle.components#count') do
-			local compKey = ('vehicle.components.component%d'):format(i);
-			setValue(xmlFile, compKey .. '#centerOfMass',		  'str', mrData.components[i].centerOfMass);
-			setValue(xmlFile, compKey .. '#realMassWanted',		  'flt', mrData.components[i].realMassWanted);
-			setValue(xmlFile, compKey .. '#realTransWithMass',	  'str', mrData.components[i].realTransWithMass);
-			setValue(xmlFile, compKey .. '#realTransWithMassMax', 'str', mrData.components[i].realTransWithMassMax);
+			if mrData.components[i] then
+				local compKey = ('vehicle.components.component%d'):format(i);
+				setValue(xmlFile, compKey .. '#centerOfMass',		  'str', mrData.components[i].centerOfMass);
+				setValue(xmlFile, compKey .. '#realMassWanted',		  'flt', mrData.components[i].realMassWanted);
+				setValue(xmlFile, compKey .. '#realTransWithMass',	  'str', mrData.components[i].realTransWithMass);
+				setValue(xmlFile, compKey .. '#realTransWithMassMax', 'str', mrData.components[i].realTransWithMassMax);
+			end;
 		end;
 
 
@@ -1016,6 +1029,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 				-- baler
 				elseif mrData.subCategory == 'baler' then
+					setValue(xmlFile, 'vehicle.realBalerWorkingSpeedLimit',				'flt',  mrData.workTool.realBalerWorkingSpeedLimit);
 					setValue(xmlFile, 'vehicle.realBalerPowerConsumption',				'flt',  mrData.workTool.realBalerPowerConsumption);
 					setValue(xmlFile, 'vehicle.realBalerRoundingPowerConsumptionInc',	'flt',  mrData.workTool.realBalerRoundingPowerConsumptionInc);
 					setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumption',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumption);
@@ -1024,6 +1038,14 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					setValue(xmlFile, 'vehicle.realBalerRam#strokePerMinute',			'flt',  mrData.workTool.realBalerRam.strokePerMinute);
 					setValue(xmlFile, 'vehicle.realBalerPickUpPowerConsumptionInc',		'flt',  mrData.workTool.realBalerPickUpPowerConsumptionInc);
 					setValue(xmlFile, 'vehicle.realBalerOverFillingRatio',				'flt',  mrData.workTool.realBalerOverFillingRatio);
+					setValue(xmlFile, 'vehicle.realBalerAddEjectVelZ',					'flt',  mrData.workTool.realBalerAddEjectVelZ);
+					setValue(xmlFile, 'vehicle.realBalerUseEjectingVelocity',			'bool', mrData.workTool.realBalerUseEjectingVelocity);
+					if mrData.workTool.realBalerLastBaleCol.index then
+						setValue(xmlFile, 'vehicle.realBalerLastBaleCol#index',						'str',	mrData.workTool.realBalerLastBaleCol.index);
+						setValue(xmlFile, 'vehicle.realBalerLastBaleCol#maxBaleTimeBeforeNextBale',	'flt',	mrData.workTool.realBalerLastBaleCol.maxBaleTimeBeforeNextBale);
+						setValue(xmlFile, 'vehicle.realBalerLastBaleCol#componentJoint',			'int',	mrData.workTool.realBalerLastBaleCol.componentJoint);
+					end;
+					-- TODO: <realEnhancedBaler> section
 
 					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#fillType', 'str', 'wheat_windrow');
 					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#value',	 'int', 1);
@@ -1072,6 +1094,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	end;
 end;
 
+-- ANGULAR + LINEAR DAMPING
 local setMoreRealisticDamping = function(self, i3dNode, arguments)
 	if self.isMoreRealisticDLC then
 		for i,comp in ipairs(self.components) do

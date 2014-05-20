@@ -16,10 +16,9 @@
 		<sourceFile filename="addMoreRealistic.lua" />
 	</extraSourceFiles>
 
-	<customSpecializations num="5">
+	<customSpecializations num="4">
 		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
 		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem" 	 filename="scripts/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustFlap" 				  className="ExhaustFlap" 				 filename="scripts/ExhaustFlap.lua" />
 		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="scripts/ExhaustPower.lua" />
 		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
 	</customSpecializations>

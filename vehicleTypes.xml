@@ -228,7 +228,7 @@
 			<specialization name="fillable" />
 			<specialization name="pdlc_ursusAddon.dlcBaleLoader" />
 
-			<specialization name="realisticTool" />
+			<specialization name="realisticAutostacker" />
 		</type>
 		
 		<type name="mr_dlcFrontloader_u" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
