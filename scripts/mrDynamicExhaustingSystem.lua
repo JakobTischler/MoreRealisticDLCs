@@ -125,7 +125,11 @@ function DynamicExhaustingSystem:updateTick(dt)
 			end;
 			
 			if self.exhaustingSystem.cap ~= nil then
-				self:setCapRotation(self.exhaustingSystem.capAxis, -35, 0, w1);
+				if self.isMotorStarted then
+					self:setCapRotation(self.exhaustingSystem.capAxis, -35, 0, w1);
+				elseif self.exhaustingSystem.curRot ~= 0 then
+					self:setCapRotation(self.exhaustingSystem.capAxis, 0, 0, 0);
+				end;
 			end;
 			
 		else
