@@ -4,7 +4,7 @@
 	<!-- (1.1) CASE PUMA 160 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHPuma160.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
 		<store price="111000" dailyUpkeep="175" powerKW="130" maxSpeed="50" weight="7900" />
-		<general fuelCapacity="330" realMaxVehicleSpeed="50" realBrakingDeceleration="6.5" />
+		<general realMaxVehicleSpeed="50" fuelCapacity="330" realBrakingDeceleration="6.5" />
 		<engine kW="130" realMaxReverseSpeed="32" realMaxFuelUsage="31.7" realPtoDriveEfficiency="0.892" realSpeedBoost="20" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="20" realImplementNeedsBoostMinPowerCons="15" realMaxBoost="20" />
 		<dimensions width="2.5" height="3" /> <!-- in m -->
 		<weights weight="7.9" maxWeight="12" realBrakeMaxMovingMass="15" /> <!-- in t -->
@@ -98,8 +98,8 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.1) HORSCH TERRANO 6 FM --> <!-- NOT DONE -->
-	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated_t" debug="true">
+	<!-- (2.2) HORSCH TERRANO 6 FM --> <!-- NOT DONE -->
+	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated_t" debug="false">
 		<store maxSpeed="20" weight="6850" workWidth="6" requiredPowerKwMin="110" />
 		<workTool realWorkingSpeedLimit="20" resistanceDecreaseFx="0.5" caRealTractionResistance="40" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="2" height="2" /> <!-- in m -->
@@ -117,25 +117,71 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.3) CASE 3020 CUTTER --> <!-- NOT DONE (attacherJoints!) -->
+	<!-- (2.3) CASE 3020 CUTTER -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3020Cutter.xml" mrVehicleType="mr_cutter_mouseControlled_t" debug="false">
 		<store price="34000" dailyUpkeep="31" maxSpeed="17" weight="3066" workWidth="10.5" />
 		<workTool realCutterPowerConsumption="25" realCutterPowerConsumptionInc="2" realCutterSpeedLimit="17" />
 		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="3.066" maxWeight="3.066" /> <!-- in t -->
 		<additionalWheels>
-			<wheel repr="0>2" radius="0.5" deltaY="0" suspTravel="0.25" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
-			<wheel repr="0>3" radius="0.5" deltaY="0" suspTravel="0.25" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>2" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>3" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
 		</additionalWheels>
 		<attacherJoints>
-			<attacherJoint jointType="cutter" lowerDistanceToGround="0" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="0" realWantedRaisedRotInc="0" />
+			<attacherJoint jointType="cutter" lowerDistanceToGround="1.07" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="0" realWantedRaisedRotInc="0" />
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="3.066" />
+			<component1 centerOfMass="0 0.4 -0.5" realMassWanted="3.066" />
+		</components>
+	</vehicle>
+	
+	<!-- (2.4) CASE 3162 CUTTER -->
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3162Cutter.xml" mrVehicleType="mr_cutter_builtInCutterTrailer_t" debug="false">
+		<store price="84000" dailyUpkeep="55" maxSpeed="17" weight="4350" workWidth="13.7" />
+		<workTool realCutterPowerConsumption="45" realCutterPowerConsumptionInc="1.85" realCutterSpeedLimit="19" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" />
+		<dimensions width="2" height="1.5" /> <!-- in m -->
+		<weights weight="4.35" maxWeight="4.35" realBrakeMaxMovingMass="5" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="500" suspTravel="0.1" radius="0.4" /> <!-- rear wheel -->
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="500" suspTravel="0.1" radius="0.4" /> <!-- rear wheel -->
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="0.1" damper="20" spring="500" suspTravel="0.1" radius="0.28" /> <!-- front wheel -->
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="0.1" damper="20" spring="500" suspTravel="0.1" radius="0.28" /> <!-- front wheel -->
+		</wheels>
+		<additionalWheels>
+			<wheel repr="0>3" radius="0.5" deltaY="0.5" suspTravel="0.3" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>4" radius="0.5" deltaY="0.5" suspTravel="0.3" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+		</additionalWheels>
+		<attacherJoints>			
+			<attacherJoint jointType="cutter" lowerDistanceToGround="1.15" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="0" realWantedRaisedRotInc="0" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0 -0.5" realMassWanted="3" /> <!-- body -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.95" /> <!-- rear wheels -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.2" /> <!-- front wheel -->
+			<component4 centerOfMass="0 0 0" realMassWanted="0.2" /> <!-- attacher bar -->
+		</components>
+	</vehicle>
+	
+	<!-- (2.5) CASE 3412 CORN HEADER -->
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3412Corn.xml" mrVehicleType="moreRealistic.cutter" debug="false">
+		<store price="68000" dailyUpkeep="28" maxSpeed="17" weight="3868" workWidth="9" />
+		<workTool realCutterPowerConsumption="48" realCutterPowerConsumptionInc="1.2" realCutterSpeedLimit="17" />
+		<dimensions width="2.2" height="1.2" /> <!-- in m -->
+		<weights weight="3.87" maxWeight="3.87" /> <!-- in t -->
+		<additionalWheels>
+			<wheel repr="0>2" radius="0.5" deltaY="0.55" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>3" radius="0.5" deltaY="0.55" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+		</additionalWheels>
+		<attacherJoints>
+			<attacherJoint jointType="cutter" lowerDistanceToGround="1.25" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="12" realWantedRaisedRotInc="0" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.4 -0.5" realMassWanted="3.87" />
 		</components>
 	</vehicle>
 
-	<!-- (2.4) KRONE SWADRO 2000 --> <!-- NOT DONE -->
+	<!-- (2.6) KRONE SWADRO 2000 --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="false">
 		<store maxSpeed="20" weight="9400" workWidth="19" requiredPowerKwMin="200" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" />
 		<workTool realPowerConsumption="96" realRakeWorkingPowerConsumption="10" realRakeWorkingPowerConsumptionInc="40" />
@@ -164,10 +210,10 @@
 	<!-- ################################################## -->
 
 	<!-- (3) COMBINES -->
-	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- NOT DONE (attacherJoints!) -->
+	<!-- (3.1) CASE AXIAL FLOW 7130 -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="32" weight="17000" />
-		<general realMaxVehicleSpeed="32" realBrakingDeceleration="3" fuelCapacity="950" />
+		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" fuelCapacity="950" />
 		<engine kW="305" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
 		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" />
 		<dimensions width="3.85" height="4" /> <!-- in m -->
@@ -179,7 +225,7 @@
 			<wheel driveMode="2" deltaY="0.06" brakeRatio="1" damper="20" spring="350" suspTravel="0.10" radius="0.95" />			
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="cutter" minRot="0 0 0" maxRot="25 0 0" maxRot2="0 0 0" maxRotDistanceToGround="0" />
+			<attacherJoint jointType="cutter" minRot="0 0 0" maxRot="24 0 0" maxRot2="0 0 0" maxRotDistanceToGround="1.07" minRotDistanceToGround="1.73" moveTime="2" />
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.8 0.3" realMassWanted="16.4" />
@@ -188,6 +234,29 @@
 	</vehicle>
 
 	<!-- (3.2) CASE AXIAL FLOW 9230 -->
+	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH9230.xml" mrVehicleType="mr_combine_extended_t" debug="false">
+		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="36" weight="19300" />
+		<general realBrakingDeceleration="5" realMaxVehicleSpeed="36" fuelCapacity="1000" />
+		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
+		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" />
+		<dimensions width="4" height="4" /> <!-- in m -->
+		<weights weight="19.1" maxWeight="30" realBrakeMaxMovingMass="25" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="1" deltaY="0.1" brakeRatio="0.1" damper="40" spring="120" suspTravel="0.15" radius="0.76" rotMin="-33" rotMax="45" rotSpeed="-60" />
+			<wheel driveMode="1" deltaY="0.1" brakeRatio="0.1" damper="40" spring="120" suspTravel="0.15" radius="0.76" rotMin="-45" rotMax="33" rotSpeed="-60" />
+			<wheel driveMode="2" deltaY="0.06" brakeRatio="1" damper="20" spring="400" suspTravel="0.10" radius="0.91" />
+			<wheel driveMode="2" deltaY="0.06" brakeRatio="1" damper="20" spring="400" suspTravel="0.10" radius="0.91" />			
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="cutter" minRot="-15 0 0" maxRot="5 0 0" maxRot2="0 0 0" maxRotDistanceToGround="1.07" minRotDistanceToGround="1.92" moveTime="2" />
+			<attacherJoint jointType="trailerLow" maxRotLimit="60 90 60" />
+		</attacherJoints>		
+		<components>
+			<component1 centerOfMass="0 0.65 0" realMassWanted="18.3" />
+			<component2 realMassWanted="0.01" />
+			<component3 realMassWanted="0.01" />
+		</components>
+	</vehicle>
 
 	<!-- (3.3) KRONE BIGX 1100 --> <!-- NOT DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/krone/kroneBigX1100.xml" mrVehicleType="mr_combine_extended_t" debug="false">
@@ -217,9 +286,9 @@
 
 	<!-- (4) TRAILERS -->
 	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- AUTHOR: dural --> <!-- DONE -->
-	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="true">
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="false">
 		<store capacity="34000" capacityUnit="L" weight="6700" requiredPowerKwMin="80" fruits="wheat,barley,rape,maize,chaff" />
-		<general realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
+		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
 		<workTool realOverloaderUnloadingPowerConsumption="60" pipeUnloadingCapacity="800" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="6.7" realBrakeMaxMovingMass="28" /> <!-- in t -->
