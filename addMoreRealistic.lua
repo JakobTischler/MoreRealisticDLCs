@@ -368,7 +368,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 			local ajData = {};
 			local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
-			if jointType and jointType == 'implement' or jointType == 'cutter' then
+			if jointType and (jointType == 'implement' or jointType == 'cutter') then
 				ajData.jointType = jointType;
 				ajData.minRot				  = getXMLString(xmlFile, ajKey .. '#minRot');
 				ajData.maxRot				  = getXMLString(xmlFile, ajKey .. '#maxRot');
@@ -384,6 +384,12 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				ajData.realWantedRaisedRotLimit	   = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit');
 				ajData.realWantedLoweredRot2 	   =  getXMLFloat(xmlFile, ajKey .. '#realWantedLoweredRot2');
 				ajData.realWantedRaisedRotInc 	   =  getXMLFloat(xmlFile, ajKey .. '#realWantedRaisedRotInc');
+
+			elseif jointType and (jointType == 'trailer' or jointType == 'trailerLow') then
+				maxRotLimit				 = getXMLString(xmlFile, ajKey .. '#maxRotLimit');
+				maxTransLimit			 = getXMLString(xmlFile, ajKey .. '#maxTransLimit');
+				allowsJointLimitMovement =   getXMLBool(xmlFile, ajKey .. '#allowsJointLimitMovement');
+				allowsLowering			 =   getXMLBool(xmlFile, ajKey .. '#allowsLowering');
 			end;
 
 			attacherJoints[#attacherJoints + 1] = ajData;
@@ -886,8 +892,8 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
 				if not hasXMLProperty(xmlFile, ajKey) then break; end;
 
-				-- local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
-				-- if jointType and jointType == 'implement' or jointType == 'cutter' then
+				local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
+				-- if jointType and (jointType == 'implement' or jointType == 'cutter') then
 				local rotationNode = getXMLString(xmlFile, ajKey .. '#rotationNode');
 				if rotationNode then
 					removeProperty(xmlFile, ajKey .. '#maxRotLimit');
@@ -903,6 +909,12 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 					setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
 					setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
 					setValue(xmlFile, ajKey .. '#moveTime',				  'flt', ajMrData.moveTime);
+
+				elseif jointType and (jointType == 'trailer' or jointType == 'trailerLow') then
+					setValue(xmlFile, ajKey .. '#maxRotLimit', 				'str',  ajMrData.maxRotLimit);
+					setValue(xmlFile, ajKey .. '#maxTransLimit', 			'str',  ajMrData.maxTransLimit);
+					setValue(xmlFile, ajKey .. '#allowsJointLimitMovement',	'bool', ajMrData.allowsJointLimitMovement);
+					setValue(xmlFile, ajKey .. '#allowsLowering',			'bool', ajMrData.allowsLowering);
 				end;
 
 				a = a + 1;
