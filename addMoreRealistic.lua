@@ -443,7 +443,22 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			powerConsumptionWhenWorkingDecreaseFx	= getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
 			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
+			realCapacityMultipliers					= {};
 		};
+
+		-- capacity multipliers
+		local realCapacityMultipliers = getXMLString(xmlFile, key .. '.workTool#realCapacityMultipliers');
+		if realCapacityMultipliers then
+			realCapacityMultipliers = Utils.splitString(',', realCapacityMultipliers);
+			for i=1, #realCapacityMultipliers do
+				local data = Utils.splitString(':', realCapacityMultipliers[i]);
+				workTool.realCapacityMultipliers[i] = {
+					fillType = data[1];
+					multiplier = tonumber(data[2]);
+				};
+			end;
+		end;
+
 		-- trailer
 		if subCategory == 'trailer' then
 			workTool.realTippingPowerConsumption			 = getXMLFloat(xmlFile, key .. '.workTool#realTippingPowerConsumption');
@@ -494,7 +509,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				componentJoint = getXMLInt(xmlFile, key .. '.workTool#realBalerLastBaleColComponentJoint');
 			};
 
-
 		-- sprayer
 		elseif subCategory == 'sprayer' then
 			workTool.realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
@@ -502,7 +516,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			workTool.sprayUsageLitersPerSecond		= getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
 			workTool.fillLitersPerSecond			= getXMLFloat(xmlFile, key .. '.workTool#fillLitersPerSecond');
 		end;
-
 
 		-- combine
 		local combine = {};
@@ -643,22 +656,6 @@ local removeProperty = function(xmlFile, property, extraIndent)
 end;
 
 -- ##################################################
-
-local capacityMultipliers = {
-	{ fillType = 'wheat',		   multiplier = 1.00 },
-	{ fillType = 'barley',		   multiplier = 1.00 },
-	{ fillType = 'maize',		   multiplier = 1.00 },
-	{ fillType = 'rape',		   multiplier = 1.00 },
-	{ fillType = 'chaff',		   multiplier = 1.07 },
-	{ fillType = 'potato',		   multiplier = 1.04 },
-	{ fillType = 'sugarBeet',	   multiplier = 1.05 },
-	{ fillType = 'silage',		   multiplier = 1.09 },
-	{ fillType = 'manure',		   multiplier = 1.10 },
-	{ fillType = 'liquidManure',   multiplier = 0.98 },
-	{ fillType = 'grass_windrow',  multiplier = 0.99 },
-	{ fillType = 'wheat_windrow',  multiplier = 0.98 },
-	{ fillType = 'barley_windrow', multiplier = 0.98 }
-};
 
 local exhaustPsNewPath = '$moddir$' .. modName .. '/_RES/newRealParticles.i3d';
 local exhaustPsOldPath = '$moddir$' .. modName .. '/_RES/realParticles.i3d';
@@ -1065,10 +1062,11 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				-- fillable
 				if SpecializationUtil.hasSpecialization(Fillable, self.specializations) then
 					setValue(xmlFile, 'vehicle.capacity', 'int', mrData.workTool.capacity);
-					for i=1, #capacityMultipliers do
+					
+					for i=1, #mrData.workTool.realCapacityMultipliers do
 						local rcmKey = ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)'):format(i-1);
-						setValue(xmlFile, rcmKey .. '#fillType',   'str', capacityMultipliers[i].fillType);
-						setValue(xmlFile, rcmKey .. '#multiplier', 'flt', capacityMultipliers[i].multiplier);
+						setValue(xmlFile, rcmKey .. '#fillType',   'str', mrData.workTool.realCapacityMultipliers[i].fillType);
+						setValue(xmlFile, rcmKey .. '#multiplier', 'flt', mrData.workTool.realCapacityMultipliers[i].multiplier);
 					end;
 				end;
 			end;
