@@ -1131,7 +1131,6 @@ local setBaleMrData = function(self, nodeId)
 		setLinearDamping(self.nodeId, 0);
 		setUserAttribute(self.nodeId, 'isRealistic', 'Boolean', true);
 		setUserAttribute(self.nodeId, 'baleValueScale', 'Float', 1.6);
-		-- TODO: fill level
 	end;
 end;
 Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, setBaleMrData);
