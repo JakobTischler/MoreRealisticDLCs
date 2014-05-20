@@ -28,11 +28,12 @@ end;
 local modDir, modName = g_currentModDirectory, g_currentModName;
 
 local dlcs = {
-	Lindner    = { 'lindnerUnitracPack', 'vehicleDataLindner.xml' },
-	Marshall   = { 'marshallPack',		 'vehicleDataMarshall.xml' },
-	Titanium   = { 'titaniumAddon',		 'vehicleDataTitanium.xml' },
-	Ursus	   = { 'ursusAddon',		 'vehicleDataUrsus.xml' },
-	Vaederstad = { 'vaderstadPack',		 'vehicleDataVaederstad.xml' }
+	--				dlc name			  vehicle data file			  min version flt/str
+	Lindner    = { 'lindnerUnitracPack', 'vehicleDataLindner.xml',	  1.001, '1.0.0.1' },
+	Marshall   = { 'marshallPack',		 'vehicleDataMarshall.xml',	  1.003, '1.0.0.3' },
+	Titanium   = { 'titaniumAddon',		 'vehicleDataTitanium.xml',	  1.005, '1.0.0.5' },
+	Ursus	   = { 'ursusAddon',		 'vehicleDataUrsus.xml',	  2.002, '2.0.0.2' },
+	Vaederstad = { 'vaderstadPack',		 'vehicleDataVaederstad.xml', 1.003, '1.0.0.3' }
 };
 
 -- ##################################################
@@ -123,7 +124,7 @@ end;
 -- SET VEHICLE STORE DATA
 local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 	if doDebug then print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName)); end;
-	local dlcDir = dlcs[dlcName][4];
+	local dlcDir = dlcs[dlcName][6];
 	local path = Utils.getFilename(configFileNameShort:sub(6, 200), dlcDir);
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
 	if doDebug then 
@@ -600,19 +601,38 @@ end;
 
 -- ##################################################
 
--- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed ones
+-- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed and up-to-date ones
+local getDlcVersion = function(dlcName)
+	local dlcModItem = ModsUtil.findModItemByModName(dlcName);
+	if dlcModItem and dlcModItem.version then
+		local versionSplit = Utils.splitString('.', dlcModItem.version);
+		local versionFlt = tonumber(('%d.%d%d%d'):format(versionSplit[1], versionSplit[2], versionSplit[3], versionSplit[4]));
+		return versionFlt, dlcModItem.version;
+	end;
+
+	return 0, '0';
+end;
+
 local dlcExists = false;
 for name, data in pairs(dlcs) do
 	local modName = 'pdlc_' .. data[1];
 	if g_modNameToDirectory[modName] ~= nil then
-		data[3] = g_modNameToDirectory[modName];
-		data[4] = data[3]:sub(1, data[3]:len() - data[1]:len() - 1);
-		-- print(('DLC %q: modName=%q, dir=%q, containingDir=%q'):format(data[1], modName, data[3], data[4]));
+		local dlcVersion, dlcVersionStr = getDlcVersion(modName);
+		if dlcVersion < data[3] then
+			print(('MoreRealisticDLCs: DLC %q has a too low version number (v%s). Update to v%s or higher. Script will now be aborted!'):format(name, dlcVersionStr, data[4]));
+			delete(vehicleTypesFile);
+			return;
+		end;
+
+		data[5] = g_modNameToDirectory[modName];
+		data[6] = data[5]:sub(1, data[5]:len() - data[1]:len() - 1);
+		-- print(('DLC %q: modName=%q, dir=%q, containingDir=%q'):format(data[1], modName, data[5], data[6]));
+		-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(data[4], dlcVersionStr));
 		if not customSpecsRegistered then
 			registerCustomSpecs();
 		end;
 		local vehicleDataPath = Utils.getFilename(data[2], modDir);
-		print(('MoreRealisticDLCs: %q DLC exists -> call getMoreRealisticData("...%s")'):format(name, data[2]));
+		print(('MoreRealisticDLCs: %q DLC v%s exists, -> call getMoreRealisticData("...%s")'):format(name, dlcVersionStr, data[2]));
 		getMoreRealisticData(vehicleDataPath, name);
 		dlcExists = true;
 	end;
