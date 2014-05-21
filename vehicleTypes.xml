@@ -92,6 +92,24 @@
 	<!-- ################################################## -->
 
 	<Titanium>
+		<type name="mr_tractor_visualWheels_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="motorized" />
+			<specialization name="steerable" />
+			<specialization name="pdlc_titaniumAddon.visualWheels" />			
+			<specialization name="cylindered" />			
+			<specialization name="hirable" />
+			<specialization name="aiTractor" />
+			<specialization name="bunkerSiloCompacter" />
+			<specialization name="honk" />
+			<specialization name="pdlc_titaniumAddon.steerableExtension" />
+
+			<specialization name="realisticMotorized" />
+			<specialization name="realisticSteerable" />
+			<specialization name="exhaustPower" />
+		</type>
+	
 		<type name="mr_tractor_wheelExtension_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
 			<specialization name="realisticVehicle" />
 
