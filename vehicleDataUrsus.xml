@@ -3,7 +3,7 @@
 
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) URSUS 15014 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="moreRealistic.tractor_cylindered" extraSpecs="dynamicExhaustingSystem" debug="false">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="74000" dailyUpkeep="130" powerKW="111" maxSpeed="40" weight="6900" />
 		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
 		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
@@ -65,7 +65,7 @@
 	</vehicle>
 	
 	<!-- (1.4) URSUS 11024 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="moreRealistic.tractor_cylindered" extraSpecs="dynamicExhaustingSystem" debug="false">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="55000" dailyUpkeep="115" powerKW="81" maxSpeed="40" weight="4100" />
 		<general fuelCapacity="180" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
 		<engine kW="81" realMaxReverseSpeed="12" realMaxFuelUsage="22" newExhaustPS="true" /> <!--Done-->
@@ -87,7 +87,7 @@
 	</vehicle>
 
 	<!-- (1.5) URSUS 8014H --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus8014H.xml" mrVehicleType="moreRealistic.tractor_cylindered" extraSpecs="dynamicExhaustingSystem" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus8014H.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
 		<store powerKW="60.5" maxSpeed="40" weight="4300" /> <!--Done-->
 		<general fuelCapacity="115" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
 		<engine kW="81" realMaxReverseSpeed="40" realMaxFuelUsage="16.5" newExhaustPS="true" /> <!--Done-->

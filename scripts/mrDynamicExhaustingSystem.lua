@@ -8,7 +8,7 @@
 -- @history:	v1.0 - Initial version
 --				v2.0 - converted to 2011 and some bugfixes
 --				v2.1 - [dural] MoreRealistic compatibility
---				v2.2 - [Jakob Tischler] MoreRealisticDLCs compatibility
+--				v2.2 - [Jakob Tischler, 20 May 2014] MoreRealisticDLCs compatibility
 --
 
 
@@ -27,7 +27,6 @@ function DynamicExhaustingSystem:load(xmlFile)
 	self.exhaustingSystem.cap = Utils.indexToObject(self.components, getXMLString(xmlFile, "vehicle.dynamicExhaustingSystem#cap"));
 	self.exhaustingSystem.capAxis = getXMLString(xmlFile, "vehicle.dynamicExhaustingSystem#capAxis") or 'x';
 	self.exhaustingSystem.maxRot = Utils.degToRad(Utils.getNoNil(getXMLFloat(xmlFile, "vehicle.dynamicExhaustingSystem#maxRot"), 0));
-	-- self.setCapRotation = SpecializationUtil.callSpecializationsFunction('setCapRotation');
 	self.setCapRotation = DynamicExhaustingSystem.setCapRotation;
 	self:setCapRotation(self.exhaustingSystem.capAxis, 0, 0, 0);
 
@@ -41,7 +40,7 @@ function DynamicExhaustingSystem:load(xmlFile)
 			break;
 		end;
 		local r,g,b,alpha = Utils.getVectorFromString(getXMLString(xmlFile, path .. "#value"));
-		startSequence:addKeyframe({x=r, y=g, z=b, w=alpha, time=timeStamp})		
+		startSequence:addKeyframe({x=r, y=g, z=b, w=alpha, time=timeStamp})
 		i = i + 1;
 	end;
 	self.exhaustingSystem.minAlpha = min(abs(Utils.getNoNil(getXMLFloat(xmlFile, "vehicle.dynamicExhaustingSystem#minAlpha"),0)),1);
@@ -52,7 +51,7 @@ function DynamicExhaustingSystem:load(xmlFile)
 	self.exhaustingSystem.param = getXMLString(xmlFile, "vehicle.dynamicExhaustingSystem#param");
 	self.exhaustingSystem.offset = 0;
 	self.exhaustingSystem.deltaTime = 0;
-	
+
 	-- <secondParticleSystem node="0>5|7" position="0 0.02 0.02" rotation="0 0 0" file="newRealParticles.i3d" parameter="alphaScale" minAlpha="0.07" maxAlpha="1.0" minLoadActive="0.5" />
 	self.sPS = {};
 	local sNode = Utils.indexToObject(self.components, getXMLString(xmlFile, "vehicle.dynamicExhaustingSystem.secondParticleSystem#node"));
@@ -67,7 +66,7 @@ function DynamicExhaustingSystem:load(xmlFile)
 		self.sPS.a = false;
 		self.sPS.lastLoad = 0;
 	end;
-	
+
 end;
 
 function DynamicExhaustingSystem:delete()
@@ -90,7 +89,7 @@ end;
 
 function DynamicExhaustingSystem:writeUpdateStream(streamId, connection, dirtyMask)
 	if not connection:getIsServer() then
-		streamWriteUIntN(streamId, min(255, tonumber(self.realMotorLoadS*255)), 8); 
+		streamWriteUIntN(streamId, min(255, tonumber(self.realMotorLoadS*255)), 8);
 	end;
 end;
 
@@ -112,9 +111,8 @@ function DynamicExhaustingSystem:setCapRotation(axis, minRandom, maxRandom, alph
 end;
 
 function DynamicExhaustingSystem:updateTick(dt)
-
 	if self:getIsActive() and self.isClient then
-				
+
 		if self.time <= self.motorStartTime then
 			local time = (self.exhaustingSystem.deltaTime - (self.motorStartTime - self.time)) / self.exhaustingSystem.deltaTime;
 			local x1,y1,z1,w1 = self.exhaustingSystem.startSequence:get(time);
@@ -123,7 +121,7 @@ function DynamicExhaustingSystem:updateTick(dt)
 				setShaderParameter(self.exhaustParticleSystems[1].shape, self.exhaustingSystem.param, x1, y1, z1, w1, false);
 				self.exhaustingSystem.lastValue = {x=x1, y=y1, z=z1, w=w1};
 			end;
-			
+
 			if self.exhaustingSystem.cap ~= nil then
 				if self.isMotorStarted then
 					self:setCapRotation(self.exhaustingSystem.capAxis, -35, 0, w1);
@@ -131,18 +129,17 @@ function DynamicExhaustingSystem:updateTick(dt)
 					self:setCapRotation(self.exhaustingSystem.capAxis, 0, 0, 0);
 				end;
 			end;
-			
+
 		else
 			-- alpha function of engine load on moreRealistic vehicles
-			local alpha = ((self.exhaustingSystem.maxAlpha-self.exhaustingSystem.minAlpha) * self.realMotorLoadS)+self.exhaustingSystem.minAlpha;
-			-- local alpha = Utils.lerp(self.exhaustingSystem.minAlpha, self.exhaustingSystem.maxAlpha, self.realMotorLoadS);
-			
+			local alpha = Utils.lerp(self.exhaustingSystem.minAlpha, self.exhaustingSystem.maxAlpha, self.realMotorLoadS);
+
 			if abs(self.exhaustingSystem.lastValue.w - alpha) > 0.01 then
 				local values = self.exhaustingSystem.lastValue;
 				setShaderParameter(self.exhaustParticleSystems[1].shape, self.exhaustingSystem.param, values.x, values.y, values.z, alpha, false);
 				self.exhaustingSystem.lastValue.w = alpha;
 			end;
-			
+
 			if self.exhaustingSystem.cap ~= nil then
 				if self.realIsMotorStarted then
 					self:setCapRotation(self.exhaustingSystem.capAxis, -20, 5, self.realSoundMotorFx);
@@ -159,7 +156,7 @@ function DynamicExhaustingSystem:updateTick(dt)
 					self.sPS.a = false;
 					Utils.setEmittingState(self.sPS.ps, false);
 				end;
-				
+
 				self.sPS.lastLoad = self.realMotorLoadS;
 			end;
 		end;
@@ -175,6 +172,6 @@ end;
 
 function DynamicExhaustingSystem:onLeave()
 	if self.exhaustingSystem.cap ~= nil then
-		setRotation(self.exhaustingSystem.cap, 0,0,0);
+		self:setCapRotation(self.exhaustingSystem.capAxis, 0, 0, 0);
 	end;
 end;

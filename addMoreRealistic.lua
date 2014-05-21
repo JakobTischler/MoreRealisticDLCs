@@ -237,23 +237,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		local subCategory = getXMLString(xmlFile, key .. '#subCategory') or '';
 		local doDebug = getXMLBool(xmlFile, key .. '#debug');
 
-		local extraSpecs;
-		local extraSpecsNames = getXMLString(xmlFile, key .. '#extraSpecs');
-		if extraSpecsNames then
-			extraSpecs = {};
-			extraSpecsNames = Utils.splitString(',', extraSpecsNames);
-			for i=1, #extraSpecsNames do
-				local specName = modName .. '.' .. extraSpecsNames[i];
-				local spec = SpecializationUtil.getSpecialization(specName);
-				if spec == nil then
-					print(('%s: Error: unknown extra specialization %s'):format(configFileName, specName));
-				else
-					print(('%s: add extra specialization %s'):format(configFileName, specName));
-					extraSpecs[#extraSpecs + 1] = spec;
-				end;
-			end;
-		end;
-
 
 		-- general
 		local general = {
@@ -587,7 +570,6 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			subCategory = subCategory,
 			configFileName = configFileName,
 			vehicleType = Utils.startsWith(vehicleType, 'mr_') and modName .. '.' .. vehicleType or vehicleType,
-			extraSpecs = extraSpecs,
 			doDebug = doDebug,
 
 			general = general,
@@ -723,13 +705,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 	local typeDef = VehicleTypeUtil.vehicleTypes[self.typeName];
 	self.specializations = typeDef.specializations;
-
-	-- extra specs
-	if addMrData and mrData.extraSpecs then
-		for i=1, #mrData.extraSpecs do
-			self.specializations[#self.specializations + 1] = mrData.extraSpecs[i];
-		end;
-	end;
 
 	local xmlFile = loadXMLFile('TempConfig', configFile);
 
