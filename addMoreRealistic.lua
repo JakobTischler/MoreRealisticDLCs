@@ -474,10 +474,15 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			powerConsumptionWhenWorkingDecreaseFx	= getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
 			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
-			realCapacityMultipliers					= {};
+			realAiWorkingSpeed = {
+				baseSpeed 							=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingBaseSpeed');
+				minSpeed 							=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingMinSpeed');
+				maxSpeed 							=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingMaxSpeed');
+			};
 		};
 
 		-- capacity multipliers
+		workTool.realCapacityMultipliers = {};
 		local realCapacityMultipliers = getXMLString(xmlFile, key .. '.workTool#realCapacityMultipliers');
 		if realCapacityMultipliers then
 			realCapacityMultipliers = Utils.splitString(',', realCapacityMultipliers);
@@ -551,9 +556,11 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- combine
 		local combine = {};
 		if subCategory == 'combine' then
-			combine.baseSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#baseSpeed') or 5;
-			combine.minSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#minSpeed') or 3;
-			combine.maxSpeed 						 =  getXMLFloat(xmlFile, key .. '.combine#maxSpeed') or 12;
+			combine.realAiWorkingSpeed = {
+				baseSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingBaseSpeed');
+				minSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMinSpeed');
+				maxSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMaxSpeed');
+			};
 			combine.realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
 			combine.realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
 			combine.realUnloadingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
@@ -795,9 +802,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 			-- combine
 			if mrData.subCategory == 'combine' then
-				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.combine.baseSpeed);
-				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.minSpeed);
-				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.combine.maxSpeed);
+				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.baseSpeed);
+				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.minSpeed);
+				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.maxSpeed);
 
 				setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',   'flt',  mrData.combine.realAiMinDistanceBeforeTurning);
 				setValue(xmlFile, 'vehicle.realUnloadingPowerBoost', 		  'flt',  mrData.combine.realUnloadingPowerBoost);
@@ -1018,6 +1025,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 		-- workTool
 		if mrData.category == 'tool' then
+			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.baseSpeed);
+			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.minSpeed);
+			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.maxSpeed);
+
 			-- cutter
 			if mrData.subCategory == 'cutter' then
 				setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);

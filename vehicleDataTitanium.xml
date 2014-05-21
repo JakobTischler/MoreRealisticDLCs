@@ -265,7 +265,7 @@
 		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="32" weight="17000" />
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" fuelCapacity="950" />
 		<engine kW="305" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
-		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -100 0" />
+		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="2" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -100 0" />
 		<dimensions width="3.85" height="4" /> <!-- in m -->
 		<weights weight="17" maxWeight="29" realBrakeMaxMovingMass="25" /> <!-- in t -->
 		<wheels>
@@ -288,7 +288,7 @@
 		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="36" weight="19300" />
 		<general realBrakingDeceleration="5" realMaxVehicleSpeed="36" fuelCapacity="1000" />
 		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
-		<combine baseSpeed="5" minSpeed="3" maxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" />
+		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" />
 		<dimensions width="4" height="4" /> <!-- in m -->
 		<weights weight="19.1" maxWeight="30" realBrakeMaxMovingMass="25" /> <!-- in t -->
 		<wheels>
@@ -313,7 +313,7 @@
 		<store powerKW="760" maxSpeed="40" weight="14800" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<engine kW="760" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realPtoPowerKW="380" realMaxFuelUsage="100" realAiManeuverSpeed="9.5" realMaxPowerToTransmission="380" realHydrostaticTransmission="true" />
-		<combine baseSpeed="7.2" minSpeed="4" maxSpeed="15" realAiMinDistanceBeforeTurning="3" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="200" realThreshingPowerConsumptionInc="3" realThreshingScale="0.95" realThreshingPowerBoost="380" realCombineCycleDuration="1" />
+		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="3" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="200" realThreshingPowerConsumptionInc="3" realThreshingScale="0.95" realThreshingPowerBoost="380" realCombineCycleDuration="1" />
 		<dimensions width="3.4" height="4" /> <!-- in m -->
 		<weights weight="14.8" maxWeight="15.5" /> <!-- in t -->
 		<wheels>
