@@ -147,22 +147,23 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.2) HORSCH TERRANO 6 FM --> <!-- NOT DONE -->
-	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated_t" debug="false">
-		<store maxSpeed="20" weight="6850" workWidth="6" requiredPowerKwMin="110" />
-		<workTool realWorkingSpeedLimit="20" resistanceDecreaseFx="0.5" caRealTractionResistance="40" caRealTractionResistanceWithLoadMass="0" />
-		<dimensions width="2" height="2" /> <!-- in m -->
-		<weights weight="6.850" maxWeight="6.850" /> <!-- in t -->
+	<!-- (2.2) HORSCH TERRANO 6 FM -->
+	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated" debug="false">
+		<store price="46000" dailyUpkeep="10" maxSpeed="20" weight="6850" workWidth="5.9" requiredPowerKwMin="176.6" requiredPowerKwMax="265" />
+		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" />
+		<workTool realWorkingSpeedLimit="22" resistanceDecreaseFx="0.3" caRealTractionResistance="46" />
+		<dimensions width="3" height="1" /> <!-- in m -->
+		<weights weight="6.850" maxWeight="6.850" realBrakeMaxMovingMass="7" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" />
-			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="150" suspTravel="0.1" radius="0.56" />
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="150" suspTravel="0.1" radius="0.56" />
 		</wheels>
 		<components>
-			<component1 realMassWanted="0.75" />
-			<component2 realMassWanted="2" />
-			<component3 realMassWanted="2" />
-			<component4 realMassWanted="2" />
-			<component5 realMassWanted="0.1" />
+			<component1 realMassWanted="4.75" centerOfMass="0 0.4 -1" /> <!-- body -->
+			<component2 realMassWanted="0.5" centerOfMass="0 0 -0.3" /> <!-- left -->
+			<component3 realMassWanted="0.5" centerOfMass="0 0 -0.3" /> <!-- right -->
+			<component4 realMassWanted="1" centerOfMass="0 0 -0.6" /> <!-- drawbar -->
+			<component5 realMassWanted="0.1" centerOfMass="0 0 0" /> <!-- support -->
 		</components>
 	</vehicle>
 
