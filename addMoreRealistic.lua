@@ -28,12 +28,11 @@ end;
 local modDir, modName = g_currentModDirectory, g_currentModName;
 
 local dlcs = {
-	--				dlc name			  vehicle data file			  min version flt/str
-	Lindner    = { 'lindnerUnitracPack', 'vehicleDataLindner.xml',	  1.001, '1.0.0.1' },
-	Marshall   = { 'marshallPack',		 'vehicleDataMarshall.xml',	  1.003, '1.0.0.3' },
-	Titanium   = { 'titaniumAddon',		 'vehicleDataTitanium.xml',	  1.005, '1.0.0.5' },
-	Ursus	   = { 'ursusAddon',		 'vehicleDataUrsus.xml',	  2.002, '2.0.0.2' },
-	Vaederstad = { 'vaderstadPack',		 'vehicleDataVaederstad.xml', 1.003, '1.0.0.3' }
+	Lindner    = { dlcName = 'lindnerUnitracPack',	dataFile = 'vehicleDataLindner.xml',	minVersionStr = '1.0.0.1', minVersionFlt = 1.001 },
+	Marshall   = { dlcName = 'marshallPack',		dataFile = 'vehicleDataMarshall.xml',	minVersionStr = '1.0.0.3', minVersionFlt = 1.003 },
+	Titanium   = { dlcName = 'titaniumAddon',		dataFile = 'vehicleDataTitanium.xml',	minVersionStr = '1.0.0.5', minVersionFlt = 1.005 },
+	Ursus	   = { dlcName = 'ursusAddon',		 	dataFile = 'vehicleDataUrsus.xml',		minVersionStr = '2.0.0.2', minVersionFlt = 2.002 },
+	Vaederstad = { dlcName = 'vaderstadPack',		dataFile = 'vehicleDataVaederstad.xml',	minVersionStr = '1.0.0.3', minVersionFlt = 1.003 }
 };
 
 -- ##################################################
@@ -109,14 +108,35 @@ end;
 
 -- ##################################################
 
+local numberSeparators = {
+	cz = { '.', ',' },
+	de = { '.', ',' },
+	en = { ',', '.' },
+	es = { '.', ',' },
+	fr = { '.', ',' },
+	hu = { '.', ',' },
+	it = { '.', ',' },
+	jp = { ',', '.' },
+	nl = { '.', ',' },
+	pl = { '.', ',' },
+	ru = { '.', ',' }
+};
+local numberSeparator, numberDecimalSeparator = '.', ',';
+if g_languageShort and numberSeparators[g_languageShort] then
+	numberSeparator		   = numberSeparators[g_languageShort][1];
+	numberDecimalSeparator = numberSeparators[g_languageShort][2];
+end;
 local formatNumber = function(number, precision)
 	precision = precision or 0;
 
 	local str = '';
 	local firstDigit, rest, decimal = ('%1.' .. precision .. 'f'):format(number):match('^([^%d]*%d)(%d*).?(%d*)');
-	str = firstDigit .. rest:reverse():gsub('(%d%d%d)', '%1' .. g_i18n:getText('Currency_separator')):reverse();
-	if decimal:len() > 0 then
-		str = str .. '.' .. decimal:sub(1, precision);
+	str = firstDigit .. rest:reverse():gsub('(%d%d%d)', '%1' .. numberSeparator):reverse();
+	if precision > 0 and decimal:len() > 0 then
+		decimal = decimal:sub(1, precision);
+		if tonumber(decimal) ~= 0 then
+			str = str .. numberDecimalSeparator .. decimal:sub(1, precision);
+		end;
 	end;
 	return str;
 end;
@@ -124,11 +144,11 @@ end;
 -- SET VEHICLE STORE DATA
 local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 	if doDebug then print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName)); end;
-	local dlcDir = dlcs[dlcName][6];
-	local path = Utils.getFilename(configFileNameShort:sub(6, 200), dlcDir);
+	local pdlcDir = dlcs[dlcName].containingDir;
+	local path = Utils.getFilename(configFileNameShort:sub(6, 200), pdlcDir);
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
 	if doDebug then 
-		-- print(('\tdlcDir=%q'):format(tostring(dlcDir)));
+		-- print(('\tpdlcDir=%q'):format(tostring(pdlcDir)));
 		-- print(('\tpath=%q'):format(tostring(path)));
 	end;
 	if storeItem then
@@ -157,7 +177,7 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 				specs = specs .. g_i18n:getText('STORE_SPECS_MAXPOWER') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.powerKW, storeData.powerKW * 1.35962162) .. '\n';
 			end;
 			if storeData.maxSpeed then
-				specs = specs .. g_i18n:getText('STORE_SPECS_MAXSPEED'):format(g_i18n:getSpeed(storeData.maxSpeed), g_i18n:getText('speedometer')) .. '\n';
+				specs = specs .. g_i18n:getText('STORE_SPECS_MAXSPEED'):format(formatNumber(g_i18n:getSpeed(storeData.maxSpeed), 1), g_i18n:getText('speedometer')) .. '\n';
 			end;
 			if storeData.requiredPowerKwMin then
 				specs = specs .. g_i18n:getText('STORE_SPECS_POWERREQUIRED') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(storeData.requiredPowerKwMin * 1.35962162);
@@ -170,16 +190,16 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 				specs = specs .. g_i18n:getText('STORE_SPECS_WEIGHT'):format(formatNumber(storeData.weight)) .. '\n';
 			end;
 			if storeData.workWidth then
-				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(storeData.workWidth) .. '\n';
+				specs = specs .. g_i18n:getText('STORE_SPECS_WORKWIDTH'):format(formatNumber(storeData.workWidth, 1)) .. '\n';
 			end;
 			if storeData.workSpeedMax then
-				local speed = g_i18n:getText('STORE_SPECS_SPEED'):format(g_i18n:getSpeed(storeData.workSpeedMax));
+				local speed = formatNumber(g_i18n:getSpeed(storeData.workSpeedMax), 1);
 				if storeData.workSpeedMin then
-					speed = g_i18n:getText('STORE_SPECS_SPEED'):format(g_i18n:getSpeed(storeData.workSpeedMin)) .. ' - ' .. speed;
+					speed = formatNumber(g_i18n:getSpeed(storeData.workSpeedMin), 1) .. ' - ' .. speed;
 				end;
 				specs = specs .. g_i18n:getText('STORE_SPECS_WORKINGSPEED'):format(speed, g_i18n:getText('speedometer')) .. '\n';
 			end;
-			if storeData.capacity then
+			if storeData.capacity then -- TODO: use g_i18n:getText('fluid_unit_short') for liters
 				local unit = storeData.capacityUnit or 'L';
 				if unit == "M3COMP" then
 					local compressed = storeData.compressedCapacity or storeData.capacity * 1.6;
@@ -192,12 +212,17 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 				local fruitNames = Utils.splitString(',', storeData.fruits);
 				local fruitNamesI18n = {};
 				for i=1,#fruitNames do
-					if Fillable.fillTypeNameToDesc[ fruitNames[i] ] ~= nil then
-						fruitNamesI18n[#fruitNamesI18n + 1] = Fillable.fillTypeNameToDesc[ fruitNames[i] ].nameI18N;
+					local fruitName = fruitNames[i];
+					if Fillable.fillTypeNameToDesc[fruitName] ~= nil then
+						fruitNamesI18n[#fruitNamesI18n + 1] = tostring(Fillable.fillTypeNameToDesc[fruitName].nameI18N);
 					else
-						local fruitTypeDesc = FruitUtil.fruitTypes[ fruitNames[i] ];
-						local fillTypeDesc = FruitUtil.fruitTypeToFillType[fruitTypeDesc.index];
-						fruitNamesI18n[#fruitNamesI18n + 1] = fillTypeDesc.nameI18n;
+						local fruitTypeDesc = FruitUtil.fruitTypes[fruitName];
+						if fruitTypeDesc then
+							local fillTypeDesc = FruitUtil.fruitTypeToFillType[fruitTypeDesc.index];
+							if fillTypeDesc then
+								fruitNamesI18n[#fruitNamesI18n + 1] = tostring(fillTypeDesc.nameI18n);
+							end;
+						end;
 					end;
 				end;
 
@@ -598,8 +623,8 @@ end;
 -- ##################################################
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed and up-to-date ones
-local getDlcVersion = function(dlcName)
-	local dlcModItem = ModsUtil.findModItemByModName(dlcName);
+local getDlcVersion = function(modName)
+	local dlcModItem = ModsUtil.findModItemByModName(modName);
 	if dlcModItem and dlcModItem.version then
 		local versionSplit = Utils.splitString('.', dlcModItem.version);
 		local versionFlt = tonumber(('%d.%d%d%d'):format(versionSplit[1], versionSplit[2], versionSplit[3], versionSplit[4]));
@@ -610,25 +635,25 @@ local getDlcVersion = function(dlcName)
 end;
 
 local dlcExists = false;
-for name, data in pairs(dlcs) do
-	local modName = 'pdlc_' .. data[1];
+for name, dlcData in pairs(dlcs) do
+	local modName = 'pdlc_' .. dlcData.dlcName;
 	if g_modNameToDirectory[modName] ~= nil then
 		local dlcVersion, dlcVersionStr = getDlcVersion(modName);
-		if dlcVersion < data[3] then
-			print(('MoreRealisticDLCs: DLC %q has a too low version number (v%s). Update to v%s or higher. Script will now be aborted!'):format(name, dlcVersionStr, data[4]));
+		if dlcVersion < dlcData.minVersionFlt then
+			print(('MoreRealisticDLCs: DLC %q has a too low version number (v%s). Update to v%s or higher. Script will now be aborted!'):format(name, dlcVersionStr, dlcData.minVersionStr));
 			delete(vehicleTypesFile);
 			return;
 		end;
 
-		data[5] = g_modNameToDirectory[modName];
-		data[6] = data[5]:sub(1, data[5]:len() - data[1]:len() - 1);
-		-- print(('DLC %q: modName=%q, dir=%q, containingDir=%q'):format(data[1], modName, data[5], data[6]));
-		-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(data[4], dlcVersionStr));
+		dlcData.dir = g_modNameToDirectory[modName]; 
+		dlcData.containingDir = dlcData.dir:sub(1, dlcData.dir:len() - dlcData.dlcName:len() - 1);
+		-- print(('DLC %q: modName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, modName, dlcData.dir, dlcData.containingDir));
+		-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(dlcData.minVersionStr, dlcVersionStr));
 		if not customSpecsRegistered then
 			registerCustomSpecs();
 		end;
-		local vehicleDataPath = Utils.getFilename(data[2], modDir);
-		print(('MoreRealisticDLCs: %q DLC v%s exists, -> call getMoreRealisticData("...%s")'):format(name, dlcVersionStr, data[2]));
+		local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
+		print(('MoreRealisticDLCs: %q DLC v%s exists, -> call getMoreRealisticData("...%s")'):format(name, dlcVersionStr, dlcData.dataFile));
 		getMoreRealisticData(vehicleDataPath, name);
 		dlcExists = true;
 	end;

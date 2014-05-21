@@ -27,83 +27,199 @@
 	<l10n>
 		<text name="DLC_MRIZED">
 			<en>Converted for MoreRealistic with the MoreRealisticDLCs mod.</en>
+			<cz>V přepočtu na MoreRealistic s MoreRealisticDLCs mod.</cz>
 			<de>Für MoreRealistic konvertiert mit dem MoreRealisticDLCs Mod.</de>
+			<es>Modificada para MoreRealistic con el mod MoreRealisticDLCs.</es>
+			<fr>Converti pour MoreRealistic avec le mod MoreRealisticDLCs.</fr>
+			<hu>Átalakított MoreRealistic a MoreRealisticDLCs mod.</hu>
+			<it>Convertito per MoreRealistic con il mod MoreRealisticDLCs.</it>
+			<jp>Converted for MoreRealistic with the MoreRealisticDLCs mod.</jp> <!-- TODO -->
+			<nl>Omgebouwd voor MoreRealistic met de MoreRealisticDLCs mod.</nl>
+			<pl>Przeliczone na MoreRealistic z modem MoreRealisticDLCs.</pl>
+			<ru>Старинная для MoreRealistic с модом MoreRealisticDLCs.</ru>
 		</text>
 
 		<text name="STORE_SPECS_MAINTENANCE">
 			<en>Maintenance: %s / day</en>
+			<cz>Údržba: %s / den</cz>
 			<de>Unterhaltskosten: %s / Tag</de>
+			<es>Mantenimiento: %s / día</es>
 			<fr>Entretien: %s / jour</fr>
+			<hu>Fenntartás: %s / nap</hu>
+			<it>Manutenzione: %s / giorno</it>
+			<jp>維持費： %s / 日</jp>
+			<nl>Onderhoud: %s / dag</nl>
+			<pl>Utrzymanie: %s / dzień</pl>
+			<ru>Обслуживание: %s/день</ru>
 		</text>
 		<text name="STORE_SPECS_POWER">
 			<en>%d kW/%d hp</en>
+			<cz>%d kW/%d koní</cz>
 			<de>%d kW/%d PS</de>
+			<es>%d kW/%d cv</es>
 			<fr>%d kW/%d Cv</fr>
+			<hu>%d kW/%d LE</hu>
+			<jp>%dキロワット/%d馬力</jp>
+			<it>%d kW/%d cv</it>
+			<nl>%d kW/%d pk</nl>
+			<pl>%d kW/%d KM</pl>
+			<ru>%d кВт/%d л.с.</ru>
 		</text>
 		<text name="STORE_SPECS_POWER_HP">
 			<en>%d hp</en>
+			<cz>%d koní</cz>
 			<de>%d PS</de>
+			<es>%d cv</es>
 			<fr>%d Cv</fr>
+			<hu>%d LE</hu>
+			<it>%d cv</it>
+			<jp>%d 馬力</jp>
+			<nl>%d pk</nl>
+			<pl>%d KM</pl>
+			<ru>%d л.с.</ru>
 		</text>
 		<text name="STORE_SPECS_MAXPOWER">
 			<en>Max. power:</en>
+			<cz>Max. výkon:</cz>
 			<de>Max. Leistung:</de>
+			<es>Potencia máxima:</es>
 			<fr>Puissance maxi:</fr>
+			<hu>Csúcsteljesítmény:</hu>
+			<it>Potenza massima:</it>
+			<jp>最大出力：</jp>
+			<nl>Max. vermogen:</nl>
+			<pl>Maks. moc:</pl>
+			<ru>Макс. мощность:</ru>
 		</text>
 		<text name="STORE_SPECS_POWERREQUIRED">
-			<en>Power req.:</en>
-			<de>Ben. Leistung:</de>
+			<en>Power required:</en>
+			<cz>Příkon:</cz>
+			<de>Benötigte Leistung:</de>
+			<es>Potencia requerida:</es>
 			<fr>Puissance requise:</fr>
+			<hu>Szükséges teljesítmény:</hu>
+			<it>Potenza richiesta:</it>
+			<jp>最小電力:</jp>
+			<pl>Wymagana moc:</pl>
+			<nl>Benodigd vermogen:</nl>
+			<ru>Требуемая мощность:</ru>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_L">
 			<en>Capacity: %s l</en>
+			<cz>Kapacita: %s l</cz>
 			<de>Kapazität: %s l</de>
-		    <fr>Capacité: %s l</fr>
+			<es>Capacidad: %s l</es>
+			<fr>Capacité: %s l</fr>
+			<hu>Töltőtérfogat: %s l</hu>
+			<it>Capacità: %s l</it>
+			<jp>積載体積: %s l</jp>
+			<nl>Laadvolume: %s l</nl>
+			<pl>Ładowność: %s l</pl>
+			<ru>Емкость: %s л</ru>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_M3">
 			<en>Capacity: %s m³</en>
+			<cz>Kapacita: %s m³</cz>
 			<de>Kapazität: %s m³</de>
+			<es>Capacidad: %s m³</es>
 			<fr>Capacité: %s m³</fr>
+			<hu>Töltőtérfogat: %s m³</hu>
+			<it>Capacità: %s m³</it>
+			<jp>積載体積: %s m³</jp>
+			<nl>Laadvolume: %s m³</nl>
+			<pl>Ładowność: %s m³</pl>
+			<ru>Емкость: %s м³</ru>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_M3COMP">
 			<en>Capacity: %s m³ DIN (%s m³ compressed)</en>
+			<cz>Kapacita: %s m³ DIN (%s m³ zhutněný)</cz>
 			<de>Kapazität: %s m³ DIN (%s m³ verdichtet)</de>
-			<fr>Volume : %s m³ DIN (%s m³ compressé)</fr>
+			<es>Capacidad: %s m³ DIN (%s m³ comprimida)</es>
+			<fr>Volume: %s m³ DIN (%s m³ compressé)</fr>
+			<hu>Töltőtérfogat: %s m³ DIN (%s m³ tömörített)</hu>
+			<it>Capacità: %s m³ DIN (%s m³ compresso)</it>
+			<nl>Laadvolume: %s m³ DIN (%s m³ gecomprimeerd)</nl>
+			<jp>積載体積: %s m³ DIN (%s m³ 圧縮された)</jp>
+			<pl>Ładowność: %s m³ DIN (%s m³ zagęszczony)</pl>
+			<ru>Емкость: %s м³ DIN (%s m³ сгущенный)</ru>
 		</text>
 		<text name="STORE_SPECS_CAPACITY_BALES">
 			<en>Loading capacity: %s bales</en>
+			<cz>Kapacita: %s balíků</cz>
 			<de>Ladekapazität: %s Ballen</de>
+			<es>Capacidad: %s balas</es>
 			<fr>Capacité de chargement: %s balles</fr>
+			<hu>Kapacitás: %s bála</hu>
+			<it>Capacità: %s balle</it>
+			<jp>積載量： %sベール</jp>
+			<nl>Capaciteit: %s balen</nl>
+			<pl>Ładowność: %s bel</pl>
+			<ru>Емкость: %s тюков</ru>
 		</text>
 		<text name="STORE_SPECS_MAXSPEED">
-			<en>Max speed: %.1f %s</en>
-			<de>Max. Geschwindigkeit: %d %s</de>
-			<fr>Vitesse maxi: %d %s</fr>
+			<en>Max speed: %s %s</en>
+			<cz>Max. rychlost: %s %s</cz>
+			<de>Max. Geschwindigkeit: %s %s</de>
+			<es>Velocidad máxima: %s %s</es>
+			<fr>Vitesse maxi: %s %s</fr>
+			<hu>Max. sebesség: %s %s</hu>
+			<it>Velocità massima: %s %s</it>
+			<jp>最高速度： %s %s</jp>
+			<nl>Max. snelheid: %s %s</nl>
+			<pl>Maks. prędkość: %s %s</pl>
+			<ru>Макс. скорость: %s %s</ru>
 		</text>
 		<text name="STORE_SPECS_WORKINGSPEED">
 			<en>Working speed: %s %s</en>
+			<cz>Rychlost práce: %s %s</cz>
 			<de>Arbeitsgeschwindigkeit: %s %s</de>
+			<es>Velocidad de trabajo: %s %s</es>
 			<fr>Vitesse de travail conseillée: %s %s</fr>
-		</text>
-		<text name="STORE_SPECS_SPEED">
-			<en>%.1f</en>	<!-- Mph -->
-			<de>%d</de>		<!-- Km/h -->
-			<fr>%d</fr>		<!-- Km/h -->
+			<hu>Munka sebességét: %s %s</hu>
+			<it>Velocità di lavoro: %s %s</it>
+			<jp>動作速度: %s %s</jp>
+			<nl>Werksnelheid: %s %s</nl>
+			<pl>Prędkość pracy: %s %s</pl>
+			<ru>Pабочая скорость: %s %s</ru>
 		</text>
 		<text name="STORE_SPECS_WEIGHT">
 			<en>Weight: %s kg</en>
+			<cz>Hmotnost: %s kg</cz>
 			<de>Gewicht: %s kg</de>
+			<es>Peso: %s kg</es>
 			<fr>Masse: %s kg</fr>
+			<hu>Súly: %s kg</hu>
+			<it>Peso: %s kg</it>
+			<jp>重量： %s キロ</jp>
+			<nl>Gewicht: %s kg</nl>
+			<pl>Waga: %s kg</pl>
+			<ru>Вес: %s кг</ru>
 		</text>
 		<text name="STORE_SPECS_WORKWIDTH">
-			<en>Working width: %.1f m</en>
-			<de>Arbeitsbreite: %.1f m</de>
-			<fr>Largeur de travail: %.1f m</fr>
+			<en>Working width: %s m</en>
+			<cz>Pracovní šířka: %s m</cz>
+			<de>Arbeitsbreite: %s m</de>
+			<es>Anchura de trabajo: %s m</es>
+			<fr>Largeur de travail: %s m</fr>
+			<hu>Munkaszélesség: %s m</hu>
+			<it>Larghezza di lavoro: %s m</it>
+			<jp>有効幅： %sメートル</jp>
+			<nl>Werkbreedte: %s m</nl>
+			<pl>Szerokość robocza: %s m</pl>
+			<ru>Рабочая ширина: %s м</ru>
 		</text>
 		<text name="STORE_SPECS_FRUITS">
 			<en>Fruit types: %s</en>
+			<cz>Druhy ovoce: %s</cz>
 			<de>Fruchtarten: %s</de>
+			<es>Tipos de frutas: %s</es>
 			<fr>Types de fruits: %s</fr>
+			<hu>Típusú gabona: %s</hu>
+			<it>Tipi di frutta: %s</it>
+			<jp>果物の種類: %s</jp>
+			<nl>Soorten fruit: %s</nl>
+			<pl>Rodzaje owoców: %s</pl>
+			<ru>Виды фруктов: %s</ru>
 		</text>
 	</l10n>
 </modDesc>
