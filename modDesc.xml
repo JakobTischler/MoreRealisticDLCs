@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <modDesc descVersion="17">
-	<author>modelleicher, Jakob Tischler, Satis</author>
-	<contributors>dural, Grisu118, Xentro</contributors>
+	<author>Jakob Tischler, modelleicher, Satis</author>
+	<contributors>_dj_, dural, Grisu118, Xentro</contributors>
 	<version>0.1 beta</version>
 	<title>
 		<en>MoreRealistic DLCs</en>
@@ -50,7 +50,7 @@
 			<jp>維持費： %s / 日</jp>
 			<nl>Onderhoud: %s / dag</nl>
 			<pl>Utrzymanie: %s / dzień</pl>
-			<ru>Обслуживание: %s/день</ru>
+			<ru>Обслуживание: %s / день</ru>
 		</text>
 		<text name="STORE_SPECS_POWER">
 			<en>%d kW/%d hp</en>
@@ -108,11 +108,11 @@
 			<en>Capacity: %s l</en>
 			<cz>Kapacita: %s l</cz>
 			<de>Kapazität: %s l</de>
-			<es>Capacidad: %s l</es>
+			<es>Capacidad: %s L</es>
 			<fr>Capacité: %s l</fr>
 			<hu>Töltőtérfogat: %s l</hu>
 			<it>Capacità: %s l</it>
-			<jp>積載体積: %s l</jp>
+			<jp>積載体積: %s リットル</jp>
 			<nl>Laadvolume: %s l</nl>
 			<pl>Ładowność: %s l</pl>
 			<ru>Емкость: %s л</ru>

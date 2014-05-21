@@ -31,7 +31,7 @@ function BaleWrapperPowerConsumption:updateTick(dt)
 	if self.isServer and self.isActive and self.realWorkingPowerConsumption then
 		self.realCurrentPowerConsumption = 0;
 
-		if self.baleWrapperState == 3 then --BaleWrapper.STATE_WRAPPER_WRAPPING_BALE
+		if self.baleWrapperState == 3 then
 			self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
 			return;
 		end;

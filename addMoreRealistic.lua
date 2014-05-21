@@ -1180,3 +1180,20 @@ local setBaleMrData = function(self, nodeId)
 	end;
 end;
 Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, setBaleMrData);
+
+
+local drawComponents = function(self, dt)
+	if not self.isActive --[[or not self.isSelected]] then return; end;
+	for i=1, #self.components do
+		local node = self.components[i].node;
+		local compX,compY,compZ = getWorldTranslation(node);
+		drawDebugPoint(compX,compY,compZ, 0, 1, 0, 1);
+		local x, y, z = getCenterOfMass(node);
+		if x ~= 0 or y ~= 0 or z ~= 0 then
+			local massX,massY,massZ = localToWorld(node, x, y, z);
+			drawDebugPoint(massX,massY,massZ, 1, 1, 0, 1);
+			drawDebugLine(compX,compY,compZ, 0, 1, 0, massX,massY,massZ, 1, 1, 0);
+		end;
+	end;
+end;
+-- Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);

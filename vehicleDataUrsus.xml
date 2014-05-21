@@ -147,7 +147,7 @@
 	<!-- (2.3) URSUS Z-586 bale wrapper --> <!-- AUTHOR: Jakob Tischler --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="baleWrapper" configFileName="pdlc/ursusAddon/ursus/ursusZ586.xml" mrVehicleType="mr_baleWrapper_u" debug="true">
 		<store workSpeedMax="20" weight="1200" requiredPowerKwMin="35" />
-		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" realWorkingPowerConsumption="22" animationSpeedScale="unfold:0.5" />
+		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" realWorkingPowerConsumption="22" animationSpeedScale="unfold:0.3333333" />
 		<workTool realWorkingSpeedLimit="20" />
 		<dimensions width="2.8" height="0.4" /> <!-- in m -->
 		<weights weight="1.2" maxWeight="2.2" /> <!-- in t -->
@@ -156,7 +156,7 @@
 			<wheel driveMode="0" radius="0.446" deltaY="0.22" damper="20" suspTravel="0.25" brakeRatio="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0 0" realMassWanted="1" />
+			<component1 centerOfMass="0 0 -1" realMassWanted="1" />
 			<component2 centerOfMass="0 0 0" realMassWanted="0.1" />
 			<component3 centerOfMass="0 0 0" realMassWanted="0.1" />
 		</components>
@@ -165,18 +165,21 @@
 	<!-- (2.4) URSUS T-610A trailer --> <!-- AUTHOR: Jakob Tischler --> <!-- NOT DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/ursusAddon/ursus/ursusT610A.xml" mrVehicleType="moreRealistic.trailer" debug="true">
 		<store capacity="9.64" capacityUnit="M3" weight="2760" requiredPowerKwMin="35" fruits="wheat,barley,rape,maize,chaff,potato,sugarBeet" />
-		<general realBrakingDeceleration="4" realMaxVehicleSpeed="40" />
+		<general realBrakingDeceleration="4" realMaxVehicleSpeed="40" realRollingResistance="0.017" />
 		<workTool capacity="8000" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" />
 		<dimensions width="2.3" height="2" /> <!-- in m -->
-		<weights weight="2.56" maxWeight="10" /> <!-- in t -->
+		<weights weight="2.56" maxWeight="10.6" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" radius="0.425" deltaY="0.07" suspTravel="0.1" spring="20" />
-			<wheel driveMode="0" radius="0.425" deltaY="0.07" suspTravel="0.1" spring="20" />
-			<wheel driveMode="0" radius="0.425" deltaY="0.07" suspTravel="0.1" spring="20" />
-			<wheel driveMode="0" radius="0.425" deltaY="0.07" suspTravel="0.1" spring="20" />
+			<!-- <wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" /> -->
+			<!-- <wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.15" spring="53" brakeRatio="1" />  -->
+
+			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
+			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
+			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
+			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.45 -0.7" realMassWanted="1.56" realTransWithMass="0 1 1" realTransWithMassMax="0 0.75 0.6" />
+			<component1 centerOfMass="0 0.6 -0.4" realMassWanted="1.56" realTransWithMass="0 0.05 0.07" realTransWithMassMax="0 0.4 0.56" />
 			<component2 centerOfMass="0 0 0" realMassWanted="0.75" />
 			<component3 centerOfMass="0 0 0" realMassWanted="0.25" />
 		</components>

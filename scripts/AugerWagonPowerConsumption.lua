@@ -14,8 +14,8 @@ function AugerWagonPowerConsumption.prerequisitesPresent(specializations)
 end;
 
 function AugerWagonPowerConsumption:load(xmlFile)
-	self.realOverloaderUnloadingPowerConsumption = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption'), 0);
-	self.realWorkingPowerConsumption = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption'), 0);
+	self.realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption');
+	self.realWorkingPowerConsumption = getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption');
 	self.realCurrentPowerConsumption = 0;
 end;
 
@@ -31,9 +31,9 @@ end;
 function AugerWagonPowerConsumption:updateTick(dt)
 	if self.isServer and self.isActive then
 		self.realCurrentPowerConsumption = 0;
-		if self.realOverloaderUnloadingPowerConsumption > 0 and self.pipeIsUnloading then
+		if self.realOverloaderUnloadingPowerConsumption and self.pipeIsUnloading then
 			self.realCurrentPowerConsumption = self.realOverloaderUnloadingPowerConsumption;
-		elseif self.realWorkingPowerConsumption > 0 and self:getIsAnimationPlaying('foldingPipe') then
+		elseif self.realWorkingPowerConsumption and self:getIsAnimationPlaying('foldingPipe') then
 			self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
 		end;
 	end;

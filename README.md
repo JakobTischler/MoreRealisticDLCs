@@ -8,8 +8,8 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 ---
 
 #### Authors:
-* modelleicher
 * Jakob Tischler
+* modelleicher
 * Satis
 
 #### Contributors:
@@ -29,7 +29,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Lindner grain transport module *(Satis)*
 
 ###### Marshall DLC:
-- [ ] Marshall BC 32 bale trailer
+- [ ] Marshall BC 32 bale trailer *(Satis)*
 - [ ] Marshall MS105 manure spreader
 - [ ] Marshall QM 16 trailer
 - [ ] Marshall ST 1800 liquid manure spreader
@@ -50,7 +50,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Horsch Terrano 6 FM cultivator
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
 - [ ] Kotte Garant VQ 32000 liquid manure spreader
-- [ ] Kramer KL 600
+- [x] Kramer KL 600 *(dural)*
 - [ ] Krone BigX 1100
 - [ ] Krone cutter trailer
 - [ ] Krone Easy Collect 1053 corn header
@@ -75,9 +75,9 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Ursus frontloader bale grabber
 - [ ] Ursus N-270 manure spreader
 - [ ] Ursus T-127 bale loader *(Jakob)*
-- [ ] Ursus T-610A1 trailer *(Jakob)*
+- [x] Ursus T-610A1 trailer *(Jakob)*
 - [ ] Ursus Z-554 rake
-- [ ] Ursus Z-586 bale wrapper *(Jakob)*
+- [x] Ursus Z-586 bale wrapper *(Jakob)*
 - [ ] Ursus Z-594 baler *(Jakob)*
 
 ###### Väderstad DLC:
