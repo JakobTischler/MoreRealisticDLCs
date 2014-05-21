@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) CULTIVATORS -->
-	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- ALMOST DONE ? --> <!-- hp requirement 250 -->
+	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- ALMOST DONE --> <!-- hp requirement 250 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v">
 		<store price="54000" dailyUpkeep="9" workSpeedMax="20" weight="7400" workWidth="8.2" requiredPowerKwMin="184" />
 		<general realBrakingDeceleration="4" />
@@ -28,7 +28,7 @@
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTopDown500.xml" mrVehicleType="mr_cultivator_visualWheels_v">
 		<store price="68000" dailyUpkeep="11" workSpeedMax="20" weight="7000" workWidth="5" requiredPowerKwMin="199" requiredPowerKwMax="243" />
 		<general realBrakingDeceleration="4" />
-		<workTool realPowerConsumption="0" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.32" caRealTractionResistance="48" caRealTractionResistanceWithLoadMass="0" />
+		<workTool realPowerConsumption="0" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.32" caRealTractionResistance="52" caRealTractionResistanceWithLoadMass="0" />
 		<dimensions width="3" height="3" /> <!-- in m -->
 		<weights weight="7" maxWeight="7" realBrakeMaxMovingMass="7" /> <!-- in t -->
 		<wheels>
@@ -47,22 +47,23 @@
 	</vehicle>
 
 	<!-- (2) SEEDERS -->
-	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 100-175 -->
+	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_ --> <!-- IN PROGRESS --> <!-- hp requirement 100-175 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="true">
-		<store capacity="3100" capacityUnit="L" weight="4600" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" />
-		<general realWorkingPowerConsumption="36" />
+		<store capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" />
+		<general realWorkingPowerConsumption="36" realBrakingDeceleration="2" />
 		<workTool realPowerConsumption="20" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0.4" />
-		<dimensions width="4.05" height="3" /> <!-- in m -->
-		<weights weight="4.6" maxWeight="8.6" /> <!-- in t --> <!-- capacity 4000l -->
+		<dimensions width="3" height="2.5" /> <!-- in m -->
+		<weights weight="4.7" maxWeight="7.8" realBrakeMaxMovingMass="8" /> <!-- in t --> <!-- capacity 3100l -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0.23" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.23" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.37" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.37" brakeRatio="0" />
+			<wheel driveMode="0" deltaY="0.04" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
+			<wheel driveMode="0" deltaY="0.04" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
+			<wheel driveMode="0" deltaY="0.07" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="2" />
+			<wheel driveMode="0" deltaY="0.07" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="2" />
 		</wheels>
+		<attacherJoint jointType="implement" lowerDistanceToGround="0.7" upperDistanceToGround="1.1" realWantedLoweredTransLimit="0 0.2 0" realWantedLoweredRotLimit="2 0 10" realWantedRaisedRotLimit="0 0 30" realWantedRaisedRot2="0" />
 		<components>
-			<component1 realMassWanted="4" />
-			<component2 realMassWanted="0.6" />
+			<component1 centerOfMass="0 0.3 -2.5" realMassWanted="4.2" /> <!-- realTransWithMass="0 0.1 0.45"--> 
+			<component2 realMassWanted="0.5" /> 
 		</components>
 	</vehicle>
 
