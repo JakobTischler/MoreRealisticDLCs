@@ -97,6 +97,32 @@
 			<component1 centerOfMass="0 0.4 -0.25" realMassWanted="1.775" />
 		</components>
 	</vehicle>
+	
+	<!-- (1.5) KRAMER KL600 --> <!-- AUTHOR: dural --> <!-- DONE -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/kramer/kramerKL600.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="false">
+		<store price="26000" dailyUpkeep="80" powerKW="45" maxSpeed="20" weight="2750" />
+		<general realMaxVehicleSpeed="22" realBrakingDeceleration="4.7" fuelCapacity="64" />
+		<engine kW="45" realMaxReverseSpeed="11" realMaxFuelUsage="12.4" realPtoDriveEfficiency="0.94" realTransmissionEfficiency="0.93" />
+		<dimensions width="1.75" height="1.8" /> <!-- in m -->
+		<weights weight="2.75" maxWeight="4.5" realBrakeMaxMovingMass="7" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="1" deltaY="0.09" brakeRatio="0" damper="20" spring="30" suspTravel="0.15" radius="0.41" rotMin="-42" rotMax="39" rotSpeed="55" />
+			<wheel driveMode="1" deltaY="0.09" brakeRatio="0" damper="20" spring="30" suspTravel="0.15" radius="0.41" rotMin="-39" rotMax="42" rotSpeed="55" />
+			<wheel driveMode="2" deltaY="0.05" brakeRatio="1" damper="20" spring="60" suspTravel="0.10" radius="0.67" />
+			<wheel driveMode="2" deltaY="0.05" brakeRatio="1" damper="20" spring="60" suspTravel="0.10" radius="0.67" />
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" maxRot="-20.44 0 0" maxRot2="19.71 0 0" minRotDistanceToGround="0.95" />
+		</attacherJoints>
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="60 75 60" /> <!-- high attacher -->
+			<trailerAttacherJoint maxRotLimit="60 82 60" /> <!-- front -->
+			<trailerAttacherJoint maxRotLimit="60 85 60" /> <!-- low attacher -->
+		</trailerAttacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.4 0.02" realMassWanted="2.75" />
+		</components>
+	</vehicle>
 
 	<!-- ################################################## -->
 
