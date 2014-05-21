@@ -16,9 +16,17 @@ end;
 -- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
 local mrModItem = ModsUtil.findModItemByModName(RealisticUtils.modName);
 if mrModItem and mrModItem.version then
-	local version = tonumber(mrModItem.version:sub(1, 3));
-	if version < 1.3 then
-		print(('MoreRealisticDLCs: your MoreRealistic version (%s) is too low. Install v1.3 or higher. Script will now be aborted!'):format(mrModItem.version));
+	local versionSplit = Utils.splitString('.', mrModItem.version);
+	local version = versionSplit[1];
+	if versionSplit[2] then
+		version = version .. '.' .. versionSplit[2];
+	end;
+	if versionSplit[3] then
+		version = version .. versionSplit[3];
+	end;
+	version = tonumber(version);
+	if version and version < 1.335 then
+		print(('MoreRealisticDLCs: your MoreRealistic version (v%s) is too low. Update to v1.3.35 or higher. Script will now be aborted!'):format(mrModItem.version));
 		return;
 	end;
 end;
