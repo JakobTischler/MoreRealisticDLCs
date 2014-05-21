@@ -74,6 +74,29 @@
 			<component1 centerOfMass="0 0.25 -0.42" realMassWanted="16.35" />
 		</components>
 	</vehicle>
+	
+	<!-- (1.4) IH FARMALL H --> <!-- AUTHOR: dural --> <!-- DONE -->
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHFarmallH.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="false">
+		<store price="14700" dailyUpkeep="40" powerKW="19" maxSpeed="26" weight="1775" />
+		<general realMaxVehicleSpeed="26" realBrakingDeceleration="4.1" fuelCapacity="66.2" />
+		<engine kW="19.5" realMaxReverseSpeed="4.4" realMaxFuelUsage="8.5" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.93" />
+		<dimensions width="2" height="1.8" /> <!-- in m -->
+		<weights weight="1.77" maxWeight="2" realBrakeMaxMovingMass="3" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="0" deltaY="0" brakeRatio="0" damper="20" spring="40" suspTravel="0.06" radius="0.32" rotMin="-54" rotMax="54" rotSpeed="60" antiRollFx="0" />			
+			<wheel driveMode="2" deltaY="0.05" brakeRatio="1" damper="20" spring="30" suspTravel="0.10" radius="0.63" />
+			<wheel driveMode="2" deltaY="0.05" brakeRatio="1" damper="20" spring="30" suspTravel="0.10" radius="0.63" />
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" maxRot="-19.97 0 0" maxRot2="19.47 0 0" minRotDistanceToGround="0.992" />
+		</attacherJoints>
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="60 90 60" />
+		</trailerAttacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.4 -0.25" realMassWanted="1.775" />
+		</components>
+	</vehicle>
 
 	<!-- ################################################## -->
 
