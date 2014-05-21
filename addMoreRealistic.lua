@@ -1059,6 +1059,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 				elseif mrData.subCategory == 'baleLoader' then
 					setValue(xmlFile, 'vehicle.realAutoStackerWorkingPowerConsumption', 'flt',  mrData.workTool.realAutoStackerWorkingPowerConsumption);
 
+				-- baleWrapper
+				elseif mrData.subCategory == 'baleWrapper' then
+
 				-- baler
 				elseif mrData.subCategory == 'baler' then
 					setValue(xmlFile, 'vehicle.realBalerWorkingSpeedLimit',				'flt',  mrData.workTool.realBalerWorkingSpeedLimit);

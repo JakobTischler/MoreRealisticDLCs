@@ -16,11 +16,12 @@
 		<sourceFile filename="addMoreRealistic.lua" />
 	</extraSourceFiles>
 
-	<customSpecializations num="4">
-		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
-		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem" 	 filename="scripts/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="scripts/ExhaustPower.lua" />
-		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
+	<customSpecializations num="5">
+		<specialization name="augerWagonPowerConsumption"  className="AugerWagonPowerConsumption"  filename="scripts/AugerWagonPowerConsumption.lua" />
+		<specialization name="baleWrapperPowerConsumption" className="BaleWrapperPowerConsumption" filename="scripts/BaleWrapperPowerConsumption.lua" />
+		<specialization name="dynamicExhaustingSystem" 	   className="DynamicExhaustingSystem" 	   filename="scripts/mrDynamicExhaustingSystem.lua" />
+		<specialization name="exhaustPower" 			   className="ExhaustPower" 			   filename="scripts/ExhaustPower.lua" />
+		<specialization name="realisticMovingTool" 		   className="RealisticMovingTool" 		   filename="scripts/RealisticMovingTool.lua" />
 	</customSpecializations>
 
 	<l10n>
@@ -32,7 +33,7 @@
 		<text name="STORE_SPECS_MAINTENANCE">
 			<en>Maintenance: %s / day</en>
 			<de>Unterhaltskosten: %s / Tag</de>
-			<fr>Entretien : %s / jour</fr>
+			<fr>Entretien: %s / jour</fr>
 		</text>
 		<text name="STORE_SPECS_POWER">
 			<en>%d kW/%d hp</en>

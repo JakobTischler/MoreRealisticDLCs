@@ -41,10 +41,10 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Case Magnum 340 Twinwheels *(dural)*
 - [ ] Case IH Farmall H
 - [x] Case 3020 cutter *(dural)*
-- [ ] Case 3162 cutter *(dural)*
-- [ ] Case 3412 corn header
+- [x] Case 3162 cutter *(dural)*
+- [x] Case 3412 corn header *(dural)*
 - [x] Case 7130 combine *(dural)*
-- [ ] Case 9230 combine *(dural)*
+- [x] Case 9230 combine *(dural)*
 - [ ] Horsch Maestro 12 SW seeder
 - [ ] Horsch Terrano 6 FM cultivator
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
@@ -73,11 +73,11 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Ursus frontloader bale fork
 - [ ] Ursus frontloader bale grabber
 - [ ] Ursus N-270 manure spreader
-- [ ] Ursus T-127 bale loader
-- [ ] Ursus T-610A1 trailer
+- [ ] Ursus T-127 bale loader *(Jakob)*
+- [ ] Ursus T-610A1 trailer *(Jakob)*
 - [ ] Ursus Z-554 rake
-- [ ] Ursus Z-586 bale wrapper
-- [ ] Ursus Z-594 baler
+- [ ] Ursus Z-586 bale wrapper *(Jakob)*
+- [ ] Ursus Z-594 baler *(Jakob)*
 
 ###### Väderstad DLC:
 - [ ] Väderstad Carrier 820 cultivator *(Xentro, dj)*
