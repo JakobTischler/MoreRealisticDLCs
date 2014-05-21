@@ -267,6 +267,19 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		};
 
 
+		-- animation speed scale
+		general.animationSpeedScale = {};
+		local animsStr = getXMLString(xmlFile, key .. '.general#animationSpeedScale');
+		if animsStr then
+			animsStr = Utils.splitString(',', animsStr);
+			for i,data in pairs(animsStr) do
+				dataSplit = Utils.splitString(':', data);
+				general.animationSpeedScale[dataSplit[1]] = tonumber(dataSplit[2]);
+				general.hasAnimationsSpeedScale = true;
+			end;
+		end;
+
+
 		-- engine
 		local engine = {
 			kW 									=  getXMLFloat(xmlFile, key .. '.engine#kW');
@@ -1091,6 +1104,34 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 						setValue(xmlFile, rcmKey .. '#multiplier', 'flt', mrData.workTool.realCapacityMultipliers[i].multiplier);
 					end;
 				end;
+			end;
+		end;
+
+
+		-- animation speed scale
+		if mrData.general.hasAnimationsSpeedScale then
+			local a = 0;
+			while true do
+				local animKey = ('vehicle.animations.animation(%d)'):format(a);
+				if not hasXMLProperty(xmlFile, animKey) then break; end;
+
+				local animName = getXMLString(xmlFile, animKey .. '#name');
+				local animScale = mrData.general.animationSpeedScale[animName];
+				if animScale then
+					local p = 0;
+					while true do
+						local partKey = ('%s.part(%d)'):format(animKey, p);
+						if not hasXMLProperty(xmlFile, partKey) then break; end;
+
+						local startTime = getXMLFloat(xmlFile, partKey .. '#startTime');
+						local endTime   = getXMLFloat(xmlFile, partKey .. '#endTime');
+						setValue(xmlFile, partKey .. '#startTime', 'flt', startTime / animScale);
+						setValue(xmlFile, partKey .. '#endTime',   'flt', endTime / animScale);
+
+						p = p + 1;
+					end;
+				end;
+				a = a + 1;
 			end;
 		end;
 	end;
