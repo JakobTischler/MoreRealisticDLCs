@@ -127,23 +127,23 @@
 	<!-- ################################################## -->
 
 	<!-- (2) TOOLS -->
-	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- NOT DONE -->
+	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_t" debug="false">
-		<store maxSpeed="12" capacity="9000" capacityUnit="L" weight="7175" workWidth="9" requiredPowerKwMin="200" requiredPowerKwMax="300" fruits="maize,sugarBeet" />
-		<general realRollingResistance="0.05" />
-		<workTool realPowerConsumption="130" realWorkingSpeedLimit="12" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0" />
+		<store price="106000" dailyUpkeep="28" maxSpeed="16" capacity="2000" capacityUnit="L" weight="7300" workWidth="9" requiredPowerKwMin="129" fruits="maize,sugarBeet" />
+		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" />
+		<workTool realPowerConsumption="20" realWorkingSpeedLimit="17" realResistanceOnlyWhenActive="false" caRealTractionResistance="5" caRealTractionResistanceWithLoadMass="0" capacity="2000" realAiWorkingSpeed="12" />
 		<dimensions width="3" height="4" /> <!-- in m -->
-		<weights weight="7.175" maxWeight="17" /> <!-- in t -->
-		<wheels>
-			<wheel driveMode="0" deltaY="0.08" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.08" brakeRatio="0" />
+		<weights weight="7.3" maxWeight="17" realBrakeMaxMovingMass="10" /> <!-- in t -->
+		<wheels>			
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="300" suspTravel="0.08" radius="0.865" />
+			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="300" suspTravel="0.08" radius="0.865" />
 		</wheels>
 		<components>
-			<component1 realMassWanted="6.775" />
-			<component2 realMassWanted="0.1" />
-			<component3 realMassWanted="0.1" />
-			<component4 realMassWanted="0.1" />
-			<component5 realMassWanted="0.1" />
+			<component1 realMassWanted="6.3" centerOfMass="0 0.9 0.4" />
+			<component2 realMassWanted="0.3" centerOfMass="0 0 -1" />
+			<component3 realMassWanted="0.3" centerOfMass="0 0 -1" />
+			<component4 realMassWanted="0.3" centerOfMass="0 0 -1" />
+			<component5 realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 
