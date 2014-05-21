@@ -330,6 +330,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				spring     		   = getXMLFloat(xmlFile, wheelKey .. '#spring'),
 				damper     		   =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
 				brakeRatio 		   = getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
+				antiRollFx		   = getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
 				realMaxMassAllowed = getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed')
 			};
 
@@ -875,6 +876,7 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 			setValue(xmlFile, wheelKey .. '#brakeRatio',		 'int', wheelMrData.brakeRatio, '\t');
 			setValue(xmlFile, wheelKey .. '#damper',			 'int', wheelMrData.damper, '\t');
 			setValue(xmlFile, wheelKey .. '#mass',				 'int', 1, '\t');
+			setValue(xmlFile, wheelKey .. '#antiRollFx',		 'flt', wheelMrData.antiRollFx, '\t');
 			setValue(xmlFile, wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
 
 			local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
