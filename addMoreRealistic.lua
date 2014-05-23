@@ -218,6 +218,9 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity, unit == 'M3' and 1 or 0)) .. '\n';
 				end;
 			end;
+			if storeData.length then
+				specs = specs .. g_i18n:getText('STORE_SPECS_LENGTH'):format(formatNumber(storeData.length, 2)) .. '\n';
+			end;
 			if storeData.fruits then
 				local fruitNames = Utils.splitString(',', storeData.fruits);
 				local fruitNamesI18n = {};
@@ -607,6 +610,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			capacity			=  getXMLFloat(xmlFile, key .. '.store#capacity');
 			compressedCapacity	=  getXMLFloat(xmlFile, key .. '.store#compressedCapacity');
 			capacityUnit		= getXMLString(xmlFile, key .. '.store#capacityUnit');
+			length				=  getXMLFloat(xmlFile, key .. '.store#length');
 			fruits				= getXMLString(xmlFile, key .. '.store#fruits');
 		};
 		setStoreData(configFileName, dlcName, store, doDebug);
@@ -1307,6 +1311,7 @@ end;
 
 
 -- MRIZE TITANIUM MAP
+--[[
 for i, mapItem in ipairs(MapsUtil.mapList) do
 	if not mapItem.titleMRized and mapItem.title and mapItem.customEnvironment and mapItem.customEnvironment:find('pdlc_') then
 		-- print(('mapItem %d: title=%q, customEnvironment=%q -> set title to %q'):format(i, tostring(mapItem.title), tostring(mapItem.customEnvironment), 'MR ' .. tostring(mapItem.title)));
@@ -1314,6 +1319,8 @@ for i, mapItem in ipairs(MapsUtil.mapList) do
 		mapItem.titleMRized = true;
 	end;
 end;
+]]
+
 
 local titaniumMapLoaded = false;
 local assertTitaniumMap = function(self)
