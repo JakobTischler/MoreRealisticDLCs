@@ -1,6 +1,9 @@
 ﻿MoreRealisticDLCs
 =================
 
+![MoreRealisticDLCs. Made with love. And coffee. By people. Also, unicorns!](http://i.minus.com/iBmd06prnMccy.jpg "MoreRealisticDLCs. Made with love. And coffee. By people. Also, unicorns!")
+
+
 A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 
 **Warning: this is still a work in progress. No success or non-exploding PCs guaranteed!**
