@@ -998,7 +998,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 	-- workTool
 	if mrData.category == 'tool' then
-		setValue(xmlFile, 'vehicle.realAiWorkingSpeed, 'int',  mrData.workTool.realAiWorkingSpeed);
+		setValue(xmlFile, 'vehicle.realAiWorkingSpeed', 'int',  mrData.workTool.realAiWorkingSpeed);
 
 		-- cutter
 		if mrData.subCategory == 'cutter' then
