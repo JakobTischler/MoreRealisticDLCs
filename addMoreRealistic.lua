@@ -869,14 +869,13 @@ local setMrData = function(vehicle, xmlFile, mrData)
 			local repr = getXMLString(xmlFile, wheelKey .. '#repr');
 			if not repr or repr == '' then break; end;
 		end;
+		local wheelMrData = mrData.wheels[wheelI + 1];
+		if not wheelMrData then break; end;
+		if mrData.doDebug then print('\twheels: ' .. wheelI); end;
+
 		if wheelI == 0 then
 			setValue(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 'flt', 1);
 		end;
-		if mrData.doDebug then
-			print('\twheels: ' .. wheelI);
-		end;
-
-		local wheelMrData = mrData.wheels[wheelI + 1];
 
 		removeProperty(xmlFile, wheelKey .. '#lateralStiffness', '\t');
 		removeProperty(xmlFile, wheelKey .. '#longitudalStiffness', '\t');
