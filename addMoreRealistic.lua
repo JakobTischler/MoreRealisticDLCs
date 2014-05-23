@@ -87,6 +87,8 @@ local registerVehicleTypes = function(dlcName)
 		if typeName == nil then break; end;
 
 		typeName = modName .. '.' .. typeName;
+		assert(VehicleTypeUtil.vehicleTypes[typeName] == nil, ('vehicleType %q already exists'):format(typeName));
+
 		local className = getXMLString(vehicleTypesFile, key .. '#className');
 		local fileName = getXMLString(vehicleTypesFile, key .. '#filename');
 		-- print(('\t%s\n\ttypeName=%q, className=%q, fileName=%q'):format(('-'):rep(50), typeName, tostring(className), tostring(fileName)));
@@ -250,8 +252,6 @@ end;
 -- GET VEHICLE MR DATA
 local vehicleData = {};
 local getMoreRealisticData = function(vehicleDataPath, dlcName)
-	registerVehicleTypes(dlcName);
-
 	assert(fileExists(vehicleDataPath), ('ERROR: %q could not be found'):format(vehicleDataPath));
 	local xmlFile = loadXMLFile('vehicleDataFile', vehicleDataPath);
 
@@ -606,6 +606,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		--------------------------------------------------
 
 		vehicleData[configFileName] = {
+			dlcName = dlcName,
 			category = category,
 			subCategory = subCategory,
 			configFileName = configFileName,
@@ -667,8 +668,11 @@ for name, dlcData in pairs(dlcs) do
 		if not customSpecsRegistered then
 			registerCustomSpecs();
 		end;
+
+
 		local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
-		print(('MoreRealisticDLCs: %q DLC v%s exists, -> call getMoreRealisticData("...%s")'):format(name, dlcVersionStr, dlcData.dataFile));
+		print(('MoreRealisticDLCs: %q DLC v%s exists, -> get data from %q'):format(name, dlcVersionStr, dlcData.dataFile));
+		registerVehicleTypes(name);
 		getMoreRealisticData(vehicleDataPath, name);
 		dlcExists = true;
 	end;
@@ -713,8 +717,412 @@ end;
 
 -- ##################################################
 
-local exhaustPsNewPath = '$moddir$' .. modName .. '/_RES/newRealParticles.i3d';
-local exhaustPsOldPath = '$moddir$' .. modName .. '/_RES/realParticles.i3d';
+local exhaustPsNewPath = '$moddir$' .. modName .. '/_RES/exhaustPS/newRealParticles.i3d';
+local exhaustPsOldPath = '$moddir$' .. modName .. '/_RES/exhaustPS/realParticles.i3d';
+
+local setMrData = function(vehicle, xmlFile, mrData)
+	removeProperty(xmlFile, 'vehicle.motor');
+
+
+	-- relevant MR values
+	setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt',  mrData.weights.weight * 0.25);
+	setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt',  mrData.general.realMaxVehicleSpeed);
+	setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt',  mrData.engine.realMaxReverseSpeed);
+	setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt',  mrData.weights.realBrakeMaxMovingMass);
+	setValue(xmlFile, 'vehicle.realSCX', 							  'flt',  mrData.width * mrData.height * 0.68);
+	setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt',  mrData.general.realBrakingDeceleration);
+	setValue(xmlFile, 'vehicle.realCanLockWheelsWhenBraking', 		  'bool', mrData.general.realCanLockWheelsWhenBraking);
+	setValue(xmlFile, 'vehicle.realRollingResistance',				  'flt',  mrData.general.realRollingResistance);
+	setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		  'flt',  mrData.general.realWorkingPowerConsumption);
+
+
+	if mrData.category == 'steerable' then
+		-- accelerationSpeed
+		setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration',	'int', 1);
+		setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration',		'int', 1);
+		setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed',		'int', 3);
+		removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
+
+		-- fuel usage, downforce
+		setValue(xmlFile, 'vehicle.fuelUsage', 'int', 0);
+		setValue(xmlFile, 'vehicle.downForce', 'int', 0);
+
+		-- general
+		setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', mrData.general.realDisplaySlip);
+		setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
+
+		-- wheels
+		setValue(xmlFile, 'vehicle.realVehicleFlotationFx',				  'flt',  mrData.wheelStuff.realVehicleFlotationFx);
+
+		-- engine
+		setValue(xmlFile, 'vehicle.realSpeedLevel', 					  'str',  mrData.engine.realSpeedLevel);
+		setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 				  'flt',  mrData.engine.realAiManeuverSpeed);
+		setValue(xmlFile, 'vehicle.realSpeedBoost',						  'int',  mrData.engine.realSpeedBoost);
+		setValue(xmlFile, 'vehicle.realSpeedBoost#minSpeed', 			  'int',  mrData.engine.realSpeedBoostMinSpeed);
+		setValue(xmlFile, 'vehicle.realImplementNeedsBoost',			  'int',  mrData.engine.realImplementNeedsBoost);
+		setValue(xmlFile, 'vehicle.realImplementNeedsBoost#minPowerCons', 'int',  mrData.engine.realImplementNeedsBoostMinPowerCons);
+		setValue(xmlFile, 'vehicle.realMaxBoost', 						  'int',  mrData.engine.realMaxBoost);
+		setValue(xmlFile, 'vehicle.realPtoPowerKW',						  'flt',  mrData.engine.realPtoPowerKW);
+		setValue(xmlFile, 'vehicle.realPtoDriveEfficiency',				  'flt',  mrData.engine.realPtoDriveEfficiency);
+		setValue(xmlFile, 'vehicle.realMaxFuelUsage',					  'flt',  mrData.engine.realMaxFuelUsage);
+		setValue(xmlFile, 'vehicle.realTransmissionEfficiency', 		  'flt',  mrData.engine.realTransmissionEfficiency);
+		setValue(xmlFile, 'vehicle.realMaxPowerToTransmission', 		  'flt',  mrData.engine.realMaxPowerToTransmission);
+		setValue(xmlFile, 'vehicle.realHydrostaticTransmission',		  'bool', mrData.engine.realHydrostaticTransmission);
+		setValue(xmlFile, 'vehicle.realMinSpeedForMaxPower', 			  'flt',  mrData.engine.realMinSpeedForMaxPower);
+
+		-- combine
+		if mrData.subCategory == 'combine' then
+			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.baseSpeed);
+			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.minSpeed);
+			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.maxSpeed);
+
+			setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',   'flt',  mrData.combine.realAiMinDistanceBeforeTurning);
+			setValue(xmlFile, 'vehicle.realUnloadingPowerBoost', 		  'flt',  mrData.combine.realUnloadingPowerBoost);
+			setValue(xmlFile, 'vehicle.realUnloadingPowerConsumption', 	  'flt',  mrData.combine.realUnloadingPowerConsumption);
+			setValue(xmlFile, 'vehicle.realThreshingPowerConsumption', 	  'flt',  mrData.combine.realThreshingPowerConsumption);
+			setValue(xmlFile, 'vehicle.realThreshingPowerConsumptionInc', 'flt',  mrData.combine.realThreshingPowerConsumptionInc);
+			setValue(xmlFile, 'vehicle.realThreshingPowerBoost',		  'flt',  mrData.combine.realThreshingPowerBoost);
+			setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 	  'flt',  mrData.combine.realChopperPowerConsumption);
+			setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
+			setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
+			setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 	  'flt',  mrData.combine.grainTankUnloadingCapacity);
+			setValue(xmlFile, 'vehicle.realCombineCycleDuration', 		  'flt',  mrData.combine.realCombineCycleDuration);
+
+			setValue(xmlFile, 'vehicle.realCombineLosses#allowed', 						   'bool', mrData.combine.realCombineLosses.allowed);
+			setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
+			setValue(xmlFile, 'vehicle.realCombineLosses#displayLosses',				   'bool', mrData.combine.realCombineLosses.displayLosses);
+
+			setValue(xmlFile, 'vehicle.pipe.node#rotationSpeeds',  'str', mrData.combine.pipeRotationSpeeds);
+			setValue(xmlFile, 'vehicle.pipe.node.state1#rotation', 'str', mrData.combine.pipeState1Rotation);
+			setValue(xmlFile, 'vehicle.pipe.node.state2#rotation', 'str', mrData.combine.pipeState2Rotation);
+		end;
+
+		-- exhaust PS
+		if mrData.engine.newExhaustPS then
+			local node = getXMLString(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#node');
+			if node then
+				-- remove old PS
+				setValue(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', exhaustPsOldPath);
+				-- setValue(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', exhaustPsNewPath);
+
+				-- set new PS
+				local desKey = 'vehicle.dynamicExhaustingSystem';
+				local minAlpha = mrData.engine.newExhaustMinAlpha or 0.2;
+				setValue(xmlFile, desKey .. '#minAlpha', 'flt', minAlpha); -- 0.05
+				setValue(xmlFile, desKey .. '#maxAlpha', 'flt', 1); -- 0.4
+				setValue(xmlFile, desKey .. '#param',	 'str', 'alphaScale');
+
+				-- start sequence
+				setValue(xmlFile, desKey .. '.startSequence.key(0)#time',  'flt', 0.0);
+				setValue(xmlFile, desKey .. '.startSequence.key(0)#value', 'str', '0 0 0 0');
+				setValue(xmlFile, desKey .. '.startSequence.key(1)#time',  'flt', 0.3);
+				setValue(xmlFile, desKey .. '.startSequence.key(1)#value', 'str', '0 0 0 0.5');
+				setValue(xmlFile, desKey .. '.startSequence.key(2)#time',  'flt', 0.6);
+				setValue(xmlFile, desKey .. '.startSequence.key(2)#value', 'str', '0 0 0 0.8');
+				setValue(xmlFile, desKey .. '.startSequence.key(3)#time',  'flt', 1);
+				setValue(xmlFile, desKey .. '.startSequence.key(3)#value', 'str', '0 0 0 ' .. minAlpha);
+
+				-- exhaust cap
+				if mrData.engine.newExhaustCapAxis then
+					local capNode	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#flap');
+					local capMaxRot	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#maxRot');
+
+					if capNode and capMaxRot then
+						setValue(xmlFile, desKey .. '#cap',		'str', capNode);
+						setValue(xmlFile, desKey .. '#capAxis',	'str', mrData.engine.newExhaustCapAxis);
+						setValue(xmlFile, desKey .. '#maxRot',	'str', capMaxRot);
+					end;
+				end;
+
+				-- second particleSystem
+				--[[
+				local spsKey = desKey .. '.secondParticleSystem';
+				setValue(xmlFile, spsKey .. '#node', 'str', node);
+				setValue(xmlFile, spsKey .. '#position', 'str', '0 0.02 0.02');
+				setValue(xmlFile, spsKey .. '#rotation', 'str', '0 0 0');
+				setValue(xmlFile, spsKey .. '#file', 'str', exhaustPsNewPath);
+				setValue(xmlFile, spsKey .. '#minLoadActive', 'flt', 0.5);
+				]]
+			end;
+		end;
+	end;
+
+
+	-- wheels
+	setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping', 'bool', mrData.wheelStuff.realNoSteeringAxleDamping);
+	local wheelI = 0;
+	while true do
+		local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
+		local repr = getXMLString(xmlFile, wheelKey .. '#repr');
+		if not repr or repr == '' then break; end;
+		if wheelI == 0 then
+			setValue(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 'flt', 1);
+		end;
+		if mrData.doDebug then
+			print('\twheels: ' .. wheelI);
+		end;
+
+		local wheelMrData = mrData.wheels[wheelI + 1];
+
+		removeProperty(xmlFile, wheelKey .. '#lateralStiffness', '\t');
+		removeProperty(xmlFile, wheelKey .. '#longitudalStiffness', '\t');
+		setValue(xmlFile, wheelKey .. '#driveMode',			 'int', wheelMrData.driveMode, '\t');
+		setValue(xmlFile, wheelKey .. '#rotMax',			 'flt', wheelMrData.rotMax, '\t');
+		setValue(xmlFile, wheelKey .. '#rotMin',			 'flt', wheelMrData.rotMin, '\t');
+		setValue(xmlFile, wheelKey .. '#rotSpeed',			 'flt', wheelMrData.rotSpeed, '\t');
+		setValue(xmlFile, wheelKey .. '#radius',			 'flt', wheelMrData.radius, '\t');
+		setValue(xmlFile, wheelKey .. '#brakeRatio',		 'int', wheelMrData.brakeRatio, '\t');
+		setValue(xmlFile, wheelKey .. '#damper',			 'int', wheelMrData.damper, '\t');
+		setValue(xmlFile, wheelKey .. '#mass',				 'int', 1, '\t');
+		setValue(xmlFile, wheelKey .. '#antiRollFx',		 'flt', wheelMrData.antiRollFx, '\t');
+		setValue(xmlFile, wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
+
+		local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
+		if not wheelMrData.realMaxMassAllowed and suspTravel < 0.05 then
+			suspTravel = 0.05;
+		end;
+		setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel, '\t');
+
+		-- MR 1.2: local spring = wheelMrData.spring or 278 * (mrData.weights.maxWeight / #mrData.wheels) / (suspTravel * 100 - 2);
+		local spring = wheelMrData.spring or 3 * mrData.weights.maxWeight / #mrData.wheels / suspTravel;
+		setValue(xmlFile, wheelKey .. '#spring', 'flt', spring, '\t');
+
+		setValue(xmlFile, wheelKey .. '#deltaY', 'flt', wheelMrData.deltaY, '\t');
+
+		wheelI = wheelI + 1;
+	end;
+
+
+	-- additionalWheels
+	for w=1, #mrData.additionalWheels do
+		local wheelMrData = mrData.additionalWheels[w];
+		local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
+		if mrData.doDebug then
+			print(('\tadditionalWheels: %d (set as wheel %d'):format(w - 1, wheelI));
+		end;
+
+		setValue(xmlFile, wheelKey .. '#repr',							   'str', wheelMrData.repr, '\t');
+		setValue(xmlFile, wheelKey .. '#deltaY',						   'flt', wheelMrData.deltaY, '\t');
+		setValue(xmlFile, wheelKey .. '#radius',						   'flt', wheelMrData.radius, '\t');
+		setValue(xmlFile, wheelKey .. '#suspTravel',					   'flt', wheelMrData.suspTravel, '\t');
+		setValue(xmlFile, wheelKey .. '#spring',						   'flt', wheelMrData.spring, '\t');
+		setValue(xmlFile, wheelKey .. '#damper',						   'flt', wheelMrData.damper, '\t');
+		setValue(xmlFile, wheelKey .. '#brakeRatio',					   'flt', wheelMrData.brakeRatio, '\t');
+		setValue(xmlFile, wheelKey .. '#antiRollFx',					   'flt', wheelMrData.antiRollFx, '\t');
+		setValue(xmlFile, wheelKey .. '#lateralStiffness',				   'flt', wheelMrData.lateralStiffness, '\t');
+		setValue(xmlFile, wheelKey .. '#continousBrakeForceWhenNotActive', 'flt', wheelMrData.continousBrakeForceWhenNotActive, '\t');
+
+		wheelI = wheelI + 1;
+	end;
+
+
+	-- attacherJoints
+	if mrData.category == 'steerable' then
+		local a = 0;
+		while true do
+			local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
+			if not hasXMLProperty(xmlFile, ajKey) then break; end;
+
+			local ajMrData = mrData.attacherJoints[a + 1];
+			local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
+			-- if jointType and (jointType == 'implement' or jointType == 'cutter') then
+			local rotationNode = getXMLString(xmlFile, ajKey .. '#rotationNode');
+			if rotationNode then
+				removeProperty(xmlFile, ajKey .. '#maxRotLimit');
+				removeProperty(xmlFile, ajKey .. '#minRot2');
+				removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
+				removeProperty(xmlFile, ajKey .. '#maxRotDistanceToGround');
+				removeProperty(xmlFile, ajKey .. '#maxTransLimit');
+
+				setValue(xmlFile, ajKey .. '#minRot', 				  'str', ajMrData.minRot);
+				setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
+				setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
+				setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
+				setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
+				setValue(xmlFile, ajKey .. '#moveTime',				  'flt', ajMrData.moveTime);
+
+			elseif jointType and (jointType == 'trailer' or jointType == 'trailerLow') then
+				setValue(xmlFile, ajKey .. '#maxRotLimit', 				'str',  ajMrData.maxRotLimit);
+				setValue(xmlFile, ajKey .. '#maxTransLimit', 			'str',  ajMrData.maxTransLimit);
+				setValue(xmlFile, ajKey .. '#allowsJointLimitMovement',	'bool', ajMrData.allowsJointLimitMovement);
+				setValue(xmlFile, ajKey .. '#allowsLowering',			'bool', ajMrData.allowsLowering);
+			end;
+
+			a = a + 1;
+		end;
+
+	elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
+		local ajMrData = mrData.attacherJoints[1];
+		removeProperty(xmlFile, 'vehicle.attacherJoint#upperDistanceToGround');
+		setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',	   'flt', ajMrData.lowerDistanceToGround);
+		setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
+		setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit',   'str', ajMrData.realWantedLoweredRotLimit);
+		setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',	   'str', ajMrData.realWantedRaisedRotLimit);
+		setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRot2',	   'flt', ajMrData.realWantedLoweredRot2);
+		setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotInc',	   'flt', ajMrData.realWantedRaisedRotInc);
+	end;
+
+
+	-- trailerAttacherJoints
+	local a = 0;
+	while true do
+		local tajKey = ('vehicle.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
+		if not hasXMLProperty(xmlFile, tajKey) then break; end;
+
+		if mrData.trailerAttacherJoints[a + 1] then
+			setValue(xmlFile, tajKey .. '#maxRotLimit', 'str', mrData.trailerAttacherJoints[a + 1].maxRotLimit);
+		end;
+
+		a = a + 1;
+	end;
+
+
+	-- components
+	for i=1, getXMLInt(xmlFile, 'vehicle.components#count') do
+		if mrData.components[i] then
+			local compKey = ('vehicle.components.component%d'):format(i);
+			setValue(xmlFile, compKey .. '#centerOfMass',		  'str', mrData.components[i].centerOfMass);
+			setValue(xmlFile, compKey .. '#realMassWanted',		  'flt', mrData.components[i].realMassWanted);
+			setValue(xmlFile, compKey .. '#realTransWithMass',	  'str', mrData.components[i].realTransWithMass);
+			setValue(xmlFile, compKey .. '#realTransWithMassMax', 'str', mrData.components[i].realTransWithMassMax);
+		end;
+	end;
+
+
+	-- workTool
+	if mrData.category == 'tool' then
+		setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.baseSpeed);
+		setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.minSpeed);
+		setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.maxSpeed);
+
+		-- cutter
+		if mrData.subCategory == 'cutter' then
+			setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);
+			setValue(xmlFile, 'vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
+			setValue(xmlFile, 'vehicle.realCutterSpeedLimit', 'int', mrData.workTool.realCutterSpeedLimit);
+
+		-- others
+		else
+			setValue(xmlFile, 'vehicle.realPowerConsumption',										 'flt',  mrData.workTool.realPowerConsumption);
+			setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorking',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorking);
+			setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorkingInc',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorkingInc);
+			setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',										 'flt',  mrData.workTool.realWorkingSpeedLimit);
+			setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',								 'bool', mrData.workTool.realResistanceOnlyWhenActive);
+			setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx',					 'flt',  mrData.workTool.resistanceDecreaseFx);
+			setValue(xmlFile, 'vehicle.realTilledGroundBonus#powerConsumptionWhenWorkingDecreaseFx', 'flt',  mrData.workTool.powerConsumptionWhenWorkingDecreaseFx);
+
+			if mrData.workTool.caRealTractionResistance then
+				local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
+				local tractionResistancePerCa = mrData.workTool.caRealTractionResistance / caCount;
+				local tractionResistanceWithLoadMassPerCa = mrData.workTool.caRealTractionResistanceWithLoadMass / caCount;
+				for i=1, caCount do
+					local caKey = ('vehicle.cuttingAreas.cuttingArea%d'):format(i);
+					setValue(xmlFile, caKey .. '#realTractionResistance', 			  'flt', tractionResistancePerCa);
+					setValue(xmlFile, caKey .. '#realTractionResistanceWithLoadMass', 'flt', tractionResistanceWithLoadMassPerCa);
+				end;
+			end;
+
+			-- trailer
+			if mrData.subCategory == 'trailer' then
+				setValue(xmlFile, 'vehicle.realTippingPowerConsumption', 			 'flt', mrData.workTool.realTippingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption', 'flt', mrData.workTool.realOverloaderUnloadingPowerConsumption);
+				setValue(xmlFile, 'vehicle.pipe#unloadingCapacity', 				 'flt', mrData.workTool.pipeUnloadingCapacity);
+
+			-- forageWagon
+			elseif mrData.subCategory == 'forageWagon' then
+				setValue(xmlFile, 'vehicle.realForageWagonWorkingPowerConsumption',	   'flt', mrData.workTool.realForageWagonWorkingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realForageWagonWorkingPowerConsumptionInc', 'flt', mrData.workTool.realForageWagonWorkingPowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realForageWagonDischargePowerConsumption',  'flt', mrData.workTool.realForageWagonDischargePowerConsumption);
+				setValue(xmlFile, 'vehicle.realForageWagonCompressionRatio',		   'flt', mrData.workTool.realForageWagonCompressionRatio);
+
+			-- rake
+			elseif mrData.subCategory == 'rake' then
+				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',	'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc',	'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
+
+			-- baleLoader
+			elseif mrData.subCategory == 'baleLoader' then
+				setValue(xmlFile, 'vehicle.realAutoStackerWorkingPowerConsumption', 'flt',  mrData.workTool.realAutoStackerWorkingPowerConsumption);
+
+			-- baleWrapper
+			elseif mrData.subCategory == 'baleWrapper' then
+
+			-- baler
+			elseif mrData.subCategory == 'baler' then
+				setValue(xmlFile, 'vehicle.realBalerWorkingSpeedLimit',				'flt',  mrData.workTool.realBalerWorkingSpeedLimit);
+				setValue(xmlFile, 'vehicle.realBalerPowerConsumption',				'flt',  mrData.workTool.realBalerPowerConsumption);
+				setValue(xmlFile, 'vehicle.realBalerRoundingPowerConsumptionInc',	'flt',  mrData.workTool.realBalerRoundingPowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumption',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumption);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumptionInc',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokeTimeOffset',			'flt',  mrData.workTool.realBalerRam.strokeTimeOffset);
+				setValue(xmlFile, 'vehicle.realBalerRam#strokePerMinute',			'flt',  mrData.workTool.realBalerRam.strokePerMinute);
+				setValue(xmlFile, 'vehicle.realBalerPickUpPowerConsumptionInc',		'flt',  mrData.workTool.realBalerPickUpPowerConsumptionInc);
+				setValue(xmlFile, 'vehicle.realBalerOverFillingRatio',				'flt',  mrData.workTool.realBalerOverFillingRatio);
+				setValue(xmlFile, 'vehicle.realBalerAddEjectVelZ',					'flt',  mrData.workTool.realBalerAddEjectVelZ);
+				setValue(xmlFile, 'vehicle.realBalerUseEjectingVelocity',			'bool', mrData.workTool.realBalerUseEjectingVelocity);
+				if mrData.workTool.realBalerLastBaleCol.index then
+					setValue(xmlFile, 'vehicle.realBalerLastBaleCol#index',						'str',	mrData.workTool.realBalerLastBaleCol.index);
+					setValue(xmlFile, 'vehicle.realBalerLastBaleCol#maxBaleTimeBeforeNextBale',	'flt',	mrData.workTool.realBalerLastBaleCol.maxBaleTimeBeforeNextBale);
+					setValue(xmlFile, 'vehicle.realBalerLastBaleCol#componentJoint',			'int',	mrData.workTool.realBalerLastBaleCol.componentJoint);
+				end;
+				-- TODO: <realEnhancedBaler> section
+
+				setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#fillType', 'str', 'wheat_windrow');
+				setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#value',	 'int', 1);
+				setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(1)#fillType', 'str', 'barley_windrow');
+				setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(1)#value',	 'int', 1);
+				setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(2)#fillType', 'str', 'dryGrass_windrow');
+				setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(2)#value',	 'flt', 1.25);
+
+			-- sprayer
+			elseif mrData.subCategory == 'sprayer' then
+				setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
+				setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'flt', mrData.workTool.realSprayingReferenceSpeed);
+				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
+				setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'flt', mrData.workTool.fillLitersPerSecond);
+			end;
+
+			-- fillable
+			if SpecializationUtil.hasSpecialization(Fillable, vehicle.specializations) then
+				setValue(xmlFile, 'vehicle.capacity', 'int', mrData.workTool.capacity);
+				
+				for i=1, #mrData.workTool.realCapacityMultipliers do
+					local rcmKey = ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)'):format(i-1);
+					setValue(xmlFile, rcmKey .. '#fillType',   'str', mrData.workTool.realCapacityMultipliers[i].fillType);
+					setValue(xmlFile, rcmKey .. '#multiplier', 'flt', mrData.workTool.realCapacityMultipliers[i].multiplier);
+				end;
+			end;
+		end;
+	end;
+
+
+	-- animation speed scale
+	if mrData.general.hasAnimationsSpeedScale then
+		local a = 0;
+		while true do
+			local animKey = ('vehicle.animations.animation(%d)'):format(a);
+			if not hasXMLProperty(xmlFile, animKey) then break; end;
+
+			local animName = getXMLString(xmlFile, animKey .. '#name');
+			local animScale = mrData.general.animationSpeedScale[animName];
+			if animScale then
+				local p = 0;
+				while true do
+					local partKey = ('%s.part(%d)'):format(animKey, p);
+					if not hasXMLProperty(xmlFile, partKey) then break; end;
+
+					local startTime = getXMLFloat(xmlFile, partKey .. '#startTime');
+					local endTime   = getXMLFloat(xmlFile, partKey .. '#endTime');
+					setValue(xmlFile, partKey .. '#startTime', 'flt', startTime / animScale);
+					setValue(xmlFile, partKey .. '#endTime',   'flt', endTime / animScale);
+
+					p = p + 1;
+				end;
+			end;
+			a = a + 1;
+		end;
+	end;
+end;
 
 local origVehicleLoad = Vehicle.load;
 Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
@@ -724,17 +1132,18 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	self.customEnvironment = vehicleModName;
 	self.typeName = typeName;
 
-	-- 
+	-- SET VEHICLE TYPE
 	local addMrData = false;
 	local cfnStart, _ = configFile:find('/pdlc/');
 	if cfnStart then
 		print(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
 		-- print(('\tmodName=%q, baseDirectory=%q'):format(tostring(vehicleModName), tostring(baseDirectory)));
-		local cfnShort = configFile:sub(cfnStart + 1, 1000);
-		mrData = vehicleData[cfnShort];
+		self.configFileNameShort = configFile:sub(cfnStart + 1, 1000);
+		mrData = vehicleData[self.configFileNameShort];
 		if mrData then
 			self.typeName = mrData.vehicleType;
 			self.isMoreRealisticDLC = true;
+			self.dlcNameClean = mrData.dlcName;
 			addMrData = true;
 			print(('\tVehicleType changed to: %q'):format(tostring(self.typeName)));
 		end;
@@ -748,414 +1157,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 	local xmlFile = loadXMLFile('TempConfig', configFile);
 
-
-
+	-- ADD MR DATA
 	if addMrData then
-		removeProperty(xmlFile, 'vehicle.motor');
-
-
-		-- relevant MR values
-		setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt',  mrData.weights.weight * 0.25);
-		setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt',  mrData.general.realMaxVehicleSpeed);
-		setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt',  mrData.engine.realMaxReverseSpeed);
-		setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt',  mrData.weights.realBrakeMaxMovingMass);
-		setValue(xmlFile, 'vehicle.realSCX', 							  'flt',  mrData.width * mrData.height * 0.68);
-		setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt',  mrData.general.realBrakingDeceleration);
-		setValue(xmlFile, 'vehicle.realCanLockWheelsWhenBraking', 		  'bool', mrData.general.realCanLockWheelsWhenBraking);
-		setValue(xmlFile, 'vehicle.realRollingResistance',				  'flt',  mrData.general.realRollingResistance);
-		setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		  'flt',  mrData.general.realWorkingPowerConsumption);
-
-
-		if mrData.category == 'steerable' then
-			-- accelerationSpeed
-			setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration',	'int', 1);
-			setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration',		'int', 1);
-			setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed',		'int', 3);
-			removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
-
-			-- fuel usage, downforce
-			setValue(xmlFile, 'vehicle.fuelUsage', 'int', 0);
-			setValue(xmlFile, 'vehicle.downForce', 'int', 0);
-
-			-- general
-			setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', mrData.general.realDisplaySlip);
-			setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
-
-			-- wheels
-			setValue(xmlFile, 'vehicle.realVehicleFlotationFx',				  'flt',  mrData.wheelStuff.realVehicleFlotationFx);
-
-			-- engine
-			setValue(xmlFile, 'vehicle.realSpeedLevel', 					  'str',  mrData.engine.realSpeedLevel);
-			setValue(xmlFile, 'vehicle.realAiManeuverSpeed', 				  'flt',  mrData.engine.realAiManeuverSpeed);
-			setValue(xmlFile, 'vehicle.realSpeedBoost',						  'int',  mrData.engine.realSpeedBoost);
-			setValue(xmlFile, 'vehicle.realSpeedBoost#minSpeed', 			  'int',  mrData.engine.realSpeedBoostMinSpeed);
-			setValue(xmlFile, 'vehicle.realImplementNeedsBoost',			  'int',  mrData.engine.realImplementNeedsBoost);
-			setValue(xmlFile, 'vehicle.realImplementNeedsBoost#minPowerCons', 'int',  mrData.engine.realImplementNeedsBoostMinPowerCons);
-			setValue(xmlFile, 'vehicle.realMaxBoost', 						  'int',  mrData.engine.realMaxBoost);
-			setValue(xmlFile, 'vehicle.realPtoPowerKW',						  'flt',  mrData.engine.realPtoPowerKW);
-			setValue(xmlFile, 'vehicle.realPtoDriveEfficiency',				  'flt',  mrData.engine.realPtoDriveEfficiency);
-			setValue(xmlFile, 'vehicle.realMaxFuelUsage',					  'flt',  mrData.engine.realMaxFuelUsage);
-			setValue(xmlFile, 'vehicle.realTransmissionEfficiency', 		  'flt',  mrData.engine.realTransmissionEfficiency);
-			setValue(xmlFile, 'vehicle.realMaxPowerToTransmission', 		  'flt',  mrData.engine.realMaxPowerToTransmission);
-			setValue(xmlFile, 'vehicle.realHydrostaticTransmission',		  'bool', mrData.engine.realHydrostaticTransmission);
-			setValue(xmlFile, 'vehicle.realMinSpeedForMaxPower', 			  'flt',  mrData.engine.realMinSpeedForMaxPower);
-
-			-- combine
-			if mrData.subCategory == 'combine' then
-				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.baseSpeed);
-				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.minSpeed);
-				setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.maxSpeed);
-
-				setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',   'flt',  mrData.combine.realAiMinDistanceBeforeTurning);
-				setValue(xmlFile, 'vehicle.realUnloadingPowerBoost', 		  'flt',  mrData.combine.realUnloadingPowerBoost);
-				setValue(xmlFile, 'vehicle.realUnloadingPowerConsumption', 	  'flt',  mrData.combine.realUnloadingPowerConsumption);
-				setValue(xmlFile, 'vehicle.realThreshingPowerConsumption', 	  'flt',  mrData.combine.realThreshingPowerConsumption);
-				setValue(xmlFile, 'vehicle.realThreshingPowerConsumptionInc', 'flt',  mrData.combine.realThreshingPowerConsumptionInc);
-				setValue(xmlFile, 'vehicle.realThreshingPowerBoost',		  'flt',  mrData.combine.realThreshingPowerBoost);
-				setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 	  'flt',  mrData.combine.realChopperPowerConsumption);
-				setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
-				setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
-				setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 	  'flt',  mrData.combine.grainTankUnloadingCapacity);
-				setValue(xmlFile, 'vehicle.realCombineCycleDuration', 		  'flt',  mrData.combine.realCombineCycleDuration);
-
-				setValue(xmlFile, 'vehicle.realCombineLosses#allowed', 						   'bool', mrData.combine.realCombineLosses.allowed);
-				setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
-				setValue(xmlFile, 'vehicle.realCombineLosses#displayLosses',				   'bool', mrData.combine.realCombineLosses.displayLosses);
-
-				setValue(xmlFile, 'vehicle.pipe.node#rotationSpeeds',  'str', mrData.combine.pipeRotationSpeeds);
-				setValue(xmlFile, 'vehicle.pipe.node.state1#rotation', 'str', mrData.combine.pipeState1Rotation);
-				setValue(xmlFile, 'vehicle.pipe.node.state2#rotation', 'str', mrData.combine.pipeState2Rotation);
-			end;
-
-			-- exhaust PS
-			if mrData.engine.newExhaustPS then
-				local node = getXMLString(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#node');
-				if node then
-					-- remove old PS
-					setValue(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', exhaustPsOldPath);
-					-- setValue(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', exhaustPsNewPath);
-
-					-- set new PS
-					local desKey = 'vehicle.dynamicExhaustingSystem';
-					local minAlpha = mrData.engine.newExhaustMinAlpha or 0.2;
-					setValue(xmlFile, desKey .. '#minAlpha', 'flt', minAlpha); -- 0.05
-					setValue(xmlFile, desKey .. '#maxAlpha', 'flt', 1); -- 0.4
-					setValue(xmlFile, desKey .. '#param',	 'str', 'alphaScale');
-
-					-- start sequence
-					setValue(xmlFile, desKey .. '.startSequence.key(0)#time',  'flt', 0.0);
-					setValue(xmlFile, desKey .. '.startSequence.key(0)#value', 'str', '0 0 0 0');
-					setValue(xmlFile, desKey .. '.startSequence.key(1)#time',  'flt', 0.3);
-					setValue(xmlFile, desKey .. '.startSequence.key(1)#value', 'str', '0 0 0 0.5');
-					setValue(xmlFile, desKey .. '.startSequence.key(2)#time',  'flt', 0.6);
-					setValue(xmlFile, desKey .. '.startSequence.key(2)#value', 'str', '0 0 0 0.8');
-					setValue(xmlFile, desKey .. '.startSequence.key(3)#time',  'flt', 1);
-					setValue(xmlFile, desKey .. '.startSequence.key(3)#value', 'str', '0 0 0 ' .. minAlpha);
-
-					-- exhaust cap
-					if mrData.engine.newExhaustCapAxis then
-						local capNode	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#flap');
-						local capMaxRot	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#maxRot');
-
-						if capNode and capMaxRot then
-							setValue(xmlFile, desKey .. '#cap',		'str', capNode);
-							setValue(xmlFile, desKey .. '#capAxis',	'str', mrData.engine.newExhaustCapAxis);
-							setValue(xmlFile, desKey .. '#maxRot',	'str', capMaxRot);
-						end;
-					end;
-
-					-- second particleSystem
-					--[[
-					local spsKey = desKey .. '.secondParticleSystem';
-					setValue(xmlFile, spsKey .. '#node', 'str', node);
-					setValue(xmlFile, spsKey .. '#position', 'str', '0 0.02 0.02');
-					setValue(xmlFile, spsKey .. '#rotation', 'str', '0 0 0');
-					setValue(xmlFile, spsKey .. '#file', 'str', exhaustPsNewPath);
-					setValue(xmlFile, spsKey .. '#minLoadActive', 'flt', 0.5);
-					]]
-				end;
-			end;
-		end;
-
-
-		-- wheels
-		setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping', 'bool', mrData.wheelStuff.realNoSteeringAxleDamping);
-		local wheelI = 0;
-		while true do
-			local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
-			local repr = getXMLString(xmlFile, wheelKey .. '#repr');
-			if not repr or repr == '' then break; end;
-			if wheelI == 0 then
-				setValue(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 'flt', 1);
-			end;
-			if mrData.doDebug then
-				print('\twheels: ' .. wheelI);
-			end;
-
-			local wheelMrData = mrData.wheels[wheelI + 1];
-
-			removeProperty(xmlFile, wheelKey .. '#lateralStiffness', '\t');
-			removeProperty(xmlFile, wheelKey .. '#longitudalStiffness', '\t');
-			setValue(xmlFile, wheelKey .. '#driveMode',			 'int', wheelMrData.driveMode, '\t');
-			setValue(xmlFile, wheelKey .. '#rotMax',			 'flt', wheelMrData.rotMax, '\t');
-			setValue(xmlFile, wheelKey .. '#rotMin',			 'flt', wheelMrData.rotMin, '\t');
-			setValue(xmlFile, wheelKey .. '#rotSpeed',			 'flt', wheelMrData.rotSpeed, '\t');
-			setValue(xmlFile, wheelKey .. '#radius',			 'flt', wheelMrData.radius, '\t');
-			setValue(xmlFile, wheelKey .. '#brakeRatio',		 'int', wheelMrData.brakeRatio, '\t');
-			setValue(xmlFile, wheelKey .. '#damper',			 'int', wheelMrData.damper, '\t');
-			setValue(xmlFile, wheelKey .. '#mass',				 'int', 1, '\t');
-			setValue(xmlFile, wheelKey .. '#antiRollFx',		 'flt', wheelMrData.antiRollFx, '\t');
-			setValue(xmlFile, wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
-
-			local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
-			if suspTravel == nil or suspTravel == '' or suspTravel < 0.05 then
-				suspTravel = 0.08;
-			end;
-			setValue(xmlFile, wheelKey .. '#suspTravel', 'flt', suspTravel, '\t');
-
-			-- MR 1.2: local spring = wheelMrData.spring or 278 * (mrData.weights.maxWeight / #mrData.wheels) / (suspTravel * 100 - 2);
-			local spring = wheelMrData.spring or 3 * mrData.weights.maxWeight / #mrData.wheels / suspTravel;
-			setValue(xmlFile, wheelKey .. '#spring', 'flt', spring, '\t');
-
-			local deltaY = wheelMrData.deltaY or getXMLFloat(xmlFile, wheelKey .. '#deltaY');
-			if deltaY == nil or deltaY == '' or deltaY == 0 then
-				deltaY = suspTravel * 0.9;
-			end;
-			setValue(xmlFile, wheelKey .. '#deltaY', 'flt', deltaY, '\t');
-
-			wheelI = wheelI + 1;
-		end;
-
-
-		-- additionalWheels
-		for w=1, #mrData.additionalWheels do
-			local wheelMrData = mrData.additionalWheels[w];
-			local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
-			if mrData.doDebug then
-				print(('\tadditionalWheels: %d (set as wheel %d'):format(w - 1, wheelI));
-			end;
-
-			setValue(xmlFile, wheelKey .. '#repr',							   'str', wheelMrData.repr, '\t');
-			setValue(xmlFile, wheelKey .. '#deltaY',						   'flt', wheelMrData.deltaY, '\t');
-			setValue(xmlFile, wheelKey .. '#radius',						   'flt', wheelMrData.radius, '\t');
-			setValue(xmlFile, wheelKey .. '#suspTravel',					   'flt', wheelMrData.suspTravel, '\t');
-			setValue(xmlFile, wheelKey .. '#spring',						   'flt', wheelMrData.spring, '\t');
-			setValue(xmlFile, wheelKey .. '#damper',						   'flt', wheelMrData.damper, '\t');
-			setValue(xmlFile, wheelKey .. '#brakeRatio',					   'flt', wheelMrData.brakeRatio, '\t');
-			setValue(xmlFile, wheelKey .. '#antiRollFx',					   'flt', wheelMrData.antiRollFx, '\t');
-			setValue(xmlFile, wheelKey .. '#lateralStiffness',				   'flt', wheelMrData.lateralStiffness, '\t');
-			setValue(xmlFile, wheelKey .. '#continousBrakeForceWhenNotActive', 'flt', wheelMrData.continousBrakeForceWhenNotActive, '\t');
-
-			wheelI = wheelI + 1;
-		end;
-
-
-		-- attacherJoints
-		if mrData.category == 'steerable' then
-			local a = 0;
-			while true do
-				local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
-				if not hasXMLProperty(xmlFile, ajKey) then break; end;
-
-				local ajMrData = mrData.attacherJoints[a + 1];
-				local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
-				-- if jointType and (jointType == 'implement' or jointType == 'cutter') then
-				local rotationNode = getXMLString(xmlFile, ajKey .. '#rotationNode');
-				if rotationNode then
-					removeProperty(xmlFile, ajKey .. '#maxRotLimit');
-					removeProperty(xmlFile, ajKey .. '#minRot2');
-					removeProperty(xmlFile, ajKey .. '#minRotRotationOffset');
-					removeProperty(xmlFile, ajKey .. '#maxRotDistanceToGround');
-					removeProperty(xmlFile, ajKey .. '#maxTransLimit');
-
-					setValue(xmlFile, ajKey .. '#minRot', 				  'str', ajMrData.minRot);
-					setValue(xmlFile, ajKey .. '#maxRot', 				  'str', ajMrData.maxRot);
-					setValue(xmlFile, ajKey .. '#maxRot2', 				  'str', ajMrData.maxRot2);
-					setValue(xmlFile, ajKey .. '#minRotDistanceToGround', 'flt', ajMrData.minRotDistanceToGround);
-					setValue(xmlFile, ajKey .. '#maxRotDistanceToGround', 'flt', ajMrData.maxRotDistanceToGround);
-					setValue(xmlFile, ajKey .. '#moveTime',				  'flt', ajMrData.moveTime);
-
-				elseif jointType and (jointType == 'trailer' or jointType == 'trailerLow') then
-					setValue(xmlFile, ajKey .. '#maxRotLimit', 				'str',  ajMrData.maxRotLimit);
-					setValue(xmlFile, ajKey .. '#maxTransLimit', 			'str',  ajMrData.maxTransLimit);
-					setValue(xmlFile, ajKey .. '#allowsJointLimitMovement',	'bool', ajMrData.allowsJointLimitMovement);
-					setValue(xmlFile, ajKey .. '#allowsLowering',			'bool', ajMrData.allowsLowering);
-				end;
-
-				a = a + 1;
-			end;
-
-		elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
-			local ajMrData = mrData.attacherJoints[1];
-			removeProperty(xmlFile, 'vehicle.attacherJoint#upperDistanceToGround');
-			setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',	   'flt', ajMrData.lowerDistanceToGround);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit',   'str', ajMrData.realWantedLoweredRotLimit);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',	   'str', ajMrData.realWantedRaisedRotLimit);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRot2',	   'flt', ajMrData.realWantedLoweredRot2);
-			setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotInc',	   'flt', ajMrData.realWantedRaisedRotInc);
-		end;
-
-
-		-- trailerAttacherJoints
-		local a = 0;
-		while true do
-			local tajKey = ('vehicle.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
-			if not hasXMLProperty(xmlFile, tajKey) then break; end;
-
-			if mrData.trailerAttacherJoints[a + 1] then
-				setValue(xmlFile, tajKey .. '#maxRotLimit', 'str', mrData.trailerAttacherJoints[a + 1].maxRotLimit);
-			end;
-
-			a = a + 1;
-		end;
-
-
-		-- components
-		for i=1, getXMLInt(xmlFile, 'vehicle.components#count') do
-			if mrData.components[i] then
-				local compKey = ('vehicle.components.component%d'):format(i);
-				setValue(xmlFile, compKey .. '#centerOfMass',		  'str', mrData.components[i].centerOfMass);
-				setValue(xmlFile, compKey .. '#realMassWanted',		  'flt', mrData.components[i].realMassWanted);
-				setValue(xmlFile, compKey .. '#realTransWithMass',	  'str', mrData.components[i].realTransWithMass);
-				setValue(xmlFile, compKey .. '#realTransWithMassMax', 'str', mrData.components[i].realTransWithMassMax);
-			end;
-		end;
-
-
-		-- workTool
-		if mrData.category == 'tool' then
-			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.baseSpeed);
-			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.minSpeed);
-			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.maxSpeed);
-
-			-- cutter
-			if mrData.subCategory == 'cutter' then
-				setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);
-				setValue(xmlFile, 'vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
-				setValue(xmlFile, 'vehicle.realCutterSpeedLimit', 'int', mrData.workTool.realCutterSpeedLimit);
-
-			-- others
-			else
-				setValue(xmlFile, 'vehicle.realPowerConsumption',										 'flt',  mrData.workTool.realPowerConsumption);
-				setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorking',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorking);
-				setValue(xmlFile, 'vehicle.realPowerConsumptionWhenWorkingInc',							 'flt',  mrData.workTool.realPowerConsumptionWhenWorkingInc);
-				setValue(xmlFile, 'vehicle.realWorkingSpeedLimit',										 'flt',  mrData.workTool.realWorkingSpeedLimit);
-				setValue(xmlFile, 'vehicle.realResistanceOnlyWhenActive',								 'bool', mrData.workTool.realResistanceOnlyWhenActive);
-				setValue(xmlFile, 'vehicle.realTilledGroundBonus#resistanceDecreaseFx',					 'flt',  mrData.workTool.resistanceDecreaseFx);
-				setValue(xmlFile, 'vehicle.realTilledGroundBonus#powerConsumptionWhenWorkingDecreaseFx', 'flt',  mrData.workTool.powerConsumptionWhenWorkingDecreaseFx);
-
-				if mrData.workTool.caRealTractionResistance then
-					local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
-					local tractionResistancePerCa = mrData.workTool.caRealTractionResistance / caCount;
-					local tractionResistanceWithLoadMassPerCa = mrData.workTool.caRealTractionResistanceWithLoadMass / caCount;
-					for i=1, caCount do
-						local caKey = ('vehicle.cuttingAreas.cuttingArea%d'):format(i);
-						setValue(xmlFile, caKey .. '#realTractionResistance', 			  'flt', tractionResistancePerCa);
-						setValue(xmlFile, caKey .. '#realTractionResistanceWithLoadMass', 'flt', tractionResistanceWithLoadMassPerCa);
-					end;
-				end;
-
-				-- trailer
-				if mrData.subCategory == 'trailer' then
-					setValue(xmlFile, 'vehicle.realTippingPowerConsumption', 			 'flt', mrData.workTool.realTippingPowerConsumption);
-					setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption', 'flt', mrData.workTool.realOverloaderUnloadingPowerConsumption);
-					setValue(xmlFile, 'vehicle.pipe#unloadingCapacity', 				 'flt', mrData.workTool.pipeUnloadingCapacity);
-
-				-- forageWagon
-				elseif mrData.subCategory == 'forageWagon' then
-					setValue(xmlFile, 'vehicle.realForageWagonWorkingPowerConsumption',	   'flt', mrData.workTool.realForageWagonWorkingPowerConsumption);
-					setValue(xmlFile, 'vehicle.realForageWagonWorkingPowerConsumptionInc', 'flt', mrData.workTool.realForageWagonWorkingPowerConsumptionInc);
-					setValue(xmlFile, 'vehicle.realForageWagonDischargePowerConsumption',  'flt', mrData.workTool.realForageWagonDischargePowerConsumption);
-					setValue(xmlFile, 'vehicle.realForageWagonCompressionRatio',		   'flt', mrData.workTool.realForageWagonCompressionRatio);
-
-				-- rake
-				elseif mrData.subCategory == 'rake' then
-					setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumption',	'flt',  mrData.workTool.realRakeWorkingPowerConsumption);
-					setValue(xmlFile, 'vehicle.realRakeWorkingPowerConsumptionInc',	'flt',  mrData.workTool.realRakeWorkingPowerConsumptionInc);
-
-				-- baleLoader
-				elseif mrData.subCategory == 'baleLoader' then
-					setValue(xmlFile, 'vehicle.realAutoStackerWorkingPowerConsumption', 'flt',  mrData.workTool.realAutoStackerWorkingPowerConsumption);
-
-				-- baleWrapper
-				elseif mrData.subCategory == 'baleWrapper' then
-
-				-- baler
-				elseif mrData.subCategory == 'baler' then
-					setValue(xmlFile, 'vehicle.realBalerWorkingSpeedLimit',				'flt',  mrData.workTool.realBalerWorkingSpeedLimit);
-					setValue(xmlFile, 'vehicle.realBalerPowerConsumption',				'flt',  mrData.workTool.realBalerPowerConsumption);
-					setValue(xmlFile, 'vehicle.realBalerRoundingPowerConsumptionInc',	'flt',  mrData.workTool.realBalerRoundingPowerConsumptionInc);
-					setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumption',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumption);
-					setValue(xmlFile, 'vehicle.realBalerRam#strokePowerConsumptionInc',	'flt',  mrData.workTool.realBalerRam.strokePowerConsumptionInc);
-					setValue(xmlFile, 'vehicle.realBalerRam#strokeTimeOffset',			'flt',  mrData.workTool.realBalerRam.strokeTimeOffset);
-					setValue(xmlFile, 'vehicle.realBalerRam#strokePerMinute',			'flt',  mrData.workTool.realBalerRam.strokePerMinute);
-					setValue(xmlFile, 'vehicle.realBalerPickUpPowerConsumptionInc',		'flt',  mrData.workTool.realBalerPickUpPowerConsumptionInc);
-					setValue(xmlFile, 'vehicle.realBalerOverFillingRatio',				'flt',  mrData.workTool.realBalerOverFillingRatio);
-					setValue(xmlFile, 'vehicle.realBalerAddEjectVelZ',					'flt',  mrData.workTool.realBalerAddEjectVelZ);
-					setValue(xmlFile, 'vehicle.realBalerUseEjectingVelocity',			'bool', mrData.workTool.realBalerUseEjectingVelocity);
-					if mrData.workTool.realBalerLastBaleCol.index then
-						setValue(xmlFile, 'vehicle.realBalerLastBaleCol#index',						'str',	mrData.workTool.realBalerLastBaleCol.index);
-						setValue(xmlFile, 'vehicle.realBalerLastBaleCol#maxBaleTimeBeforeNextBale',	'flt',	mrData.workTool.realBalerLastBaleCol.maxBaleTimeBeforeNextBale);
-						setValue(xmlFile, 'vehicle.realBalerLastBaleCol#componentJoint',			'int',	mrData.workTool.realBalerLastBaleCol.componentJoint);
-					end;
-					-- TODO: <realEnhancedBaler> section
-
-					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#fillType', 'str', 'wheat_windrow');
-					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(0)#value',	 'int', 1);
-					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(1)#fillType', 'str', 'barley_windrow');
-					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(1)#value',	 'int', 1);
-					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(2)#fillType', 'str', 'dryGrass_windrow');
-					setValue(xmlFile, 'vehicle.realFillTypePowerFactors.fillTypeFx(2)#value',	 'flt', 1.25);
-
-				-- sprayer
-				elseif mrData.subCategory == 'sprayer' then
-					setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
-					setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'flt', mrData.workTool.realSprayingReferenceSpeed);
-					setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
-					setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'flt', mrData.workTool.fillLitersPerSecond);
-				end;
-
-				-- fillable
-				if SpecializationUtil.hasSpecialization(Fillable, self.specializations) then
-					setValue(xmlFile, 'vehicle.capacity', 'int', mrData.workTool.capacity);
-					
-					for i=1, #mrData.workTool.realCapacityMultipliers do
-						local rcmKey = ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)'):format(i-1);
-						setValue(xmlFile, rcmKey .. '#fillType',   'str', mrData.workTool.realCapacityMultipliers[i].fillType);
-						setValue(xmlFile, rcmKey .. '#multiplier', 'flt', mrData.workTool.realCapacityMultipliers[i].multiplier);
-					end;
-				end;
-			end;
-		end;
-
-
-		-- animation speed scale
-		if mrData.general.hasAnimationsSpeedScale then
-			local a = 0;
-			while true do
-				local animKey = ('vehicle.animations.animation(%d)'):format(a);
-				if not hasXMLProperty(xmlFile, animKey) then break; end;
-
-				local animName = getXMLString(xmlFile, animKey .. '#name');
-				local animScale = mrData.general.animationSpeedScale[animName];
-				if animScale then
-					local p = 0;
-					while true do
-						local partKey = ('%s.part(%d)'):format(animKey, p);
-						if not hasXMLProperty(xmlFile, partKey) then break; end;
-
-						local startTime = getXMLFloat(xmlFile, partKey .. '#startTime');
-						local endTime   = getXMLFloat(xmlFile, partKey .. '#endTime');
-						setValue(xmlFile, partKey .. '#startTime', 'flt', startTime / animScale);
-						setValue(xmlFile, partKey .. '#endTime',   'flt', endTime / animScale);
-
-						p = p + 1;
-					end;
-				end;
-				a = a + 1;
-			end;
-		end;
+		setMrData(self, xmlFile, mrData);
 	end;
    
 	for i=1, #self.specializations do
@@ -1189,6 +1193,7 @@ local setMoreRealisticDamping = function(self, i3dNode, arguments)
 end;
 Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, setMoreRealisticDamping);
 
+
 -- BALES
 local setBaleMrData = function(self, nodeId)
 	if self.i3dFilename and self.i3dFilename:find('pdlc/ursusAddon') then
@@ -1200,7 +1205,49 @@ local setBaleMrData = function(self, nodeId)
 end;
 Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, setBaleMrData);
 
+-- RELOAD FROM XML
+local origVehicleDevelopmentReloadFromXML = Vehicle.developmentReloadFromXML;
+Vehicle.developmentReloadFromXML = function(self)
+	if not self.isMoreRealisticDLC or not self.configFileNameShort or not self.dlcNameClean then
+		return origVehicleDevelopmentReloadFromXML(self);
+	end;
 
+	local vehicleDataFileName = dlcs[self.dlcNameClean].dataFile;
+	local vehicleDataPath = Utils.getFilename(vehicleDataFileName, modDir);
+	print(('%s (%q): reloadFromXML -> get data from %q'):format(tostring(self.name), tostring(self.configFileNameShort), vehicleDataFileName));
+	-- print(('\tdlcNameClean=%q, vehicleDataPath=%q'):format(self.dlcNameClean, vehicleDataPath));
+	getMoreRealisticData(vehicleDataPath, self.dlcNameClean);
+
+	local xmlFile = loadXMLFile('configFileTmp', self.configFileName);
+	-- print(('\ttypeName=%q, configFileNameShort=%q'):format(tostring(self.typeName), tostring(self.configFileNameShort)));
+	mrData = vehicleData[self.configFileNameShort];
+	if mrData then
+		print(('\tsetMrData()'):format(tostring(self.typeName), tostring(self.configFileNameShort)));
+		setMrData(self, xmlFile, mrData);
+	end;
+
+	self.maxRotTime = 0;
+	self.minRotTime = 0;
+	self.autoRotateBackSpeed = getXMLFloat(xmlFile, 'vehicle.wheels#autoRotateBackSpeed') or 1;
+	for i=1, #self.wheels do
+		local wheel = self.wheels[i];
+		local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheel.xmlIndex);
+		self:loadDynamicWheelDataFromXML(xmlFile, wheelKey, wheel);
+	end;
+	for _, spec in pairs(self.specializations) do
+		if spec.developmentReloadFromXML ~= nil then
+			spec.developmentReloadFromXML(self, xmlFile);
+		end;
+	end;
+	for _, spec in pairs(self.specializations) do
+		if spec.developmentReloadFromXMLPost ~= nil then
+			spec.developmentReloadFromXMLPost(self, xmlFile);
+		end;
+	end;
+	delete(xmlFile);
+end;
+
+-- DEBUG DRAW COMPONENT POSITIONS / CENTER OF MASS
 local drawComponents = function(self, dt)
 	if not self.isActive --[[or not self.isSelected]] then return; end;
 	for i=1, #self.components do
@@ -1216,3 +1263,38 @@ local drawComponents = function(self, dt)
 	end;
 end;
 -- Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
+
+
+-- MRIZE TITANIUM MAP
+for i, mapItem in ipairs(MapsUtil.mapList) do
+	if not mapItem.titleMRized and mapItem.title and mapItem.customEnvironment and mapItem.customEnvironment:find('pdlc_') then
+		-- print(('mapItem %d: title=%q, customEnvironment=%q -> set title to %q'):format(i, tostring(mapItem.title), tostring(mapItem.customEnvironment), 'MR ' .. tostring(mapItem.title)));
+		mapItem.title = 'MR ' .. mapItem.title;
+		mapItem.titleMRized = true;
+	end;
+end;
+
+local titaniumMapLoaded = false;
+local assertTitaniumMap = function(self)
+	if self.loadingMapBaseDirectory and self.loadingMapBaseDirectory:find('/pdlc/') then
+		titaniumMapLoaded = true;
+
+		--[[
+		RealisticGlobalListener.priceBalancing = 4; 
+		RealisticGlobalListener.silagePriceBalancing = 1.3;
+		RealisticGlobalListener.hiredWorkerWageBalancing = 0.1;	
+		RealisticGlobalListener.seedPriceBalancing
+		RealisticGlobalListener.balePriceBalancing
+		RealisticGlobalListener.woolPriceBalancing
+		RealisticGlobalListener.eggPriceBalancing
+		RealisticGlobalListener.milkPriceBalancing
+		RealisticGlobalListener.fuelPriceBalancing
+		RealisticGlobalListener.fertilizerPriceBalancing
+		RealisticGlobalListener.windrowPriceBalancing
+		RealisticGlobalListener.startingSilosBaseAmount
+		RealisticGlobalListener.startingMoney
+		RealisticGlobalListener.realFieldTractionFx
+		]]
+	end;
+end;
+BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, assertTitaniumMap);
