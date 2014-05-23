@@ -474,11 +474,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			powerConsumptionWhenWorkingDecreaseFx	= getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
 			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
-			realAiWorkingSpeed = {
-				baseSpeed 							=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingBaseSpeed');
-				minSpeed 							=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingMinSpeed');
-				maxSpeed 							=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingMaxSpeed');
-			};
+			realAiWorkingSpeed 						=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingSpeed');
 		};
 
 		-- capacity multipliers
@@ -991,9 +987,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 	-- workTool
 	if mrData.category == 'tool' then
-		setValue(xmlFile, 'vehicle.realAiWorkingSpeed#baseSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.baseSpeed);
-		setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.minSpeed);
-		setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.workTool.realAiWorkingSpeed.maxSpeed);
+		setValue(xmlFile, 'vehicle.realAiWorkingSpeed, 'int',  mrData.workTool.realAiWorkingSpeed);
 
 		-- cutter
 		if mrData.subCategory == 'cutter' then

@@ -11,6 +11,9 @@
 		<en>MoreRealistic DLCs</en>
 		<de>MoreRealistic DLCs</de>
 	</description>
+	<iconFilename>_RES/MoreRealisticDLCs_icon.dds</iconFilename>
+	<multiplayer supported="true"/>
+
 	<extraSourceFiles>
 		<sourceFile filename="scripts/GetFilenameFix.lua" />
 		<sourceFile filename="addMoreRealistic.lua" />

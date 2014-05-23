@@ -49,8 +49,8 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Case 7130 combine *(dural)*
 - [x] Case 9230 combine *(dural)*
 - [ ] Case 9230 TT combine *(dural)*
-- [ ] Horsch Maestro 12 SW seeder
-- [ ] Horsch Terrano 6 FM cultivator
+- [x] Horsch Maestro 12 SW seeder *(dural)*
+- [ ] Horsch Terrano 6 FM cultivator *(dural)*
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
 - [ ] Kotte Garant VQ 32000 liquid manure spreader
 - [x] Kramer KL 600 *(dural)*
