@@ -339,8 +339,9 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- wheels
 		local wheelStuff = {
-			realVehicleFlotationFx    = getXMLFloat(xmlFile, key .. '.wheels#realVehicleFlotationFx');
+			realVehicleFlotationFx	  = getXMLFloat(xmlFile, key .. '.wheels#realVehicleFlotationFx');
 			realNoSteeringAxleDamping =  getXMLBool(xmlFile, key .. '.wheels#realNoSteeringAxleDamping');
+			overwriteWheels			  =  getXMLBool(xmlFile, key .. '.wheels#overwrite');
 		};
 		local wheels = {};
 		local w = 0;
@@ -349,18 +350,20 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
 			wheels[#wheels + 1] = {
-				driveMode  		   =   getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
-				rotMax     		   = getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
-				rotMin     		   = getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
-				rotSpeed   		   = getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
-				radius     		   = getXMLFloat(xmlFile, wheelKey .. '#radius'),
-				deltaY     		   = getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
-				suspTravel 		   = getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
-				spring     		   = getXMLFloat(xmlFile, wheelKey .. '#spring'),
-				damper     		   =   getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
-				brakeRatio 		   = getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
-				antiRollFx		   = getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
-				realMaxMassAllowed = getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed')
+				repr	   		   = getXMLString(xmlFile, wheelKey .. '#repr'), 
+				driveNode  		   = getXMLString(xmlFile, wheelKey .. '#driveNode'), 
+				driveMode  		   =    getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
+				rotMax     		   =  getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
+				rotMin     		   =  getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
+				rotSpeed   		   =  getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
+				radius     		   =  getXMLFloat(xmlFile, wheelKey .. '#radius'),
+				deltaY     		   =  getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				suspTravel 		   =  getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
+				spring     		   =  getXMLFloat(xmlFile, wheelKey .. '#spring'),
+				damper     		   =    getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
+				brakeRatio 		   =  getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
+				antiRollFx		   =  getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
+				realMaxMassAllowed =  getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed')
 			};
 
 			w = w + 1;
@@ -846,11 +849,17 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 	-- wheels
 	setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping', 'bool', mrData.wheelStuff.realNoSteeringAxleDamping);
+	if mrData.wheelStuff.overwriteWheels then
+		removeProperty(xmlFile, 'vehicle.wheels');
+	end;
+
 	local wheelI = 0;
 	while true do
 		local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
-		local repr = getXMLString(xmlFile, wheelKey .. '#repr');
-		if not repr or repr == '' then break; end;
+		if not mrData.wheelStuff.overwriteWheels then
+			local repr = getXMLString(xmlFile, wheelKey .. '#repr');
+			if not repr or repr == '' then break; end;
+		end;
 		if wheelI == 0 then
 			setValue(xmlFile, 'vehicle.wheels#autoRotateBackSpeed', 'flt', 1);
 		end;
@@ -862,6 +871,8 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 		removeProperty(xmlFile, wheelKey .. '#lateralStiffness', '\t');
 		removeProperty(xmlFile, wheelKey .. '#longitudalStiffness', '\t');
+		setValue(xmlFile, wheelKey .. '#repr',				 'str', wheelMrData.repr, '\t');
+		setValue(xmlFile, wheelKey .. '#driveNode',			 'str', wheelMrData.driveNode, '\t');
 		setValue(xmlFile, wheelKey .. '#driveMode',			 'int', wheelMrData.driveMode, '\t');
 		setValue(xmlFile, wheelKey .. '#rotMax',			 'flt', wheelMrData.rotMax, '\t');
 		setValue(xmlFile, wheelKey .. '#rotMin',			 'flt', wheelMrData.rotMin, '\t');
