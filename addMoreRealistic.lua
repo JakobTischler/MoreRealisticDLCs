@@ -451,7 +451,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				schemaOverlay = {
 					index	  =    getXMLInt(xmlFile, tajKey .. '#schemaOverlayIndex');
 					position  = getXMLString(xmlFile, tajKey .. '#schemaOverlayPosition');
-					invertX	  = getXMLString(xmlFile, tajKey .. '#schemaOverlayInvertX');
+					invertX	  =   getXMLBool(xmlFile, tajKey .. '#schemaOverlayInvertX');
 				};
 			};
 
@@ -1009,7 +1009,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 				setValue(xmlFile, tajKey .. '#low',			  'bool', tajData.low, '\t');
 				setValue(xmlFile, tajKey .. '#ptoOutputNode', 'str',  tajData.ptoOutputNode, '\t');
 				setValue(xmlFile, tajKey .. '#ptoFilename',	  'str',  tajData.ptoFilename, '\t');
-				if tajData.schemaOverlay.position and tajData.schemaOverlay.invertX then
+				if tajData.schemaOverlay.position and tajData.schemaOverlay.invertX ~= nil then
 					local soKey = ('vehicle.schemaOverlay.attacherJoint(%d)'):format(tajData.schemaOverlay.index);
 					setValue(xmlFile, soKey .. '#position', 'str',  tajData.schemaOverlay.position, '\t');
 					setValue(xmlFile, soKey .. '#rotation', 'int',  0, '\t');
