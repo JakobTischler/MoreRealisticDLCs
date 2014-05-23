@@ -20,11 +20,11 @@
 	</extraSourceFiles>
 
 	<customSpecializations num="5">
-		<specialization name="augerWagonPowerConsumption"  className="AugerWagonPowerConsumption"  filename="scripts/AugerWagonPowerConsumption.lua" />
-		<specialization name="baleWrapperPowerConsumption" className="BaleWrapperPowerConsumption" filename="scripts/BaleWrapperPowerConsumption.lua" />
-		<specialization name="dynamicExhaustingSystem" 	   className="DynamicExhaustingSystem" 	   filename="scripts/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustPower" 			   className="ExhaustPower" 			   filename="scripts/ExhaustPower.lua" />
-		<specialization name="realisticMovingTool" 		   className="RealisticMovingTool" 		   filename="scripts/RealisticMovingTool.lua" />
+		<specialization name="augerWagonPowerConsumption"  className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
+		<specialization name="dynamicExhaustingSystem" 	   className="DynamicExhaustingSystem" 	  filename="scripts/mrDynamicExhaustingSystem.lua" />
+		<specialization name="exhaustPower" 			   className="ExhaustPower" 			  filename="scripts/ExhaustPower.lua" />
+		<specialization name="moreRealisticBaleWrapper"	   className="MoreRealisticBaleWrapper"	  filename="scripts/MoreRealisticBaleWrapper.lua" />
+		<specialization name="realisticMovingTool" 		   className="RealisticMovingTool" 		  filename="scripts/RealisticMovingTool.lua" />
 	</customSpecializations>
 
 	<l10n>
