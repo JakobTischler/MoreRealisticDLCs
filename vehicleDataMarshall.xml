@@ -1,4 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
-
+	<!-- (1) TOOLS -->
+	<!-- (1.1) MARSHALL BC 32 BALE TRAILER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/marshallPack/marshall/marshallBC32.xml" mrVehicleType="mr_dynamicMountAttacherTrailer_m" debug="false">
+		<store price="12800" weight="2910" maxSpeed="32" length="9.75" />
+		<dimensions width="2.43" height="1" /> <!-- in m -->
+		<weights weight="2.91" realBrakeMaxMovingMass="14" /> <!-- in t -->
+		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" />
+		<wheels overwrite="true">
+			<!-- Front Axel -->
+			<wheel driveMode="0" repr="0>0" radius="0.57" deltaY="0.12" suspTravel="0.20" spring="63" damper="20" brakeRatio="1" /> <!-- Left Wheel -->
+			<wheel driveMode="0" repr="0>2" radius="0.57" deltaY="0.12" suspTravel="0.20" spring="63" damper="20" brakeRatio="1" /> <!-- Right Wheel -->
+			<!-- Rear Axel -->
+			<wheel driveMode="0" repr="0>1" radius="0.57" deltaY="0.12" suspTravel="0.20" spring="63" damper="20" brakeRatio="1" /> <!-- Left Wheel -->
+			<wheel driveMode="0" repr="0>3" radius="0.57" deltaY="0.12" suspTravel="0.20" spring="63" damper="20" brakeRatio="1" /> <!-- Right Wheel -->
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 0.5 0.1" realMassWanted="2.91" />
+		</components>
+	</vehicle>
 </vehicles>

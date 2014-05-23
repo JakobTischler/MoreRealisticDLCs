@@ -32,9 +32,9 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Lindner grain transport module *(Satis)*
 
 ###### Marshall DLC:
-- [ ] Marshall BC 32 bale trailer *(Satis)*
+- [x] Marshall BC 32 bale trailer *(Satis)*
 - [ ] Marshall MS105 manure spreader
-- [ ] Marshall QM 16 trailer
+- [ ] Marshall QM 16 trailer *(Satis)*
 - [ ] Marshall ST 1800 liquid manure spreader
 - [ ] Marshall VES 2500 manure spreader
 
