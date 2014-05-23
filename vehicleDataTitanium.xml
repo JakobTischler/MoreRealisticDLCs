@@ -76,7 +76,7 @@
 	</vehicle>
 	
 	<!-- (1.4) IH FARMALL H --> <!-- AUTHOR: dural --> <!-- DONE -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHFarmallH.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="false">
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHFarmallH.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="true">
 		<store price="14700" dailyUpkeep="40" powerKW="19" maxSpeed="26" weight="1775" />
 		<general realMaxVehicleSpeed="26" realBrakingDeceleration="4.1" fuelCapacity="66.2" />
 		<engine kW="19.5" realMaxReverseSpeed="4.4" realMaxFuelUsage="8.5" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.93" />
@@ -92,6 +92,7 @@
 		</attacherJoints>
 		<trailerAttacherJoints>
 			<trailerAttacherJoint maxRotLimit="60 90 60" />
+			<trailerAttacherJoint maxRotLimit="60 90 60" index="0>8" low="false" ptoOutputNode="0>13" ptoFilename="$data/vehicles/steerable/powerTakeoff.i3d" schemaOverlayPosition="1 0" schemaOverlayInvertX="false" schemaOverlayIndex="2" />
 		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.4 -0.25" realMassWanted="1.775" />

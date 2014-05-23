@@ -440,7 +440,16 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			if not hasXMLProperty(xmlFile, tajKey) then break; end;
 
 			trailerAttacherJoints[#trailerAttacherJoints + 1] = {
-				maxRotLimit = getXMLString(xmlFile, tajKey .. '#maxRotLimit');
+				index 		  = getXMLString(xmlFile, tajKey .. '#index');
+				low 		  =   getXMLBool(xmlFile, tajKey .. '#low');
+				maxRotLimit   = getXMLString(xmlFile, tajKey .. '#maxRotLimit');
+				ptoOutputNode = getXMLString(xmlFile, tajKey .. '#ptoOutputNode');
+				ptoFilename   = getXMLString(xmlFile, tajKey .. '#ptoFilename');
+				schemaOverlay = {
+					index	  =    getXMLInt(xmlFile, tajKey .. '#schemaOverlayIndex');
+					position  = getXMLString(xmlFile, tajKey .. '#schemaOverlayPosition');
+					invertX	  = getXMLString(xmlFile, tajKey .. '#schemaOverlayInvertX');
+				};
 			};
 
 			a = a + 1;
@@ -974,10 +983,38 @@ local setMrData = function(vehicle, xmlFile, mrData)
 	local a = 0;
 	while true do
 		local tajKey = ('vehicle.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
-		if not hasXMLProperty(xmlFile, tajKey) then break; end;
+		local isAdditional = false;
+		if not hasXMLProperty(xmlFile, tajKey) then
+			isAdditional = true;
+		end;
 
-		if mrData.trailerAttacherJoints[a + 1] then
-			setValue(xmlFile, tajKey .. '#maxRotLimit', 'str', mrData.trailerAttacherJoints[a + 1].maxRotLimit);
+		local tajData = mrData.trailerAttacherJoints[a + 1];
+		if tajData then
+			if mrData.doDebug then
+				local index 		= tostring(getXMLString(xmlFile, tajKey .. '#index'));
+				local low 			= tostring(getXMLString(xmlFile, tajKey .. '#low'));
+				local ptoOutputNode = tostring(getXMLString(xmlFile, tajKey .. '#ptoOutputNode'));
+				local ptoFilename 	= tostring(getXMLString(xmlFile, tajKey .. '#ptoFilename'));
+				local printStr = ('\ttrailerAttacherJoints: %d'):format(a);
+				if isAdditional then printStr = printStr .. ' (additional)'; end;
+				printStr = ('%s\n\t\tindex=%q, low=%q, ptoOutputNode=%q, ptoFilename=%q'):format(printStr, index, low, ptoOutputNode, ptoFilename);
+				print(printStr);
+			end;
+			setValue(xmlFile, tajKey .. '#maxRotLimit', 'str', tajData.maxRotLimit, '\t');
+			if isAdditional then
+				setValue(xmlFile, tajKey .. '#index',		  'str',  tajData.index, '\t');
+				setValue(xmlFile, tajKey .. '#low',			  'bool', tajData.low, '\t');
+				setValue(xmlFile, tajKey .. '#ptoOutputNode', 'str',  tajData.ptoOutputNode, '\t');
+				setValue(xmlFile, tajKey .. '#ptoFilename',	  'str',  tajData.ptoFilename, '\t');
+				if tajData.schemaOverlay.position and tajData.schemaOverlay.invertX then
+					local soKey = ('vehicle.schemaOverlay.attacherJoint(%d)'):format(tajData.schemaOverlay.index);
+					setValue(xmlFile, soKey .. '#position', 'str',  tajData.schemaOverlay.position, '\t');
+					setValue(xmlFile, soKey .. '#rotation', 'int',  0, '\t');
+					setValue(xmlFile, soKey .. '#invertX',	'bool', tajData.schemaOverlay.invertX, '\t');
+				end;
+			end;
+		else
+			break;
 		end;
 
 		a = a + 1;
