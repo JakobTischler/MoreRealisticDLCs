@@ -211,6 +211,19 @@
 			<pl>Szerokość robocza: %s m</pl>
 			<ru>Рабочая ширина: %s м</ru>
 		</text>
+		<text name="STORE_SPECS_LENGTH">
+			<en>Length: %s m</en>
+			<cz>Délka: %s m</cz>
+			<de>Länge: %s m</de>
+			<es>Longitud: %s m</es>
+			<fr>Longueur : %s m</fr>
+			<hu>Hossz: %s m</hu>
+			<it>Lunghezza: %s m</it>
+			<jp>全長: %sメートル</jp>
+			<nl>Lengte: %s m</nl>
+			<pl>Długość: %s m</pl>
+			<ru>длина: %s м</ru>
+		</text>
 		<text name="STORE_SPECS_FRUITS">
 			<en>Fruit types: %s</en>
 			<cz>Druhy ovoce: %s</cz>
