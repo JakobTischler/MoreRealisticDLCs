@@ -1334,7 +1334,7 @@ local drawComponents = function(self, dt)
 		end;
 	end;
 end;
--- Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
+Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
 
 
 -- MRIZE TITANIUM MAP
