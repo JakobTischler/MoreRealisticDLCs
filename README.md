@@ -77,11 +77,11 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Ursus frontloader bale fork
 - [ ] Ursus frontloader bale grabber
 - [ ] Ursus N-270 manure spreader
-- [ ] Ursus T-127 bale loader *(Jakob)*
+- [x] Ursus T-127 bale loader *(Jakob)*
 - [x] Ursus T-610A1 trailer *(Jakob)*
 - [ ] Ursus Z-554 rake
 - [x] Ursus Z-586 bale wrapper *(Jakob)*
-- [ ] Ursus Z-594 baler *(Jakob)*
+- [x] Ursus Z-594 baler *(Jakob)*
 
 ###### Väderstad DLC:
 - [ ] Väderstad Carrier 820 cultivator *(Xentro, dj)*

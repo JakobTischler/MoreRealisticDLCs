@@ -25,8 +25,8 @@ if mrModItem and mrModItem.version then
 		version = version .. versionSplit[3];
 	end;
 	version = tonumber(version);
-	if version and version < 1.335 then
-		print(('MoreRealisticDLCs: your MoreRealistic version (v%s) is too low. Update to v1.3.35 or higher. Script will now be aborted!'):format(mrModItem.version));
+	if version and version < 1.336 then
+		print(('MoreRealisticDLCs: your MoreRealistic version (v%s) is too low. Update to v1.3.36 or higher. Script will now be aborted!'):format(mrModItem.version));
 		return;
 	end;
 end;
@@ -139,9 +139,8 @@ end;
 local formatNumber = function(number, precision)
 	precision = precision or 0;
 
-	local str = '';
 	local firstDigit, rest, decimal = ('%1.' .. precision .. 'f'):format(number):match('^([^%d]*%d)(%d*).?(%d*)');
-	str = firstDigit .. rest:reverse():gsub('(%d%d%d)', '%1' .. numberSeparator):reverse();
+	local str = firstDigit .. rest:reverse():gsub('(%d%d%d)', '%1' .. numberSeparator):reverse();
 	if precision > 0 and decimal:len() > 0 then
 		decimal = decimal:sub(1, precision);
 		if tonumber(decimal) ~= 0 then
@@ -536,6 +535,10 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		elseif subCategory == 'rake' then
 			workTool.realRakeWorkingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumption');
 			workTool.realRakeWorkingPowerConsumptionInc	= getXMLFloat(xmlFile, key .. '.workTool#realRakeWorkingPowerConsumptionInc');
+
+		-- baleWrapper
+		elseif subCategory == 'baleWrapper' then
+			workTool.wrappingTime = getXMLInt(xmlFile, key .. '.workTool#wrappingTime');
 
 		-- baleLoader
 		elseif subCategory == 'baleLoader' then
@@ -1114,6 +1117,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 			-- baleWrapper
 			elseif mrData.subCategory == 'baleWrapper' then
+				setValue(xmlFile, 'vehicle.wrapper#wrappingTime', 'int',  mrData.workTool.wrappingTime);
 
 			-- baler
 			elseif mrData.subCategory == 'baler' then
