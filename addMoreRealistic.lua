@@ -512,6 +512,13 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			workTool.realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, key .. '.workTool#realOverloaderUnloadingPowerConsumption');
 			workTool.pipeUnloadingCapacity					 = getXMLFloat(xmlFile, key .. '.workTool#pipeUnloadingCapacity');
 
+			-- tip animation discharge speed
+			workTool.realMaxDischargeSpeeds = {};
+			local tasStr = getXMLString(xmlFile, key .. '.workTool#realMaxDischargeSpeeds');
+			if tasStr then
+				workTool.realMaxDischargeSpeeds = Utils.getVectorNFromString(tasStr, nil);
+			end;
+
 		-- forageWagon
 		elseif subCategory == 'forageWagon' then
 			workTool.realForageWagonWorkingPowerConsumption	   = getXMLFloat(xmlFile, key .. '.workTool#realForageWagonWorkingPowerConsumption');
@@ -1072,6 +1079,22 @@ local setMrData = function(vehicle, xmlFile, mrData)
 				setValue(xmlFile, 'vehicle.realTippingPowerConsumption', 			 'flt', mrData.workTool.realTippingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption', 'flt', mrData.workTool.realOverloaderUnloadingPowerConsumption);
 				setValue(xmlFile, 'vehicle.pipe#unloadingCapacity', 				 'flt', mrData.workTool.pipeUnloadingCapacity);
+
+				-- tip animation discharge speed
+				local numEntries = #mrData.workTool.realMaxDischargeSpeeds;
+				for ta=1, numEntries do
+					local taKey = ('vehicle.tipAnimations.tipAnimation(%d)'):format(ta - 1);
+					if not hasXMLProperty(xmlFile, taKey) then
+						if numEntries == 1 and ta == 1 then
+							taKey = 'vehicle.tipAnimation';
+							if not hasXMLProperty(xmlFile, taKey) then break; end;
+						else
+							break;
+						end;
+					end;
+
+					setValue(xmlFile, taKey .. '#realMaxDischargeSpeed', 'int', mrData.workTool.realMaxDischargeSpeeds[ta]);
+				end;
 
 			-- forageWagon
 			elseif mrData.subCategory == 'forageWagon' then
