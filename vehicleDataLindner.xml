@@ -48,11 +48,11 @@
 
 	<!-- (2.3) LINDNER MANURE SPREADER MODULE --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/lindnerUnitracPack/lindner/lindnerSpreaderModule.xml" mrVehicleType="mr_manureSpreader_mousecontrolled_l" debug="false">
-		<store capacity="2.9" capacityUnit="M3" weight="870" workWidth="5" workSpeedMin="8" workSpeedMax="14" />
+		<store capacity="2.9" capacityUnit="M3" weight="870" workWidth="5" workSpeedMin="10" workSpeedMax="18" />
 		<dimensions width="0.92" height="1.45" /> <!-- in m -->
 		<weights weight="0.87" /> <!-- in t -->
 		<general realWorkingPowerConsumption="20" />
-		<workTool capacity="3170" realWorkingSpeedLimit="15" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
+		<workTool capacity="3170" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
 		<components>
 			<component1 centerOfMass="0 0.4 0" realMassWanted="0.57" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.3 0" />
 			<component2 centerOfMass="0 0 0" realMassWanted="0.15" /> <!-- Support -->
@@ -65,10 +65,10 @@
 		<store capacity="3.2" capacityUnit="M3" weight="1150" workWidth="6" workSpeedMin="6" workSpeedMax="12" />
 		<dimensions width="1.15" height="1.25" /> <!-- in m -->
 		<weights weight="1.15" /> <!-- in t -->
-		<general realWorkingPowerConsumption="35" />
+		<general realWorkingPowerConsumption="25" />
 		<workTool capacity="3220" realCapacityMultipliers="liquidManure:0.98" fillLitersPerSecond="300" realFillingPowerConsumption="25" realWorkingSpeedLimit="13" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="22.3" sprayUsageLitersPerSecondFolded="33.5" />
 		<components>
-			<component1 centerOfMass="0 0.4 -0.3" realMassWanted="0.85" realTransWithMass="0 0.1 0.1" realTransWithMassMax="0 0.3 0.3" />
+			<component1 centerOfMass="0 0.4 -0.3" realMassWanted="0.85" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.3 0" />
 			<component2 centerOfMass="0 0 -0.3" realMassWanted="0.15" /> <!-- Support -->
 			<component3 centerOfMass="0 0 -0.3" realMassWanted="0.15" /> <!-- Support -->
 		</components>
