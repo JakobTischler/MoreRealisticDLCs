@@ -46,15 +46,30 @@
 		<dimensions width="1.52" height="2.08" /> <!-- in m -->
 		<weights weight="3.15" realBrakeMaxMovingMass="12" /> <!-- in t -->
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="4" realWorkingPowerConsumption="69.87" />
-		<workTool capacity="8000" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
+		<workTool capacity="8530" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
 		<wheels>
-			<wheel driveMode="0" deltaY="0" suspTravel="0" realMaxMassAllowed="7" brakeRatio="1" />
-			<wheel driveMode="0" deltaY="0" suspTravel="0" realMaxMassAllowed="7" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0" suspTravel="0" spring="5" realMaxMassAllowed="7" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0" suspTravel="0" spring="5" realMaxMassAllowed="7" brakeRatio="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.5 0" realMassWanted="3.15" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.5 0" />
+			<component1 centerOfMass="0 0.5 -0.5" realMassWanted="3.15" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.5 0" />
 		</components>
 	</vehicle>
 
 
+	<!-- (1.4) MARSHALL VES 2500 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/marshallPack/marshall/marshallVES2500.xml" mrVehicleType="mr_manureSpreader_planeMover_m" debug="false">
+		<store dailyUpkeep="10" capacity="11.4" capacityUnit="M3" weight="4200" workWidth="8" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="100" />
+		<dimensions width="1.52" height="2.31" /> <!-- in m -->
+		<weights weight="4.2" realBrakeMaxMovingMass="15" /> <!-- in t -->
+		<general realMaxVehicleSpeed="32" realBrakingDeceleration="4" realWorkingPowerConsumption="99.29" />
+		<workTool capacity="12540" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="68.32" />
+		<wheels>
+			<wheel driveMode="0" deltaY="0" suspTravel="0" spring="5" realMaxMassAllowed="13" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0" suspTravel="0" spring="5" realMaxMassAllowed="13" brakeRatio="1" />
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 0.5 -0.5" realMassWanted="4.2" realTransWithMass="0 0.05 0.09" realTransWithMassMax="0 0.5 1" />
+		</components>
+	</vehicle>
 </vehicles>
