@@ -571,8 +571,8 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		elseif subCategory == 'sprayer' then
 			workTool.realFillingPowerConsumption	 = getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
 			workTool.realSprayingReferenceSpeed		 =   getXMLInt(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
-			workTool.sprayUsageLitersPerSecond		 =   getXMLInt(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
-			workTool.sprayUsageLitersPerSecondFolded =   getXMLInt(xmlFile, key .. '.workTool#sprayUsageLitersPerSecondFolded');
+			workTool.sprayUsageLitersPerSecond		 = getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
+			workTool.sprayUsageLitersPerSecondFolded = getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecondFolded');
 			workTool.fillLitersPerSecond			 =   getXMLInt(xmlFile, key .. '.workTool#fillLitersPerSecond');
 		end;
 
@@ -1158,8 +1158,8 @@ local setMrData = function(vehicle, xmlFile, mrData)
 			elseif mrData.subCategory == 'sprayer' then
 				setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'int', mrData.workTool.realSprayingReferenceSpeed);
-				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'int', mrData.workTool.sprayUsageLitersPerSecond);
-				setValue(xmlFile, 'vehicle.sprayUsageLitersPerSecondFolded',		'int', mrData.workTool.sprayUsageLitersPerSecondFolded);
+				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
+				setValue(xmlFile, 'vehicle.sprayUsageLitersPerSecondFolded',		'flt', mrData.workTool.sprayUsageLitersPerSecondFolded);
 				setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'int', mrData.workTool.fillLitersPerSecond);
 			end;
 

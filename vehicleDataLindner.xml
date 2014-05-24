@@ -66,7 +66,7 @@
 		<dimensions width="1.15" height="1.25" /> <!-- in m -->
 		<weights weight="1.15" /> <!-- in t -->
 		<general realWorkingPowerConsumption="35" />
-		<workTool capacity="3220" realCapacityMultipliers="liquidManure:0.98" fillLitersPerSecond="300" realFillingPowerConsumption="25" realWorkingSpeedLimit="13" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="33.5" />
+		<workTool capacity="3220" realCapacityMultipliers="liquidManure:0.98" fillLitersPerSecond="300" realFillingPowerConsumption="25" realWorkingSpeedLimit="13" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="22.3" sprayUsageLitersPerSecondFolded="33.5" />
 		<components>
 			<component1 centerOfMass="0 0.4 -0.3" realMassWanted="0.85" realTransWithMass="0 0.1 0.1" realTransWithMassMax="0 0.3 0.3" />
 			<component2 centerOfMass="0 0 -0.3" realMassWanted="0.15" /> <!-- Support -->
