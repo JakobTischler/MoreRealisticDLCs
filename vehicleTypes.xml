@@ -252,6 +252,21 @@
 
 			<specialization name="realisticRake" />
 		</type>
+		
+		<type name="mr_kotteSlurryTank_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="attachable" />
+			<specialization name="animatedVehicle" />
+			<specialization name="cylindered" />
+			<specialization name="fillable" />
+			<specialization name="sprayer" />
+			<specialization name="foldable" />
+			<specialization name="pdlc_titaniumAddon.kotteSlurryTank" />
+			
+			<specialization name="realisticSprayer"/>			
+		</type>
+		
 	</Titanium>
 
 	<!-- ################################################## -->
