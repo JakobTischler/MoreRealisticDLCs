@@ -4,7 +4,7 @@
 -- @author: Jakob Tischler
 -- @date: 24 May 2014
 -- @version: 0.1
--- @history: 0.1 (24 May 2014) - power consumption
+-- @history: 0.1 (24 May 2014) - spray consumption
 --
 -- Copyright (C) 2014 Jakob Tischler
 
@@ -42,7 +42,6 @@ function KotteSlurryConsumption:setSprayLitersPerSecond()
 	else -- on -> low usage
 		self.sprayLitersPerSecond[fillType] = self.sprayLitersPerSecondFolded;
 	end;
-	print(('Kotte setSprayLitersPerSecond(): state=%d -> usage=%d'):format(self.particlePlanes.state, self.sprayLitersPerSecond[fillType]));
 
 	self.prevParticlePlaneState = self.particlePlanes.state;
 end;

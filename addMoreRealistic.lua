@@ -584,25 +584,28 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				minSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMinSpeed');
 				maxSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMaxSpeed');
 			};
-			combine.realAiMinDistanceBeforeTurning 	 =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
-			combine.realUnloadingPowerBoost 		 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
-			combine.realUnloadingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
-			combine.realThreshingPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
-			combine.realThreshingPowerConsumptionInc =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
-			combine.realThreshingPowerBoost			 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerBoost');
-			combine.realChopperPowerConsumption 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
-			combine.realChopperPowerConsumptionInc 	 =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
-			combine.realThreshingScale 				 =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
-			combine.grainTankUnloadingCapacity 		 =  getXMLFloat(xmlFile, key .. '.combine#grainTankUnloadingCapacity');
+			combine.realAiMinDistanceBeforeTurning 			  =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
+			combine.realTurnStage1DistanceThreshold		 	  =  getXMLFloat(xmlFile, key .. '.combine#realTurnStage1DistanceThreshold');
+			combine.realTurnStage1AngleThreshold 			  =  getXMLFloat(xmlFile, key .. '.combine#realTurnStage1AngleThreshold');
+			combine.realTurnStage2MinDistanceBeforeTurnStage3 =  getXMLFloat(xmlFile, key .. '.combine#realTurnStage2MinDistanceBeforeTurnStage3');
+			combine.realUnloadingPowerBoost					  =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerBoost');
+			combine.realUnloadingPowerConsumption			  =  getXMLFloat(xmlFile, key .. '.combine#realUnloadingPowerConsumption');
+			combine.realThreshingPowerConsumption			  =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumption');
+			combine.realThreshingPowerConsumptionInc		  =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerConsumptionInc');
+			combine.realThreshingPowerBoost					  =  getXMLFloat(xmlFile, key .. '.combine#realThreshingPowerBoost');
+			combine.realChopperPowerConsumption				  =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumption');
+			combine.realChopperPowerConsumptionInc			  =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
+			combine.realThreshingScale						  =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
+			combine.grainTankUnloadingCapacity				  =  getXMLFloat(xmlFile, key .. '.combine#grainTankUnloadingCapacity');
 			combine.realCombineLosses = {               
-				allowed								 =   getXMLBool(xmlFile, key .. '.combine#realCombineLossesAllowed');
-				maxSqmBeingThreshedBeforeLosses		 =  getXMLFloat(xmlFile, key .. '.combine#realCombineLossesMaxSqmBeingThreshedBeforeLosses');
-				displayLosses						 =   getXMLBool(xmlFile, key .. '.combine#realCombineLossesDisplayLosses');
+				allowed								 		  =   getXMLBool(xmlFile, key .. '.combine#realCombineLossesAllowed');
+				maxSqmBeingThreshedBeforeLosses		 		  =  getXMLFloat(xmlFile, key .. '.combine#realCombineLossesMaxSqmBeingThreshedBeforeLosses');
+				displayLosses						 		  =   getXMLBool(xmlFile, key .. '.combine#realCombineLossesDisplayLosses');
 			};                                          
-			combine.realCombineCycleDuration		 =  getXMLFloat(xmlFile, key .. '.combine#realCombineCycleDuration');
-			combine.pipeRotationSpeeds				 = getXMLString(xmlFile, key .. '.combine#pipeRotationSpeeds');
-			combine.pipeState1Rotation				 = getXMLString(xmlFile, key .. '.combine#pipeState1Rotation');
-			combine.pipeState2Rotation				 = getXMLString(xmlFile, key .. '.combine#pipeState2Rotation');
+			combine.realCombineCycleDuration		 		  =  getXMLFloat(xmlFile, key .. '.combine#realCombineCycleDuration');
+			combine.pipeRotationSpeeds				 		  = getXMLString(xmlFile, key .. '.combine#pipeRotationSpeeds');
+			combine.pipeState1Rotation				 		  = getXMLString(xmlFile, key .. '.combine#pipeState1Rotation');
+			combine.pipeState2Rotation				 		  = getXMLString(xmlFile, key .. '.combine#pipeState2Rotation');
 		end;
 
 		--------------------------------------------------
@@ -800,17 +803,20 @@ local setMrData = function(vehicle, xmlFile, mrData)
 			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#minSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.minSpeed);
 			setValue(xmlFile, 'vehicle.realAiWorkingSpeed#maxSpeed', 	  'int',  mrData.combine.realAiWorkingSpeed.maxSpeed);
 
-			setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',   'flt',  mrData.combine.realAiMinDistanceBeforeTurning);
-			setValue(xmlFile, 'vehicle.realUnloadingPowerBoost', 		  'flt',  mrData.combine.realUnloadingPowerBoost);
-			setValue(xmlFile, 'vehicle.realUnloadingPowerConsumption', 	  'flt',  mrData.combine.realUnloadingPowerConsumption);
-			setValue(xmlFile, 'vehicle.realThreshingPowerConsumption', 	  'flt',  mrData.combine.realThreshingPowerConsumption);
-			setValue(xmlFile, 'vehicle.realThreshingPowerConsumptionInc', 'flt',  mrData.combine.realThreshingPowerConsumptionInc);
-			setValue(xmlFile, 'vehicle.realThreshingPowerBoost',		  'flt',  mrData.combine.realThreshingPowerBoost);
-			setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 	  'flt',  mrData.combine.realChopperPowerConsumption);
-			setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',   'flt',  mrData.combine.realChopperPowerConsumptionInc);
-			setValue(xmlFile, 'vehicle.realThreshingScale', 			  'flt',  mrData.combine.realThreshingScale);
-			setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 	  'flt',  mrData.combine.grainTankUnloadingCapacity);
-			setValue(xmlFile, 'vehicle.realCombineCycleDuration', 		  'flt',  mrData.combine.realCombineCycleDuration);
+			setValue(xmlFile, 'vehicle.realAiMinDistanceBeforeTurning',			   'flt', mrData.combine.realAiMinDistanceBeforeTurning);
+			setValue(xmlFile, 'vehicle.realTurnStage1DistanceThreshold',		   'flt', mrData.combine.realTurnStage1DistanceThreshold);
+			setValue(xmlFile, 'vehicle.realTurnStage1AngleThreshold',			   'flt', mrData.combine.realTurnStage1AngleThreshold);
+			setValue(xmlFile, 'vehicle.realTurnStage2MinDistanceBeforeTurnStage3', 'flt', mrData.combine.realTurnStage2MinDistanceBeforeTurnStage3);
+			setValue(xmlFile, 'vehicle.realUnloadingPowerBoost', 				   'flt', mrData.combine.realUnloadingPowerBoost);
+			setValue(xmlFile, 'vehicle.realUnloadingPowerConsumption', 			   'flt', mrData.combine.realUnloadingPowerConsumption);
+			setValue(xmlFile, 'vehicle.realThreshingPowerConsumption', 			   'flt', mrData.combine.realThreshingPowerConsumption);
+			setValue(xmlFile, 'vehicle.realThreshingPowerConsumptionInc',		   'flt', mrData.combine.realThreshingPowerConsumptionInc);
+			setValue(xmlFile, 'vehicle.realThreshingPowerBoost',				   'flt', mrData.combine.realThreshingPowerBoost);
+			setValue(xmlFile, 'vehicle.realChopperPowerConsumption', 			   'flt', mrData.combine.realChopperPowerConsumption);
+			setValue(xmlFile, 'vehicle.realChopperPowerConsumptionInc',			   'flt', mrData.combine.realChopperPowerConsumptionInc);
+			setValue(xmlFile, 'vehicle.realThreshingScale', 					   'flt', mrData.combine.realThreshingScale);
+			setValue(xmlFile, 'vehicle.grainTankUnloadingCapacity', 			   'flt', mrData.combine.grainTankUnloadingCapacity);
+			setValue(xmlFile, 'vehicle.realCombineCycleDuration', 				   'flt', mrData.combine.realCombineCycleDuration);
 
 			setValue(xmlFile, 'vehicle.realCombineLosses#allowed', 						   'bool', mrData.combine.realCombineLosses.allowed);
 			setValue(xmlFile, 'vehicle.realCombineLosses#maxSqmBeingThreshedBeforeLosses', 'flt',  mrData.combine.realCombineLosses.maxSqmBeingThreshedBeforeLosses);
