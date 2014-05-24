@@ -284,6 +284,24 @@
 			<specialization name="realisticSprayer"/>
 			<specialization name="variableSprayUsage" />
 		</type>
+		
+		<type name="mr_truck_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="motorized" />
+			<specialization name="steerable" />			
+			<specialization name="cylindered" />
+			<specialization name="hirable" />
+			<specialization name="aiTractor" />
+			<specialization name="bunkerSiloCompacter" />
+			<specialization name="honk" />
+			<specialization name="pdlc_titaniumAddon.steerableExtension" />
+
+			<specialization name="realisticMotorized" />
+			<specialization name="realisticSteerable" />
+			<specialization name="exhaustPower" />
+		</type>
+		
 	</Titanium>
 
 	<!-- ################################################## -->
