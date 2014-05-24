@@ -110,6 +110,22 @@
 
 			<specialization name="realisticTrailer" />
 		</type>
+
+		<type name="mr_manureSpreaderMS105_m" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="realisticVehicle" />
+
+			<specialization name="attachable" />
+			<specialization name="animatedVehicle" />
+			<specialization name="mouseControlsVehicle" />
+			<specialization name="cylindered" />
+			<specialization name="fillable" />
+			<specialization name="sprayer" />
+			<specialization name="foldable" />
+			<specialization name="pdlc_marshallPack.rotorSpreader" />
+			<specialization name="pdlc_marshallPack.extendedSprayer" />
+
+			<specialization name="realisticSprayer"/>
+		</type>
 	</Marshall>
 
 	<!-- ################################################## -->

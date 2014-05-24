@@ -20,8 +20,8 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.3) MARSHALL QM 16 TRAILER --> <!-- AUTHOR: Satis --> <!-- DONE -->
-	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/marshallPack/marshall/marshallQM16.xml" mrVehicleType="mr_tipperQM16_m" debug="true">
+	<!-- (1.2) MARSHALL QM 16 TRAILER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/marshallPack/marshall/marshallQM16.xml" mrVehicleType="mr_tipperQM16_m" debug="false">
 		<store price="12800" capacity="21.7" capacityUnit="M3" weight="5590" fruits="wheat,rape,maize,barley,chaff,potato,sugarBeet" maxSpeed="50" />
 		<dimensions width="2.36" height="2.49" /> <!-- in m -->
 		<weights weight="5.59" realBrakeMaxMovingMass="23" /> <!-- in t -->
@@ -39,4 +39,22 @@
 			<component1 centerOfMass="0 0.4 0" realMassWanted="5.59" realTransWithMass="0 0.03 0" realTransWithMassMax="0 0.6 0" />
 		</components>
 	</vehicle>
+
+	<!-- (1.3) MARSHALL MS105 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/marshallPack/marshall/marshallMS105.xml" mrVehicleType="mr_manureSpreaderMS105_m" debug="false">
+		<store capacity="8" capacityUnit="M3" weight="3150" workWidth="5" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="70" />
+		<dimensions width="1.52" height="2.08" /> <!-- in m -->
+		<weights weight="3.15" realBrakeMaxMovingMass="12" /> <!-- in t -->
+		<general realMaxVehicleSpeed="32" realBrakingDeceleration="4" realWorkingPowerConsumption="69.87" />
+		<workTool capacity="8000" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="42.7" />
+		<wheels>
+			<wheel driveMode="0" deltaY="0" suspTravel="0" realMaxMassAllowed="7" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0" suspTravel="0" realMaxMassAllowed="7" brakeRatio="1" />
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 0.5 0" realMassWanted="3.15" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.5 0" />
+		</components>
+	</vehicle>
+
+
 </vehicles>
