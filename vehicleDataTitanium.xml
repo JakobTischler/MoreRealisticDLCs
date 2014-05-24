@@ -338,7 +338,7 @@
 	<!-- (4) TRAILERS -->
 	<!-- (4.1) HORSCH TITAN 34 UW --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="false">
-		<store capacity="34000" capacityUnit="L" weight="6700" requiredPowerKwMin="80" fruits="wheat,barley,rape,maize,chaff" />
+		<store price="62000" dailyUpkeep="56" capacity="34000" capacityUnit="L" weight="6700" requiredPowerKwMin="148" fruits="wheat,barley,rape,maize,chaff" />
 		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
 		<workTool realOverloaderUnloadingPowerConsumption="60" pipeUnloadingCapacity="800" />
 		<dimensions width="3" height="4" /> <!-- in m -->
@@ -356,7 +356,7 @@
 	
 	<!-- (4.1) KOTTE GARANT VQ 32000 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/titaniumAddon/kotte/garantVQ32000.xml" mrVehicleType="mr_kotteSlurryTank_t" debug="false">
-		<store capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235" />
+		<store price="187000" dailyUpkeep="50" capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235.5" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="80" realRollingResistance="0.012" />
 		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="160" sprayUsageLitersPerSecondFolded="90" fillLitersPerSecond="600" />
 		<dimensions width="3" height="4" /> <!-- in m -->
