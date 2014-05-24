@@ -276,13 +276,15 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- general
 		local general = {
-			fuelCapacity 				 = getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
-			realMaxVehicleSpeed 		 = getXMLFloat(xmlFile, key .. '.general#realMaxVehicleSpeed');
-			realBrakingDeceleration 	 = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration');
-			realCanLockWheelsWhenBraking =  getXMLBool(xmlFile, key .. '.general#realCanLockWheelsWhenBraking');
-			realRollingResistance 		 = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
-			realWorkingPowerConsumption  = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
-			realDisplaySlip				 = Utils.getNoNil(getXMLBool(xmlFile, key .. '.general#realDisplaySlip'), true);
+			fuelCapacity 						  = getXMLFloat(xmlFile, key .. '.general#fuelCapacity');
+			realMaxVehicleSpeed 				  = getXMLFloat(xmlFile, key .. '.general#realMaxVehicleSpeed');
+			realBrakingDeceleration 			  = getXMLFloat(xmlFile, key .. '.general#realBrakingDeceleration');
+			realCanLockWheelsWhenBraking		  =  getXMLBool(xmlFile, key .. '.general#realCanLockWheelsWhenBraking');
+			realRollingResistance 				  = getXMLFloat(xmlFile, key .. '.general#realRollingResistance');
+			realWorkingPowerConsumption			  = getXMLFloat(xmlFile, key .. '.general#realWorkingPowerConsumption');
+			realDisplaySlip						  = Utils.getNoNil(getXMLBool(xmlFile, key .. '.general#realDisplaySlip'), true);
+			realMotorizedWheelsDriveLossFx		  = getXMLFloat(xmlFile, key .. '.general#realMotorizedWheelsDriveLossFx');
+			realVehicleOnFieldRollingResistanceFx = getXMLFloat(xmlFile, key .. '.general#realVehicleOnFieldRollingResistanceFx');
 		};
 
 
@@ -295,6 +297,18 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				local dataSplit = Utils.splitString(':', data);
 				general.animationSpeedScale[dataSplit[1]] = tonumber(dataSplit[2]);
 				general.hasAnimationsSpeedScale = true;
+			end;
+		end;
+
+		-- animation time offset
+		general.animationTimeOffset = {};
+		local animsStr = getXMLString(xmlFile, key .. '.general#animationTimeOffset');
+		if animsStr then
+			animsStr = Utils.splitString(',', animsStr);
+			for i,data in pairs(animsStr) do
+				local dataSplit = Utils.splitString(':', data);
+				general.animationTimeOffset[dataSplit[1]] = tonumber(dataSplit[2]);
+				general.hasAnimationsTimeOffset = true;
 			end;
 		end;
 
@@ -366,7 +380,8 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				damper     		   =    getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
 				brakeRatio 		   =  getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
 				antiRollFx		   =  getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
-				realMaxMassAllowed =  getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed')
+				realMaxMassAllowed =  getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed'),
+				tirePressureFx	   =  getXMLFloat(xmlFile, wheelKey .. '#tirePressureFx')
 			};
 
 			w = w + 1;
@@ -752,15 +767,17 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 
 	-- relevant MR values
-	setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',  'flt',  mrData.weights.weight * 0.25);
-	setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				  'flt',  mrData.general.realMaxVehicleSpeed);
-	setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				  'flt',  mrData.engine.realMaxReverseSpeed);
-	setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			  'flt',  mrData.weights.realBrakeMaxMovingMass);
-	setValue(xmlFile, 'vehicle.realSCX', 							  'flt',  mrData.width * mrData.height * 0.68);
-	setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			  'flt',  mrData.general.realBrakingDeceleration);
-	setValue(xmlFile, 'vehicle.realCanLockWheelsWhenBraking', 		  'bool', mrData.general.realCanLockWheelsWhenBraking);
-	setValue(xmlFile, 'vehicle.realRollingResistance',				  'flt',  mrData.general.realRollingResistance);
-	setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		  'flt',  mrData.general.realWorkingPowerConsumption);
+	setValue(xmlFile, 'vehicle.bunkerSiloCompactor#compactingScale',   'flt',  mrData.weights.weight * 0.25);
+	setValue(xmlFile, 'vehicle.realMaxVehicleSpeed', 				   'flt',  mrData.general.realMaxVehicleSpeed);
+	setValue(xmlFile, 'vehicle.realMaxReverseSpeed', 				   'flt',  mrData.engine.realMaxReverseSpeed);
+	setValue(xmlFile, 'vehicle.realBrakeMaxMovingMass', 			   'flt',  mrData.weights.realBrakeMaxMovingMass);
+	setValue(xmlFile, 'vehicle.realSCX', 							   'flt',  mrData.width * mrData.height * 0.68);
+	setValue(xmlFile, 'vehicle.realBrakingDeceleration', 			   'flt',  mrData.general.realBrakingDeceleration);
+	setValue(xmlFile, 'vehicle.realCanLockWheelsWhenBraking', 		   'bool', mrData.general.realCanLockWheelsWhenBraking);
+	setValue(xmlFile, 'vehicle.realRollingResistance',				   'flt',  mrData.general.realRollingResistance);
+	setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		   'flt',  mrData.general.realWorkingPowerConsumption);
+	setValue(xmlFile, 'vehicle.realMotorizedWheelsDriveLossFx '		,  'flt',  mrData.general.realMotorizedWheelsDriveLossFx);
+	setValue(xmlFile, 'vehicle.realVehicleOnFieldRollingResistanceFx', 'flt',  mrData.general.realVehicleOnFieldRollingResistanceFx);
 
 
 	if mrData.category == 'steerable' then
@@ -913,6 +930,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 		setValue(xmlFile, wheelKey .. '#mass',				 'int', 1, '\t');
 		setValue(xmlFile, wheelKey .. '#antiRollFx',		 'flt', wheelMrData.antiRollFx, '\t');
 		setValue(xmlFile, wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
+		setValue(xmlFile, wheelKey .. '#tirePressureFx',	 'flt', wheelMrData.tirePressureFx, '\t');
 
 		local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
 		if not wheelMrData.realMaxMassAllowed and suspTravel < 0.05 then
@@ -1177,8 +1195,8 @@ local setMrData = function(vehicle, xmlFile, mrData)
 	end;
 
 
-	-- animation speed scale
-	if mrData.general.hasAnimationsSpeedScale then
+	-- animation speed scale / time offset
+	if mrData.general.hasAnimationsSpeedScale or mrData.general.hasAnimationsTimeOffset then
 		local a = 0;
 		while true do
 			local animKey = ('vehicle.animations.animation(%d)'):format(a);
@@ -1186,7 +1204,8 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 			local animName = getXMLString(xmlFile, animKey .. '#name');
 			local animScale = mrData.general.animationSpeedScale[animName];
-			if animScale then
+			local animOffset = mrData.general.animationTimeOffset[animName];
+			if animScale or animOffset then
 				local p = 0;
 				while true do
 					local partKey = ('%s.part(%d)'):format(animKey, p);
@@ -1194,10 +1213,34 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 					local startTime = getXMLFloat(xmlFile, partKey .. '#startTime');
 					local endTime   = getXMLFloat(xmlFile, partKey .. '#endTime');
-					setValue(xmlFile, partKey .. '#startTime', 'flt', startTime / animScale);
-					setValue(xmlFile, partKey .. '#endTime',   'flt', endTime / animScale);
+					if animScale then
+						startTime = startTime / animScale;
+						endTime = endTime / animScale;
+					end;
+					if animOffset then
+						startTime = startTime + animOffset;
+						endTime = endTime + animOffset;
+					end;
+					setValue(xmlFile, partKey .. '#startTime', 'flt', startTime);
+					setValue(xmlFile, partKey .. '#endTime',   'flt', endTime);
 
 					p = p + 1;
+				end;
+
+				if animOffset then
+					-- add additional part with time 0 -> offset and no movement so the new anim duration will be correct
+					firstNode		= getXMLString(xmlFile, animKey .. '.part(0)#node');
+					firstStartRot	=  getXMLFloat(xmlFile, animKey .. '.part(0)#startRot');
+					firstStartTrans	=  getXMLFloat(xmlFile, animKey .. '.part(0)#startTrans');
+
+					local newPartKey = ('%s.part(%d)'):format(animKey, p);
+					setValue(xmlFile, newPartKey .. '#node',	   'str', firstNode);
+					setValue(xmlFile, newPartKey .. '#startRot',   'flt', firstStartRot);
+					setValue(xmlFile, newPartKey .. '#endRot',	   'flt', firstStartRot);
+					setValue(xmlFile, newPartKey .. '#startTrans', 'flt', firstStartTrans);
+					setValue(xmlFile, newPartKey .. '#endTrans',   'flt', firstStartTrans);
+					setValue(xmlFile, newPartKey .. '#startTime',  'int', 0);
+					setValue(xmlFile, newPartKey .. '#endTime',	   'flt', animOffset);
 				end;
 			end;
 			a = a + 1;
