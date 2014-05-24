@@ -353,4 +353,33 @@
 			<component3 realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
+	
+	<!-- (4.1) KOTTE GARANT VQ 32000 --> <!-- AUTHOR: dural -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/titaniumAddon/kotte/garantVQ32000.xml" mrVehicleType="mr_kotteSlurryTank_t" debug="false">
+		<store capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="80" realRollingResistance="0.012" />
+		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="180" fillLitersPerSecond="600" />
+		<dimensions width="3" height="4" /> <!-- in m -->
+		<weights weight="16.3" realBrakeMaxMovingMass="34" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="20" suspTravel="0.3" radius="0.79" realMaxMassAllowed="7" /> <!-- front -->
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="20" suspTravel="0.3" radius="0.79" realMaxMassAllowed="7" /> <!-- front -->
+			
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="50" suspTravel="0.3" radius="0.79" realMaxMassAllowed="14" /> <!-- 2nd axle -->
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="50" suspTravel="0.3" radius="0.79" realMaxMassAllowed="14" /> <!-- 2nd axle -->
+			
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="100" suspTravel="0.3" radius="0.79" realMaxMassAllowed="25" /> <!-- 3rd axle -->
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="100" suspTravel="0.3" radius="0.79" realMaxMassAllowed="25" /> <!-- 3rd axle -->
+			
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="80" suspTravel="0.3" radius="0.79" realMaxMassAllowed="19" /> <!-- rear -->
+			<wheel driveMode="0" deltaY="0.2" brakeRatio="1" damper="20" spring="80" suspTravel="0.3" radius="0.79" realMaxMassAllowed="19" /> <!-- rear -->			
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 1 1" realMassWanted="15.6" realTransWithMass="0 0.01 -0.027" /> <!-- body -->
+			<component2 realMassWanted="0.1" /> <!-- support -->	
+			<component3 realMassWanted="0.3" /> <!-- right arm -->	
+			<component4 realMassWanted="0.3" /> <!-- ledt arm -->	
+		</components>
+	</vehicle>
+	
 </vehicles>
