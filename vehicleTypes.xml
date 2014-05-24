@@ -119,8 +119,8 @@
 
 			<specialization name="motorized" />
 			<specialization name="steerable" />
-			<specialization name="pdlc_titaniumAddon.visualWheels" />			
-			<specialization name="cylindered" />			
+			<specialization name="pdlc_titaniumAddon.visualWheels" />
+			<specialization name="cylindered" />
 			<specialization name="hirable" />
 			<specialization name="aiTractor" />
 			<specialization name="bunkerSiloCompacter" />
@@ -243,7 +243,7 @@
 			<specialization name="realisticVehicle" />
 
 			<specialization name="attachable" />
-			<specialization name="visualWheels" />
+			<specialization name="pdlc_titaniumAddon.visualWheels" />
 			<specialization name="animatedVehicle" />
 			<specialization name="cylindered" />
 			<specialization name="windrower" />
@@ -252,7 +252,7 @@
 
 			<specialization name="realisticRake" />
 		</type>
-		
+
 		<type name="mr_kotteSlurryTank_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
 			<specialization name="realisticVehicle" />
 
@@ -263,10 +263,10 @@
 			<specialization name="sprayer" />
 			<specialization name="foldable" />
 			<specialization name="pdlc_titaniumAddon.kotteSlurryTank" />
-			
-			<specialization name="realisticSprayer"/>			
+
+			<specialization name="realisticSprayer"/>
+			<specialization name="kotteSlurryConsumption"/>
 		</type>
-		
 	</Titanium>
 
 	<!-- ################################################## -->

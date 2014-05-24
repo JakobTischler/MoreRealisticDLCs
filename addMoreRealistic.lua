@@ -51,21 +51,22 @@ local registerCustomSpecs = function()
 	print('MoreRealisticDLCs: registerCustomSpecs()');
 	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
 	local specsKey = 'modDesc.customSpecializations';
-	local numCustomSpecs = getXMLInt(modDesc, specsKey .. '#num') or 0;
-	if numCustomSpecs > 0 then
-		for i=0, numCustomSpecs-1 do
-			local key = ('%s.specialization(%d)'):format(specsKey, i);
-			local specName = getXMLString(modDesc, key .. '#name');
-			local className = getXMLString(modDesc, key .. '#className');
-			local fileName = getXMLString(modDesc, key .. '#filename');
-			if specName and className and fileName then
-				specName = modName .. '.' .. specName;
-				className = modName .. '.' .. className;
-				fileName = Utils.getFilename(fileName, modDir);
-				print(('\tregisterSpecialization(): %s'):format(className));
-				SpecializationUtil.registerSpecialization(specName, className, fileName, modName);
-			end;
+	local i = 0;
+	while true do
+		local key = ('%s.specialization(%d)'):format(specsKey, i);
+		if not hasXMLProperty(modDesc, key) then break; end;
+
+		local specName = getXMLString(modDesc, key .. '#name');
+		local className = getXMLString(modDesc, key .. '#className');
+		local fileName = getXMLString(modDesc, key .. '#filename');
+		if specName and className and fileName then
+			specName = modName .. '.' .. specName;
+			className = modName .. '.' .. className;
+			fileName = Utils.getFilename(fileName, modDir);
+			print(('\tregisterSpecialization(): %s'):format(className));
+			SpecializationUtil.registerSpecialization(specName, className, fileName, modName);
 		end;
+		i = i + 1;
 	end;
 	delete(modDesc);
 	customSpecsRegistered = true;
@@ -291,7 +292,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		if animsStr then
 			animsStr = Utils.splitString(',', animsStr);
 			for i,data in pairs(animsStr) do
-				dataSplit = Utils.splitString(':', data);
+				local dataSplit = Utils.splitString(':', data);
 				general.animationSpeedScale[dataSplit[1]] = tonumber(dataSplit[2]);
 				general.hasAnimationsSpeedScale = true;
 			end;
@@ -408,7 +409,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				ajData.jointType = jointType;
 				ajData.minRot				  = getXMLString(xmlFile, ajKey .. '#minRot');
 				ajData.maxRot				  = getXMLString(xmlFile, ajKey .. '#maxRot');
-				ajData.maxRot2				  = getXMLString(xmlFile, ajKey .. '#maxRot2'); --TODO: always maxRot * -1 ?
+				ajData.maxRot2				  = getXMLString(xmlFile, ajKey .. '#maxRot2');
 				ajData.maxRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#maxRotDistanceToGround');
 				ajData.minRotDistanceToGround =  getXMLFloat(xmlFile, ajKey .. '#minRotDistanceToGround');
 				ajData.moveTime				  =  getXMLFloat(xmlFile, ajKey .. '#moveTime');
@@ -568,10 +569,11 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- sprayer
 		elseif subCategory == 'sprayer' then
-			workTool.realFillingPowerConsumption	= getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
-			workTool.realSprayingReferenceSpeed		= getXMLFloat(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
-			workTool.sprayUsageLitersPerSecond		= getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
-			workTool.fillLitersPerSecond			= getXMLFloat(xmlFile, key .. '.workTool#fillLitersPerSecond');
+			workTool.realFillingPowerConsumption	 = getXMLFloat(xmlFile, key .. '.workTool#realFillingPowerConsumption');
+			workTool.realSprayingReferenceSpeed		 =   getXMLInt(xmlFile, key .. '.workTool#realSprayingReferenceSpeed');
+			workTool.sprayUsageLitersPerSecond		 =   getXMLInt(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
+			workTool.sprayUsageLitersPerSecondFolded =   getXMLInt(xmlFile, key .. '.workTool#sprayUsageLitersPerSecondFolded');
+			workTool.fillLitersPerSecond			 =   getXMLInt(xmlFile, key .. '.workTool#fillLitersPerSecond');
 		end;
 
 		-- combine
@@ -1149,9 +1151,10 @@ local setMrData = function(vehicle, xmlFile, mrData)
 			-- sprayer
 			elseif mrData.subCategory == 'sprayer' then
 				setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
-				setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'flt', mrData.workTool.realSprayingReferenceSpeed);
-				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
-				setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'flt', mrData.workTool.fillLitersPerSecond);
+				setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'int', mrData.workTool.realSprayingReferenceSpeed);
+				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'int', mrData.workTool.sprayUsageLitersPerSecond);
+				setValue(xmlFile, 'vehicle.sprayUsageLitersPerSecondFolded',		'int', mrData.workTool.sprayUsageLitersPerSecondFolded);
+				setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'int', mrData.workTool.fillLitersPerSecond);
 			end;
 
 			-- fillable
@@ -1334,7 +1337,7 @@ local drawComponents = function(self, dt)
 		end;
 	end;
 end;
-Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
+-- Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
 
 
 -- MRIZE TITANIUM MAP

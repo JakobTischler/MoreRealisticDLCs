@@ -173,7 +173,7 @@
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/ursusAddon/ursus/ursusT610A.xml" mrVehicleType="moreRealistic.trailer" debug="false">
 		<store capacity="9.64" capacityUnit="M3" weight="2760" requiredPowerKwMin="35" fruits="wheat,barley,rape,maize,chaff,potato,sugarBeet" />
 		<general realBrakingDeceleration="4" realMaxVehicleSpeed="40" realRollingResistance="0.017" />
-		<workTool capacity="8000" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" />
+		<workTool capacity="8000" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" realMaxDischargeSpeeds="3000 4000 4000 1000" />
 		<dimensions width="2.3" height="2" /> <!-- in m -->
 		<weights weight="2.56" maxWeight="10.6" /> <!-- in t -->
 		<wheels>

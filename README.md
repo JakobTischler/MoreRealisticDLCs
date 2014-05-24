@@ -52,7 +52,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Horsch Maestro 12 SW seeder *(dural)*
 - [x] Horsch Terrano 6 FM cultivator *(dural)*
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
-- [ ] Kotte Garant VQ 32000 liquid manure spreader
+- [ ] Kotte Garant VQ 32000 liquid manure spreader *(dural)*
 - [x] Kramer KL 600 *(dural)*
 - [ ] Krone BigX 1100
 - [ ] Krone cutter trailer
@@ -88,5 +88,5 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Väderstad Rapid 300C seeder *(Xentro, dj)*
 - [ ] Väderstad Rapid A 600S seeder *(Xentro, dj)*
 - [ ] Väderstad Tempo F8 seeder *(Xentro, dj)*
-- [ ] Väderstad TopDown 500 cultivator *(Xentro, dj)*
+- [x] Väderstad TopDown 500 cultivator *(Xentro, dj)*
 
