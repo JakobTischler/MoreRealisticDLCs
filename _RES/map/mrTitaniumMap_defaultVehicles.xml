@@ -12,9 +12,9 @@
 	<vehicle filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66Cutter.xml" xPosition="243" yOffset="0.5" zPosition="408.65" yRotation="90"/>
 	
 	<vehicle filename="$moddir$moreRealisticVehicles/cultivators/lemkenKristall9.xml" xPosition="165" yOffset="0.5" zPosition="163" yRotation="180" />
-    <vehicle filename="$moddir$moreRealisticVehicles/seeders/amazoneD1.xml" xPosition="173" yOffset="0.5" zPosition="163" yRotation="180" />     
+    	<vehicle filename="$moddir$moreRealisticVehicles/seeders/amazoneD1.xml" xPosition="173" yOffset="0.5" zPosition="163" yRotation="180" />     
 	<vehicle filename="$moddir$moreRealisticVehicles/sprayers/triton500.xml" xPosition="187" yOffset="0.5" zPosition="163" yRotation="180" /> 	
-    <vehicle filename="$moddir$moreRealisticVehicles/trailers/kroneEmsland.xml" xPosition="181" yOffset="0.5" zPosition="167" yRotation="180" />    
+    	<vehicle filename="$moddir$moreRealisticVehicles/trailers/kroneEmsland.xml" xPosition="181" yOffset="0.5" zPosition="167" yRotation="180" />    
 	<vehicle filename="$moddir$moreRealisticVehicles/weights/barrelWeight.xml" xPosition="165" yOffset="0.5" zPosition="154" yRotation="0" />
 	
 </careerVehicles>
