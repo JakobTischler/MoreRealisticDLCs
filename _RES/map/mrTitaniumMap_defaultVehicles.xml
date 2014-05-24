@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<careerVehicles>
+	<vehicle id="1" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/tractors/buehrer6135A.xml" isAbsolute="true" fuelFillLevel="120">
+	   <component1 position="165.00001525879 100.00424194336 158.09970092773" rotation="3.1411728858948 2.3180399466582e-007 -3.1415915489197" />
+	</vehicle>
+	<vehicle id="2" modName="pdlc_titaniumAddon" filename="$pdlcdir$titaniumAddon/caseIH/caseIHFarmallH.xml" isAbsolute="true" fuelFillLevel="66">
+	   <component1 position="173.09999084473 100.00065612793 158.09994506836" rotation="3.1286664009094 8.2721658145601e-007 3.1415822505951" />
+	</vehicle>
+	<vehicle id="3" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/tractors/buehrer6135A.xml" isAbsolute="true" fuelFillLevel="120">
+	   <component1 position="181.00001525879 100.00424194336 158.09970092773" rotation="3.1411728858948 2.3180399466582e-007 -3.1415915489197" />
+	</vehicle>
+	<vehicle id="4" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66EX.xml" isAbsolute="true" fuelFillLevel="100" grainTankFillLevel="0" grainTankFruitType="unknown">
+	   <component1 position="241.99977111816 104.97950744629 282.5" rotation="-0.0021867598406971 -1.5707963705063 0" />
+	   <component2 position="241.99975585938 104.97950744629 282.5" rotation="-0.0021867679897696 -1.5707963705063 0" />
+	</vehicle>
+	<vehicle id="5" modName="pdlc_titaniumAddon" filename="$pdlcdir$titaniumAddon/kramer/kramerKL600.xml" isAbsolute="true" fuelFillLevel="64">
+	   <component1 position="-76.999938964844 114.99298858643 715" rotation="0.011479153297842 1.5707963705063 0" />
+	</vehicle>
+	<vehicle id="6" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/ploughs/poettingerServo35.xml" isAbsolute="true" ploughRotationMax="false" ploughTurnAnimTime="0" foldAnimTime="1">
+	   <component1 position="158.9998626709 100.01298522949 163.00025939941" rotation="3.1356530189514 1.373899885948e-005 3.1414902210236" />
+	   <component2 position="158.62528991699 100.67344665527 165.37684631348" rotation="3.1378638744354 -0.1747220158577 -3.1415221691132" />
+	</vehicle>
+	<vehicle id="7" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/cultivators/lemkenKristall9.xml" isAbsolute="true" foldAnimTime="0">
+	   <component1 position="165 99.98999786377 163" rotation="-3.141592502594 -3.6440599160414e-007 3.141592502594" />
+	</vehicle>
+	<vehicle id="8" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/seeders/amazoneD1.xml" isAbsolute="true" fillLevel="0" fillVolume="0" fillType="unknown" selectedSeedFruitType="wheat" foldAnimTime="0">
+	   <component1 position="173.10015869141 99.958724975586 162.9998626709" rotation="3.1155636310577 0.00033191949478351 3.1415853500366" />
+	</vehicle>
+	<vehicle id="9" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/trailers/kroneEmsland.xml" isAbsolute="true" fillLevel="0" fillVolume="0" fillType="unknown">
+	   <component1 position="181.00004577637 100.01049041748 166.99989318848" rotation="-3.1413812637329 4.5218162085803e-006 3.141578912735" />
+	   <component2 position="181.00030517578 100.75035858154 165.49597167969" rotation="-3.1412012577057 4.5119800233806e-006 3.1415064334869" />
+	   <component3 position="181.00006103516 100.53540039063 164.32835388184" rotation="-2.791755437851 4.3203850509599e-005 3.1415157318115" />
+	</vehicle>
+	<vehicle id="10" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66Cutter.xml" isAbsolute="true">
+	   <component1 position="237.99949645996 104.86785125732 282.49984741211" rotation="0.12079649418592 1.5707963705063 0" />
+	</vehicle>
+	<vehicle id="11" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/weights/extraWeight01.xml" isAbsolute="true">
+	   <component1 position="164.99996948242 99.994956970215 153.00009155273" rotation="-6.544351890625e-006 -4.8883579438552e-005 -7.1345202741213e-006" />
+	</vehicle>
+	<vehicle id="12" modName="moreRealisticVehicles" filename="$moddir$moreRealisticVehicles/weights/extraWeight01.xml" isAbsolute="true">
+	   <component1 position="158.99996948242 99.994956970215 153.00009155273" rotation="-6.544351890625e-006 -4.8883579438552e-005 -7.1345202741213e-006" />
+	</vehicle>
+</careerVehicles>

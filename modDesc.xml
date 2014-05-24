@@ -16,16 +16,17 @@
 
 	<extraSourceFiles>
 		<sourceFile filename="scripts/GetFilenameFix.lua" />
+		<sourceFile filename="_RES/map/SetMrStartVehicles.lua" />
 		<sourceFile filename="addMoreRealistic.lua" />
 	</extraSourceFiles>
 
 	<customSpecializations>
-		<specialization name="augerWagonPowerConsumption"  className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
-		<specialization name="dynamicExhaustingSystem" 	   className="DynamicExhaustingSystem" 	  filename="scripts/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustPower" 			   className="ExhaustPower" 			  filename="scripts/ExhaustPower.lua" />
-		<specialization name="kotteSlurryConsumption"	   className="KotteSlurryConsumption"	  filename="scripts/KotteSlurryConsumption.lua" />
-		<specialization name="moreRealisticBaleWrapper"	   className="MoreRealisticBaleWrapper"	  filename="scripts/MoreRealisticBaleWrapper.lua" />
-		<specialization name="realisticMovingTool" 		   className="RealisticMovingTool" 		  filename="scripts/RealisticMovingTool.lua" />
+		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
+		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem"	 filename="scripts/mrDynamicExhaustingSystem.lua" />
+		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="scripts/ExhaustPower.lua" />
+		<specialization name="kotteSlurryConsumption"	  className="KotteSlurryConsumption"	 filename="scripts/KotteSlurryConsumption.lua" />
+		<specialization name="moreRealisticBaleWrapper"	  className="MoreRealisticBaleWrapper"	 filename="scripts/MoreRealisticBaleWrapper.lua" />
+		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
 	</customSpecializations>
 
 	<l10n>
