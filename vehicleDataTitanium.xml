@@ -354,11 +354,11 @@
 		</components>
 	</vehicle>
 	
-	<!-- (4.1) KOTTE GARANT VQ 32000 --> <!-- AUTHOR: dural -->
+	<!-- (4.1) KOTTE GARANT VQ 32000 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/titaniumAddon/kotte/garantVQ32000.xml" mrVehicleType="mr_kotteSlurryTank_t" debug="false">
 		<store capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="80" realRollingResistance="0.012" />
-		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="180" sprayUsageLitersPerSecondFolded="110" fillLitersPerSecond="600" />
+		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="160" sprayUsageLitersPerSecondFolded="90" fillLitersPerSecond="600" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="16.3" realBrakeMaxMovingMass="34" /> <!-- in t -->
 		<wheels>
