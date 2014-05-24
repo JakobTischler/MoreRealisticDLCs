@@ -25,8 +25,8 @@ if mrModItem and mrModItem.version then
 		version = version .. versionSplit[3];
 	end;
 	version = tonumber(version);
-	if version and version < 1.336 then
-		print(('MoreRealisticDLCs: your MoreRealistic version (v%s) is too low. Update to v1.3.36 or higher. Script will now be aborted!'):format(mrModItem.version));
+	if version and version < 1.338 then
+		print(('MoreRealisticDLCs: your MoreRealistic version (v%s) is too low. Update to v1.3.38 or higher. Script will now be aborted!'):format(mrModItem.version));
 		return;
 	end;
 end;
