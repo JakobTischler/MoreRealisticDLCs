@@ -76,7 +76,7 @@
 	</vehicle>
 	
 	<!-- (1.4) IH FARMALL H --> <!-- AUTHOR: dural --> <!-- DONE -->
-	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHFarmallH.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHFarmallH.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="false">
 		<store price="14700" dailyUpkeep="40" powerKW="19" maxSpeed="26" weight="1775" />
 		<general realMaxVehicleSpeed="26" realBrakingDeceleration="4.1" fuelCapacity="66.2" />
 		<engine kW="19.5" realMaxReverseSpeed="4.4" realMaxFuelUsage="8.5" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.93" />
@@ -148,11 +148,11 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.2) HORSCH TERRANO 6 FM -->
+	<!-- (2.2) HORSCH TERRANO 6 FM --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated" debug="false">
 		<store price="46000" dailyUpkeep="10" maxSpeed="20" weight="6850" workWidth="5.9" requiredPowerKwMin="176.6" requiredPowerKwMax="265" />
 		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" />
-		<workTool realWorkingSpeedLimit="22" resistanceDecreaseFx="0.3" caRealTractionResistance="46" />
+		<workTool realWorkingSpeedLimit="22" resistanceDecreaseFx="0.3" caRealTractionResistance="46" realAiWorkingSpeed="14" />
 		<dimensions width="3" height="1" /> <!-- in m -->
 		<weights weight="6.850" maxWeight="6.850" realBrakeMaxMovingMass="7" /> <!-- in t -->
 		<wheels>
