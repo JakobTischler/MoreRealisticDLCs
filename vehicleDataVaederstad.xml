@@ -47,55 +47,60 @@
 	</vehicle>
 
 	<!-- (2) SEEDERS -->
-	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_ --> <!-- IN PROGRESS --> <!-- hp requirement 100-175 -->
+	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 100-175 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="true">
-		<store capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" />
+		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" />
 		<general realWorkingPowerConsumption="36" realBrakingDeceleration="2" />
-		<workTool realPowerConsumption="20" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0.4" />
+		<workTool realPowerConsumption="20" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.48" caRealTractionResistance="18" caRealTractionResistanceWithLoadMass="0.4" />
 		<dimensions width="3" height="2.5" /> <!-- in m -->
 		<weights weight="4.7" maxWeight="7.8" realBrakeMaxMovingMass="8" /> <!-- in t --> <!-- capacity 3100l -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0.04" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
-			<wheel driveMode="0" deltaY="0.04" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
-			<wheel driveMode="0" deltaY="0.07" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="2" />
-			<wheel driveMode="0" deltaY="0.07" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="2" />
+			<wheel driveMode="0" deltaY="-0.02" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
+			<wheel driveMode="0" deltaY="-0.02" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
+			<wheel driveMode="0" deltaY="-0.02" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="2" />
+			<wheel driveMode="0" deltaY="-0.02" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="2" />
 		</wheels>
-		<attacherJoint jointType="implement" lowerDistanceToGround="0.7" upperDistanceToGround="1.1" realWantedLoweredTransLimit="0 0.2 0" realWantedLoweredRotLimit="2 0 10" realWantedRaisedRotLimit="0 0 30" realWantedRaisedRot2="0" />
+		<attacherJoints>
+			<attacherJoint jointType="implement" lowerDistanceToGround="0.68" upperDistanceToGround="0.85" realWantedLoweredTransLimit="0 0.2 0" realWantedLoweredRotLimit="0 0 10" realWantedRaisedRotLimit="0 0 30" realWantedRaisedRot2="0" />
+		</attacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.3 -2.5" realMassWanted="4.2" /> <!-- realTransWithMass="0 0.1 0.45"--> 
+			<component1 centerOfMass="0 0.3 -2.5" realMassWanted="4.2" realTransWithMass="0 0.1 0.1" />
 			<component2 realMassWanted="0.5" /> 
 		</components>
 	</vehicle>
 
-	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 180-350 -->
+	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 180-350 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapidA600S.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="true">
-		<store capacity="4050" capacityUnit="L" weight="8900" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" />
-		<general realWorkingPowerConsumption="80" />
-		<workTool realPowerConsumption="60" realWorkingSpeedLimit="15" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="8.5" caRealTractionResistanceWithLoadMass="0.3" />
+		<store price="68000" dailyUpkeep="16" capacity="4050" capacityUnit="L" weight="8900" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" />
+		<general realWorkingPowerConsumption="30" />
+		<workTool realPowerConsumption="30" realWorkingSpeedLimit="17" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.42" caRealTractionResistance="34" caRealTractionResistanceWithLoadMass="0.3" />
 		<dimensions width="3" height="3.1" /> <!-- in m -->
-		<weights weight="8.9" maxWeight="12.2" /> <!-- in t --> <!-- capacity 3300l -->
+		<weights weight="8.9" maxWeight="12.2" realBrakeMaxMovingMass="13" /> <!-- in t --> <!-- capacity 4050l -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0.23" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.23" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.36" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.36" brakeRatio="0" />
+			<wheel driveMode="0" radius="0.38" deltaY="0.01" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
+			<wheel driveMode="0" radius="0.38" deltaY="0.01" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
+			<wheel driveMode="0" deltaY="-0.03" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="3" />
+			<wheel driveMode="0" deltaY="-0.03" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="3" />
 		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" lowerDistanceToGround="0.71" upperDistanceToGround="0.85" realWantedLoweredTransLimit="0 0.2 0" realWantedLoweredRotLimit="0 0 10" realWantedRaisedRotLimit="0 0 30" realWantedRaisedRot2="0" />
+		</attacherJoints>
 		<components>
-			<component1 realMassWanted="7.3" />
-			<component2 realMassWanted="0.6" />
-			<component3 realMassWanted="0.5" />
-			<component4 realMassWanted="0.5" />
+			<component1 centerOfMass="0 0.8 -2.5" realMassWanted="6.2" realTransWithMass="0 0.15 0.1" />
+			<component2 realMassWanted="0.5" />
+			<component3 realMassWanted="1.1" />
+			<component4 realMassWanted="1.1" />
 		</components>
 	</vehicle>
 
-	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro --> <!-- NOT DONE --> <!-- hp requirement 90-125 -->
+	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro --> <!-- NOT DONE/IN PROGRESS --> <!-- hp requirement 90-125 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="true">
-		<store capacity="2396" capacityUnit="L" weight="3500" workWidth="6" requiredPowerKwMin="66" requiredPowerKwMax="92" fruits="maize,sugarBeet" />
+		<store price="59000" dailyUpkeep="13" capacity="2396" capacityUnit="L" weight="3500" workWidth="6" requiredPowerKwMin="66" requiredPowerKwMax="92" fruits="maize,sugarBeet" />
 		<general realWorkingPowerConsumption="36" />
-		<workTool realPowerConsumption="20" realWorkingSpeedLimit="15" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="5" caRealTractionResistanceWithLoadMass="0.3" />
+		<workTool realPowerConsumption="20" realWorkingSpeedLimit="22" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="5" caRealTractionResistanceWithLoadMass="0.3" />
 		<dimensions width="3" height="3.6" /> <!-- in m -->
-		<weights weight="3.5" maxWeight="6.8" /> <!-- in t --> <!-- capacity 3300l -->
-		<wheels>
+		<weights weight="3.5" maxWeight="5.9" /> <!-- in t --> <!-- capacity 2400l -->
+		<wheels> 
 			<wheel driveMode="0" deltaY="0.2" brakeRatio="0" />
 			<wheel driveMode="0" deltaY="0.2" brakeRatio="0" />
 		</wheels>
