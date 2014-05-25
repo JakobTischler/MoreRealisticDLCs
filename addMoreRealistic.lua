@@ -312,6 +312,13 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			end;
 		end;
 
+		-- moving tool speed scale
+		general.movingToolSpeedScale = {};
+		local mtString = getXMLString(xmlFile, key .. '.general#movingToolSpeedScale');
+		if mtString then
+			general.movingToolSpeedScale = Utils.getVectorNFromString(mtString, nil);
+		end;
+
 
 		-- engine
 		local engine = {
@@ -1229,9 +1236,9 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 				if animOffset then
 					-- add additional part with time 0 -> offset and no movement so the new anim duration will be correct
-					firstNode		= getXMLString(xmlFile, animKey .. '.part(0)#node');
-					firstStartRot	=  getXMLFloat(xmlFile, animKey .. '.part(0)#startRot');
-					firstStartTrans	=  getXMLFloat(xmlFile, animKey .. '.part(0)#startTrans');
+					local firstNode		  = getXMLString(xmlFile, animKey .. '.part(0)#node');
+					local firstStartRot	  =  getXMLFloat(xmlFile, animKey .. '.part(0)#startRot');
+					local firstStartTrans =  getXMLFloat(xmlFile, animKey .. '.part(0)#startTrans');
 
 					local newPartKey = ('%s.part(%d)'):format(animKey, p);
 					setValue(xmlFile, newPartKey .. '#node',	   'str', firstNode);
@@ -1244,6 +1251,23 @@ local setMrData = function(vehicle, xmlFile, mrData)
 				end;
 			end;
 			a = a + 1;
+		end;
+	end;
+
+	-- movingTool speed scale
+	for mtNum, scale in ipairs(mrData.general.movingToolSpeedScale) do
+		if scale ~= 1 then
+			local mtKey = ('vehicle.movingTools.movingTool(%d)'):format(mtNum - 1);
+			if not hasXMLProperty(xmlFile, mtKey) then break; end;
+
+			local curRotSpeed = getXMLFloat(xmlFile, mtKey .. '#rotSpeed');
+			if curRotSpeed then
+				setValue(xmlFile, mtKey .. '#rotSpeed', 'flt', curRotSpeed * scale);
+			end;
+			local curTransSpeed = getXMLFloat(xmlFile, mtKey .. '#transSpeed');
+			if curTransSpeed then
+				setValue(xmlFile, mtKey .. '#transSpeed', 'flt', curTransSpeed * scale);
+			end;
 		end;
 	end;
 end;
@@ -1260,15 +1284,16 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	local addMrData = false;
 	local cfnStart, _ = configFile:find('/pdlc/');
 	if cfnStart then
-		print(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
 		-- print(('\tmodName=%q, baseDirectory=%q'):format(tostring(vehicleModName), tostring(baseDirectory)));
 		self.configFileNameShort = configFile:sub(cfnStart + 1, 1000);
 		mrData = vehicleData[self.configFileNameShort];
 		if mrData then
 			self.typeName = mrData.vehicleType;
 			self.isMoreRealisticDLC = true;
+			self.moreRealisticDLCdebug = mrData.doDebug;
 			self.dlcNameClean = mrData.dlcName;
 			addMrData = true;
+			print(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
 			print(('\tVehicleType changed to: %q'):format(tostring(self.typeName)));
 		end;
 	end;
@@ -1311,7 +1336,9 @@ local setMoreRealisticDamping = function(self, i3dNode, arguments)
 		for i,comp in ipairs(self.components) do
 			setAngularDamping(comp.node, 0);
 			setLinearDamping(comp.node, 0);
-			-- print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
+			if self.moreRealisticDLCdebug then
+				print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
+			end;
 		end;
 	end;
 end;
@@ -1373,7 +1400,7 @@ end;
 
 -- DEBUG DRAW COMPONENT POSITIONS / CENTER OF MASS
 local drawComponents = function(self, dt)
-	if not self.isActive --[[or not self.isSelected]] then return; end;
+	if not self.isActive or not self.moreRealisticDLCdebug then return; end;
 	for i=1, #self.components do
 		local node = self.components[i].node;
 		local compX,compY,compZ = getWorldTranslation(node);
@@ -1386,7 +1413,7 @@ local drawComponents = function(self, dt)
 		end;
 	end;
 end;
--- Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
+Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
 
 
 -- MRIZE TITANIUM MAP
