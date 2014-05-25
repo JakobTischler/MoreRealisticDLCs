@@ -265,7 +265,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.11) URSUS N-270 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<!-- (2.12) URSUS N-270 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/ursusAddon/ursus/ursusN270.xml" mrVehicleType="moreRealistic.manureSpreader" debug="false">
 		<store capacity="15.5" capacityUnit="M3" weight="6300" workWidth="10" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="111" requiredPowerKwMax="147.5" />
 		<dimensions width="2.48" height="1.25" /> <!-- in m -->
