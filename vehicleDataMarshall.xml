@@ -42,7 +42,7 @@
 
 	<!-- (1.3) MARSHALL MS105 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/marshallPack/marshall/marshallMS105.xml" mrVehicleType="mr_manureSpreaderMS105_m" debug="false">
-		<store capacity="8" capacityUnit="M3" weight="3150" workWidth="5" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="70" />
+		<store capacity="8" capacityUnit="M3" weight="3150" workWidth="5" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="100" />
 		<dimensions width="1.52" height="2.08" /> <!-- in m -->
 		<weights weight="3.15" realBrakeMaxMovingMass="12" /> <!-- in t -->
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="4" realWorkingPowerConsumption="69.87" />
@@ -59,7 +59,7 @@
 
 	<!-- (1.4) MARSHALL VES 2500 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/marshallPack/marshall/marshallVES2500.xml" mrVehicleType="mr_manureSpreader_planeMover_m" debug="false">
-		<store dailyUpkeep="10" capacity="11.4" capacityUnit="M3" weight="4200" workWidth="8" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="100" />
+		<store dailyUpkeep="10" capacity="11.4" capacityUnit="M3" weight="4200" workWidth="8" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="130" />
 		<dimensions width="1.52" height="2.31" /> <!-- in m -->
 		<weights weight="4.2" realBrakeMaxMovingMass="15" /> <!-- in t -->
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="4" realWorkingPowerConsumption="99.29" />
@@ -70,6 +70,22 @@
 		</wheels>
 		<components>
 			<component1 centerOfMass="0 0.5 -0.5" realMassWanted="4.2" realTransWithMass="0 0.05 0.09" realTransWithMassMax="0 0.5 1" />
+		</components>
+	</vehicle>
+
+	<!-- (1.5) MARSHALL ST 1800 LIQUID MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/marshallPack/marshall/marshallST1800.xml" mrVehicleType="mr_manureBarrelST1800_m" debug="false">
+		<store capacity="8.2" capacityUnit="M3" weight="2540" workWidth="10" workSpeedMin="6" workSpeedMax="12" requiredPowerKwMin="60" />
+		<dimensions width="1.55" height="1.55" /> <!-- in m -->
+		<weights weight="2.54" realBrakeMaxMovingMass="11" /> <!-- in t -->
+		<general realMaxVehicleSpeed="32" realBrakingDeceleration="4" realWorkingPowerConsumption="18" />
+		<workTool capacity="8200" fillLitersPerSecond="450" realFillingPowerConsumption="18" realWorkingSpeedLimit="13" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="55.8" />
+		<wheels>
+			<wheel driveMode="0" deltaY="0" suspTravel="0" spring="5" realMaxMassAllowed="8" brakeRatio="1" />
+			<wheel driveMode="0" deltaY="0" suspTravel="0" spring="5" realMaxMassAllowed="8" brakeRatio="1" />
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 0.4 0" realMassWanted="2.54" realTransWithMass="0 0.05 0" realTransWithMassMax="0 0.5 0" />
 		</components>
 	</vehicle>
 </vehicles>
