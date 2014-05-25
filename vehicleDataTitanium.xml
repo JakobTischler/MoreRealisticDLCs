@@ -128,9 +128,9 @@
 	<!-- (1.6) LIZARD TRUCK --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/lizard/americanTruck.xml" mrVehicleType="mr_truck_t" debug="false">
 		<store price="176000" dailyUpkeep="360" powerKW="442" maxSpeed="120" weight="7700" />
-		<general realMaxVehicleSpeed="120" realBrakingDeceleration="7" fuelCapacity="380" realRollingResistance="0.0025" realVehicleOnFieldRollingResistanceFx="10" realMotorizedWheelsDriveLossFx="0.001" />
+		<general realMaxVehicleSpeed="120" realBrakingDeceleration="7" fuelCapacity="380" realRollingResistance="0.0025" realVehicleOnFieldRollingResistanceFx="10" realMotorizedWheelsDriveLossFx="0.0001" />
 		<engine kW="442" realMaxReverseSpeed="22" realMaxFuelUsage="114" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.96" realSpeedLevel="30 50 90" />
-		<dimensions width="2.5" height="2.5" /> <!-- better scx with the "long" noze -->
+		<dimensions width="2.5" height="2" /> <!-- better scx with the "long" noze -->
 		<weights weight="7.7" maxWeight="15" realBrakeMaxMovingMass="15" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="50" suspTravel="0.20" radius="0.57" rotMin="-45" rotMax="40" rotSpeed="75" tirePressureFx="5" />
