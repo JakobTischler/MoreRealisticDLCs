@@ -349,7 +349,7 @@
 			<specialization name="pdlc_ursusAddon.baleWrapper" />
 
 			<specialization name="realisticTool" />
-			<specialization name="moreRealisticBaleWrapper" />
+			<specialization name="realisticBaleWrapper" />
 		</type>
 
 		<type name="mr_baleGrab_u" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">

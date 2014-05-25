@@ -145,7 +145,7 @@
 	</vehicle>
 
 	<!-- (2.3) URSUS Z-586 bale wrapper --> <!-- AUTHOR: Jakob Tischler --> <!-- MOSTLY DONE -->
-	<vehicle category="tool" subCategory="baleWrapper" configFileName="pdlc/ursusAddon/ursus/ursusZ586.xml" mrVehicleType="mr_baleWrapper_u" debug="true">
+	<vehicle category="tool" subCategory="baleWrapper" configFileName="pdlc/ursusAddon/ursus/ursusZ586.xml" mrVehicleType="mr_baleWrapper_u" debug="false">
 		<store workSpeedMax="20" weight="1200" requiredPowerKwMin="35" />
 		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" realWorkingPowerConsumption="22" animationSpeedScale="unfold:0.2,moveBaleToWrapper:0.8,dropBaleFromWrapper:0.8,resetWrapperAfterBaleDrop:0.8" />
 		<!-- 

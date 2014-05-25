@@ -24,7 +24,7 @@
 		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
 		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem"	 filename="scripts/mrDynamicExhaustingSystem.lua" />
 		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="scripts/ExhaustPower.lua" />
-		<specialization name="moreRealisticBaleWrapper"	  className="MoreRealisticBaleWrapper"	 filename="scripts/MoreRealisticBaleWrapper.lua" />
+		<specialization name="realisticBaleWrapper"		  className="RealisticBaleWrapper"		 filename="scripts/RealisticBaleWrapper.lua" />
 		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
 		<specialization name="variableSprayUsage"		  className="VariableSprayUsage"		 filename="scripts/VariableSprayUsage.lua" />
 	</customSpecializations>
