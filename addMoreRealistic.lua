@@ -776,7 +776,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 	setValue(xmlFile, 'vehicle.realCanLockWheelsWhenBraking', 		   'bool', mrData.general.realCanLockWheelsWhenBraking);
 	setValue(xmlFile, 'vehicle.realRollingResistance',				   'flt',  mrData.general.realRollingResistance);
 	setValue(xmlFile, 'vehicle.realWorkingPowerConsumption',		   'flt',  mrData.general.realWorkingPowerConsumption);
-	setValue(xmlFile, 'vehicle.realMotorizedWheelsDriveLossFx '		,  'flt',  mrData.general.realMotorizedWheelsDriveLossFx);
+	setValue(xmlFile, 'vehicle.realMotorizedWheelsDriveLossFx'		,  'flt',  mrData.general.realMotorizedWheelsDriveLossFx);
 	setValue(xmlFile, 'vehicle.realVehicleOnFieldRollingResistanceFx', 'flt',  mrData.general.realVehicleOnFieldRollingResistanceFx);
 
 
