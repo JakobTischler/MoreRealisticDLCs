@@ -190,7 +190,7 @@
 
 	<!-- (2.3) CASE 3020 CUTTER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3020Cutter.xml" mrVehicleType="mr_cutter_mouseControlled_t" debug="false">
-		<store price="34000" dailyUpkeep="31" maxSpeed="17" weight="3066" workWidth="10.5" />
+		<store price="34000" dailyUpkeep="31" weight="3066" workWidth="10.5" />
 		<workTool realCutterPowerConsumption="25" realCutterPowerConsumptionInc="2" realCutterSpeedLimit="17" />
 		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="3.066" maxWeight="3.066" /> <!-- in t -->
@@ -208,7 +208,7 @@
 	
 	<!-- (2.4) CASE 3162 CUTTER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3162Cutter.xml" mrVehicleType="mr_cutter_builtInCutterTrailer_t" debug="false">
-		<store price="84000" dailyUpkeep="55" maxSpeed="17" weight="4350" workWidth="13.7" />
+		<store price="84000" dailyUpkeep="55" weight="4350" workWidth="13.7" />
 		<workTool realCutterPowerConsumption="45" realCutterPowerConsumptionInc="1.85" realCutterSpeedLimit="19" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" />
 		<dimensions width="2" height="1.5" /> <!-- in m -->
@@ -236,7 +236,7 @@
 	
 	<!-- (2.5) CASE 3412 CORN HEADER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3412Corn.xml" mrVehicleType="moreRealistic.cutter" debug="false">
-		<store price="68000" dailyUpkeep="28" maxSpeed="17" weight="3868" workWidth="9" />
+		<store price="68000" dailyUpkeep="28" weight="3868" workWidth="9" />
 		<workTool realCutterPowerConsumption="48" realCutterPowerConsumptionInc="1.2" realCutterSpeedLimit="17" />
 		<dimensions width="2.2" height="1.2" /> <!-- in m -->
 		<weights weight="3.87" maxWeight="3.87" /> <!-- in t -->
@@ -252,7 +252,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.6) KRONE SWADRO 2000 --> <!-- DONE -->
+	<!-- (2.6) KRONE SWADRO 2000 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="false">
 		<store price="93000" dailyUpkeep="60" maxSpeed="12" weight="9400" workWidth="19" requiredPowerKwMin="110" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" />
 		<workTool realWorkingSpeedLimit="15" realRakeWorkingPowerConsumption="35" realRakeWorkingPowerConsumptionInc="40" />
@@ -281,6 +281,24 @@
 			<component10 realMassWanted="0.1" /> <!-- right arm wheel -->
 		</components>
 	</vehicle>
+	
+	<!-- (2.7) KRONE EASYCOLLECT 1053 --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/krone/kroneEasyCollect1053.xml" mrVehicleType="moreRealistic.cutter_animated" debug="false">
+		<store price="67000" dailyUpkeep="40" weight="3600" workWidth="10.5" />
+		<workTool realCutterPowerConsumption="40" realCutterPowerConsumptionInc="8" realCutterSpeedLimit="16" />
+		<dimensions width="1.5" height="1.5" /> <!-- in m, only for the SCx-->
+		<weights weight="3.6" maxWeight="3.6" /> <!-- in t -->
+		<attacherJoints>
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0.844" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-12" realWantedRaisedRotInc="0" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.4 0" realMassWanted="3.3" /> <!-- body -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- left -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- right -->
+			<component4 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
+		</components>
+	</vehicle>
+	
 
 	<!-- ################################################## -->
 
@@ -333,27 +351,27 @@
 		</components>
 	</vehicle>
 
-	<!-- (3.3) KRONE BIGX 1100 --> <!-- NOT DONE -->
+	<!-- (3.3) KRONE BIGX 1100 --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/krone/kroneBigX1100.xml" mrVehicleType="mr_combine_extended_t" debug="false">
-		<store powerKW="760" maxSpeed="40" weight="14800" />
-		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
-		<engine kW="760" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realPtoPowerKW="380" realMaxFuelUsage="100" realAiManeuverSpeed="9.5" realMaxPowerToTransmission="380" realHydrostaticTransmission="true" />
-		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="3" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="200" realThreshingPowerConsumptionInc="3" realThreshingScale="0.95" realThreshingPowerBoost="380" realCombineCycleDuration="1" />
-		<dimensions width="3.4" height="4" /> <!-- in m -->
-		<weights weight="14.8" maxWeight="15.5" /> <!-- in t -->
+		<store price="390000" dailyUpkeep="680" powerKW="793" maxSpeed="40" weight="14800" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" fuelCapacity="1290" waitForTurnTime="0" />
+		<engine kW="793" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="196" realAiManeuverSpeed="9" realMaxPowerToTransmission="400" realHydrostaticTransmission="true" realSpeedLevel="6 9 12" />
+		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="4" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="180" realThreshingPowerConsumptionInc="3" realThreshingScale="0.97" realCombineCycleDuration="1" realTurnStage1DistanceThreshold="9" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="9" />
+		<dimensions width="3.5" height="4" /> <!-- in m -->
+		<weights weight="14.8" maxWeight="15.5" realBrakeMaxMovingMass="20" /> <!-- in t -->
 		<wheels>
-			<wheel rotSpeed="-55" rotMax="30" rotMin="-45" driveMode="1" radius="0.81" deltaY="0.2"  brakeRatio="1" />
-			<wheel rotSpeed="-55" rotMax="45" rotMin="-30" driveMode="1" radius="0.81" deltaY="0.2"  brakeRatio="1" />
-			<wheel rotSpeed="0" 						   driveMode="2" radius="0.99" deltaY="0.02" brakeRatio="1" />
-			<wheel rotSpeed="0" 						   driveMode="2" radius="0.99" deltaY="0.02" brakeRatio="1" />
+			<wheel rotSpeed="-55" rotMax="30" rotMin="-45" driveMode="1" damper="40" spring="120" suspTravel="0.15" radius="0.83" deltaY="0.11" brakeRatio="1" />
+			<wheel rotSpeed="-55" rotMax="45" rotMin="-30" driveMode="1" damper="40" spring="120" suspTravel="0.15" radius="0.83" deltaY="0.11" brakeRatio="1" />
+			<wheel rotSpeed="0" 						   driveMode="2" damper="20" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.07" brakeRatio="1" />
+			<wheel rotSpeed="0" 						   driveMode="2" damper="20" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.07" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="cutter" minRot="-6 0 0" maxRot="35.6 0 0"  maxRot2="-35.6 0 0" moveTime="2.5" maxRotDistanceToGround="0.6" minRotDistanceToGround="1.625" />
-			<attacherJoint jointType="trailer" maxRotLimit="15 80 50" maxTransLimit="0 0 0" />
+			<attacherJoint jointType="cutter" minRot="9 0 0" maxRot="18 0 0" maxRot2="-18 0 0" moveTime="1.5" maxRotDistanceToGround="0.844" minRotDistanceToGround="1.86" />
+			<attacherJoint jointType="trailer" maxRotLimit="40 80 50" />
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="14.5" />
-			<component2 realMassWanted="0.3" />
+			<component1 realMassWanted="14.8" centerOfMass="0 0.6 0.12" />
+			<component2 realMassWanted="0.1" />
 		</components>
 	</vehicle>
 
