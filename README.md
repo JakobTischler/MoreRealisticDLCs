@@ -85,8 +85,8 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 
 ###### Väderstad DLC:
 - [ ] Väderstad Carrier 820 cultivator *(Xentro, dj)*
-- [ ] Väderstad Rapid 300C seeder *(Xentro, dj)*
-- [ ] Väderstad Rapid A 600S seeder *(Xentro, dj)*
+- [x] Väderstad Rapid 300C seeder *(Xentro, dj)*
+- [x] Väderstad Rapid A 600S seeder *(Xentro, dj)*
 - [ ] Väderstad Tempo F8 seeder *(Xentro, dj)*
 - [x] Väderstad TopDown 500 cultivator *(Xentro, dj)*
 
