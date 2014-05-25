@@ -52,7 +52,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Horsch Maestro 12 SW seeder *(dural)*
 - [x] Horsch Terrano 6 FM cultivator *(dural)*
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
-- [ ] Kotte Garant VQ 32000 liquid manure spreader *(dural)*
+- [x] Kotte Garant VQ 32000 liquid manure spreader *(dural)*
 - [x] Kramer KL 600 *(dural)*
 - [ ] Krone BigX 1100
 - [ ] Krone cutter trailer
@@ -60,7 +60,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Krone EasyFlow 300 pickup
 - [ ] Krone Swadro 2000 rake
 - [ ] Krone XDisc 6200 mowing header
-- [ ] Lizard truck
+- [x] Lizard truck
 
 ###### Ursus Addon:
 - [x] Ursus C-45 *(Grisu118)*
