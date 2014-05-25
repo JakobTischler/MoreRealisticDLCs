@@ -288,6 +288,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			realDisplaySlip						  = Utils.getNoNil(getXMLBool(xmlFile, key .. '.general#realDisplaySlip'), true);
 			realMotorizedWheelsDriveLossFx		  = getXMLFloat(xmlFile, key .. '.general#realMotorizedWheelsDriveLossFx');
 			realVehicleOnFieldRollingResistanceFx = getXMLFloat(xmlFile, key .. '.general#realVehicleOnFieldRollingResistanceFx');
+			waitForTurnTime						  = getXMLFloat(xmlFile, key .. '.general#waitForTurnTime');
 		};
 
 
@@ -822,6 +823,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 		-- general
 		setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', mrData.general.realDisplaySlip);
 		setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
+		setValue(xmlFile, 'vehicle.waitForTurnTime',					  'flt',  mrData.general.waitForTurnTime);
 
 		-- wheels
 		setValue(xmlFile, 'vehicle.realVehicleFlotationFx',				  'flt',  mrData.wheelStuff.realVehicleFlotationFx);
