@@ -252,29 +252,33 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.6) KRONE SWADRO 2000 --> <!-- NOT DONE -->
+	<!-- (2.6) KRONE SWADRO 2000 --> <!-- DONE -->
 	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="false">
-		<store maxSpeed="20" weight="9400" workWidth="19" requiredPowerKwMin="200" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" />
-		<workTool realPowerConsumption="96" realRakeWorkingPowerConsumption="10" realRakeWorkingPowerConsumptionInc="40" />
-		<dimensions width="3" height="4" /> <!-- in m -->
-		<weights weight="9.4" maxWeight="9.4" /> <!-- in t -->
+		<store price="93000" dailyUpkeep="60" maxSpeed="12" weight="9400" workWidth="19" requiredPowerKwMin="110" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" />
+		<workTool realWorkingSpeedLimit="15" realRakeWorkingPowerConsumption="35" realRakeWorkingPowerConsumptionInc="40" />
+		<dimensions width="3" height="1.5" /> <!-- in m - recue SCx since there is no real "front" wall -->
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" />
+		<weights weight="9.4" maxWeight="9.4" realBrakeMaxMovingMass="10" /> <!-- in t -->
 		<wheels realNoSteeringAxleDamping="true">
-			<wheel driveMode="0" deltaY="0.27" brakeRatio="1" />
-			<wheel driveMode="0" deltaY="0.27" brakeRatio="1" />
-			<wheel driveMode="0" deltaY="0.27" brakeRatio="0" />
-			<wheel driveMode="0" deltaY="0.27" brakeRatio="0" />
+			<wheel driveMode="0" deltaY="0.15" brakeRatio="1" damper="20" spring="100" suspTravel="0.15" radius="0.68" />
+			<wheel driveMode="0" deltaY="0.15" brakeRatio="1" damper="20" spring="100" suspTravel="0.15" radius="0.68" />
+			<wheel driveMode="0" deltaY="0.04" brakeRatio="0" damper="20" spring="100" suspTravel="0.06" radius="0.31" /> <!-- front -->
+			<wheel driveMode="0" deltaY="0.04" brakeRatio="0" damper="20" spring="100" suspTravel="0.06" radius="0.31" /> <!-- front -->
 		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" lowerDistanceToGround="0.8" realWantedLoweredRotLimit="2 0 30" />
+		</attacherJoints>
 		<components>
-			<component1  realMassWanted="6.3" />
-			<component2  realMassWanted="0.5" />
-			<component3  realMassWanted="0.4" />
-			<component4  realMassWanted="0.4" />
-			<component5  realMassWanted="0.4" />
-			<component6  realMassWanted="0.4" />
-			<component7  realMassWanted="0.4" />
-			<component8  realMassWanted="0.4" />
-			<component9  realMassWanted="0.1" />
-			<component10 realMassWanted="0.1" />
+			<component1  realMassWanted="7.5" centerOfMass="0 0.36 -3.1" /> <!-- body -->
+			<component2  realMassWanted="0.5" /> <!-- attacher -->
+			<component3  realMassWanted="0.2" /> <!-- left back rotor -->
+			<component4  realMassWanted="0.2" /> <!-- right back rotor -->
+			<component5  realMassWanted="0.2" /> <!-- left middle rotor -->
+			<component6  realMassWanted="0.2" /> <!-- right middle rotor -->
+			<component7  realMassWanted="0.2" /> <!-- left front rotor -->
+			<component8  realMassWanted="0.2" /> <!-- right front rotor -->
+			<component9  realMassWanted="0.1" /> <!-- left arm wheel -->
+			<component10 realMassWanted="0.1" /> <!-- right arm wheel -->
 		</components>
 	</vehicle>
 
