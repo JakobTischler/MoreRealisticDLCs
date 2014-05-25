@@ -125,7 +125,7 @@
 		</components>
 	</vehicle>
 	
-	<!-- (1.6) LIZARD TRUCK --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<!-- (1.6) LIZARD TRUCK --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/lizard/americanTruck.xml" mrVehicleType="mr_truck_t" debug="false">
 		<store price="176000" dailyUpkeep="360" powerKW="442" maxSpeed="120" weight="7700" />
 		<general realMaxVehicleSpeed="120" realBrakingDeceleration="7" fuelCapacity="380" realRollingResistance="0.0025" realVehicleOnFieldRollingResistanceFx="10" realMotorizedWheelsDriveLossFx="0.0001" />
@@ -188,7 +188,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.3) CASE 3020 CUTTER -->
+	<!-- (2.3) CASE 3020 CUTTER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3020Cutter.xml" mrVehicleType="mr_cutter_mouseControlled_t" debug="false">
 		<store price="34000" dailyUpkeep="31" maxSpeed="17" weight="3066" workWidth="10.5" />
 		<workTool realCutterPowerConsumption="25" realCutterPowerConsumptionInc="2" realCutterSpeedLimit="17" />
@@ -206,7 +206,7 @@
 		</components>
 	</vehicle>
 	
-	<!-- (2.4) CASE 3162 CUTTER -->
+	<!-- (2.4) CASE 3162 CUTTER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3162Cutter.xml" mrVehicleType="mr_cutter_builtInCutterTrailer_t" debug="false">
 		<store price="84000" dailyUpkeep="55" maxSpeed="17" weight="4350" workWidth="13.7" />
 		<workTool realCutterPowerConsumption="45" realCutterPowerConsumptionInc="1.85" realCutterSpeedLimit="19" />
@@ -234,7 +234,7 @@
 		</components>
 	</vehicle>
 	
-	<!-- (2.5) CASE 3412 CORN HEADER -->
+	<!-- (2.5) CASE 3412 CORN HEADER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3412Corn.xml" mrVehicleType="moreRealistic.cutter" debug="false">
 		<store price="68000" dailyUpkeep="28" maxSpeed="17" weight="3868" workWidth="9" />
 		<workTool realCutterPowerConsumption="48" realCutterPowerConsumptionInc="1.2" realCutterSpeedLimit="17" />
@@ -281,7 +281,7 @@
 	<!-- ################################################## -->
 
 	<!-- (3) COMBINES -->
-	<!-- (3.1) CASE AXIAL FLOW 7130 -->
+	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="32" weight="17000" />
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" fuelCapacity="950" />
@@ -304,7 +304,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (3.2) CASE AXIAL FLOW 9230 -->
+	<!-- (3.2) CASE AXIAL FLOW 9230 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH9230.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="36" weight="19300" />
 		<general realBrakingDeceleration="5" realMaxVehicleSpeed="36" fuelCapacity="1000" />
