@@ -1,4 +1,4 @@
--- MoreRealisticBaleWrapper
+-- RealisticBaleWrapper
 -- adds power consumption and correct silage fill levels to the Ursus MR bale wrapper
 
 -- @author: Jakob Tischler
@@ -12,13 +12,13 @@
 
 if pdlc_ursusAddon == nil or pdlc_ursusAddon.BaleWrapper == nil or RealisticUtils == nil then return; end;
 
-MoreRealisticBaleWrapper = {};
+RealisticBaleWrapper = {};
 
-function MoreRealisticBaleWrapper.prerequisitesPresent(specializations)
+function RealisticBaleWrapper.prerequisitesPresent(specializations)
 	return SpecializationUtil.hasSpecialization(RealisticVehicle, specializations) and SpecializationUtil.hasSpecialization(Cylindered, specializations);
 end;
 
-function MoreRealisticBaleWrapper:load(xmlFile)
+function RealisticBaleWrapper:load(xmlFile)
 	-- power consumption
 	self.realWorkingPowerConsumption = getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption');
 	self.realCurrentPowerConsumption = 0;
@@ -37,19 +37,7 @@ function MoreRealisticBaleWrapper:load(xmlFile)
 	end;
 end;
 
-function MoreRealisticBaleWrapper:delete()
-end;
-
-function MoreRealisticBaleWrapper:mouseEvent(posX, posY, isDown, isUp, button)
-end;
-
-function MoreRealisticBaleWrapper:keyEvent(unicode, sym, modifier, isDown)
-end;
-
-function MoreRealisticBaleWrapper:update(dt)
-end;
-
-function MoreRealisticBaleWrapper:updateTick(dt)
+function RealisticBaleWrapper:updateTick(dt)
 	if self.isServer and self.isActive and self.realWorkingPowerConsumption then
 		self.realCurrentPowerConsumption = 0;
 
@@ -67,7 +55,7 @@ function MoreRealisticBaleWrapper:updateTick(dt)
 end;
 
 local origGetBaleInRange = pdlc_ursusAddon.BaleWrapper.getBaleInRange;
-function MoreRealisticBaleWrapper.getBaleInRange(self, node)
+function RealisticBaleWrapper.getBaleInRange(self, node)
 	local bale, silageBaleData = origGetBaleInRange(self, node);
 	if bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
 		local fillType = bale.fillType;
@@ -86,7 +74,10 @@ function MoreRealisticBaleWrapper.getBaleInRange(self, node)
 
 	return bale, silageBaleData;
 end;
-pdlc_ursusAddon.BaleWrapper.getBaleInRange = MoreRealisticBaleWrapper.getBaleInRange;
+pdlc_ursusAddon.BaleWrapper.getBaleInRange = RealisticBaleWrapper.getBaleInRange;
 
-function MoreRealisticBaleWrapper:draw()
-end;
+function RealisticBaleWrapper:delete() end;
+function RealisticBaleWrapper:mouseEvent(posX, posY, isDown, isUp, button) end;
+function RealisticBaleWrapper:keyEvent(unicode, sym, modifier, isDown) end;
+function RealisticBaleWrapper:update(dt) end;
+function RealisticBaleWrapper:draw() end;

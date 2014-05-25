@@ -87,7 +87,7 @@
 	</vehicle>
 
 	<!-- (1.5) URSUS 8014H --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus8014H.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus8014H.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store powerKW="60.5" maxSpeed="40" weight="4300" /> <!--Done-->
 		<general fuelCapacity="115" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
 		<engine kW="81" realMaxReverseSpeed="40" realMaxFuelUsage="16.5" newExhaustPS="true" /> <!--Done-->
@@ -110,8 +110,8 @@
 	<!-- ################################################## -->
 
 	<!-- (2) TOOLS -->
-	<!-- (2.1) URSUS T-127 bale loader --> <!-- AUTHOR: Jakob Tischler --> <!-- MAYBE DONE (wheels?) -->
-	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="true">
+	<!-- (2.1) URSUS T-127 bale loader --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
+	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="false">
 		<store workSpeedMax="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" />
 		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" />
 		<workTool realWorkingSpeedLimit="20" realAutoStackerWorkingPowerConsumption="20" />
@@ -192,4 +192,78 @@
 		</components>
 	</vehicle>
 
+	<!-- (2.5) URSUS Z-554 rake -->
+
+	<!-- (2.6) URSUS FL BALE FORK -->
+	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLBaleFork.xml" mrVehicleType="mr_dynamicMountAttacherImplement_u" debug="false">
+		<store price="995" weight="260" />
+		<dimensions width="1" height="0.6" /> <!-- in m -->
+		<weights weight="0.26" /> <!-- in t -->
+		<components>
+			<component1 centerOfMass="0 0 0.1" realMassWanted="0.26" />
+		</components>
+	</vehicle>
+
+	<!-- (2.7) URSUS FL BALE GRABBER -->
+	<!-- TODO: lower movingTool speed to 60% -->
+	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLBaleGrab.xml" mrVehicleType="mr_baleGrab_u" debug="false">
+		<store price="1050" weight="400" />
+		<general realWorkingPowerConsumption="10" movingToolSpeedScale="0.6 0.6" />
+		<dimensions width="1" height="1" /> <!-- in m -->
+		<weights weight="0.4" /> <!-- in t -->
+		<components>
+			<component1 centerOfMass="0 0.2 0.2" realMassWanted="0.20" />
+			<component2 realMassWanted="0.10" />
+			<component3 realMassWanted="0.10" />
+		</components>
+	</vehicle>
+
+	<!-- (2.7) URSUS FL FORK -->
+	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
+	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLFork.xml" mrVehicleType="moreRealistic.shovel" debug="false">
+		<store price="825" weight="350" capacity="1.26" capacityUnit="M3" fruits="manure" />
+		<dimensions width="1.85" height="0.8" /> <!-- in m --> <!-- depth: 0.85 -> volume = w*h*d = 1.85*0.8*0.85 = 1.258 m³ -->
+		<weights weight="0.35" /> <!-- in t -->
+		<workTool capacity="1258" realCapacityMultipliers="manure:1.25" /> <!-- capacity calculated: 1258, original: 3000 -->
+		<components>
+			<component1 centerOfMass="0 0 0.05" realMassWanted="0.35" />
+		</components>
+	</vehicle>
+
+	<!-- (2.8) URSUS FL PALLET FORK -->
+	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLPalletfork.xml" mrVehicleType="mr_dynamicMountAttacherImplement_u" debug="false">
+		<store price="1320" weight="400" />
+		<dimensions width="1" height="0.6" /> <!-- in m -->
+		<weights weight="0.4" /> <!-- in t -->
+		<components>
+			<component1 centerOfMass="0 0 0.15" realMassWanted="0.4" />
+		</components>
+	</vehicle>
+
+	<!-- (2.9) URSUS FL SHOVEL -->
+	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
+	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLShovel.xml" mrVehicleType="moreRealistic.shovel" debug="false">
+		<store price="910" weight="300" capacity="1.37" capacityUnit="M3" fruits="manure,silage,potato,sugarBeet" />
+		<dimensions width="2.75" height="0.95" /> <!-- in m --> <!-- depth front:60cm, depth rear: 45cm -> volume = (w*h*fd + w*h*rd)/2 = (2.75*0.95*0.6 + 2.75*0.95*0.45) / 2 = 1.3715625 m³ -->
+		<weights weight="0.3" /> <!-- in t -->
+		<workTool capacity="1371" realCapacityMultipliers="manure:1.25,silage:1.25,potato:1.17,sugarBeet:1.17" /> <!-- capacity calculated: 1371, original: 2000 -->
+		<components>
+			<component1 centerOfMass="0 0 0.05" realMassWanted="0.3" />
+		</components>
+	</vehicle>
+
+	<!-- (2.10) URSUS FL SILAGE FORK -->
+	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
+	<!-- TODO: lower movingTool speed to 75% -->
+	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLSilagefork.xml" mrVehicleType="mr_shovel_animated_u" debug="false">
+		<store price="1285" weight="450" capacity="1.65" capacityUnit="M3" fruits="manure,silage" />
+		<general realWorkingPowerConsumption="10" movingToolSpeedScale="0.75" />
+		<dimensions width="1.5" height="0.9" /> <!-- in m -->  <!-- depth front=15cm, depth rear=1m -> volume = (w*h*rd + (w*h*fd)/2) = (1.5*0.9*1 + 1.5*0.9*0.15/2) = 1.45125 m³ -->
+		<weights weight="0.45" /> <!-- in t -->
+		<workTool capacity="1650" realCapacityMultipliers="manure:1.25,silage:1.25" /> <!-- capacity calculated: 1451 (set to higher value to account for higher price), original: 3000 -->
+		<components>
+			<component1 centerOfMass="0 0.1 0.18" realMassWanted="0.30" />
+			<component2 centerOfMass="0 0.2 0.20" realMassWanted="0.15" />
+		</components>
+	</vehicle>
 </vehicles>
