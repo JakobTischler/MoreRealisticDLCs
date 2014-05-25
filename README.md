@@ -58,9 +58,9 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [ ] Krone cutter trailer
 - [ ] Krone Easy Collect 1053 corn header
 - [ ] Krone EasyFlow 300 pickup
-- [x] Krone Swadro 2000 rake
+- [x] Krone Swadro 2000 rake *(dural)*
 - [ ] Krone XDisc 6200 mowing header
-- [x] Lizard truck
+- [x] Lizard truck *(dural)*
 
 ###### Ursus Addon:
 - [x] Ursus C-45 *(Grisu118)*
@@ -70,12 +70,12 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Ursus 11024 *(Grisu118)*
 - [x] Ursus 15014 *(Grisu118)*
 - [x] Ursus 15014 frontloader *(Grisu118)*
-- [ ] Ursus frontloader shovel
-- [ ] Ursus frontloader pallet fork
-- [ ] Ursus frontloader silage fork
-- [ ] Ursus frontloader manure fork
-- [ ] Ursus frontloader bale fork
-- [ ] Ursus frontloader bale grabber
+- [ ] Ursus frontloader shovel *(Jakob)*
+- [ ] Ursus frontloader pallet fork *(Jakob)*
+- [ ] Ursus frontloader silage fork *(Jakob)*
+- [ ] Ursus frontloader manure fork *(Jakob)*
+- [ ] Ursus frontloader bale fork *(Jakob)*
+- [ ] Ursus frontloader bale grabber *(Jakob)*
 - [ ] Ursus N-270 manure spreader
 - [x] Ursus T-127 bale loader *(Jakob)*
 - [x] Ursus T-610A1 trailer *(Jakob)*

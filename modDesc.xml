@@ -16,7 +16,7 @@
 
 	<extraSourceFiles>
 		<sourceFile filename="scripts/GetFilenameFix.lua" />
-		<sourceFile filename="_RES/map/SetMrStartVehicles.lua" />
+		<sourceFile filename="_RES/map/MrTitaniumMap.lua" />
 		<sourceFile filename="addMoreRealistic.lua" />
 	</extraSourceFiles>
 
