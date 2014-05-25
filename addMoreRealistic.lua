@@ -31,6 +31,9 @@ if mrModItem and mrModItem.version then
 	end;
 end;
 
+local mrVehiclesPackInstalled = ModsUtil.findModItemByModName('moreRealisticVehicles') ~= nil;
+
+
 -- ##################################################
 
 local modDir, modName = g_currentModDirectory, g_currentModName;
@@ -209,13 +212,13 @@ local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
 				end;
 				specs = specs .. g_i18n:getText('STORE_SPECS_WORKINGSPEED'):format(speed, g_i18n:getText('speedometer')) .. '\n';
 			end;
-			if storeData.capacity then -- TODO: use g_i18n:getText('fluid_unit_short') for liters
+			if storeData.capacity then
 				local unit = storeData.capacityUnit or 'L';
 				if unit == "M3COMP" then
 					local compressed = storeData.compressedCapacity or storeData.capacity * 1.6;
 					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity, 1), formatNumber(compressed, 1)) .. '\n';
 				else
-					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity, unit == 'M3' and 1 or 0)) .. '\n';
+					specs = specs .. g_i18n:getText('STORE_SPECS_CAPACITY_' .. unit):format(formatNumber(storeData.capacity, unit == 'M3' and 2 or 0)) .. '\n';
 				end;
 			end;
 			if storeData.length then
@@ -596,6 +599,14 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			workTool.sprayUsageLitersPerSecond		 = getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecond');
 			workTool.sprayUsageLitersPerSecondFolded = getXMLFloat(xmlFile, key .. '.workTool#sprayUsageLitersPerSecondFolded');
 			workTool.fillLitersPerSecond			 =   getXMLInt(xmlFile, key .. '.workTool#fillLitersPerSecond');
+
+		-- shovel
+		elseif subCategory == 'shovel' then
+			workTool.replaceParticleSystem			 =   getXMLBool(xmlFile, key .. '.workTool#replaceParticleSystem');
+			workTool.addParticleSystemPos			 = getXMLString(xmlFile, key .. '.workTool#addParticleSystemPos');
+			if workTool.addParticleSystemPos then
+				workTool.addParticleSystemPos = Utils.getVectorNFromString(workTool.addParticleSystemPos);
+			end;
 		end;
 
 		-- combine
@@ -768,6 +779,16 @@ end;
 
 local exhaustPsNewPath = '$moddir$' .. modName .. '/_RES/exhaustPS/newRealParticles.i3d';
 local exhaustPsOldPath = '$moddir$' .. modName .. '/_RES/exhaustPS/realParticles.i3d';
+
+local shovelPS = {};
+if mrVehiclesPackInstalled then
+	shovelPS = {
+		manure	  = '$moddir$moreRealisticVehicles/_RES/particleSystems/shovelDpsManure.i3d',
+		-- potato	  = '$moddir$moreRealisticVehicles/_RES/particleSystems/shovelDpsPotato.i3d',
+		silage	  = '$moddir$moreRealisticVehicles/_RES/particleSystems/shovelDpsSilage.i3d',
+		-- sugarBeet = '$moddir$moreRealisticVehicles/_RES/particleSystems/shovelDpsSugarBeet.i3d'
+	};
+end;
 
 local setMrData = function(vehicle, xmlFile, mrData)
 	removeProperty(xmlFile, 'vehicle.motor');
@@ -1186,6 +1207,32 @@ local setMrData = function(vehicle, xmlFile, mrData)
 				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
 				setValue(xmlFile, 'vehicle.sprayUsageLitersPerSecondFolded',		'flt', mrData.workTool.sprayUsageLitersPerSecondFolded);
 				setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'int', mrData.workTool.fillLitersPerSecond);
+
+			-- shovel
+			elseif mrData.subCategory == 'shovel' then
+				if mrData.workTool.replaceParticleSystem and mrVehiclesPackInstalled then
+					local i = 0;
+					while true do
+						local key = ('vehicle.emptyParticleSystems.emptyParticleSystem(%d)'):format(i);
+						if not hasXMLProperty(xmlFile, key) then break; end;
+
+						local fillType = getXMLString(xmlFile, key .. '#type');
+						if fillType and shovelPS[fillType] then
+							-- PS file
+							setValue(xmlFile, key .. '#file', 'str', shovelPS[fillType]);
+
+							-- position
+							local posX, posY, posZ = unpack(mrData.workTool.addParticleSystemPos);
+							local posStr = getXMLString(xmlFile, key .. '#position');
+							if posStr then
+								local x, y, z = Utils.getVectorFromString(posStr);
+								posX, posY, posZ = posX + x, posY + y, posZ + z;
+							end;
+							setValue(xmlFile, key .. '#position', 'str', posX .. ' ' .. posY .. ' ' .. posZ);
+						end;
+						i = i + 1;
+					end;
+				end;
 			end;
 
 			-- fillable
