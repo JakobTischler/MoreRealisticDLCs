@@ -282,7 +282,7 @@
 		</components>
 	</vehicle>
 	
-	<!-- (2.7) KRONE EASYCOLLECT 1053 --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<!-- (2.7) KRONE EASYCOLLECT 1053 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/krone/kroneEasyCollect1053.xml" mrVehicleType="moreRealistic.cutter_animated" debug="false">
 		<store price="67000" dailyUpkeep="40" weight="3600" workWidth="10.5" />
 		<workTool realCutterPowerConsumption="40" realCutterPowerConsumptionInc="8" realCutterSpeedLimit="16" />
@@ -296,6 +296,37 @@
 			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- left -->
 			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- right -->
 			<component4 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
+		</components>
+	</vehicle>	
+	
+	<!-- (2.8) KRONE XDISK 6200 --> <!-- AUTHOR: dural --> <!-- DONE -->
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/krone/kroneXDisc6200.xml" mrVehicleType="mr_cutter_animated_t" debug="false">
+		<store price="35000" dailyUpkeep="25" weight="2350" workWidth="6.2" />
+		<workTool realCutterPowerConsumption="35" realCutterPowerConsumptionInc="1.8" realCutterSpeedLimit="28" />
+		<dimensions width="1.5" height="1" /> <!-- in m, only for the SCx-->
+		<weights weight="2.35" maxWeight="2.35" /> <!-- in t -->
+		<attacherJoints>
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0.844" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-12" realWantedRaisedRotInc="0" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 -0.1 0" realMassWanted="2.35" />			
+		</components>
+	</vehicle>
+	
+	<!-- (2.9) KRONE EASYFLOW 300 --> <!-- AUTHOR: dural --> <!-- DONE -->
+	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/krone/kroneEasyFlow300.xml" mrVehicleType="mr_kroneEasyFlow_t" debug="false">
+		<store price="14000" dailyUpkeep="13" weight="1250" workWidth="3" />
+		<workTool realCutterPowerConsumption="30" realCutterPowerConsumptionInc="1.8" realCutterSpeedLimit="18" />
+		<dimensions width="1.5" height="1" /> <!-- in m, only for the SCx-->
+		<weights weight="1.25" maxWeight="1.25" /> <!-- in t -->
+		<attacherJoints>
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0.9" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-18" realWantedRaisedRotInc="0" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0 0" realMassWanted="0.95" />	
+			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- wheel -->	
+			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- wheel -->
+			<component4 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->	
 		</components>
 	</vehicle>
 	
@@ -350,8 +381,10 @@
 			<component3 realMassWanted="0.01" />
 		</components>
 	</vehicle>
+	
+	<!-- (3.3) CASE AXIAL FLOW 9230 tracked --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
 
-	<!-- (3.3) KRONE BIGX 1100 --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<!-- (3.4) KRONE BIGX 1100 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/krone/kroneBigX1100.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="390000" dailyUpkeep="680" powerKW="793" maxSpeed="40" weight="14800" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" fuelCapacity="1290" waitForTurnTime="0" />
@@ -366,8 +399,8 @@
 			<wheel rotSpeed="0" 						   driveMode="2" damper="20" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.07" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="cutter" minRot="9 0 0" maxRot="18 0 0" maxRot2="-18 0 0" moveTime="1.5" maxRotDistanceToGround="0.844" minRotDistanceToGround="1.86" />
-			<attacherJoint jointType="trailer" maxRotLimit="40 80 50" />
+			<attacherJoint jointType="cutter" minRot="8 0 0" maxRot="18 0 0" maxRot2="-18 0 0" moveTime="1.2" maxRotDistanceToGround="0.844" minRotDistanceToGround="1.86" />
+			<attacherJoint jointType="trailer" maxRotLimit="40 85 50" />
 		</attacherJoints>
 		<components>
 			<component1 realMassWanted="14.8" centerOfMass="0 0.6 0.12" />
@@ -423,5 +456,26 @@
 			<component4 realMassWanted="0.3" /> <!-- ledt arm -->	
 		</components>
 	</vehicle>
+	
+	<!-- (4.3) KRONE XDISC TRAILER --> <!-- AUTHOR: dural --> <!-- DONE -->
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/krone/kroneCutterTrailer.xml" mrVehicleType="mr_dynamicMountAttacherTrailer_t" debug="false">
+		<store price="8100" dailyUpkeep="4" weight="950" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5.5" />		
+		<dimensions width="1" height="1" /> <!-- in m -->
+		<weights weight="0.95" realBrakeMaxMovingMass="4" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="0" deltaY="0.03" brakeRatio="1" damper="20" spring="100" suspTravel="0.08" radius="0.42" /> <!-- rear left -->
+			<wheel driveMode="0" deltaY="0.03" brakeRatio="1" damper="20" spring="100" suspTravel="0.08" radius="0.42" /> <!-- rear right -->
+			
+			<wheel driveMode="0" deltaY="0.03" brakeRatio="1" damper="20" spring="100" suspTravel="0.08" radius="0.42" /> <!-- front right -->
+			<wheel driveMode="0" deltaY="0.03" brakeRatio="1" damper="20" spring="100" suspTravel="0.08" radius="0.42" />	<!-- front left -->	
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 0.2 -3.5" realMassWanted="0.75" /> <!-- body -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.2" /> <!-- front dolly -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- attacher -->
+		</components>
+	</vehicle>
+	
 	
 </vehicles>
