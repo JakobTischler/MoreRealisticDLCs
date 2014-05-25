@@ -217,7 +217,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.7) URSUS FL FORK -->
+	<!-- (2.8) URSUS FL FORK -->
 	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLFork.xml" mrVehicleType="moreRealistic.shovel" debug="false">
 		<store price="825" weight="350" capacity="1.26" capacityUnit="M3" fruits="manure" />
@@ -229,7 +229,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.8) URSUS FL PALLET FORK -->
+	<!-- (2.9) URSUS FL PALLET FORK -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLPalletfork.xml" mrVehicleType="mr_dynamicMountAttacherImplement_u" debug="false">
 		<store price="1320" weight="400" />
 		<dimensions width="1" height="0.6" /> <!-- in m -->
@@ -239,7 +239,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.9) URSUS FL SHOVEL -->
+	<!-- (2.10) URSUS FL SHOVEL -->
 	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLShovel.xml" mrVehicleType="moreRealistic.shovel" debug="false">
 		<store price="910" weight="300" capacity="1.37" capacityUnit="M3" fruits="manure,silage,potato,sugarBeet" />
@@ -251,7 +251,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.10) URSUS FL SILAGE FORK -->
+	<!-- (2.11) URSUS FL SILAGE FORK -->
 	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLSilagefork.xml" mrVehicleType="mr_shovel_animated_u" debug="false">
 		<store price="1285" weight="450" capacity="1.65" capacityUnit="M3" fruits="manure,silage" />
@@ -262,6 +262,27 @@
 		<components>
 			<component1 centerOfMass="0 0.1 0.18" realMassWanted="0.30" />
 			<component2 centerOfMass="0 0.2 0.20" realMassWanted="0.15" />
+		</components>
+	</vehicle>
+
+	<!-- (2.11) URSUS N-270 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
+	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/ursusAddon/ursus/ursusN270.xml" mrVehicleType="moreRealistic.manureSpreader" debug="false">
+		<store capacity="15.5" capacityUnit="M3" weight="6300" workWidth="10" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="111" requiredPowerKwMax="147.5" />
+		<dimensions width="2.48" height="1.25" /> <!-- in m -->
+		<weights weight="6.3" realBrakeMaxMovingMass="21" /> <!-- in t -->
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" realWorkingPowerConsumption="75" />
+		<workTool capacity="15500" realCapacityMultipliers="manure:1.10" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="85.3" />
+		<wheels>
+			<!-- Front Axel -->
+			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
+			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
+			<!-- Rear Axel -->
+			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
+			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
+		</wheels>
+		<components>
+			<component1 centerOfMass="0 0.4 -0.8" realMassWanted="6.0" realTransWithMass="0 0.05 0" realTransWithMassMax="0 0.55 0" /> <!-- Trailer -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.3" /> <!-- Support -->
 		</components>
 	</vehicle>
 </vehicles>
