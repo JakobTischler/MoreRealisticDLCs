@@ -48,14 +48,23 @@ for i, mapItem in ipairs(MapsUtil.mapList) do
 	end;
 end;
 
--- SET BALANCING VALUES
+
+--[[
 local titaniumMapLoaded = false;
 local assertTitaniumMap = function(self)
-	if self.loadingMapBaseDirectory and self.loadingMapBaseDirectory:find('/pdlc/') then
+	if self.loadingMapBaseDirectory and self.loadingMapBaseDirectory:find('/pdlc/') then		
 		titaniumMapLoaded = true;
+	end;
+end;
+BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, assertTitaniumMap);
+]]
 
+-- SET BALANCING VALUES
+local setTitaniumMapParameters = function(self, mapName)	
+	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then		
+		 
 		--[[
-		RealisticGlobalListener.priceBalancing = 4; 
+		RealisticGlobalListener.priceBalancing = 1;
 		RealisticGlobalListener.silagePriceBalancing = 1.3;
 		RealisticGlobalListener.hiredWorkerWageBalancing = 0.1;	
 		RealisticGlobalListener.seedPriceBalancing
@@ -72,4 +81,4 @@ local assertTitaniumMap = function(self)
 		]]
 	end;
 end;
-BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, assertTitaniumMap);
+RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
