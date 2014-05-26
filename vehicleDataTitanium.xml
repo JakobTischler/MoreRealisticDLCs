@@ -336,7 +336,7 @@
 	<!-- (3) COMBINES -->
 	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="false">
-		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="30" weight="17000" />
+		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="30" weight="17000" capacity="10570" />
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" fuelCapacity="950" />
 		<engine kW="305" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
 		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -100 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
@@ -359,7 +359,7 @@
 
 	<!-- (3.2) CASE AXIAL FLOW 9230 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH9230.xml" mrVehicleType="mr_combine_extended_t" debug="false">
-		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="40" weight="19300" />
+		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="40" weight="19300" capacity="12330" />
 		<general realBrakingDeceleration="5" realMaxVehicleSpeed="43" fuelCapacity="1000" />
 		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
 		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
@@ -384,7 +384,7 @@
 	
 	<!-- (3.3) CASE AXIAL FLOW 9230 tracked --> <!-- AUTHOR: dural --> <!-- DONE -->	
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH9230Crawler.xml" mrVehicleType="mr_combine_extended_crawler_t" debug="false">
-		<store price="335000" dailyUpkeep="810" powerKW="420" maxSpeed="30" weight="19850" />
+		<store price="335000" dailyUpkeep="810" powerKW="420" maxSpeed="30" weight="19850" capacity="12330" />
 		<general realBrakingDeceleration="5" realMaxVehicleSpeed="34" fuelCapacity="1000" />
 		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
 		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
@@ -457,9 +457,9 @@
 	
 	<!-- (4.2) KOTTE GARANT VQ 32000 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/titaniumAddon/kotte/garantVQ32000.xml" mrVehicleType="mr_kotteSlurryTank_t" debug="false">
-		<store price="187000" dailyUpkeep="50" capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235.5" />
+		<store price="187000" dailyUpkeep="50" capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235.5" workWidth="26" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="80" realRollingResistance="0.012" />
-		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="160" sprayUsageLitersPerSecondFolded="90" fillLitersPerSecond="600" />
+		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="144" sprayUsageLitersPerSecondFolded="95" fillLitersPerSecond="600" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="16.3" realBrakeMaxMovingMass="34" /> <!-- in t -->
 		<wheels>
