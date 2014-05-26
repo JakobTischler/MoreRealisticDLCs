@@ -327,6 +327,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- engine
 		local engine = {
 			kW 									=  getXMLFloat(xmlFile, key .. '.engine#kW');
+			accelerationSpeedMaxAcceleration	=  getXMLFloat(xmlFile, key .. '.engine#accelerationSpeedMaxAcceleration') or 1;
 			realMaxReverseSpeed 				=  getXMLFloat(xmlFile, key .. '.engine#realMaxReverseSpeed');
 			realMaxFuelUsage 					=  getXMLFloat(xmlFile, key .. '.engine#realMaxFuelUsage');
 			realSpeedBoost 						=  getXMLFloat(xmlFile, key .. '.engine#realSpeedBoost');
@@ -367,10 +368,19 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 
 		-- wheels
 		local wheelStuff = {
+			realTyreGripFx			  = getXMLFloat(xmlFile, key .. '.wheels#realTyreGripFx');
+			realIsTracked			  = getXMLFloat(xmlFile, key .. '.wheels#realIsTracked');
 			realVehicleFlotationFx	  = getXMLFloat(xmlFile, key .. '.wheels#realVehicleFlotationFx');
 			realNoSteeringAxleDamping =  getXMLBool(xmlFile, key .. '.wheels#realNoSteeringAxleDamping');
 			overwriteWheels			  =  getXMLBool(xmlFile, key .. '.wheels#overwrite');
+			crawlersRealWheel		  = {};
 		};
+		local crawlersRealWheelStr = getXMLString(xmlFile, key .. '.wheels#crawlersRealWheel');
+		if crawlersRealWheelStr then
+			wheelStuff.crawlersRealWheel = Utils.getVectorNFromString(crawlersRealWheelStr);
+		end;
+
+
 		local wheels = {};
 		local w = 0;
 		while true do
@@ -811,7 +821,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 	if mrData.category == 'steerable' then
 		-- accelerationSpeed
-		setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration',	'int', 1);
+		setValue(xmlFile, 'vehicle.accelerationSpeed#maxAcceleration',	'flt', mrData.engine.accelerationSpeedMaxAcceleration);
 		setValue(xmlFile, 'vehicle.accelerationSpeed#deceleration',		'int', 1);
 		setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed',		'int', 3);
 		removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
@@ -827,6 +837,16 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 		-- wheels
 		setValue(xmlFile, 'vehicle.realVehicleFlotationFx',				  'flt',  mrData.wheelStuff.realVehicleFlotationFx);
+
+		-- crawlers
+		if #mrData.wheelStuff.crawlersRealWheel > 0 then
+			local i = 0;
+			while true do
+				local cKey = ('vehicle.crawlers.crawler(%d)'):format(i);
+				if not hasXMLProperty(xmlFile, cKey) or not mrData.wheelStuff.crawlersRealWheel[i - 1] then break; end;
+				setValue(xmlFile, cKey .. '#realWheel', 'int', mrData.wheelStuff.crawlersRealWheel[i - 1]);
+			end;
+		end;
 
 		-- engine
 		setValue(xmlFile, 'vehicle.realSpeedLevel', 					  'str',  mrData.engine.realSpeedLevel);
@@ -926,6 +946,8 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 
 	-- wheels
+	setValue(xmlFile, 'vehicle.realTyreGripFx',									  'flt',  mrData.wheelStuff.realTyreGripFx);
+	setValue(xmlFile, 'vehicle.realIsTracked',									  'flt',  mrData.wheelStuff.realIsTracked);
 	setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping', 'bool', mrData.wheelStuff.realNoSteeringAxleDamping);
 	if mrData.wheelStuff.overwriteWheels then
 		removeProperty(xmlFile, 'vehicle.wheels');
@@ -1382,6 +1404,7 @@ end;
 -- ANGULAR + LINEAR DAMPING
 local setMoreRealisticDamping = function(self, i3dNode, arguments)
 	if self.isMoreRealisticDLC then
+		-- set damping
 		for i,comp in ipairs(self.components) do
 			setAngularDamping(comp.node, 0);
 			setLinearDamping(comp.node, 0);
@@ -1389,6 +1412,21 @@ local setMoreRealisticDamping = function(self, i3dNode, arguments)
 				print(('%s: loadFinished(): component %d (%d/%q): angularDamping set to %s, linearDamping set to %s'):format(tostring(self.name), i, comp.node, tostring(getName(comp.node)), tostring(getAngularDamping(comp.node)), tostring(getLinearDamping(comp.node))));
 			end;
 		end;
+
+		-- print wheels position
+		--[[
+		if self.wheels then
+			local rx,ry,rz = getWorldTranslation(self.rootNode);
+			print(('%s: wheels / rootNode: rx=%.1f, rz=%.1f'):format(tostring(self.name), rx, rz));
+			for i,wheel in ipairs(self.wheels) do
+				local wx,wy,wz = getWorldTranslation(wheel.driveNode);
+				local dx,dy,dz = worldToLocal(self.rootNode, wx, wy, wz);
+				local posX = dx > 0 and 'left' or 'right';
+				local posZ = dz > 0 and 'front' or 'rear';
+				print(('\twheel %d: wx=%.1f, wz=%.1f, dx=%.1f, dz=%.1f -> position = %s %s // rotMax=%s, rotMin=%s'):format(i, wx, wz, dx, dz, posX, posZ, tostring(wheel.rotMax), tostring(wheel.rotMin)));
+			end;
+		end;
+		--]]
 	end;
 end;
 Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, setMoreRealisticDamping);
@@ -1463,4 +1501,3 @@ local drawComponents = function(self, dt)
 	end;
 end;
 Vehicle.update = Utils.appendedFunction(Vehicle.update, drawComponents);
-
