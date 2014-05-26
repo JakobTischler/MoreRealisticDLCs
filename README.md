@@ -48,18 +48,18 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Case 3412 corn header *(dural)*
 - [x] Case 7130 combine *(dural)*
 - [x] Case 9230 combine *(dural)*
-- [ ] Case 9230 TT combine *(dural)*
+- [x] Case 9230 TT combine *(dural)*
 - [x] Horsch Maestro 12 SW seeder *(dural)*
 - [x] Horsch Terrano 6 FM cultivator *(dural)*
 - [x] Horsch Titan 34 UW auger wagon *(dural)*
 - [x] Kotte Garant VQ 32000 liquid manure spreader *(dural)*
 - [x] Kramer KL 600 *(dural)*
-- [ ] Krone BigX 1100 *(dural)*
-- [ ] Krone cutter trailer
-- [ ] Krone Easy Collect 1053 corn header *(dural)*
-- [ ] Krone EasyFlow 300 pickup
+- [x] Krone BigX 1100 *(dural)*
+- [x] Krone cutter trailer *(dural)*
+- [x] Krone Easy Collect 1053 corn header *(dural)*
+- [x] Krone EasyFlow 300 pickup *(dural)*
 - [x] Krone Swadro 2000 rake *(dural)*
-- [ ] Krone XDisc 6200 mowing header *(dural)*
+- [x] Krone XDisc 6200 mowing header *(dural)*
 - [x] Lizard truck *(dural)*
 
 ###### Ursus Addon:
