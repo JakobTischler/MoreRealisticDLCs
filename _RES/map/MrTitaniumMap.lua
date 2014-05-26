@@ -81,4 +81,6 @@ local setTitaniumMapParameters = function(self, mapName)
 		]]
 	end;
 end;
-RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
+if RealisticGlobalListener then
+	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
+end;
