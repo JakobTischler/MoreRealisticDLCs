@@ -369,7 +369,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- wheels
 		local wheelStuff = {
 			realTyreGripFx			  = getXMLFloat(xmlFile, key .. '.wheels#realTyreGripFx');
-			realIsTracked			  = getXMLFloat(xmlFile, key .. '.wheels#realIsTracked');
+			realIsTracked			  =  getXMLBool(xmlFile, key .. '.wheels#realIsTracked');
 			realVehicleFlotationFx	  = getXMLFloat(xmlFile, key .. '.wheels#realVehicleFlotationFx');
 			realNoSteeringAxleDamping =  getXMLBool(xmlFile, key .. '.wheels#realNoSteeringAxleDamping');
 			overwriteWheels			  =  getXMLBool(xmlFile, key .. '.wheels#overwrite');
@@ -947,7 +947,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 
 	-- wheels
 	setValue(xmlFile, 'vehicle.realTyreGripFx',									  'flt',  mrData.wheelStuff.realTyreGripFx);
-	setValue(xmlFile, 'vehicle.realIsTracked',									  'flt',  mrData.wheelStuff.realIsTracked);
+	setValue(xmlFile, 'vehicle.realIsTracked',									  'bool', mrData.wheelStuff.realIsTracked);
 	setValue(xmlFile, 'vehicle.steeringAxleAngleScale#realNoSteeringAxleDamping', 'bool', mrData.wheelStuff.realNoSteeringAxleDamping);
 	if mrData.wheelStuff.overwriteWheels then
 		removeProperty(xmlFile, 'vehicle.wheels');
