@@ -336,7 +336,7 @@
 	<!-- (3) COMBINES -->
 	<!-- (3.1) CASE AXIAL FLOW 7130 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH7130.xml" mrVehicleType="mr_combine_extended_t" debug="false">
-		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="32" weight="17000" />
+		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="30" weight="17000" />
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" fuelCapacity="950" />
 		<engine kW="305" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
 		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -100 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
@@ -359,8 +359,8 @@
 
 	<!-- (3.2) CASE AXIAL FLOW 9230 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH9230.xml" mrVehicleType="mr_combine_extended_t" debug="false">
-		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="36" weight="19300" />
-		<general realBrakingDeceleration="5" realMaxVehicleSpeed="36" fuelCapacity="1000" />
+		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="40" weight="19300" />
+		<general realBrakingDeceleration="5" realMaxVehicleSpeed="43" fuelCapacity="1000" />
 		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
 		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
 		<dimensions width="4" height="4" /> <!-- in m -->
@@ -382,13 +382,39 @@
 		</components>
 	</vehicle>
 	
-	<!-- (3.3) CASE AXIAL FLOW 9230 tracked --> <!-- AUTHOR: dural --> <!-- NOT DONE -->
+	<!-- (3.3) CASE AXIAL FLOW 9230 tracked --> <!-- AUTHOR: dural --> <!-- DONE -->	
+	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/caseIH/caseIH9230Crawler.xml" mrVehicleType="mr_combine_extended_crawler_t" debug="false">
+		<store price="335000" dailyUpkeep="810" powerKW="420" maxSpeed="30" weight="19850" />
+		<general realBrakingDeceleration="5" realMaxVehicleSpeed="34" fuelCapacity="1000" />
+		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
+		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
+		<dimensions width="4" height="4" /> <!-- in m -->
+		<weights weight="19.6" maxWeight="30" realBrakeMaxMovingMass="25" /> <!-- in t -->
+		<wheels realTyreGripFx="1.1" realIsTracked="true" crawlersRealWheel="1 3">			
+			<wheel driveMode="2" deltaY="0.075" brakeRatio="1" damper="20" spring="400" suspTravel="0.1" radius="0.85" tirePressureFx="5" antiRollFx="0" /> <!-- track - right middle -->
+			<wheel driveMode="2" deltaY="0.075" brakeRatio="1" damper="30" spring="100" suspTravel="0.1" radius="0.5" tirePressureFx="5" antiRollFx="0" rotMin="-20" rotMax="14" rotSpeed="27" /> <!-- track - right front -->
+			<wheel driveMode="2" deltaY="0.075" brakeRatio="1" damper="20" spring="400" suspTravel="0.1" radius="0.85"  tirePressureFx="5" antiRollFx="0" /> <!-- track - lelf middle -->
+			<wheel driveMode="2" deltaY="0.075" brakeRatio="1" damper="30" spring="100" suspTravel="0.1" radius="0.5"  tirePressureFx="5" antiRollFx="0" rotMin="-14" rotMax="20" rotSpeed="27" /> <!-- track - left front -->
+
+			<wheel driveMode="1" deltaY="0.1" brakeRatio="0.1" damper="40" spring="120" suspTravel="0.15" radius="0.76" rotMin="-33" rotMax="45" rotSpeed="-60" /> <!-- rear -->
+			<wheel driveMode="1" deltaY="0.1" brakeRatio="0.1" damper="40" spring="120" suspTravel="0.15" radius="0.76" rotMin="-45" rotMax="33" rotSpeed="-60" /> <!-- rear -->
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="cutter" minRot="-15 0 0" maxRot="5 0 0" maxRot2="0 0 0" maxRotDistanceToGround="1.07" minRotDistanceToGround="1.92" moveTime="2" />
+			<attacherJoint jointType="trailerLow" maxRotLimit="60 90 60" />
+		</attacherJoints>		
+		<components>
+			<component1 centerOfMass="0 0.65 0" realMassWanted="18.8" />
+			<component2 realMassWanted="0.01" />
+			<component3 realMassWanted="0.01" />
+		</components>
+	</vehicle>
 
 	<!-- (3.4) KRONE BIGX 1100 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/krone/kroneBigX1100.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="390000" dailyUpkeep="680" powerKW="793" maxSpeed="40" weight="14800" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" fuelCapacity="1290" waitForTurnTime="0" />
-		<engine kW="793" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="196" realAiManeuverSpeed="9" realMaxPowerToTransmission="400" realHydrostaticTransmission="true" realSpeedLevel="6 9 12" />
+		<engine kW="793" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="196" realAiManeuverSpeed="9" realMaxPowerToTransmission="400" realHydrostaticTransmission="true" realSpeedLevel="6 9 12" accelerationSpeedMaxAcceleration="0.8" />
 		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="4" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="180" realThreshingPowerConsumptionInc="3" realThreshingScale="0.97" realCombineCycleDuration="1" realTurnStage1DistanceThreshold="9" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="9" />
 		<dimensions width="3.5" height="4" /> <!-- in m -->
 		<weights weight="14.8" maxWeight="15.5" realBrakeMaxMovingMass="20" /> <!-- in t -->
