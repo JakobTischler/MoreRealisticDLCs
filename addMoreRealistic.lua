@@ -843,8 +843,9 @@ local setMrData = function(vehicle, xmlFile, mrData)
 			local i = 0;
 			while true do
 				local cKey = ('vehicle.crawlers.crawler(%d)'):format(i);
-				if not hasXMLProperty(xmlFile, cKey) or not mrData.wheelStuff.crawlersRealWheel[i - 1] then break; end;
-				setValue(xmlFile, cKey .. '#realWheel', 'int', mrData.wheelStuff.crawlersRealWheel[i - 1]);
+				if not hasXMLProperty(xmlFile, cKey) or not mrData.wheelStuff.crawlersRealWheel[i + 1] then break; end;
+				setValue(xmlFile, cKey .. '#realWheel', 'int', mrData.wheelStuff.crawlersRealWheel[i + 1]);
+				i = i + 1;
 			end;
 		end;
 
