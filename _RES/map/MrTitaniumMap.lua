@@ -7,16 +7,15 @@
 --
 -- Copyright (C) 2014 Jakob Tischler
 
+
+-- MORE REALISTIC NOT INSTALLED -> ABORT
+if not RealisticGlobalListener or not RealisticUtils then return; end;
+
 MrTitaniumMap = {}
 MrTitaniumMap.modDir = g_currentModDirectory;
 addModEventListener(MrTitaniumMap);
 
 function MrTitaniumMap:loadMap(name)
-	-- MORE REALISTIC NOT INSTALLED -> ABORT
-	if not RealisticUtils then
-		return;
-	end;
-
 	-- NOT TITANIUM MAP -> ABORT
 	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then
 		return;
@@ -81,6 +80,4 @@ local setTitaniumMapParameters = function(self, mapName)
 		]]
 	end;
 end;
-if RealisticGlobalListener then
-	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
-end;
+RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
