@@ -78,7 +78,7 @@
 	<!-- (1.4) IH FARMALL H --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHFarmallH.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="false">
 		<store price="14700" dailyUpkeep="40" powerKW="19" maxSpeed="26" weight="1775" />
-		<general realMaxVehicleSpeed="26" realBrakingDeceleration="4.1" fuelCapacity="66.2" />
+		<general realMaxVehicleSpeed="26" realBrakingDeceleration="4.1" fuelCapacity="66.2" realDisplaySlip="false" />
 		<engine kW="19.5" realMaxReverseSpeed="4.4" realMaxFuelUsage="8.5" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.93" />
 		<dimensions width="2" height="1.8" /> <!-- in m -->
 		<weights weight="1.77" maxWeight="2" realBrakeMaxMovingMass="3" /> <!-- in t -->
@@ -102,7 +102,7 @@
 	<!-- (1.5) KRAMER KL600 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/kramer/kramerKL600.xml" mrVehicleType="mr_tractor_visualWheels_t" debug="false">
 		<store price="26000" dailyUpkeep="80" powerKW="45" maxSpeed="20" weight="2750" />
-		<general realMaxVehicleSpeed="22" realBrakingDeceleration="4.7" fuelCapacity="64" />
+		<general realMaxVehicleSpeed="22" realBrakingDeceleration="4.7" fuelCapacity="64" realDisplaySlip="false" />
 		<engine kW="45" realMaxReverseSpeed="11" realMaxFuelUsage="12.4" realPtoDriveEfficiency="0.94" realTransmissionEfficiency="0.93" />
 		<dimensions width="1.75" height="1.8" /> <!-- in m -->
 		<weights weight="2.75" maxWeight="4.5" realBrakeMaxMovingMass="7" /> <!-- in t -->
@@ -128,7 +128,7 @@
 	<!-- (1.6) LIZARD TRUCK --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/lizard/americanTruck.xml" mrVehicleType="mr_truck_t" debug="false">
 		<store price="176000" dailyUpkeep="360" powerKW="442" maxSpeed="120" weight="7700" />
-		<general realMaxVehicleSpeed="120" realBrakingDeceleration="7" fuelCapacity="380" realRollingResistance="0.0025" realVehicleOnFieldRollingResistanceFx="10" realMotorizedWheelsDriveLossFx="0.0001" />
+		<general realMaxVehicleSpeed="120" realBrakingDeceleration="7" fuelCapacity="380" realRollingResistance="0.0025" realVehicleOnFieldRollingResistanceFx="10" realMotorizedWheelsDriveLossFx="0.0001" realDisplaySlip="false" />
 		<engine kW="442" realMaxReverseSpeed="22" realMaxFuelUsage="114" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.96" realSpeedLevel="30 50 90" />
 		<dimensions width="2.5" height="2" /> <!-- better scx with the "long" noze -->
 		<weights weight="7.7" maxWeight="15" realBrakeMaxMovingMass="15" /> <!-- in t -->
