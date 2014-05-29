@@ -3,12 +3,12 @@
 
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) URSUS 15014 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store powerKW="111" maxSpeed="40" weight="6900" />
-		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
-		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
-		<dimensions width="2.9" height="2.44" /> <!-- in m --> <!--Done-->
-		<weights weight="6.9" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
+		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> 
+		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> 
+		<dimensions width="2.9" height="2.44" /> <!-- in m --> 
+		<weights weight="6.9" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
 		<wheels>
 			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
 			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
@@ -16,8 +16,8 @@
 			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> <!--Done-->
-			<attacherJoint jointType="implement" maxRot="32.669 0 0" maxRot2="-32.669 0 0" minRotDistanceToGround="1.0237503051758" /> <!--Done-->
+			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> 
+			<attacherJoint jointType="implement" maxRot="32.669 0 0" maxRot2="-32.669 0 0" minRotDistanceToGround="1.0237503051758" /> 
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.5 -0.1" realMassWanted="6.9" />
@@ -25,12 +25,12 @@
 	</vehicle>
 	
 	<!-- (1.2) URSUS 15014 FL --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014FL.xml" mrVehicleType="mr_dlcFrontloader_u" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014FL.xml" mrVehicleType="mr_dlcFrontloader_u" debug="false">
 		<store powerKW="111" maxSpeed="40" weight="7000" />
-		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="25" /> <!--Done-->
-		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> <!--Done-->
-		<dimensions width="2.9" height="2.44" /> <!-- in m --> <!--Done-->
-		<weights weight="7" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
+		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="25" /> 
+		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> 
+		<dimensions width="2.9" height="2.44" /> <!-- in m --> 
+		<weights weight="7" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
 		<wheels>
 			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
 			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
@@ -38,7 +38,7 @@
 			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> <!--Done-->
+			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> 
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.45 -0.1" realMassWanted="6.9" />
@@ -49,10 +49,10 @@
 	<!-- (1.3) Ursus C45 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC45.xml" mrVehicleType="mr_oldtimer_u" debug="false">
 		<store price="12500" dailyUpkeep="95" powerKW="33" maxSpeed="16.7" weight="3750" />
-		<general fuelCapacity="50" realMaxVehicleSpeed="16.7" realBrakingDeceleration="2" /> <!--Done-->
-		<engine kW="33" realMaxReverseSpeed="8" realMaxFuelUsage="9" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" /> <!--Done -->
-		<dimensions width="1.8" height="2.3" /> <!-- in m --> <!--Done-->
-		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> <!--Done-->
+		<general fuelCapacity="50" realMaxVehicleSpeed="16.7" realBrakingDeceleration="2" /> 
+		<engine kW="33" realMaxReverseSpeed="8" realMaxFuelUsage="9" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" /> 
+		<dimensions width="1.8" height="2.3" /> <!-- in m --> 
+		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> 
 		<wheels>
 			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
 			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
@@ -65,7 +65,7 @@
 	</vehicle>
 	
 	<!-- (1.4) URSUS 11024 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="55000" dailyUpkeep="115" powerKW="81" maxSpeed="40" weight="4100" />
 		<general fuelCapacity="180" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
 		<engine kW="81" realMaxReverseSpeed="12" realMaxFuelUsage="22" newExhaustPS="true" /> <!--Done-->
@@ -82,28 +82,50 @@
 			<attacherJoint jointType="implement" maxRot="23.196 0 0" maxRot2="-23.196 0 0" minRotDistanceToGround="1.0524826049805" /> <!--Done-->
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="4.1" />
+			<component1 centerOfMass="0 0.4 -0.1" realMassWanted="4.1" />
 		</components>
 	</vehicle>
 
-	<!-- (1.5) URSUS 8014H --> <!-- AUTHOR: Grisu118 --> <!-- Mostly Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus8014H.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
+	<!-- (1.5) URSUS 8014H --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus8014H.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store powerKW="60.5" maxSpeed="40" weight="4300" /> <!--Done-->
 		<general fuelCapacity="115" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> <!--Done-->
-		<engine kW="81" realMaxReverseSpeed="40" realMaxFuelUsage="16.5" newExhaustPS="true" /> <!--Done-->
+		<engine kW="60.5" realMaxReverseSpeed="40" realMaxFuelUsage="16.5" newExhaustPS="true" /> <!--Done-->
 		<dimensions width="2.76" height="2.2" /> <!-- in m --> <!--Done-->
 		<weights weight="4.3" maxWeight="8.6" realBrakeMaxMovingMass="10" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>
 			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
 			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" suspTravel="0.10" />
-			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" suspTravel="0.10" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="100" suspTravel="0.10" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="100" suspTravel="0.10" />
 		</wheels>
 		<attacherJoints>
 			<attacherJoint jointType="implement" maxRot="-25.258 0 0" maxRot2="25.258 0 0" minRotDistanceToGround="0.91560363769531" /> <!--Done-->
 		</attacherJoints>
 		<components>
-			<component1 realMassWanted="4.3" />
+			<component1 centerOfMass="0 0.38 -0.1" realMassWanted="4.3" />
+		</components>
+	</vehicle>
+	
+	<!-- (1.6) URSUS 5044 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus5044.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
+		<store powerKW="36.9" maxSpeed="30" weight="2400" /> <!--Done-->
+		<general fuelCapacity="30" realMaxVehicleSpeed="30" realBrakingDeceleration="6" /> 
+		<engine kW="36.9" realMaxReverseSpeed="30" realMaxFuelUsage="10" newExhaustPS="true" />
+		<dimensions width="2.35" height="1.6" /> <!-- in m --> 
+		<weights weight="2.4" maxWeight="3.7" realBrakeMaxMovingMass="5" /> <!-- in t --> 
+		<wheels>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="50" suspTravel="0.10" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="50" suspTravel="0.10" />
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" maxRot="-12.049 0 0" maxRot2="12.049 0 0" minRotDistanceToGround="0.89381408691406" />
+			<attacherJoint jointType="implement" maxRot="10.903 0 0" maxRot2="-10.903 0 0" minRotDistanceToGround="0.97254180908203" />			
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.31 -0.1" realMassWanted="2.4" />
 		</components>
 	</vehicle>
 
