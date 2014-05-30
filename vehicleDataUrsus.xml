@@ -214,7 +214,27 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.5) URSUS Z-554 rake -->
+	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="true">
+		<store weight="400" requiredPowerKwMin="15" />
+		<workTool  realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="25"/> <!--not correct values-->
+		<dimensions width="2" height="1.5" /> <!-- in m -->
+		<weights weight="400" maxWeight="400" /> <!-- in t -->
+		<wheels>
+			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
+			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
+			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
+			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" lowerDistanceToGround="0.6" realWantedLoweredRotLimit="2 0 30" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.5 0.2" realMassWanted="0.3"/>
+			<component2 centerOfMass="0 0 0" realMassWanted="0.07" />
+			<component3 centerOfMass="0 0 0" realMassWanted="0.03" />
+		</components>
+	</vehicle>
 
 	<!-- (2.6) URSUS FL BALE FORK -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLBaleFork.xml" mrVehicleType="mr_dynamicMountAttacherImplement_u" debug="false">
