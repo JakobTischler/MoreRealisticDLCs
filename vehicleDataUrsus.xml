@@ -10,8 +10,8 @@
 		<dimensions width="2.9" height="2.44" /> <!-- in m --> 
 		<weights weight="6.9" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-26" rotMax="21" rotSpeed="60"/>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-21" rotMax="26" rotSpeed="60"/>
 			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
 			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
 		</wheels>
@@ -32,8 +32,8 @@
 		<dimensions width="2.9" height="2.44" /> <!-- in m --> 
 		<weights weight="7" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-26" rotMax="21" rotSpeed="60"/>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-21" rotMax="26" rotSpeed="60"/>
 			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
 			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
 		</wheels>
@@ -72,8 +72,8 @@
 		<dimensions width="2.75" height="2.2" /> <!-- in m --> <!--Done-->
 		<weights weight="4.1" maxWeight="8.5" realBrakeMaxMovingMass="10" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-26" rotMax="21" rotSpeed="60"/>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-21" rotMax="26" rotSpeed="60"/>
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" suspTravel="0.10" />
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" suspTravel="0.10" />
 		</wheels>
@@ -94,8 +94,8 @@
 		<dimensions width="2.76" height="2.2" /> <!-- in m --> <!--Done-->
 		<weights weight="4.3" maxWeight="8.6" realBrakeMaxMovingMass="10" /> <!-- in t --> <!--Done but not shure if max Weight is correct-->
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-25" rotMax="21" rotSpeed="60"/>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-21" rotMax="25" rotSpeed="60"/>
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="100" suspTravel="0.10" />
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="100" suspTravel="0.10" />
 		</wheels>
@@ -115,8 +115,8 @@
 		<dimensions width="2.35" height="1.6" /> <!-- in m --> 
 		<weights weight="2.4" maxWeight="3.7" realBrakeMaxMovingMass="5" /> <!-- in t --> 
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-20" rotMax="17" rotSpeed="60"/>
+			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-17" rotMax="20" rotSpeed="60"/>
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="50" suspTravel="0.10" />
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="50" suspTravel="0.10" />
 		</wheels>
@@ -214,10 +214,10 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="false">
+	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="true">
 		<store weight="400" requiredPowerKwMin="15" />
-		<workTool  realRakeWorkingPowerConsumption="5" realRakeWorkingPowerConsumptionInc="30"/>
+		<workTool  realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="25"/> <!--not correct values-->
 		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="400" maxWeight="400" /> <!-- in t -->
 		<wheels>
