@@ -214,10 +214,10 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->
-	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="true">
+	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="false">
 		<store weight="400" requiredPowerKwMin="15" />
-		<workTool  realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="25"/> <!--not correct values-->
+		<workTool  realRakeWorkingPowerConsumption="5" realRakeWorkingPowerConsumptionInc="30"/>
 		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="400" maxWeight="400" /> <!-- in t -->
 		<wheels>
