@@ -83,7 +83,7 @@
 		<dimensions width="2" height="1.8" /> <!-- in m -->
 		<weights weight="1.77" maxWeight="2" realBrakeMaxMovingMass="3" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0" brakeRatio="0" damper="20" spring="40" suspTravel="0.06" radius="0.32" rotMin="-54" rotMax="54" rotSpeed="60" antiRollFx="0" />			
+			<wheel driveMode="0" deltaY="0" brakeRatio="0" damper="20" spring="40" suspTravel="0.06" radius="0.32" rotMin="-54" rotMax="54" rotSpeed="60" antiRollFx="0" lateralStiffness="1" />			
 			<wheel driveMode="2" deltaY="0.05" brakeRatio="1" damper="20" spring="30" suspTravel="0.10" radius="0.63" />
 			<wheel driveMode="2" deltaY="0.05" brakeRatio="1" damper="20" spring="30" suspTravel="0.10" radius="0.63" />
 		</wheels>
