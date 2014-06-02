@@ -400,6 +400,7 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 				spring     		   =  getXMLFloat(xmlFile, wheelKey .. '#spring'),
 				damper     		   =    getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
 				brakeRatio 		   =  getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
+				lateralStiffness   =  getXMLFloat(xmlFile, wheelKey .. '#lateralStiffness'),
 				antiRollFx		   =  getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
 				realMaxMassAllowed =  getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed'),
 				tirePressureFx	   =  getXMLFloat(xmlFile, wheelKey .. '#tirePressureFx')
@@ -981,6 +982,7 @@ local setMrData = function(vehicle, xmlFile, mrData)
 		setValue(xmlFile, wheelKey .. '#brakeRatio',		 'int', wheelMrData.brakeRatio, '\t');
 		setValue(xmlFile, wheelKey .. '#damper',			 'int', wheelMrData.damper, '\t');
 		setValue(xmlFile, wheelKey .. '#mass',				 'int', 1, '\t');
+		setValue(xmlFile, wheelKey .. '#lateralStiffness',	 'flt', wheelMrData.lateralStiffness, '\t');
 		setValue(xmlFile, wheelKey .. '#antiRollFx',		 'flt', wheelMrData.antiRollFx, '\t');
 		setValue(xmlFile, wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
 		setValue(xmlFile, wheelKey .. '#tirePressureFx',	 'flt', wheelMrData.tirePressureFx, '\t');

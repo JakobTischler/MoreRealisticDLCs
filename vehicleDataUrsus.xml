@@ -236,7 +236,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.6) URSUS FL BALE FORK -->
+	<!-- (2.6) URSUS FL BALE FORK --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLBaleFork.xml" mrVehicleType="mr_dynamicMountAttacherImplement_u" debug="false">
 		<store price="995" weight="260" />
 		<dimensions width="1" height="0.6" /> <!-- in m -->
@@ -246,7 +246,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.7) URSUS FL BALE GRABBER -->
+	<!-- (2.7) URSUS FL BALE GRABBER --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLBaleGrab.xml" mrVehicleType="mr_baleGrab_u" debug="false">
 		<store price="1050" weight="400" />
 		<general realWorkingPowerConsumption="10" movingToolSpeedScale="0.6 0.6" />
@@ -259,8 +259,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.8) URSUS FL FORK -->
-	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
+	<!-- (2.8) URSUS FL FORK --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLFork.xml" mrVehicleType="moreRealistic.shovel" debug="false">
 		<store price="825" weight="350" capacity="1.26" capacityUnit="M3" fruits="manure" />
 		<dimensions width="1.85" height="0.8" /> <!-- in m --> <!-- depth: 0.85 -> volume = w*h*d = 1.85*0.8*0.85 = 1.258 m³ -->
@@ -271,7 +270,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.9) URSUS FL PALLET FORK -->
+	<!-- (2.9) URSUS FL PALLET FORK --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLPalletfork.xml" mrVehicleType="mr_dynamicMountAttacherImplement_u" debug="false">
 		<store price="1320" weight="400" />
 		<dimensions width="1" height="0.6" /> <!-- in m -->
@@ -281,8 +280,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.10) URSUS FL SHOVEL -->
-	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
+	<!-- (2.10) URSUS FL SHOVEL --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLShovel.xml" mrVehicleType="moreRealistic.shovel" debug="false">
 		<store price="910" weight="300" capacity="1.37" capacityUnit="M3" fruits="manure,silage,potato,sugarBeet" />
 		<dimensions width="2.75" height="0.95" /> <!-- in m --> <!-- depth front:60cm, depth rear: 45cm -> volume = (w*h*fd + w*h*rd)/2 = (2.75*0.95*0.6 + 2.75*0.95*0.45) / 2 = 1.3715625 m³ -->
@@ -293,8 +291,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.11) URSUS FL SILAGE FORK -->
-	<!-- TODO: emptyParticleSystems: change to MR particle systems -->
+	<!-- (2.11) URSUS FL SILAGE FORK --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="shovel" configFileName="pdlc/ursusAddon/ursus/ursusFLSilagefork.xml" mrVehicleType="mr_shovel_animated_u" debug="false">
 		<store price="1285" weight="450" capacity="1.65" capacityUnit="M3" fruits="manure,silage" />
 		<general realWorkingPowerConsumption="10" movingToolSpeedScale="0.75" />
