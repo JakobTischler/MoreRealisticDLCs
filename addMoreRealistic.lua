@@ -1,42 +1,67 @@
 ﻿--
---MoreRealisticDLCs
+-- MoreRealisticDLCs
 --
---@authors: modelleicher, Jakob Tischler, Satis
---@contributors: dj, dural, Grisu118, Xentro
---@version: 0.1b
+-- @authors: modelleicher, Jakob Tischler, Satis
+-- @contributors: dj, dural, Grisu118, Xentro
+-- @version: 0.1b
+-- @date: 06 Jun 2014
 --
+-- Copyright (C) 2014 Jakob Tischler
 
+--[[
+TODO:
+* delete most prints before public release / convert to debug function
+* increase min MoreRealisticVehicles version to 1.3.7
+* add link to dural's Google Drive folder in min version print (?)
+* decide between text vs. img 'converted by MoreRealisticDLC mod' in shop desc
+]]
+
+local modDir, modName = g_currentModDirectory, g_currentModName;
 
 -- ABORT IF MOREREALISTIC NOT INSTALLED
 if not RealisticUtils then
-	print('MoreRealisticDLCs: you don\'t have MoreRealistic installed. Script will now be aborted!');
+	print(('%s: you don\'t have MoreRealistic installed. Script will now be aborted!'):format(modName));
 	return;
 end;
 
--- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
-local mrModItem = ModsUtil.findModItemByModName(RealisticUtils.modName);
-if mrModItem and mrModItem.version then
-	local versionSplit = Utils.splitString('.', mrModItem.version);
-	local version = versionSplit[1];
-	if versionSplit[2] then
-		version = version .. '.' .. versionSplit[2];
+local getModVersion = function(modName)
+	local modItem = ModsUtil.findModItemByModName(modName);
+	if modItem and modItem.version then
+		local v = modItem.version;
+		local point = v:find('%.');
+		if not point then
+			return v, tonumber(v);
+		end;
+		local base = v:sub(1, point - 1);
+		local dec = v:sub(point + 1, v:len()):gsub('%.', '');
+		return v, tonumber(base .. '.' .. dec);
 	end;
-	if versionSplit[3] then
-		version = version .. versionSplit[3];
-	end;
-	version = tonumber(version);
-	if version and version < 1.338 then
-		print(('MoreRealisticDLCs: your MoreRealistic version (v%s) is too low. Update to v1.3.38 or higher. Script will now be aborted!'):format(mrModItem.version));
-		return;
-	end;
+
+	return '0', 0;
 end;
 
+local minVersions = {
+	mr	  = { '1.3.41', 1.341 },
+	mrVeh = { '1.3.5' , 1.35 } -- TODO: increase to v1.3.7 once public
+};
+
+-- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
+local mrVersionStr, mrVersionFlt = getModVersion(RealisticUtils.modName);
+if mrVersionFlt < minVersions.mr[2] then
+	print(('%s: your MoreRealistic version (v%s) is too low. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVersionStr, minVersions.mr[1]));
+	return;
+end;
+
+-- ABORT IF TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
+local mrVehVersionStr, mrVehVersionFlt = getModVersion('moreRealisticVehicles');
+if mrVehVersionFlt > 0 and mrVehVersionFlt < minVersions.mrVeh[2] then
+	print(('%s: your MoreRealisticVehicles version (v%s) is too low. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVehVersionStr, minVersions.mrVeh[1]));
+	return;
+end;
 local mrVehiclesPackInstalled = ModsUtil.findModItemByModName('moreRealisticVehicles') ~= nil;
 
 
 -- ##################################################
-
-local modDir, modName = g_currentModDirectory, g_currentModName;
 
 local dlcs = {
 	Lindner    = { dlcName = 'lindnerUnitracPack',	dataFile = 'vehicleDataLindner.xml',	minVersionStr = '1.0.0.1', minVersionFlt = 1.001 },
@@ -51,7 +76,7 @@ local dlcs = {
 -- REGISTER CUSTOM SPECIALIZATIONS
 local customSpecsRegistered = false;
 local registerCustomSpecs = function()
-	print('MoreRealisticDLCs: registerCustomSpecs()');
+	print(('%s: registerCustomSpecs()'):format(modName));
 	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
 	local specsKey = 'modDesc.customSpecializations';
 	local i = 0;
@@ -148,7 +173,7 @@ local formatNumber = function(number, precision)
 	if precision > 0 and decimal:len() > 0 then
 		decimal = decimal:sub(1, precision);
 		if tonumber(decimal) ~= 0 then
-			str = str .. numberDecimalSeparator .. decimal:sub(1, precision);
+			str = str .. numberDecimalSeparator .. decimal;
 		end;
 	end;
 	return str;
@@ -156,7 +181,7 @@ end;
 
 -- SET VEHICLE STORE DATA
 local setStoreData = function(configFileNameShort, dlcName, storeData, doDebug)
-	if doDebug then print(('MoreRealisticDLCs: setStoreData(%q, %q, ...)'):format(configFileNameShort, dlcName)); end;
+	if doDebug then print(('%s: setStoreData(%q, %q, ...)'):format(modName, configFileNameShort, dlcName)); end;
 	local pdlcDir = dlcs[dlcName].containingDir;
 	local path = Utils.getFilename(configFileNameShort:sub(6, 200), pdlcDir);
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
@@ -482,9 +507,9 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			trailerAttacherJoints[#trailerAttacherJoints + 1] = {
 				index 		  = getXMLString(xmlFile, tajKey .. '#index');
 				low 		  =   getXMLBool(xmlFile, tajKey .. '#low');
-				maxRotLimit   = getXMLString(xmlFile, tajKey .. '#maxRotLimit');
+				maxRotLimit	  = getXMLString(xmlFile, tajKey .. '#maxRotLimit');
 				ptoOutputNode = getXMLString(xmlFile, tajKey .. '#ptoOutputNode');
-				ptoFilename   = getXMLString(xmlFile, tajKey .. '#ptoFilename');
+				ptoFilename	  = getXMLString(xmlFile, tajKey .. '#ptoFilename');
 				schemaOverlay = {
 					index	  =    getXMLInt(xmlFile, tajKey .. '#schemaOverlayIndex');
 					position  = getXMLString(xmlFile, tajKey .. '#schemaOverlayPosition');
@@ -504,9 +529,9 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 			if not hasXMLProperty(xmlFile, compKey) then break; end;
 
 			components[#components + 1] = {
-				centerOfMass 		 = getXMLString(xmlFile, compKey .. '#centerOfMass'),
-				realMassWanted 		 =  getXMLFloat(xmlFile, compKey .. '#realMassWanted'),
-				realTransWithMass 	 = getXMLString(xmlFile, compKey .. '#realTransWithMass'),
+				centerOfMass		 = getXMLString(xmlFile, compKey .. '#centerOfMass'),
+				realMassWanted		 =  getXMLFloat(xmlFile, compKey .. '#realMassWanted'),
+				realTransWithMass	 = getXMLString(xmlFile, compKey .. '#realTransWithMass'),
 				realTransWithMassMax = getXMLString(xmlFile, compKey .. '#realTransWithMassMax')
 			};
 
@@ -517,16 +542,16 @@ local getMoreRealisticData = function(vehicleDataPath, dlcName)
 		-- workTool
 		local workTool = {
 			capacity								=   getXMLInt(xmlFile, key .. '.workTool#capacity');
-			realPowerConsumption 					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
+			realPowerConsumption					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
 			realPowerConsumptionWhenWorking			= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
 			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
-			realWorkingSpeedLimit 					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
+			realWorkingSpeedLimit					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
 			realResistanceOnlyWhenActive			=  getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive');
-			resistanceDecreaseFx 					= getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
+			resistanceDecreaseFx					= getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
 			powerConsumptionWhenWorkingDecreaseFx	= getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
 			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
-			realAiWorkingSpeed 						=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingSpeed');
+			realAiWorkingSpeed						=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingSpeed');
 		};
 
 		-- capacity multipliers
@@ -711,31 +736,20 @@ end;
 -- ##################################################
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed and up-to-date ones
-local getDlcVersion = function(modName)
-	local dlcModItem = ModsUtil.findModItemByModName(modName);
-	if dlcModItem and dlcModItem.version then
-		local versionSplit = Utils.splitString('.', dlcModItem.version);
-		local versionFlt = tonumber(('%d.%d%d%d'):format(versionSplit[1], versionSplit[2], versionSplit[3], versionSplit[4]));
-		return versionFlt, dlcModItem.version;
-	end;
-
-	return 0, '0';
-end;
-
 local dlcExists = false;
 for name, dlcData in pairs(dlcs) do
-	local modName = 'pdlc_' .. dlcData.dlcName;
-	if g_modNameToDirectory[modName] ~= nil then
-		local dlcVersion, dlcVersionStr = getDlcVersion(modName);
-		if dlcVersion < dlcData.minVersionFlt then
-			print(('MoreRealisticDLCs: DLC %q has a too low version number (v%s). Update to v%s or higher. Script will now be aborted!'):format(name, dlcVersionStr, dlcData.minVersionStr));
+	local dlcName = 'pdlc_' .. dlcData.dlcName;
+	if g_modNameToDirectory[dlcName] ~= nil then
+		local vStr, vFlt = getModVersion(dlcName);
+		if vFlt < dlcData.minVersionFlt then
+			print(('%s: DLC %q has a too low version number (v%s). Update to v%s or higher. Script will now be aborted!'):format(modName, name, vStr, dlcData.minVersionStr));
 			delete(vehicleTypesFile);
 			return;
 		end;
 
-		dlcData.dir = g_modNameToDirectory[modName]; 
+		dlcData.dir = g_modNameToDirectory[dlcName]; 
 		dlcData.containingDir = dlcData.dir:sub(1, dlcData.dir:len() - dlcData.dlcName:len() - 1);
-		-- print(('DLC %q: modName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, modName, dlcData.dir, dlcData.containingDir));
+		-- print(('DLC %q: dlcName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, dlcName, dlcData.dir, dlcData.containingDir));
 		-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(dlcData.minVersionStr, dlcVersionStr));
 		if not customSpecsRegistered then
 			registerCustomSpecs();
@@ -743,7 +757,7 @@ for name, dlcData in pairs(dlcs) do
 
 
 		local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
-		print(('MoreRealisticDLCs: %q DLC v%s exists, -> get data from %q'):format(name, dlcVersionStr, dlcData.dataFile));
+		print(('%s: %q DLC v%s exists, -> get data from %q'):format(modName, name, vStr, dlcData.dataFile));
 		registerVehicleTypes(name);
 		getMoreRealisticData(vehicleDataPath, name);
 		dlcExists = true;
@@ -753,7 +767,7 @@ delete(vehicleTypesFile);
 
 -- ABORT IF THERE ARE NO DLCs
 if not dlcExists then
-	print('MoreRealisticDLCs: you don\'t have any DLCs installed. Script will now be aborted!');
+	print(('%s: you don\'t have any DLCs installed. Script will now be aborted!'):format(modName));
 	return;
 end;
 
@@ -1463,7 +1477,7 @@ Vehicle.developmentReloadFromXML = function(self)
 	-- print(('\ttypeName=%q, configFileNameShort=%q'):format(tostring(self.typeName), tostring(self.configFileNameShort)));
 	mrData = vehicleData[self.configFileNameShort];
 	if mrData then
-		print(('\tsetMrData()'):format(tostring(self.typeName), tostring(self.configFileNameShort)));
+		print('\tsetMrData()');
 		setMrData(self, xmlFile, mrData);
 	end;
 
