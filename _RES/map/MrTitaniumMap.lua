@@ -17,14 +17,10 @@ addModEventListener(MrTitaniumMap);
 
 function MrTitaniumMap:loadMap(name)
 	-- NOT TITANIUM MAP -> ABORT
-	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then
-		return;
-	end;
+	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;
 
 	-- EXISTING SAVEGAME -> ABORT
-	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then
-		return;
-	end;
+	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
 
 	-- overwrite default vehicle xml path
 	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/mrTitaniumMap_defaultVehicles.xml', MrTitaniumMap.modDir);
@@ -38,7 +34,7 @@ function MrTitaniumMap:updateTick(dt) end;
 function MrTitaniumMap:draw() end;
 
 
--- SET MAP NAME
+-- SET MAP NAME (a.k.a. "too little, too late")
 for i, mapItem in ipairs(MapsUtil.mapList) do
 	if not mapItem.titleMRized and mapItem.title and mapItem.customEnvironment and mapItem.customEnvironment:find('pdlc_') then
 		-- print(('mapItem %d: title=%q, customEnvironment=%q -> set title to %q'):format(i, tostring(mapItem.title), tostring(mapItem.customEnvironment), 'MR ' .. tostring(mapItem.title)));
@@ -47,21 +43,10 @@ for i, mapItem in ipairs(MapsUtil.mapList) do
 	end;
 end;
 
-
---[[
-local titaniumMapLoaded = false;
-local assertTitaniumMap = function(self)
-	if self.loadingMapBaseDirectory and self.loadingMapBaseDirectory:find('/pdlc/') then		
-		titaniumMapLoaded = true;
-	end;
-end;
-BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, assertTitaniumMap);
-]]
-
 -- SET BALANCING VALUES
-local setTitaniumMapParameters = function(self, mapName)	
-	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then		
-		 
+local setTitaniumMapParameters = function(self, mapName)
+	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
+
 		--[[
 		RealisticGlobalListener.priceBalancing = 1;
 		RealisticGlobalListener.silagePriceBalancing = 1.3;

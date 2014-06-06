@@ -1,11 +1,12 @@
---[[
-AugerWagonPowerConsumption
-adds power consumption to the AugerWagon when the pipe is (un)folding / when it's unloading
+-- AugerWagonPowerConsumption
+-- adds power consumption to the AugerWagon when the pipe is (un)folding / when it's unloading
 
-@author: Jakob Tischler
-@date: 16 May 2014
-@version: 0.1
-]]
+-- @author: Jakob Tischler
+-- @date: 16 May 2014
+-- @version: 0.1
+-- @history: 0.1 (16 May 2014)
+--
+-- Copyright (C) 2014 Jakob Tischler
 
 AugerWagonPowerConsumption = {};
 

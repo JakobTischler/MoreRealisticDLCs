@@ -21,6 +21,10 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 * Grisu118
 * Xentro
 
+##### Additional credits:
+* Manuel Leithner: original author of `DynamicExhaustingSystem`
+* caba kosmotesto from *The Noun Project*: Unicorn icon *(under "CC BY 3.0" license)*
+
 ---
 
 #### Vehicles:
@@ -79,7 +83,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 - [x] Ursus N-270 manure spreader *(Satis)*
 - [x] Ursus T-127 bale loader *(Jakob)*
 - [x] Ursus T-610A1 trailer *(Jakob)*
-- [x] Ursus Z-554 rake *(Grisu118)*
+- [ ] Ursus Z-554 rake *(Grisu118)*
 - [x] Ursus Z-586 bale wrapper *(Jakob)*
 - [x] Ursus Z-594 baler *(Jakob)*
 

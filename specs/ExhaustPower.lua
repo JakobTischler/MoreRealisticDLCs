@@ -1,10 +1,12 @@
---[[
-ExhaustPower
+-- ExhaustPower
+-- sets lastMotorRpm to MoreRealistic value, so that the exhaust system actually works with MR
 
-@author: Jakob Tischler
-@date: 18 May 2014
-@version: 0.1
-]]
+-- @author: Jakob Tischler
+-- @date: 18 May 2014
+-- @version: 0.1
+-- @history: 0.1 (18 May 2014)
+--
+-- Copyright (C) 2014 Jakob Tischler
 
 ExhaustPower = {};
 

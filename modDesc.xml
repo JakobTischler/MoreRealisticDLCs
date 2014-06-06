@@ -2,31 +2,40 @@
 <modDesc descVersion="17">
 	<author>Jakob Tischler, modelleicher, Satis</author>
 	<contributors>_dj_, dural, Grisu118, Xentro</contributors>
-	<version>0.1 beta</version>
+	<additionalCredits>DynamicExhaustingSystem: Original by Manuel Leithner, Unicorn icon: caba kosmotesto (under "CC BY 3.0" license)</additionalCredits>
+
+	<version>0.2b</version>
 	<title>
-		<en>MoreRealistic DLCs</en>
-		<de>MoreRealistic DLCs</de>
+		<en>MoreRealisticDLCs</en>
 	</title>
 	<description>
-		<en>MoreRealistic DLCs</en>
-		<de>MoreRealistic DLCs</de>
+		<en>The MoreRealisticDLCs mod converts all DLC vehicles for MoreRealistic.</en>
+		<cz>MoreRealisticDLCs mod převede všechny DLC vozidla pro MoreRealistic.</cz>
+		<de>Der MoreRealisticDLCs Mod konvertiert alle DLC-Fahrzeuge für MoreRealistic.</de>
+		<es>El mod MoreRealisticDLCs convierte todos los vehículos de DLC para MoreRealistic.</es>
+		<fr>Le mod MoreRealisticDLCs convertit tous les véhicules de DLC pour MoreRealistic.</fr>
+		<hu>A MoreRealisticDLCs mod alakítja az összes DLC járművek MoreRealistic.</hu>
+		<it>Il mod MoreRealisticDLCs converte tutti i veicoli DLC per MoreRealistic.</it>
+		<jp>MoreRealisticDLCsのmodはMoreRealisticのすべてのDLCの車に変換します。</jp>
+		<nl>De MoreRealisticDLCs mod converteert alle DLC voertuigen voor MoreRealistic.</nl>
+		<pl>MoreRealisticDLCs mod zamienia wszystkie pojazdy DLC do MoreRealistic.</pl>
+		<ru>MoreRealisticDLCs мод преобразует все DLC транспортные средства для MoreRealistic.</ru>
 	</description>
-	<iconFilename>_RES/MoreRealisticDLCs_icon.dds</iconFilename>
+	<iconFilename>_RES/gui/MoreRealisticDLCs_icon.dds</iconFilename>
 	<multiplayer supported="true"/>
 
 	<extraSourceFiles>
-		<sourceFile filename="scripts/GetFilenameFix.lua" />
 		<sourceFile filename="_RES/map/MrTitaniumMap.lua" />
-		<sourceFile filename="addMoreRealistic.lua" />
+		<sourceFile filename="scripts/MoreRealisticDLCs.lua" />
 	</extraSourceFiles>
 
 	<customSpecializations>
-		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="scripts/AugerWagonPowerConsumption.lua" />
-		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem"	 filename="scripts/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="scripts/ExhaustPower.lua" />
-		<specialization name="realisticBaleWrapper"		  className="RealisticBaleWrapper"		 filename="scripts/RealisticBaleWrapper.lua" />
-		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="scripts/RealisticMovingTool.lua" />
-		<specialization name="variableSprayUsage"		  className="VariableSprayUsage"		 filename="scripts/VariableSprayUsage.lua" />
+		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="specs/AugerWagonPowerConsumption.lua" />
+		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem"	 filename="specs/mrDynamicExhaustingSystem.lua" />
+		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="specs/ExhaustPower.lua" />
+		<specialization name="realisticBaleWrapper"		  className="RealisticBaleWrapper"		 filename="specs/RealisticBaleWrapper.lua" />
+		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="specs/RealisticMovingTool.lua" />
+		<specialization name="variableSprayUsage"		  className="VariableSprayUsage"		 filename="specs/VariableSprayUsage.lua" />
 	</customSpecializations>
 
 	<l10n>

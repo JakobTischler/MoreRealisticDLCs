@@ -1,11 +1,14 @@
---[[
-RealisticMovingTool
-adds power consumption to implements with movingTools
+-- RealisticMovingTool
+-- adds power consumption to implements with movingTools
 
-@author: Jakob Tischler (based on 'realisticPtoImplement.lua' by Michel Dorge)
-@date: 17 May 2014
-@version: 0.2
-]]
+-- @author: Jakob Tischler
+-- @date: 17 May 2014
+-- @version: 0.2
+-- @history: 0.1 (Jan 2014)
+--           0.2 (17 May 2014)
+--
+-- Copyright (C) 2014 Jakob Tischler
+
 
 RealisticMovingTool = {};
 

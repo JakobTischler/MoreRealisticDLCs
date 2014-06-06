@@ -151,7 +151,7 @@
 
 	<!-- (2.2) URSUS Z-594 round baler --> <!-- AUTHOR: Jakob Tischler --> <!-- MAYBE DONE (wheels?) -->
 	<vehicle category="tool" subCategory="baler" configFileName="pdlc/ursusAddon/ursus/ursusZ594.xml" mrVehicleType="moreRealistic.roundBalerEnhanced" debug="true">
-		<store workSpeedMax="20" weight="2770" capacity="3700" capacityUnit="L" requiredPowerKwMin="60" />
+		<store workSpeedMax="20" weight="2770" capacity="3700" capacityUnit="L" requiredPowerKwMin="60" fruits="wheat_windrow,barley_windrow,dryGrass_windrow" />
 		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" animationSpeedScale="unloadBale:0.5,closeDoor:0.5" /> <!--animationTimeOffset="unloadBale:6"-->
 		<workTool capacity="3700" realBalerWorkingSpeedLimit="17" realBalerPowerConsumption="25" realBalerRoundingPowerConsumptionInc="20" realBalerPickUpPowerConsumptionInc="25" realBalerOverFillingRatio="1.05" realCapacityMultipliers="wheat_windrow:1,barley_windrow:1,dryGrass_windrow:1.25" />
 		<dimensions width="2.4" height="2.2" /> <!-- in m -->
@@ -199,9 +199,6 @@
 		<dimensions width="2.3" height="2" /> <!-- in m -->
 		<weights weight="2.56" maxWeight="10.6" /> <!-- in t -->
 		<wheels>
-			<!-- suspTravel="0.05" spring="160" -->
-			<!-- suspTravel="0.15" spring="53"  -->
-
 			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
 			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
 			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
@@ -215,8 +212,8 @@
 	</vehicle>
 
 	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->
-	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="true">
-		<store weight="400" requiredPowerKwMin="15" />
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="false">
+		<store weight="400" workWidth="3.5" requiredPowerKwMin="15" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" />
 		<workTool  realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="25"/> <!--not correct values-->
 		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="0.400" maxWeight="0.400" /> <!-- in t -->
