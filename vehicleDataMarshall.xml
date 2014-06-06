@@ -2,7 +2,7 @@
 <vehicles>
 	<!-- (1) TOOLS -->
 	<!-- (1.1) MARSHALL BC 32 BALE TRAILER --> <!-- AUTHOR: Satis --> <!-- DONE -->
-	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/marshallPack/marshall/marshallBC32.xml" mrVehicleType="mr_dynamicMountAttacherTrailer_m" debug="false">
+	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/marshallPack/marshall/marshallBC32.xml" mrVehicleType="moreRealistic.baleTrailer" debug="false">
 		<store price="12800" weight="2910" maxSpeed="32" length="9.75" />
 		<dimensions width="2.43" height="1" /> <!-- in m -->
 		<weights weight="2.91" realBrakeMaxMovingMass="14" /> <!-- in t -->
