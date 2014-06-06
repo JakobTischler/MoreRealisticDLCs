@@ -349,7 +349,7 @@
 			<wheel driveMode="2" deltaY="0.06" brakeRatio="1" damper="20" spring="350" suspTravel="0.10" radius="0.95" />			
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="cutter" minRot="0 0 0" maxRot="24 0 0" maxRot2="0 0 0" maxRotDistanceToGround="1.07" minRotDistanceToGround="1.73" moveTime="2" />
+			<attacherJoint jointType="cutter" minRot="-11 0 0" maxRot="24 0 0" maxRot2="0 0 0" maxRotDistanceToGround="1.07" minRotDistanceToGround="2.03" moveTime="2" />
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.8 0.3" realMassWanted="16.4" />
