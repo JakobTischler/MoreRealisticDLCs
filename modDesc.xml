@@ -248,5 +248,29 @@
 			<pl>Rodzaje owoców: %s</pl>
 			<ru>Виды фруктов: %s</ru>
 		</text>
+		<text name="STORE_DESC_AUTHOR">
+			<en>MoreRealistic conversion by %s.</en>
+			<cz>MoreRealistic konverze %s.</cz>
+			<de>MoreRealistic Konvertierung durch %s.</de>
+			<es>Conversión MoreRealistic por %s.</es>
+			<fr>Conversion MoreRealistic par %s.</fr>
+			<hu>MoreRealistic átalakítás %s.</hu>
+			<it>Conversione MoreRealistic da %s.</it>
+			<nl>MoreRealistic conversie door %s.</nl>
+			<pl>MoreRealistic konwersji przez %s.</pl>
+			<ru>MoreRealistic преобразования по %s.</ru>
+		</text>
+		<text name="STORE_DESC_AND">
+			<en>%s and %s</en>
+			<cz>%s a %s</cz>
+			<de>%s und %s</de>
+			<es>%s y %s</es>
+			<fr>%s et %s</fr>
+			<hu>%s és %s</hu>
+			<it>%s e %s</it>
+			<nl>%s en %s</nl>
+			<pl>%s i %s</pl>
+			<ru>%s и %s</ru>
+		</text>
 	</l10n>
 </modDesc>

@@ -191,12 +191,17 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 		storeItem.dailyUpkeep = storeData.dailyUpkeep;
 		storeItem.dailyUpkeepMRized = true;
 	end;
-	--[[ -- not needed, as the banner is displayed instead
-	if not storeItem.descriptionMRized then
-		storeItem.description = storeItem.description .. '\n\n' .. tostring(g_i18n:getText('DLC_MRIZED'));
+	if storeData.author and not storeItem.descriptionMRized then
+		-- storeItem.description = storeItem.description .. '\n\n' .. tostring(g_i18n:getText('DLC_MRIZED')); -- not needed anymore, banner used instead
+		local author = storeData.author;
+		local authorSplit = Utils.splitString(',', author);
+		if #authorSplit > 1 then
+			author = g_i18n:getText('STORE_DESC_AND'):format(table.concat(authorSplit, ', ', 1, #authorSplit - 1), authorSplit[#authorSplit]);
+		end;
+		author = g_i18n:getText('STORE_DESC_AUTHOR'):format(author);
+		storeItem.description = storeItem.description .. '\n\n' .. author;
 		storeItem.descriptionMRized = true;
 	end;
-	]]
 	if not storeItem.specsMRized then
 		local specs = '';
 		if storeData.powerKW then

@@ -418,6 +418,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			capacityUnit		= getXMLString(xmlFile, key .. '.store#capacityUnit');
 			length				=  getXMLFloat(xmlFile, key .. '.store#length');
 			fruits				= getXMLString(xmlFile, key .. '.store#fruits');
+			author				= getXMLString(xmlFile, key .. '.store#author');
 		};
 		self:setStoreData(configFileName, dlcName, store, doDebug);
 
