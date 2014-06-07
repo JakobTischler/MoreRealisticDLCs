@@ -150,7 +150,7 @@
 	<!-- (2) TOOLS -->
 	<!-- (2.1) HORSCH MAESTRO 12SW --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_t" debug="false">
-		<store price="106000" dailyUpkeep="28" maxSpeed="16" capacity="2000" capacityUnit="L" weight="7300" workWidth="9" requiredPowerKwMin="129" fruits="maize,sugarBeet" author="dural" />
+		<store price="106000" dailyUpkeep="28" capacity="2000" capacityUnit="L" weight="7300" workWidth="9" requiredPowerKwMin="129" fruits="maize,sugarBeet" author="dural" />
 		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" />
 		<workTool realPowerConsumption="20" realWorkingSpeedLimit="17" realResistanceOnlyWhenActive="false" caRealTractionResistance="5" caRealTractionResistanceWithLoadMass="0" capacity="2000" realAiWorkingSpeed="12" />
 		<dimensions width="3" height="4" /> <!-- in m -->
@@ -254,7 +254,7 @@
 
 	<!-- (2.6) KRONE SWADRO 2000 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="rake" configFileName="pdlc/titaniumAddon/krone/kroneSwadro2000.xml" mrVehicleType="mr_swadro2000_t" debug="false">
-		<store price="93000" dailyUpkeep="60" maxSpeed="12" weight="9400" workWidth="19" requiredPowerKwMin="110" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" author="dural" />
+		<store price="93000" dailyUpkeep="60" workSpeedMax="15" weight="9400" workWidth="19" requiredPowerKwMin="110" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" author="dural" />
 		<workTool realWorkingSpeedLimit="15" realRakeWorkingPowerConsumption="35" realRakeWorkingPowerConsumptionInc="40" />
 		<dimensions width="3" height="1.5" /> <!-- in m - recue SCx since there is no real "front" wall -->
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" />
@@ -457,7 +457,7 @@
 
 	<!-- (4.2) KOTTE GARANT VQ 32000 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/titaniumAddon/kotte/garantVQ32000.xml" mrVehicleType="mr_kotteSlurryTank_t" debug="false">
-		<store price="187000" dailyUpkeep="50" capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235.5" workWidth="26" author="dural" />
+		<store price="187000" dailyUpkeep="50" workSpeedMax="10" capacity="32000" capacityUnit="L" weight="16300" requiredPowerKwMin="235.5" workWidth="26" author="dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="6" realWorkingPowerConsumption="80" realRollingResistance="0.012" />
 		<workTool realFillingPowerConsumption="120" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="144" sprayUsageLitersPerSecondFolded="95" fillLitersPerSecond="600" />
 		<dimensions width="3" height="4" /> <!-- in m -->
