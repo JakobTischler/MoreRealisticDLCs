@@ -11,8 +11,8 @@
 		<wheels>
 			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
 			<wheel rotMax="28.05" rotMin="-15.91" driveMode="2" deltaY="0.12" spring="30" brakeRatio="1" />
-			<wheel rotMax="28.05" rotMin="-15.91" driveMode="2" deltaY="0.08" spring="36" brakeRatio="1" />
-			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.08" spring="36" brakeRatio="1" />
+			<wheel rotMax="28.05" rotMin="-15.91" driveMode="2" deltaY="0.08" spring="45" brakeRatio="1" />
+			<wheel rotMax="15.91" rotMin="-28.05" driveMode="2" deltaY="0.08" spring="45" brakeRatio="1" />
 		</wheels>
 		<components>
 			<component1 centerOfMass="0 0.1 0.55" realMassWanted="2.99" />
@@ -26,6 +26,10 @@
 		<dimensions width="1.87" height="0.4" /> <!-- in m -->
 		<weights weight="0.75" /> <!-- in t -->
 		<workTool capacity="2000" realTippingPowerConsumption="12" realCapacityMultipliers="wheat:1,rape:1,maize:1,barley:1,chaff:1.07,potato:1.04,sugarBeet:1.05" />
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="60 80 60" />
+			<trailerAttacherJoint maxRotLimit="60 80 60" index="0>4|1|0" low="true" schemaOverlayPosition="0.5 0" schemaOverlayInvertX="false" schemaOverlayIndex="1" />
+		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.4 0" realMassWanted="0.45" realTransWithMass="0 0.1 0" realTransWithMassMax="0 0.2 0" />
 			<component2 realMassWanted="0.15" /> <!-- Support -->
