@@ -21,7 +21,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 * Grisu118
 * Xentro
 
-##### Additional credits:
+###### Additional credits:
 * Manuel Leithner: original author of `DynamicExhaustingSystem`
 * caba kosmotesto from *The Noun Project*: Unicorn icon *(under "CC BY 3.0" license)*
 

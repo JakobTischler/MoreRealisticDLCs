@@ -2,26 +2,26 @@
 
 --------------------------------------------------
 
+function MoreRealisticDLCs:getFloatNumberFromString(str)
+	local point = str:find('%.');
+	if not point then
+		return tonumber(str);
+	end;
+	local base = str:sub(1, point - 1);
+	local dec = str:sub(point + 1, str:len()):gsub('%.', '');
+	return tonumber(base .. '.' .. dec);
+end;
+
 function MoreRealisticDLCs:getModVersion(modName)
 	local modItem = ModsUtil.findModItemByModName(modName);
 	if modItem and modItem.version then
-		local v = modItem.version;
-		local point = v:find('%.');
-		if not point then
-			return v, tonumber(v);
-		end;
-		local base = v:sub(1, point - 1);
-		local dec = v:sub(point + 1, v:len()):gsub('%.', '');
-		return v, tonumber(base .. '.' .. dec);
+		return modItem.version, self:getFloatNumberFromString(modItem.version);
 	end;
-
 	return '0', 0;
 end;
 
-local minMrVersions = {
-	mr	  = { '1.3.41', 1.341 },
-	mrVeh = { '1.3.5' , 1.35 } -- TODO: increase to v1.3.7 once public
-};
+local minVersionMr	  = '1.3.42';
+local minVersionMrVeh = '1.3.7';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not RealisticUtils then
@@ -29,26 +29,39 @@ function MoreRealisticDLCs:assertMrVersions()
 		return false;
 	end;
 
-	-- ABORT IF TOO LOW MOREREALISTIC VERSION NUMBER
+	-- ABORT IF FAULTY OR TOO LOW MOREREALISTIC VERSION NUMBER
 	local mrVersionStr, mrVersionFlt = self:getModVersion(RealisticUtils.modName);
-	if mrVersionFlt < minMrVersions.mr[2] then
-		print(('%s: your MoreRealistic version (v%s) is too low. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVersionStr, minMrVersions.mr[1]));
+	if mrVersionFlt == 0 then
+		print(('%s: no correct version could be found for "MoreRealistic". Script will now be aborted!'):format(modName));
 		return false;
+	elseif mrVersionFlt < self:getFloatNumberFromString(minVersionMr) then
+		print(('%s: your MoreRealistic version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVersionStr, minVersionMr));
+		return false;
+	else
+		print(('%s: MoreRealistic v%s installed, minimum version requirement met --> OK'):format(modName, mrVersionStr));
 	end;
 
-	-- ABORT IF TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
-	local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
-	if mrVehVersionFlt > 0 and mrVehVersionFlt < minMrVersions.mrVeh[2] then
-		print(('%s: your MoreRealisticVehicles version (v%s) is too low. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVehVersionStr, minMrVersions.mrVeh[1]));
-		return false;
-	end;
+	-- ABORT IF FAULTY OR TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
 	self.mrVehiclesPackInstalled = ModsUtil.findModItemByModName('moreRealisticVehicles') ~= nil;
+	if self.mrVehiclesPackInstalled then
+		local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
+		if mrVehVersionFlt == 0 then
+			print(('%s: no correct version could be found for "MoreRealisticVehicles". Script will now be aborted!'):format(modName));
+			return false;
+		elseif mrVehVersionFlt < self:getFloatNumberFromString(minVersionMrVeh) then
+			print(('%s: your MoreRealisticVehicles version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVehVersionStr, minVersionMrVeh));
+			return false;
+		else
+			print(('%s: MoreRealisticVehicles v%s installed, minimum version requirement met --> OK'):format(modName, mrVehVersionStr));
+		end;
+	end;
 
 	return true;
 end;
 
 -- ##################################################
 
+-- FORMAT NUMBER
 local numberSeparators = {
 	-- cz = { '.', ',' },
 	-- de = { '.', ',' },

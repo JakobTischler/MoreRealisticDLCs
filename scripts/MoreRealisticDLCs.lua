@@ -11,9 +11,7 @@
 --[[
 TODO:
 * delete most prints before public release / convert to debug function
-* increase min MoreRealisticVehicles version to 1.3.7
 * add link to dural's Google Drive folder in min version print (?)
-* decide between text vs. img 'converted by MoreRealisticDLC mod' in shop desc
 ]]
 
 
@@ -34,11 +32,11 @@ end;
 
 function MoreRealisticDLCs:setGeneralData()
 	self.dlcsData = {
-		Lindner    = { dlcName = 'lindnerUnitracPack',	dataFile = 'vehicleDataLindner.xml',	minVersionStr = '1.0.0.1', minVersionFlt = 1.001 },
-		Marshall   = { dlcName = 'marshallPack',		dataFile = 'vehicleDataMarshall.xml',	minVersionStr = '1.0.0.3', minVersionFlt = 1.003 },
-		Titanium   = { dlcName = 'titaniumAddon',		dataFile = 'vehicleDataTitanium.xml',	minVersionStr = '1.0.0.5', minVersionFlt = 1.005 },
-		Ursus	   = { dlcName = 'ursusAddon',		 	dataFile = 'vehicleDataUrsus.xml',		minVersionStr = '2.0.0.2', minVersionFlt = 2.002 },
-		Vaederstad = { dlcName = 'vaderstadPack',		dataFile = 'vehicleDataVaederstad.xml',	minVersionStr = '1.0.0.3', minVersionFlt = 1.003 }
+		Lindner    = { dlcName = 'lindnerUnitracPack',	dataFile = 'vehicleDataLindner.xml',	minVersion = '1.0.0.1' },
+		Marshall   = { dlcName = 'marshallPack',		dataFile = 'vehicleDataMarshall.xml',	minVersion = '1.0.0.3' },
+		Titanium   = { dlcName = 'titaniumAddon',		dataFile = 'vehicleDataTitanium.xml',	minVersion = '1.0.0.5' },
+		Ursus	   = { dlcName = 'ursusAddon',		 	dataFile = 'vehicleDataUrsus.xml',		minVersion = '2.0.0.2' },
+		Vaederstad = { dlcName = 'vaderstadPack',		dataFile = 'vehicleDataVaederstad.xml',	minVersion = '1.0.0.3' }
 	};
 
 	self.vehicleData = {};
@@ -67,26 +65,26 @@ end;
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed and up-to-date ones
 function MoreRealisticDLCs:checkDLCsAndGetData()
 	for dlcNameClean, dlcData in pairs(self.dlcsData) do
-		local dlcName = 'pdlc_' .. dlcData.dlcName;
-		if g_modNameToDirectory[dlcName] ~= nil then
-			local vStr, vFlt = self:getModVersion(dlcName);
-			if vFlt < dlcData.minVersionFlt then
-				print(('%s: DLC %q has a too low version number (v%s). Update to v%s or higher. Script will now be aborted!'):format(modName, dlcNameClean, vStr, dlcData.minVersionStr));
+		local ingameDlcName = 'pdlc_' .. dlcData.dlcName;
+		if g_modNameToDirectory[ingameDlcName] ~= nil then
+			local vStr, vFlt = self:getModVersion(ingameDlcName);
+			if vFlt < self:getFloatNumberFromString(dlcData.minVersion) then
+				print(('%s: DLC %q (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(modName, dlcNameClean, vStr, dlcData.minVersion));
 				delete(self.vehicleTypesFile);
 				return false;
 			end;
 
-			dlcData.dir = g_modNameToDirectory[dlcName]; 
+			dlcData.dir = g_modNameToDirectory[ingameDlcName]; 
 			dlcData.containingDir = dlcData.dir:sub(1, dlcData.dir:len() - dlcData.dlcName:len() - 1);
-			-- print(('DLC %q: dlcName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, dlcName, dlcData.dir, dlcData.containingDir));
-			-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(dlcData.minVersionStr, dlcVersionStr));
+			-- print(('DLC %q: ingameDlcName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, ingameDlcName, dlcData.dir, dlcData.containingDir));
+			-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(dlcData.minVersion, dlcVersionStr));
 			if not self.customSpecsRegistered then
 				self:registerCustomSpecs();
 			end;
 
 
 			local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
-			print(('%s: %q DLC v%s exists, -> get data from %q'):format(modName, dlcNameClean, vStr, dlcData.dataFile));
+			print(('%s: %q DLC v%s exists --> get data from %q'):format(modName, dlcNameClean, vStr, dlcData.dataFile));
 			self:registerVehicleTypes(dlcNameClean);
 			self:getMrData(vehicleDataPath, dlcNameClean);
 		end;
@@ -360,21 +358,36 @@ Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisti
 
 -- DEBUG PRINT WHEELS POSITION
 function MoreRealisticDLCs.debugPrintWheelsPosition(self, i3dNode, arguments)
-	if self.isMoreRealisticDLC then
-		if self.wheels then
-			local rx,ry,rz = getWorldTranslation(self.rootNode);
-			print(('%s: wheels / rootNode: rx=%.1f, rz=%.1f'):format(tostring(self.name), rx, rz));
-			for i,wheel in ipairs(self.wheels) do
-				local wx,wy,wz = getWorldTranslation(wheel.driveNode);
-				local dx,dy,dz = worldToLocal(self.rootNode, wx, wy, wz);
-				local posX = dx > 0 and 'left' or 'right';
-				local posZ = dz > 0 and 'front' or 'rear';
-				print(('\twheel %d: wx=%.1f, wz=%.1f, dx=%.1f, dz=%.1f -> position = %s %s // rotMax=%s, rotMin=%s'):format(i, wx, wz, dx, dz, posX, posZ, tostring(wheel.rotMax), tostring(wheel.rotMin)));
-			end;
-		end;
+	if not self.isMoreRealisticDLC or not self.wheels then return; end;
+
+	local rx,ry,rz = getWorldTranslation(self.rootNode);
+	print(('%s: wheels / rootNode: rx=%.1f, rz=%.1f'):format(tostring(self.name), rx, rz));
+	for i,wheel in ipairs(self.wheels) do
+		local wx,wy,wz = getWorldTranslation(wheel.driveNode);
+		local dx,dy,dz = worldToLocal(self.rootNode, wx, wy, wz);
+		local posX = dx > 0 and 'left' or 'right';
+		local posZ = dz > 0 and 'front' or 'rear';
+		print(('\twheel %d: wx=%.1f, wz=%.1f, dx=%.1f, dz=%.1f -> position = %s %s // rotMax=%s, rotMin=%s'):format(i, wx, wz, dx, dz, posX, posZ, tostring(wheel.rotMax), tostring(wheel.rotMin)));
 	end;
 end;
 -- Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.debugPrintWheelsPosition);
+
+-- DEBUG DRAW COMPONENT POSITIONS / CENTER OF MASS
+function MoreRealisticDLCs.drawComponents(self, dt)
+	if not self.isActive or not self.moreRealisticDLCdebug then return; end;
+	for i=1, #self.components do
+		local node = self.components[i].node;
+		local compX,compY,compZ = getWorldTranslation(node);
+		drawDebugPoint(compX,compY,compZ, 0, 1, 0, 1);
+		local x, y, z = getCenterOfMass(node);
+		if x ~= 0 or y ~= 0 or z ~= 0 then
+			local massX,massY,massZ = localToWorld(node, x, y, z);
+			drawDebugPoint(massX,massY,massZ, 1, 1, 0, 1);
+			drawDebugLine(compX,compY,compZ, 0, 1, 0, massX,massY,massZ, 1, 1, 0);
+		end;
+	end;
+end;
+Vehicle.update = Utils.appendedFunction(Vehicle.update, MoreRealisticDLCs.drawComponents);
 
 -- BALES
 function MoreRealisticDLCs.setBaleMrData(self, nodeId)
@@ -428,20 +441,3 @@ Vehicle.developmentReloadFromXML = function(self)
 	end;
 	delete(xmlFile);
 end;
-
--- DEBUG DRAW COMPONENT POSITIONS / CENTER OF MASS
-function MoreRealisticDLCs.drawComponents(self, dt)
-	if not self.isActive or not self.moreRealisticDLCdebug then return; end;
-	for i=1, #self.components do
-		local node = self.components[i].node;
-		local compX,compY,compZ = getWorldTranslation(node);
-		drawDebugPoint(compX,compY,compZ, 0, 1, 0, 1);
-		local x, y, z = getCenterOfMass(node);
-		if x ~= 0 or y ~= 0 or z ~= 0 then
-			local massX,massY,massZ = localToWorld(node, x, y, z);
-			drawDebugPoint(massX,massY,massZ, 1, 1, 0, 1);
-			drawDebugLine(compX,compY,compZ, 0, 1, 0, massX,massY,massZ, 1, 1, 0);
-		end;
-	end;
-end;
-Vehicle.update = Utils.appendedFunction(Vehicle.update, MoreRealisticDLCs.drawComponents);
