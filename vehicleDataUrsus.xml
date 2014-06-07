@@ -54,8 +54,8 @@
 		<dimensions width="1.8" height="2.3" /> <!-- in m --> 
 		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> 
 		<wheels>
-			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
-			<wheel driveMode="0" deltaY="0.18" brakeRatio="1" suspTravel="0.25" />
+			<wheel driveMode="0" deltaY="0.18" brakeRatio="0" suspTravel="0.25" />
+			<wheel driveMode="0" deltaY="0.18" brakeRatio="0" suspTravel="0.25" />
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" suspTravel="0.10" />
 			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" suspTravel="0.10" />
 		</wheels>
@@ -126,6 +126,27 @@
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.31 -0.1" realMassWanted="2.4" />
+		</components>
+	</vehicle>
+	
+	<!-- (1.7) URSUS C-330 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC330.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
+		<store powerKW="22.4" maxSpeed="23.44" weight="1901" /> 
+		<general fuelCapacity="35" realMaxVehicleSpeed="23.4" realBrakingDeceleration="3" /> 
+		<engine kW="22.4" realMaxReverseSpeed="10" realMaxFuelUsage="6.5" newExhaustPS="true" />
+		<dimensions width="1.8" height="2.3" /> <!-- in m --> <!--No Information found-->
+		<weights weight="1.9" maxWeight="3" realBrakeMaxMovingMass="4.5" /> <!-- in t --> 
+		<wheels>
+			<wheel driveMode="0" deltaY="0.18" brakeRatio="0" suspTravel="0.25"/>
+			<wheel driveMode="0" deltaY="0.18" brakeRatio="0" suspTravel="0.25" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="35" suspTravel="0.10" />
+			<wheel driveMode="2" deltaY="0.094" brakeRatio="1" spring="35" suspTravel="0.10" />
+		</wheels>
+		<attacherJoints>
+			<attacherJoint jointType="implement" maxRot="-12.661 0 0" maxRot2="12.661 0 0" minRotDistanceToGround="0.91526794433594" />
+		</attacherJoints>
+		<components>
+			<component1 centerOfMass="0 0.31 -0.1" realMassWanted="1.9" />
 		</components>
 	</vehicle>
 

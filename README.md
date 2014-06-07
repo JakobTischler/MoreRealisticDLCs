@@ -68,7 +68,7 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 
 ###### Ursus Addon:
 - [x] Ursus C-45 *(Grisu118)*
-- [ ] Ursus C-330
+- [x] Ursus C-330 *(Grisu118)*
 - [x] Ursus 5044 *(Grisu118)*
 - [x] Ursus 8014H *(Grisu118)*
 - [x] Ursus 11024 *(Grisu118)*
