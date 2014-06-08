@@ -47,7 +47,7 @@
 			<fr>Converti pour MoreRealistic avec le mod MoreRealisticDLCs.</fr>
 			<hu>Átalakított MoreRealistic a MoreRealisticDLCs mod.</hu>
 			<it>Convertito per MoreRealistic con il mod MoreRealisticDLCs.</it>
-			<jp>Converted for MoreRealistic with the MoreRealisticDLCs mod.</jp> <!-- TODO -->
+			<!--<jp>Converted for MoreRealistic with the MoreRealisticDLCs mod.</jp> <!-- TODO -->
 			<nl>Omgebouwd voor MoreRealistic met de MoreRealisticDLCs mod.</nl>
 			<pl>Przeliczone na MoreRealistic z modem MoreRealisticDLCs.</pl>
 			<ru>Старинная для MoreRealistic с модом MoreRealisticDLCs.</ru>
@@ -171,7 +171,7 @@
 			<ru>Емкость: %s тюков</ru>
 		</text>
 		<text name="STORE_SPECS_MAXSPEED">
-			<en>Max speed: %s %s</en>
+			<en>Max. speed: %s %s</en>
 			<cz>Max. rychlost: %s %s</cz>
 			<de>Max. Geschwindigkeit: %s %s</de>
 			<es>Velocidad máxima: %s %s</es>

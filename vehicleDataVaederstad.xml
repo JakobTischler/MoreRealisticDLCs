@@ -53,7 +53,7 @@
 	<!-- (2) SEEDERS -->
 	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 100-175 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
-		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" author="Xentro,_dj_" />
+		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_" />
 		<general realBrakingDeceleration="2" />
 		<workTool realPowerConsumption="20" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.48" caRealTractionResistance="18" caRealTractionResistanceWithLoadMass="0.4" />
 		<dimensions width="3" height="2.5" /> <!-- in m -->
@@ -75,7 +75,7 @@
 
 	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 180-350 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapidA600S.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
-		<store price="68000" dailyUpkeep="16" capacity="4050" capacityUnit="L" weight="8900" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" author="Xentro,_dj_" />
+		<store price="68000" dailyUpkeep="16" capacity="4050" capacityUnit="L" weight="8900" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" removeSpecsPerLang="de:weight" author="Xentro,_dj_" />
 		<general realBrakingDeceleration="2" />
 		<workTool realPowerConsumption="30" realWorkingSpeedLimit="17" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.42" caRealTractionResistance="34" caRealTractionResistanceWithLoadMass="0.3" />
 		<dimensions width="3" height="3.1" /> <!-- in m -->

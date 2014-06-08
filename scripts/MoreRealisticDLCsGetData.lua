@@ -420,6 +420,23 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			fruits				= getXMLString(xmlFile, key .. '.store#fruits');
 			author				= getXMLString(xmlFile, key .. '.store#author');
 		};
+		-- remove store spec per lang
+		local removeSpecsPerLang = getXMLString(xmlFile, key .. '.store#removeSpecsPerLang');
+		if removeSpecsPerLang then
+			removeSpecsPerLang = Utils.splitString(',', removeSpecsPerLang);
+			for i,langData in ipairs(removeSpecsPerLang) do
+				local split = Utils.splitString(':', langData);
+				local lang = split[1];
+				if lang == g_languageShort then
+					local specs = Utils.splitString(' ', split[2]);
+					for i,specName in ipairs(specs) do
+						store[specName] = nil;
+					end;
+					break;
+				end;
+			end;
+		end;
+
 		self:setStoreData(configFileName, dlcName, store, doDebug);
 
 		--------------------------------------------------

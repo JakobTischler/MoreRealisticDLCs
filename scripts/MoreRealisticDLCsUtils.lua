@@ -80,6 +80,10 @@ if g_languageShort and numberSeparators[g_languageShort] then
 	numberSeparator		   = numberSeparators[g_languageShort][1];
 	numberDecimalSeparator = numberSeparators[g_languageShort][2];
 end;
+if g_languageShort == 'jp' then
+	g_i18n:setText('speedometer', 'kph');
+	g_i18n.globalI18N.texts['speedometer'] = 'kph';
+end;
 function MoreRealisticDLCs:formatNumber(number, precision)
 	precision = precision or 0;
 

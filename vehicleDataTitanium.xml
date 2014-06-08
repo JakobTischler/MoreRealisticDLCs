@@ -315,7 +315,7 @@
 
 	<!-- (2.9) KRONE EASYFLOW 300 --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/krone/kroneEasyFlow300.xml" mrVehicleType="mr_kroneEasyFlow_t" debug="false">
-		<store price="14000" dailyUpkeep="13" weight="1250" workWidth="3" author="dural" />
+		<store price="14000" dailyUpkeep="13" weight="1250" workWidth="3" fruits="grass_windrow,wheat_windrow" author="dural" />
 		<workTool realCutterPowerConsumption="30" realCutterPowerConsumptionInc="1.8" realCutterSpeedLimit="18" />
 		<dimensions width="1.5" height="1" /> <!-- in m, only for the SCx-->
 		<weights weight="1.25" maxWeight="1.25" /> <!-- in t -->

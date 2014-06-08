@@ -17,6 +17,7 @@ TODO:
 
 MoreRealisticDLCs = {};
 local modDir, modName = g_currentModDirectory, g_currentModName;
+local ceil = math.ceil;
 
 source(Utils.getFilename('scripts/GetFilenameFix.lua', modDir));
 source(Utils.getFilename('scripts/MoreRealisticDLCsGetData.lua', modDir));
@@ -193,13 +194,27 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 	end;
 	if storeData.author and not storeItem.descriptionMRized then
 		-- storeItem.description = storeItem.description .. '\n\n' .. tostring(g_i18n:getText('DLC_MRIZED')); -- not needed anymore, banner used instead
+
+		-- check if conversion author line can be separated by empty line (depending on length of existing description)
+		local fontSize = g_shopScreen.descText.textSize;
+		local textWrapWidth = g_shopScreen.descText.textWrapWidth;
+		local descLines = Utils.splitString('\r', storeItem.description);
+		local numRealLines = 0;
+		for line, text in ipairs(descLines) do
+			local textWidth = getTextWidth(fontSize, text);
+			numRealLines = numRealLines + ceil(textWidth/textWrapWidth);
+		end;
+		local authorLineSeparator = numRealLines < 8 and '\n' or '';
+
 		local author = storeData.author;
 		local authorSplit = Utils.splitString(',', author);
 		if #authorSplit > 1 then
 			author = g_i18n:getText('STORE_DESC_AND'):format(table.concat(authorSplit, ', ', 1, #authorSplit - 1), authorSplit[#authorSplit]);
 		end;
-		author = g_i18n:getText('STORE_DESC_AUTHOR'):format(author);
-		storeItem.description = storeItem.description .. '\n\n' .. author;
+		if not Utils.endsWith(storeItem.description, '\n') then
+			storeItem.description = storeItem.description .. '\n';
+		end;
+		storeItem.description = storeItem.description .. authorLineSeparator .. g_i18n:getText('STORE_DESC_AUTHOR'):format(author);
 		storeItem.descriptionMRized = true;
 	end;
 	if not storeItem.specsMRized then
