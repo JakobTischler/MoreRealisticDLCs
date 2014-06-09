@@ -93,7 +93,7 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro --> <!-- DONE --> <!-- hp requirement 90-125 -->
+	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="false">
 		<store price="59000" dailyUpkeep="13" capacity="400" capacityUnit="L" weight="3500" workWidth="6" requiredPowerKwMin="66" requiredPowerKwMax="92" fruits="maize,sugarBeet" author="Xentro,_dj_" />
 		<general realBrakingDeceleration="2" />

@@ -1,4 +1,4 @@
-﻿local modDir, modName = g_currentModDirectory, g_currentModName;
+local modDir, modName = g_currentModDirectory, g_currentModName;
 
 --------------------------------------------------
 
@@ -134,18 +134,18 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
 			wheels[#wheels + 1] = {
-				repr	   		   = getXMLString(xmlFile, wheelKey .. '#repr'), 
-				driveNode  		   = getXMLString(xmlFile, wheelKey .. '#driveNode'), 
-				driveMode  		   =    getXMLInt(xmlFile, wheelKey .. '#driveMode'), 
-				rotMax     		   =  getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
-				rotMin     		   =  getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
-				rotSpeed   		   =  getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
-				radius     		   =  getXMLFloat(xmlFile, wheelKey .. '#radius'),
-				deltaY     		   =  getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
-				suspTravel 		   =  getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
-				spring     		   =  getXMLFloat(xmlFile, wheelKey .. '#spring'),
-				damper     		   =    getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
-				brakeRatio 		   =  getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
+				repr			   = getXMLString(xmlFile, wheelKey .. '#repr'),
+				driveNode		   = getXMLString(xmlFile, wheelKey .. '#driveNode'),
+				driveMode		   =    getXMLInt(xmlFile, wheelKey .. '#driveMode'),
+				rotMax			   =  getXMLFloat(xmlFile, wheelKey .. '#rotMax'),
+				rotMin			   =  getXMLFloat(xmlFile, wheelKey .. '#rotMin'),
+				rotSpeed		   =  getXMLFloat(xmlFile, wheelKey .. '#rotSpeed'),
+				radius			   =  getXMLFloat(xmlFile, wheelKey .. '#radius'),
+				deltaY			   =  getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
+				suspTravel		   =  getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
+				spring			   =  getXMLFloat(xmlFile, wheelKey .. '#spring'),
+				damper			   =    getXMLInt(xmlFile, wheelKey .. '#damper') or 20,
+				brakeRatio		   =  getXMLFloat(xmlFile, wheelKey .. '#brakeRatio') or 1,
 				lateralStiffness   =  getXMLFloat(xmlFile, wheelKey .. '#lateralStiffness'),
 				antiRollFx		   =  getXMLFloat(xmlFile, wheelKey .. '#antiRollFx'),
 				realMaxMassAllowed =  getXMLFloat(xmlFile, wheelKey .. '#realMaxMassAllowed'),
@@ -163,7 +163,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
 
 			additionalWheels[#additionalWheels + 1] = {
-				repr	   						 = getXMLString(xmlFile, wheelKey .. '#repr'), 
+				repr	   						 = getXMLString(xmlFile, wheelKey .. '#repr'),
 				radius	   						 =  getXMLFloat(xmlFile, wheelKey .. '#radius'),
 				deltaY	   						 =  getXMLFloat(xmlFile, wheelKey .. '#deltaY'),
 				suspTravel 						 =  getXMLFloat(xmlFile, wheelKey .. '#suspTravel'),
@@ -388,11 +388,11 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			combine.realChopperPowerConsumptionInc			  =  getXMLFloat(xmlFile, key .. '.combine#realChopperPowerConsumptionInc');
 			combine.realThreshingScale						  =  getXMLFloat(xmlFile, key .. '.combine#realThreshingScale');
 			combine.grainTankUnloadingCapacity				  =  getXMLFloat(xmlFile, key .. '.combine#grainTankUnloadingCapacity');
-			combine.realCombineLosses = {               
+			combine.realCombineLosses = {
 				allowed								 		  =   getXMLBool(xmlFile, key .. '.combine#realCombineLossesAllowed');
 				maxSqmBeingThreshedBeforeLosses		 		  =  getXMLFloat(xmlFile, key .. '.combine#realCombineLossesMaxSqmBeingThreshedBeforeLosses');
 				displayLosses						 		  =   getXMLBool(xmlFile, key .. '.combine#realCombineLossesDisplayLosses');
-			};                                          
+			};
 			combine.realCombineCycleDuration		 		  =  getXMLFloat(xmlFile, key .. '.combine#realCombineCycleDuration');
 			combine.pipeRotationSpeeds				 		  = getXMLString(xmlFile, key .. '.combine#pipeRotationSpeeds');
 			combine.pipeState1Rotation				 		  = getXMLString(xmlFile, key .. '.combine#pipeState1Rotation');
@@ -424,12 +424,12 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local removeSpecsPerLang = getXMLString(xmlFile, key .. '.store#removeSpecsPerLang');
 		if removeSpecsPerLang then
 			removeSpecsPerLang = Utils.splitString(',', removeSpecsPerLang);
-			for i,langData in ipairs(removeSpecsPerLang) do
+			for _,langData in ipairs(removeSpecsPerLang) do
 				local split = Utils.splitString(':', langData);
 				local lang = split[1];
 				if lang == g_languageShort then
 					local specs = Utils.splitString(' ', split[2]);
-					for i,specName in ipairs(specs) do
+					for _,specName in ipairs(specs) do
 						store[specName] = nil;
 					end;
 					break;

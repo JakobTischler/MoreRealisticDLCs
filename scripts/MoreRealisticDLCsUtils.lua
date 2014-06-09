@@ -1,4 +1,5 @@
 ﻿local modDir, modName = g_currentModDirectory, g_currentModName;
+local ceil = math.ceil;
 
 --------------------------------------------------
 
@@ -20,8 +21,8 @@ function MoreRealisticDLCs:getModVersion(modName)
 	return '0', 0;
 end;
 
-local minVersionMr	  = '1.3.42';
-local minVersionMrVeh = '1.3.7';
+local minVersionMr	  = '1.3.44';
+local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not RealisticUtils then
@@ -76,13 +77,15 @@ local numberSeparators = {
 	-- ru = { '.', ',' }
 };
 local numberSeparator, numberDecimalSeparator = '.', ',';
-if g_languageShort and numberSeparators[g_languageShort] then
-	numberSeparator		   = numberSeparators[g_languageShort][1];
-	numberDecimalSeparator = numberSeparators[g_languageShort][2];
-end;
-if g_languageShort == 'jp' then
-	g_i18n:setText('speedometer', 'kph');
-	g_i18n.globalI18N.texts['speedometer'] = 'kph';
+if g_languageShort then
+	if numberSeparators[g_languageShort] then
+		numberSeparator		   = numberSeparators[g_languageShort][1];
+		numberDecimalSeparator = numberSeparators[g_languageShort][2];
+	end;
+	if g_languageShort == 'jp' then
+		g_i18n:setText('speedometer', 'kph');
+		g_i18n.globalI18N.texts['speedometer'] = 'kph';
+	end;
 end;
 function MoreRealisticDLCs:formatNumber(number, precision)
 	precision = precision or 0;
@@ -96,6 +99,31 @@ function MoreRealisticDLCs:formatNumber(number, precision)
 		end;
 	end;
 	return str;
+end;
+
+-- NUMBER OF TEXT LINES
+function MoreRealisticDLCs:getEffectiveNumberOfTextLines(text, fontSize, wrapWidth)
+	local linesSplit = Utils.splitString('\r', text);
+	if #linesSplit > 1 then
+		local numLines = 0;
+		for _, lineText in ipairs(linesSplit) do
+			local textWidth = getTextWidth(fontSize, lineText);
+			numLines = numLines + ceil(textWidth/wrapWidth);
+		end;
+		return numLines;
+	end;
+
+	return #linesSplit;
+end;
+
+-- HP to KW
+function MoreRealisticDLCs:hpToKw(hp)
+	return hp * 0.735498749;
+end;
+
+-- KW to HP
+function MoreRealisticDLCs:kwToHp(kw)
+	return kw  * 1.35962162;
 end;
 
 -- ##################################################

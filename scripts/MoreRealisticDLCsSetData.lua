@@ -59,17 +59,18 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed',		'int', 3);
 		removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
 
-		-- fuel usage, downforce
-		setValue(xmlFile, 'vehicle.fuelUsage', 'int', 0);
-		setValue(xmlFile, 'vehicle.downForce', 'int', 0);
+		-- fuel usage, downForce, brakeForce
+		setValue(xmlFile, 'vehicle.fuelUsage',  'int', 0);
+		setValue(xmlFile, 'vehicle.downForce',  'int', 0);
+		setValue(xmlFile, 'vehicle.brakeForce', 'int', 0);
 
 		-- general
-		setValue(xmlFile, 'vehicle.realDisplaySlip',					  'bool', mrData.general.realDisplaySlip);
-		setValue(xmlFile, 'vehicle.fuelCapacity',						  'int',  mrData.general.fuelCapacity);
-		setValue(xmlFile, 'vehicle.waitForTurnTime',					  'flt',  mrData.general.waitForTurnTime);
+		setValue(xmlFile, 'vehicle.realDisplaySlip', 'bool', mrData.general.realDisplaySlip);
+		setValue(xmlFile, 'vehicle.fuelCapacity',	 'int',  mrData.general.fuelCapacity);
+		setValue(xmlFile, 'vehicle.waitForTurnTime', 'flt',  mrData.general.waitForTurnTime);
 
 		-- wheels
-		setValue(xmlFile, 'vehicle.realVehicleFlotationFx',				  'flt',  mrData.wheelStuff.realVehicleFlotationFx);
+		setValue(xmlFile, 'vehicle.realVehicleFlotationFx', 'flt', mrData.wheelStuff.realVehicleFlotationFx);
 
 		-- crawlers
 		if #mrData.wheelStuff.crawlersRealWheel > 0 then
@@ -362,13 +363,13 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 	-- workTool
 	if mrData.category == 'tool' then
-		setValue(xmlFile, 'vehicle.realAiWorkingSpeed', 'int',  mrData.workTool.realAiWorkingSpeed);
+		setValue(xmlFile, 'vehicle.realAiWorkingSpeed', 'int', mrData.workTool.realAiWorkingSpeed);
 
 		-- cutter
 		if mrData.subCategory == 'cutter' then
-			setValue(xmlFile, 'vehicle.realCutterPowerConsumption', 'flt', mrData.workTool.realCutterPowerConsumption);
+			setValue(xmlFile, 'vehicle.realCutterPowerConsumption',	   'flt', mrData.workTool.realCutterPowerConsumption);
 			setValue(xmlFile, 'vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
-			setValue(xmlFile, 'vehicle.realCutterSpeedLimit', 'int', mrData.workTool.realCutterSpeedLimit);
+			setValue(xmlFile, 'vehicle.realCutterSpeedLimit',		   'int', mrData.workTool.realCutterSpeedLimit);
 
 		-- others
 		else
@@ -464,7 +465,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			elseif mrData.subCategory == 'sprayer' then
 				setValue(xmlFile, 'vehicle.realFillingPowerConsumption',			'flt', mrData.workTool.realFillingPowerConsumption);
 				setValue(xmlFile, 'vehicle.realSprayingReferenceSpeed',				'int', mrData.workTool.realSprayingReferenceSpeed);
-				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond', 'flt', mrData.workTool.sprayUsageLitersPerSecond);
+				setValue(xmlFile, 'vehicle.sprayUsages.sprayUsage#litersPerSecond',	'flt', mrData.workTool.sprayUsageLitersPerSecond);
 				setValue(xmlFile, 'vehicle.sprayUsageLitersPerSecondFolded',		'flt', mrData.workTool.sprayUsageLitersPerSecondFolded);
 				setValue(xmlFile, 'vehicle.fillLitersPerSecond',					'int', mrData.workTool.fillLitersPerSecond);
 

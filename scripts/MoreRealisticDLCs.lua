@@ -17,7 +17,6 @@ TODO:
 
 MoreRealisticDLCs = {};
 local modDir, modName = g_currentModDirectory, g_currentModName;
-local ceil = math.ceil;
 
 source(Utils.getFilename('scripts/GetFilenameFix.lua', modDir));
 source(Utils.getFilename('scripts/MoreRealisticDLCsGetData.lua', modDir));
@@ -168,7 +167,6 @@ end;
 
 -- ##################################################
 
-
 -- SET VEHICLE STORE DATA
 function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, storeData, doDebug)
 	if doDebug then print(('%s: setStoreData(%q, %q, ...)'):format(modName, configFileNameShort, dlcNameClean)); end;
@@ -196,20 +194,17 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 		-- storeItem.description = storeItem.description .. '\n\n' .. tostring(g_i18n:getText('DLC_MRIZED')); -- not needed anymore, banner used instead
 
 		-- check if conversion author line can be separated by empty line (depending on length of existing description)
-		local fontSize = g_shopScreen.descText.textSize;
-		local textWrapWidth = g_shopScreen.descText.textWrapWidth;
-		local descLines = Utils.splitString('\r', storeItem.description);
-		local numRealLines = 0;
-		for line, text in ipairs(descLines) do
-			local textWidth = getTextWidth(fontSize, text);
-			numRealLines = numRealLines + ceil(textWidth/textWrapWidth);
-		end;
-		local authorLineSeparator = numRealLines < 8 and '\n' or '';
+		local numDescLines = self:getEffectiveNumberOfTextLines(storeItem.description, g_shopScreen.descText.textSize, g_shopScreen.descText.textWrapWidth);
+		local authorLineSeparator = numDescLines < 8 and '\n' or '';
 
 		local author = storeData.author;
 		local authorSplit = Utils.splitString(',', author);
 		if #authorSplit > 1 then
-			author = g_i18n:getText('STORE_DESC_AND'):format(table.concat(authorSplit, ', ', 1, #authorSplit - 1), authorSplit[#authorSplit]);
+			if #authorSplit == 2 then
+				author = g_i18n:getText('STORE_DESC_AND'):format(authorSplit[1], authorSplit[2]);
+			else
+				author = g_i18n:getText('STORE_DESC_AND'):format(table.concat(authorSplit, ', ', 1, #authorSplit - 1), authorSplit[#authorSplit]);
+			end;
 		end;
 		if not Utils.endsWith(storeItem.description, '\n') then
 			storeItem.description = storeItem.description .. '\n';
@@ -220,15 +215,15 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 	if not storeItem.specsMRized then
 		local specs = '';
 		if storeData.powerKW then
-			specs = specs .. g_i18n:getText('STORE_SPECS_MAXPOWER') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.powerKW, storeData.powerKW * 1.35962162) .. '\n';
+			specs = specs .. g_i18n:getText('STORE_SPECS_MAXPOWER') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER'):format(storeData.powerKW, self:kwToHp(storeData.powerKW)) .. '\n';
 		end;
 		if storeData.maxSpeed then
 			specs = specs .. g_i18n:getText('STORE_SPECS_MAXSPEED'):format(self:formatNumber(g_i18n:getSpeed(storeData.maxSpeed), 1), g_i18n:getText('speedometer')) .. '\n';
 		end;
 		if storeData.requiredPowerKwMin then
-			specs = specs .. g_i18n:getText('STORE_SPECS_POWERREQUIRED') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(storeData.requiredPowerKwMin * 1.35962162);
+			specs = specs .. g_i18n:getText('STORE_SPECS_POWERREQUIRED') .. ' ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(self:kwToHp(storeData.requiredPowerKwMin));
 			if storeData.requiredPowerKwMax then
-				specs = specs .. ' - ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(storeData.requiredPowerKwMax * 1.35962162);
+				specs = specs .. ' - ' .. g_i18n:getText('STORE_SPECS_POWER_HP'):format(self:kwToHp(storeData.requiredPowerKwMax));
 			end;
 			specs = specs .. '\n';
 		end;

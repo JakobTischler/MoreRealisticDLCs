@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
+<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <modDesc descVersion="17">
 	<author>Jakob Tischler, modelleicher, Satis</author>
 	<contributors>_dj_, dural, Grisu118, Xentro</contributors>
@@ -11,6 +11,7 @@
 	<description>
 		<en>The MoreRealisticDLCs mod converts all DLC vehicles for MoreRealistic.</en>
 		<cz>MoreRealisticDLCs mod převede všechny DLC vozidla pro MoreRealistic.</cz>
+		<cz>Převedeno na MoreRealistic pomocí MoreRealisticDLCs modu.</cz>
 		<de>Der MoreRealisticDLCs Mod konvertiert alle DLC-Fahrzeuge für MoreRealistic.</de>
 		<es>El mod MoreRealisticDLCs convierte todos los vehículos de DLC para MoreRealistic.</es>
 		<fr>Le mod MoreRealisticDLCs convertit tous les véhicules de DLC pour MoreRealistic.</fr>
@@ -107,7 +108,7 @@
 		</text>
 		<text name="STORE_SPECS_POWERREQUIRED">
 			<en>Power required:</en>
-			<cz>Příkon:</cz>
+			<cz>Požadovaný výkon:</cz>
 			<de>Benötigte Leistung:</de>
 			<es>Potencia requerida:</es>
 			<fr>Puissance requise:</fr>
@@ -185,7 +186,7 @@
 		</text>
 		<text name="STORE_SPECS_WORKINGSPEED">
 			<en>Working speed: %s %s</en>
-			<cz>Rychlost práce: %s %s</cz>
+			<cz>Pracovní rychlost: %s %s</cz>
 			<de>Arbeitsgeschwindigkeit: %s %s</de>
 			<es>Velocidad de trabajo: %s %s</es>
 			<fr>Vitesse de travail conseillée: %s %s</fr>
@@ -237,7 +238,7 @@
 		</text>
 		<text name="STORE_SPECS_FRUITS">
 			<en>Fruit types: %s</en>
-			<cz>Druhy ovoce: %s</cz>
+			<cz>Druhy plodin: %s</cz>
 			<de>Fruchtarten: %s</de>
 			<es>Tipos de frutas: %s</es>
 			<fr>Types de fruits: %s</fr>
@@ -250,8 +251,8 @@
 		</text>
 		<text name="STORE_DESC_AUTHOR">
 			<en>MoreRealistic conversion by %s.</en>
-			<cz>MoreRealistic konverze %s.</cz>
-			<de>MoreRealistic Konvertierung durch %s.</de>
+			<cz>Do MoreRealistic převedl %s.</cz>
+			<de>MoreRealistic-Konvertierung durch %s.</de>
 			<es>Conversión MoreRealistic por %s.</es>
 			<fr>Conversion MoreRealistic par %s.</fr>
 			<hu>MoreRealistic átalakítás %s.</hu>
