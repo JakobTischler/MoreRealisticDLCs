@@ -28,7 +28,7 @@
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTopDown500.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
 		<store price="68000" dailyUpkeep="11" workSpeedMax="20" weight="7000" workWidth="5" requiredPowerKwMin="199" requiredPowerKwMax="243" author="Xentro,_dj_" />
 		<general realBrakingDeceleration="4" />
-		<workTool realWorkingSpeedLimit="20" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.32" caRealTractionResistance="48" realAiWorkingSpeed="14" />
+		<workTool realWorkingSpeedLimit="20" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.32" caRealTractionResistance="48" realAiWorkingSpeed="14" groundReferenceNodeIndex="0>" groundReferenceNodeThreshold="-0.05" />
 		<dimensions width="3" height="3" /> <!-- in m -->
 		<weights weight="7" maxWeight="7" realBrakeMaxMovingMass="7" /> <!-- in t -->
 		<wheels>

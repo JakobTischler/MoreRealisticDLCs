@@ -11,7 +11,6 @@
 	<description>
 		<en>The MoreRealisticDLCs mod converts all DLC vehicles for MoreRealistic.</en>
 		<cz>MoreRealisticDLCs mod převede všechny DLC vozidla pro MoreRealistic.</cz>
-		<cz>Převedeno na MoreRealistic pomocí MoreRealisticDLCs modu.</cz>
 		<de>Der MoreRealisticDLCs Mod konvertiert alle DLC-Fahrzeuge für MoreRealistic.</de>
 		<es>El mod MoreRealisticDLCs convierte todos los vehículos de DLC para MoreRealistic.</es>
 		<fr>Le mod MoreRealisticDLCs convertit tous les véhicules de DLC pour MoreRealistic.</fr>
@@ -42,7 +41,7 @@
 	<l10n>
 		<text name="DLC_MRIZED">
 			<en>Converted for MoreRealistic with the MoreRealisticDLCs mod.</en>
-			<cz>V přepočtu na MoreRealistic s MoreRealisticDLCs mod.</cz>
+			<cz>Převedeno na MoreRealistic pomocí MoreRealisticDLCs modu.</cz>
 			<de>Für MoreRealistic konvertiert mit dem MoreRealisticDLCs Mod.</de>
 			<es>Modificada para MoreRealistic con el mod MoreRealisticDLCs.</es>
 			<fr>Converti pour MoreRealistic avec le mod MoreRealisticDLCs.</fr>

@@ -364,6 +364,10 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	-- workTool
 	if mrData.category == 'tool' then
 		setValue(xmlFile, 'vehicle.realAiWorkingSpeed', 'int', mrData.workTool.realAiWorkingSpeed);
+		if mrData.workTool.groundReferenceNodeIndex and mrData.workTool.groundReferenceNodeThreshold then
+			setValue(xmlFile, 'vehicle.groundReferenceNode#index',	   'str', mrData.workTool.groundReferenceNodeIndex);
+			setValue(xmlFile, 'vehicle.groundReferenceNode#threshold', 'flt', mrData.workTool.groundReferenceNodeThreshold);
+		end;
 
 		-- cutter
 		if mrData.subCategory == 'cutter' then

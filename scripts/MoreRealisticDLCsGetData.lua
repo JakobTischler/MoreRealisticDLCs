@@ -262,17 +262,19 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 
 		-- workTool
 		local workTool = {
-			capacity								=   getXMLInt(xmlFile, key .. '.workTool#capacity');
-			realPowerConsumption					= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
-			realPowerConsumptionWhenWorking			= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
-			realPowerConsumptionWhenWorkingInc		= getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
-			realWorkingSpeedLimit					= getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
-			realResistanceOnlyWhenActive			=  getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive');
-			resistanceDecreaseFx					= getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
-			powerConsumptionWhenWorkingDecreaseFx	= getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
-			caRealTractionResistance				= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
-			caRealTractionResistanceWithLoadMass	= getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
-			realAiWorkingSpeed						=   getXMLInt(xmlFile, key .. '.workTool#realAiWorkingSpeed');
+			capacity								=    getXMLInt(xmlFile, key .. '.workTool#capacity');
+			realPowerConsumption					=  getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumption');
+			realPowerConsumptionWhenWorking			=  getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorking');
+			realPowerConsumptionWhenWorkingInc		=  getXMLFloat(xmlFile, key .. '.workTool#realPowerConsumptionWhenWorkingInc');
+			realWorkingSpeedLimit					=  getXMLFloat(xmlFile, key .. '.workTool#realWorkingSpeedLimit');
+			realResistanceOnlyWhenActive			=   getXMLBool(xmlFile, key .. '.workTool#realResistanceOnlyWhenActive');
+			resistanceDecreaseFx					=  getXMLFloat(xmlFile, key .. '.workTool#resistanceDecreaseFx');
+			powerConsumptionWhenWorkingDecreaseFx	=  getXMLFloat(xmlFile, key .. '.workTool#powerConsumptionWhenWorkingDecreaseFx');
+			caRealTractionResistance				=  getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistance');
+			caRealTractionResistanceWithLoadMass	=  getXMLFloat(xmlFile, key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
+			realAiWorkingSpeed						=    getXMLInt(xmlFile, key .. '.workTool#realAiWorkingSpeed');
+			groundReferenceNodeIndex				= getXMLString(xmlFile, key .. '.workTool#groundReferenceNodeIndex');
+			groundReferenceNodeThreshold			=  getXMLFloat(xmlFile, key .. '.workTool#groundReferenceNodeThreshold');
 		};
 
 		-- capacity multipliers
