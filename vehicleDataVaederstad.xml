@@ -55,7 +55,7 @@
 
 	<!-- (2) SEEDERS -->
 	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 100-175 -->
-	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="true">
+	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
 		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool realPowerConsumption="12" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.4" caRealTractionResistance="16" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="14" />
