@@ -3,24 +3,32 @@
 	<!-- (1) CULTIVATORS -->
 	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 250 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
-		<store price="54000" dailyUpkeep="9" workSpeedMax="20" weight="7400" workWidth="8.2" requiredPowerKwMin="184" author="Xentro,_dj_" />
-		<general realMaxVehicleSpeed="25" realBrakingDeceleration="4" />
-		<workTool realWorkingSpeedLimit="20" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.45" caRealTractionResistance="50" realAiWorkingSpeed="14" />
-		<dimensions width="2.5" height="3" /> <!-- in m -->
-		<weights weight="7.4" maxWeight="7.4" realBrakeMaxMovingMass="8" /> <!-- in t -->
+		<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
+		<store price="61000" dailyUpkeep="24" workSpeedMax="14" weight="7400" workWidth="8" requiredPowerKwMin="184" author="Xentro,_dj_" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
+		<workTool realWorkingSpeedLimit="24" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.2" caRealTractionResistance="33" realAiWorkingSpeed="14" />
+		<dimensions width="2.5" height="1" /> <!-- in m -->
+		<weights weight="7.4" maxWeight="7.7" realBrakeMaxMovingMass="8" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0.07" brakeRatio="0" damper="20" spring="1110" suspTravel="0.01" realMaxMassAllowed="7.4" />
-			<wheel driveMode="0" deltaY="0.07" brakeRatio="0" damper="20" spring="1110" suspTravel="0.01" realMaxMassAllowed="7.4" />
-			<wheel driveMode="0" deltaY="0.01" brakeRatio="1" damper="20" spring="555" suspTravel="0.01" realMaxMassAllowed="3.7" />
-			<wheel driveMode="0" deltaY="0.01" brakeRatio="1" damper="20" spring="555" suspTravel="0.01" realMaxMassAllowed="3.7" />
-			<wheel driveMode="0" deltaY="0.01" brakeRatio="1" damper="20" spring="555" suspTravel="0.01" realMaxMassAllowed="3.7" />
-			<wheel driveMode="0" deltaY="0.01" brakeRatio="1" damper="20" spring="555" suspTravel="0.01" realMaxMassAllowed="3.7" />
+			<wheel driveMode="0" deltaY="0.05" radius="0.28" brakeRatio="0" damper="20" spring="1000" suspTravel="0.1" />
+			<wheel driveMode="0" deltaY="0.05" radius="0.28" brakeRatio="0" damper="20" spring="1000" suspTravel="0.1" />
+			
+			<wheel driveMode="0" deltaY="0.05" radius="0.45" brakeRatio="1" damper="20" spring="120" suspTravel="0.05" antiRollFx="0" /> <!-- left front wheel -->
+			<wheel driveMode="0" deltaY="0.05" radius="0.45" brakeRatio="1" damper="20" spring="200" suspTravel="0.05" antiRollFx="0" /> <!-- left rear wheel -->
+			<wheel driveMode="0" deltaY="0.05" radius="0.45" brakeRatio="1" damper="20" spring="120" suspTravel="0.05" antiRollFx="0" /> <!-- right front wheel -->
+			<wheel driveMode="0" deltaY="0.05" radius="0.45" brakeRatio="1" damper="20" spring="200" suspTravel="0.05" antiRollFx="0" /> <!-- right rear wheel -->
 		</wheels>
+		
+		<additionalWheels>
+			<wheel repr="0>0" radius="0.28" deltaY="0.1" suspTravel="0.3" spring="2" damper="5" brakeRatio="0" antiRollFx="0" lateralStiffness="2" continousBrakeForceWhenNotActive="100" />	
+			<wheel repr="0>1" radius="0.28" deltaY="0.1" suspTravel="0.3" spring="2" damper="5" brakeRatio="0" antiRollFx="0" lateralStiffness="2" continousBrakeForceWhenNotActive="100" />
+		</additionalWheels>
+		
 		<components>
-			<component1 centerOfMass="0 0.85 0" realMassWanted="4.3" />
-			<component2 realMassWanted="1.5" />
-			<component3 realMassWanted="1.5" />
-			<component4 realMassWanted="0.1" />
+			<component1 centerOfMass="0 0.25 -3" realMassWanted="3.4" /> <!-- body -->
+			<component2 centerOfMass="-0.2 -0.36 0" realMassWanted="2" /> <!-- left -->
+			<component3 centerOfMass="-0.2 -0.36 0" realMassWanted="2" /> <!-- right -->
+			<component4 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 
