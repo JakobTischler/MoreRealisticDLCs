@@ -299,6 +299,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		local ajMrData = mrData.attacherJoints[1];
 		removeProperty(xmlFile, 'vehicle.attacherJoint#upperDistanceToGround');
 		setValue(xmlFile, 'vehicle.attacherJoint#lowerDistanceToGround',	   'flt', ajMrData.lowerDistanceToGround);
+		setValue(xmlFile, 'vehicle.attacherJoint#upperDistanceToGround',	   'flt', ajMrData.upperDistanceToGround);
 		setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
 		setValue(xmlFile, 'vehicle.attacherJoint#realWantedLoweredRotLimit',   'str', ajMrData.realWantedLoweredRotLimit);
 		setValue(xmlFile, 'vehicle.attacherJoint#realWantedRaisedRotLimit',	   'str', ajMrData.realWantedRaisedRotLimit);
