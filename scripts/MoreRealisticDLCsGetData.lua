@@ -199,6 +199,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 
 				-- cutter attacher joint
 				ajData.lowerDistanceToGround 	   =  getXMLFloat(xmlFile, ajKey .. '#lowerDistanceToGround');
+				ajData.upperDistanceToGround 	   =  getXMLFloat(xmlFile, ajKey .. '#upperDistanceToGround');
 				ajData.realWantedLoweredTransLimit = getXMLString(xmlFile, ajKey .. '#realWantedLoweredTransLimit');
 				ajData.realWantedLoweredRotLimit   = getXMLString(xmlFile, ajKey .. '#realWantedLoweredRotLimit');
 				ajData.realWantedRaisedRotLimit	   = getXMLString(xmlFile, ajKey .. '#realWantedRaisedRotLimit');
