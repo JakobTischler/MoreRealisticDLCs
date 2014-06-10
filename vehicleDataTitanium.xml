@@ -170,7 +170,7 @@
 
 	<!-- (2.2) HORSCH TERRANO 6 FM --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/titaniumAddon/horsch/horschTerrano6FM.xml" mrVehicleType="moreRealistic.cultivator_animated" debug="false">
-		<store price="46000" dailyUpkeep="10" maxSpeed="20" weight="6850" workWidth="5.9" requiredPowerKwMin="176.6" requiredPowerKwMax="265" author="dural" />
+		<store price="46000" dailyUpkeep="10" workSpeedMax="12" weight="6850" workWidth="5.9" requiredPowerKwMin="176.6" requiredPowerKwMax="265" author="dural" />
 		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" />
 		<workTool realWorkingSpeedLimit="22" resistanceDecreaseFx="0.3" caRealTractionResistance="46" realAiWorkingSpeed="14" />
 		<dimensions width="3" height="1" /> <!-- in m -->
