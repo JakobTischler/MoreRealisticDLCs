@@ -59,7 +59,7 @@
 		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool realPowerConsumption="0" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.4" caRealTractionResistance="20" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="14" />
-		<dimensions width="3" height="2.5" /> <!-- in m -->
+		<dimensions width="3" height="1" /> <!-- in m -->
 		<weights weight="4.7" maxWeight="7.8" realBrakeMaxMovingMass="8" /> <!-- in t --> <!-- capacity 3100l -->
 		<wheels>
 			<wheel driveMode="0" radius="0.36" deltaY="-0.025" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
