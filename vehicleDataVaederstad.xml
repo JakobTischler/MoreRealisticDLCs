@@ -3,7 +3,6 @@
 	<!-- (1) CULTIVATORS -->
 	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 250 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
-		<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
 		<store price="61000" dailyUpkeep="24" workSpeedMax="14" weight="7400" workWidth="8" requiredPowerKwMin="184" author="Xentro,_dj_" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool realWorkingSpeedLimit="24" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.2" caRealTractionResistance="33" realAiWorkingSpeed="14" />
