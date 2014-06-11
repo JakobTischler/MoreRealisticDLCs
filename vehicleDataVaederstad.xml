@@ -58,7 +58,7 @@
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
 		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
-		<workTool realPowerConsumption="0" realWorkingSpeedLimit="20" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.4" caRealTractionResistance="20" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="14" />
+		<workTool realPowerConsumption="0" realWorkingSpeedLimit="22" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.4" caRealTractionResistance="20" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="14" />
 		<dimensions width="3" height="1" /> <!-- in m -->
 		<weights weight="4.7" maxWeight="7.8" realBrakeMaxMovingMass="8" /> <!-- in t --> <!-- capacity 3100l -->
 		<wheels>
@@ -78,25 +78,25 @@
 
 	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 180-350 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapidA600S.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
-		<store price="68000" dailyUpkeep="16" capacity="4050" capacityUnit="L" weight="8900" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" removeSpecsPerLang="de:weight" author="Xentro,_dj_" />
-		<general realBrakingDeceleration="2" />
-		<workTool realPowerConsumption="30" realWorkingSpeedLimit="17" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.42" caRealTractionResistance="34" caRealTractionResistanceWithLoadMass="0.3" />
-		<dimensions width="3" height="3.1" /> <!-- in m -->
-		<weights weight="8.9" maxWeight="12.2" realBrakeMaxMovingMass="13" /> <!-- in t --> <!-- capacity 4050l -->
+		<store price="76000" dailyUpkeep="18" capacity="3300" capacityUnit="L" weight="7800" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" removeSpecsPerLang="de:weight" author="Xentro,_dj_" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
+		<workTool capacity="3300" realPowerConsumption="25" realWorkingSpeedLimit="25" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.35" caRealTractionResistance="30" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="15" />
+		<dimensions width="3" height="1.5" /> <!-- in m -->
+		<weights weight="7.8" maxWeight="11" realBrakeMaxMovingMass="13" /> <!-- in t --> <!-- capacity 3300l -->
 		<wheels>
-			<wheel driveMode="0" radius="0.38" deltaY="-0.025" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
-			<wheel driveMode="0" radius="0.38" deltaY="-0.025" brakeRatio="1" damper="20" spring="1150" suspTravel="0.01" realMaxMassAllowed="7.8" />
-			<wheel driveMode="0" deltaY="-0.03" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="3" />
-			<wheel driveMode="0" deltaY="-0.03" brakeRatio="0" damper="20" spring="600" suspTravel="0.01" realMaxMassAllowed="3" />
+			<wheel driveMode="0" radius="0.36" deltaY="-0.025" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
+			<wheel driveMode="0" radius="0.36" deltaY="-0.025" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
+			<wheel driveMode="0" radius="0.36" deltaY="0.05" brakeRatio="0" damper="20" spring="300" suspTravel="0.1" realMaxMassAllowed="50" antiRollFx="0" lateralStiffness="0.1" />
+			<wheel driveMode="0" radius="0.36" deltaY="0.05" brakeRatio="0" damper="20" spring="300" suspTravel="0.1" realMaxMassAllowed="50" antiRollFx="0" lateralStiffness="0.1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" lowerDistanceToGround="0.71" upperDistanceToGround="0.85" realWantedLoweredTransLimit="0 0.2 0" realWantedLoweredRotLimit="0 0 10" realWantedRaisedRotLimit="0 0 30" realWantedRaisedRot2="0" />
+			<attacherJoint jointType="implement" lowerDistanceToGround="0.71" upperDistanceToGround="0.95" realWantedLoweredTransLimit="0 0.05 0" realWantedLoweredRotLimit="0 0 30" realWantedRaisedRotLimit="0 0 30" realWantedRaisedRot2="0" />
 		</attacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.8 -2.5" realMassWanted="6.2" realTransWithMass="0 0.15 0.1" />
-			<component2 realMassWanted="0.5" />
-			<component3 realMassWanted="1.1" />
-			<component4 realMassWanted="1.1" />
+			<component1 centerOfMass="0 0.4 -1.1" realMassWanted="5.5" realTransWithMass="0 0.1 0.1" /> <!-- body -->
+			<component2 centerOfMass="0 -0.3 0" realMassWanted="0.5" /> <!-- attacher -->
+			<component3 centerOfMass="-0.5 0.1 0" realMassWanted="0.9" /> <!-- left arm -->
+			<component4 centerOfMass="0.5 0.1 0" realMassWanted="0.9" /> <!-- right arm -->
 		</components>
 	</vehicle>
 
