@@ -101,26 +101,22 @@
 	</vehicle>
 
 	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE -->
-	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="false">
-		<store price="59000" dailyUpkeep="13" capacity="400" capacityUnit="L" weight="3500" workWidth="6" requiredPowerKwMin="66" requiredPowerKwMax="92" fruits="maize,sugarBeet" author="Xentro,_dj_" />
-		<general realBrakingDeceleration="2" />
-		<workTool capacity="400" realPowerConsumption="25" realWorkingSpeedLimit="22" realRollingResistance="0.05" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.3" caRealTractionResistance="13" caRealTractionResistanceWithLoadMass="0.3" />
-		<dimensions width="3" height="3.6" /> <!-- in m -->
-		<weights weight="3.5" maxWeight="3.9" realBrakeMaxMovingMass="4" /> <!-- in t --> <!-- capacity 400l -->
+	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="true">
+		<store price="68000" dailyUpkeep="16" capacity="560" capacityUnit="L" weight="4200" workWidth="6" requiredPowerKwMin="88" fruits="maize,sugarBeet" author="Xentro,_dj_" />
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
+		<workTool capacity="560" realPowerConsumption="12" realWorkingSpeedLimit="18" realRollingResistance="0.013" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.2" caRealTractionResistance="11" caRealTractionResistanceWithLoadMass="0.3" realAiWorkingSpeed="14" />
+		<dimensions width="3" height="0.6" /> <!-- in m -->
+		<weights weight="4.2" maxWeight="6.5" realBrakeMaxMovingMass="6.5" /> <!-- in t --> <!-- capacity 400l -->
 		<wheels> 
-			<wheel driveMode="0" radius="0.38" deltaY="-0.01" brakeRatio="1" damper="20" spring="390" suspTravel="0.01" realMaxMassAllowed="3.9"  />
-			<wheel driveMode="0" radius="0.38" deltaY="-0.01" brakeRatio="1" damper="20" spring="390" suspTravel="0.01" realMaxMassAllowed="3.9"  />
-		</wheels>
-		<!--<additionalWheels>
-			<wheel repr="0>0|4|0|0|0" radius="0.5" deltaY="0" brakeRatio="0" damper="20" spring="195" suspTravel="0.01" antiRollFx="0" lateralStiffness="0.1" />
-			<wheel repr="0>0|5|0|0|0" radius="0.5" deltaY="0" brakeRatio="0" damper="20" spring="195" suspTravel="0.01" antiRollFx="0" lateralStiffness="0.1" />
-		</additionalWheels>-->
+			<wheel driveMode="0" radius="0.41" deltaY="0.05" brakeRatio="1" damper="20" spring="400" suspTravel="0.1" />
+			<wheel driveMode="0" radius="0.41" deltaY="0.05" brakeRatio="1" damper="20" spring="400" suspTravel="0.1" />
+		</wheels>		
 		<components>
-			<component1 centerOfMass="0 0.3 0.6" realMassWanted="2.4" realTransWithMass="0 0.1 0.04" />
-			<component2 realMassWanted="0.2" />
-			<component3 realMassWanted="0.4" />
-			<component4 realMassWanted="0.4" />
-			<component5 realMassWanted="0.1" />
+			<component1 centerOfMass="0 0.72 -0.4" realMassWanted="2.55" /> <!-- body -->
+			<component2 centerOfMass="0 -0.3 0" realMassWanted="1" /> <!-- wheels -->
+			<component3 centerOfMass="0 -0.2 0" realMassWanted="0.3" /> <!-- left -->
+			<component4 centerOfMass="0 -0.2 0" realMassWanted="0.3" /> <!-- right -->
+			<component5 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 </vehicles>
