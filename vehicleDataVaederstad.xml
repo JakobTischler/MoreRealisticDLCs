@@ -62,8 +62,8 @@
 		<dimensions width="3" height="1" /> <!-- in m -->
 		<weights weight="4.7" maxWeight="7.8" realBrakeMaxMovingMass="8" /> <!-- in t --> <!-- capacity 3100l -->
 		<wheels>
-			<wheel driveMode="0" radius="0.36" deltaY="-0.025" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
-			<wheel driveMode="0" radius="0.36" deltaY="-0.025" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
+			<wheel driveMode="0" radius="0.37" deltaY="0.005" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
+			<wheel driveMode="0" radius="0.37" deltaY="0.005" brakeRatio="1" damper="20" spring="800" suspTravel="0.05" realMaxMassAllowed="50" />
 			<wheel driveMode="0" radius="0.36" deltaY="0.05" brakeRatio="0" damper="20" spring="400" suspTravel="0.1" realMaxMassAllowed="50" antiRollFx="0" lateralStiffness="0.1" />
 			<wheel driveMode="0" radius="0.36" deltaY="0.05" brakeRatio="0" damper="20" spring="400" suspTravel="0.1" realMaxMassAllowed="50" antiRollFx="0" lateralStiffness="0.1" />
 		</wheels>
