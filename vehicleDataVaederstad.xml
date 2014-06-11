@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf8" standalone="no" ?>
 <vehicles>
 	<!-- (1) CULTIVATORS -->
-	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 250 -->
+	<!-- (1.1) CARRIER 820 --> <!-- AUTHOR: Xentro, _dj_, dural --> <!-- DONE --> <!-- hp requirement 250 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadCarrier820.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
-		<store price="61000" dailyUpkeep="24" workSpeedMax="14" weight="7400" workWidth="8" requiredPowerKwMin="184" author="Xentro,_dj_" />
+		<store price="61000" dailyUpkeep="24" workSpeedMax="14" weight="7400" workWidth="8" requiredPowerKwMin="184" author="Xentro,_dj_,dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool realWorkingSpeedLimit="24" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.2" caRealTractionResistance="33" realAiWorkingSpeed="14" />
 		<dimensions width="2.5" height="1" /> <!-- in m -->
@@ -31,9 +31,9 @@
 		</components>
 	</vehicle>
 
-	<!-- (1.2) TOP DOWN 500 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 270-330 -->
+	<!-- (1.2) TOP DOWN 500 --> <!-- AUTHOR: Xentro, _dj_, dural --> <!-- DONE --> <!-- hp requirement 270-330 -->
 	<vehicle category="tool" subCategory="cultivator" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTopDown500.xml" mrVehicleType="mr_cultivator_visualWheels_v" debug="false">
-		<store price="68000" dailyUpkeep="11" workSpeedMax="10" weight="7000" workWidth="4.8" requiredPowerKwMin="199" requiredPowerKwMax="243" author="Xentro,_dj_" />
+		<store price="68000" dailyUpkeep="11" workSpeedMax="10" weight="7000" workWidth="4.8" requiredPowerKwMin="199" requiredPowerKwMax="243" author="Xentro,_dj_,dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool realWorkingSpeedLimit="20" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.32" caRealTractionResistance="48" realAiWorkingSpeed="13" groundReferenceNodeIndex="0>" groundReferenceNodeThreshold="-0.15" />
 		<dimensions width="3" height="1" /> <!-- in m -->
@@ -54,9 +54,9 @@
 	</vehicle>
 
 	<!-- (2) SEEDERS -->
-	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 100-175 -->
+	<!-- (2.1) RAPID 300C --> <!-- AUTHOR: Xentro, _dj_, dural --> <!-- DONE --> <!-- hp requirement 100-175 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapid300C.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
-		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_" />
+		<store price="38000" dailyUpkeep="8" capacity="3100" capacityUnit="L" weight="4700" workWidth="3" requiredPowerKwMin="74" requiredPowerKwMax="129" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_,dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool realPowerConsumption="0" realWorkingSpeedLimit="22" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.4" caRealTractionResistance="20" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="14" />
 		<dimensions width="3" height="1" /> <!-- in m -->
@@ -76,9 +76,9 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE --> <!-- hp requirement 180-350 -->
+	<!-- (2.2) RAPID A 600S --> <!-- AUTHOR: Xentro, _dj_, dural --> <!-- DONE --> <!-- hp requirement 180-350 -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadRapidA600S.xml" mrVehicleType="mr_sowingMachine_visualWheels_v" debug="false">
-		<store price="76000" dailyUpkeep="18" capacity="3300" capacityUnit="L" weight="7800" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" removeSpecsPerLang="de:weight" author="Xentro,_dj_" />
+		<store price="76000" dailyUpkeep="18" capacity="3300" capacityUnit="L" weight="7800" workWidth="6" requiredPowerKwMin="132" requiredPowerKwMax="257" fruits="wheat,barley,rape,grass" removeSpecsPerLang="ru:weight" author="Xentro,_dj_,dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool capacity="3300" realPowerConsumption="25" realWorkingSpeedLimit="25" realRollingResistance="0.05" realResistanceOnlyWhenActive="false" resistanceDecreaseFx="0.35" caRealTractionResistance="30" caRealTractionResistanceWithLoadMass="0.6" realAiWorkingSpeed="15" />
 		<dimensions width="3" height="1.5" /> <!-- in m -->
@@ -100,9 +100,9 @@
 		</components>
 	</vehicle>
 
-	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro, _dj_ --> <!-- DONE -->
+	<!-- (2.3) TEMPO F8 --> <!-- AUTHOR: Xentro, _dj_, dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="false">
-		<store price="68000" dailyUpkeep="16" capacity="560" capacityUnit="L" weight="4200" workWidth="6" requiredPowerKwMin="88" fruits="maize,sugarBeet" author="Xentro,_dj_" />
+		<store price="68000" dailyUpkeep="16" capacity="560" capacityUnit="L" weight="4200" workWidth="6" requiredPowerKwMin="88" fruits="maize,sugarBeet" author="Xentro,_dj_,dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
 		<workTool capacity="560" realPowerConsumption="12" realWorkingSpeedLimit="18" realRollingResistance="0.013" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.2" caRealTractionResistance="11" caRealTractionResistanceWithLoadMass="0.3" realAiWorkingSpeed="14" />
 		<dimensions width="3" height="0.6" /> <!-- in m -->

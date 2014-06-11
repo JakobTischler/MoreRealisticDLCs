@@ -11,7 +11,6 @@
 --[[
 TODO:
 * delete most prints before public release / convert to debug function
-* add link to dural's Google Drive folder in min version print (?)
 ]]
 
 
