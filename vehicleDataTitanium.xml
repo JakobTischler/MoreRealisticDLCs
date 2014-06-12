@@ -53,7 +53,7 @@
 
 	<!-- (1.3) CASE MAGNUM 340 TWIN WHEELS --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="steerable" configFileName="pdlc/titaniumAddon/caseIH/caseIHMagnum340TwinWheel.xml" mrVehicleType="mr_tractor_wheelExtension_t" debug="false">
-		<store price="197000" dailyUpkeep="330" powerKW="275" maxSpeed="50" weight="16850" author="dural" />
+		<store price="197000" dailyUpkeep="330" powerKW="275" maxSpeed="40" weight="16850" author="dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5.9" fuelCapacity="635" />
 		<engine kW="275" realMaxReverseSpeed="12" realMaxFuelUsage="63.4" realPtoDriveEfficiency="0.91" realSpeedBoost="11" realSpeedBoostMinSpeed="15" realImplementNeedsBoost="11" realImplementNeedsBoostMinPowerCons="10" realMaxBoost="11" />
 		<dimensions width="3" height="3.4" /> <!-- in m -->
