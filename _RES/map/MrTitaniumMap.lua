@@ -47,10 +47,10 @@ end;
 local setTitaniumMapParameters = function(self, mapName)
 	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
 
-		--[[
 		RealisticGlobalListener.priceBalancing = 1;
-		RealisticGlobalListener.silagePriceBalancing = 1.3;
-		RealisticGlobalListener.hiredWorkerWageBalancing = 0.1;	
+		RealisticGlobalListener.silagePriceBalancing = 1;
+		RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;	
+		--[[
 		RealisticGlobalListener.seedPriceBalancing
 		RealisticGlobalListener.balePriceBalancing
 		RealisticGlobalListener.woolPriceBalancing
