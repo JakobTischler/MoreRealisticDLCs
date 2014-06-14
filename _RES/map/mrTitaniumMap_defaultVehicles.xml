@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <careerVehicles>
-	
 	<vehicle filename="$moddir$moreRealisticVehicles/tractors/buehrer6135A.xml" xPosition="187" yOffset="0.5" zPosition="158" yRotation="180" />
 	<vehicle filename="$pdlcdir$titaniumAddon/kramer/kramerKL600.xml" xPosition="181" yOffset="0.5" zPosition="158" yRotation="180" />
 	<vehicle filename="$pdlcdir$titaniumAddon/caseIH/caseIHFarmallH.xml" xPosition="173" yOffset="0.5" zPosition="158" yRotation="180" />
-	
+
 	<vehicle filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66EX.xml" xPosition="247" yOffset="0.5" zPosition="281" yRotation="270"/>
 	<vehicle filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66Cutter.xml" xPosition="243" yOffset="0.5" zPosition="281" yRotation="90"/>
-	
+
 	<vehicle filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66EX.xml" xPosition="247" yOffset="0.5" zPosition="408.65" yRotation="270"/>
 	<vehicle filename="$moddir$moreRealisticVehicles/Harvesters/fahrM66Cutter.xml" xPosition="243" yOffset="0.5" zPosition="408.65" yRotation="90"/>
-	
+
 	<vehicle filename="$moddir$moreRealisticVehicles/cultivators/lemkenKristall9.xml" xPosition="165" yOffset="0.5" zPosition="163" yRotation="180" />
-    	<vehicle filename="$moddir$moreRealisticVehicles/seeders/amazoneD1.xml" xPosition="173" yOffset="0.5" zPosition="163" yRotation="180" />     
-	<vehicle filename="$moddir$moreRealisticVehicles/sprayers/triton500.xml" xPosition="187" yOffset="0.5" zPosition="163" yRotation="180" /> 	
-    	<vehicle filename="$moddir$moreRealisticVehicles/trailers/kroneEmsland.xml" xPosition="181" yOffset="0.5" zPosition="167" yRotation="180" />    
+	<vehicle filename="$moddir$moreRealisticVehicles/seeders/amazoneD1.xml" xPosition="173" yOffset="0.5" zPosition="163" yRotation="180" />
+	<vehicle filename="$moddir$moreRealisticVehicles/sprayers/triton500.xml" xPosition="187" yOffset="0.5" zPosition="163" yRotation="180" />
+	<vehicle filename="$moddir$moreRealisticVehicles/trailers/kroneEmsland.xml" xPosition="181" yOffset="0.5" zPosition="167" yRotation="180" />
 	<vehicle filename="$moddir$moreRealisticVehicles/weights/barrelWeight.xml" xPosition="165" yOffset="0.5" zPosition="154" yRotation="0" />
-	
 </careerVehicles>

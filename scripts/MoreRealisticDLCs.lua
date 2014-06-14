@@ -196,9 +196,10 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 		local numDescLines = self:getEffectiveNumberOfTextLines(storeItem.description, g_shopScreen.descText.textSize, g_shopScreen.descText.textWrapWidth);
 		local authorLineSeparator = numDescLines < 8 and '\n' or '';
 
-		local author = storeData.author;
+		local author = Utils.trim(storeData.author);
 		local authorSplit = Utils.splitString(',', author);
 		if #authorSplit > 1 then
+			authorSplit = table.map(authorSplit, Utils.trim);
 			if #authorSplit == 2 then
 				author = g_i18n:getText('STORE_DESC_AND'):format(authorSplit[1], authorSplit[2]);
 			else
@@ -210,6 +211,7 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 		end;
 		storeItem.description = storeItem.description .. authorLineSeparator .. g_i18n:getText('STORE_DESC_AUTHOR'):format(author);
 		storeItem.descriptionMRized = true;
+		if doDebug then print(('\tauthor line %q added'):format(author)); end;
 	end;
 	if not storeItem.specsMRized then
 		local specs = '';
@@ -255,7 +257,7 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 			local fruitNames = Utils.splitString(',', storeData.fruits);
 			local fruitNamesI18n = {};
 			for i=1,#fruitNames do
-				local fruitName = fruitNames[i];
+				local fruitName = Utils.trim(fruitNames[i]);
 				if Fillable.fillTypeNameToDesc[fruitName] ~= nil then
 					fruitNamesI18n[#fruitNamesI18n + 1] = tostring(Fillable.fillTypeNameToDesc[fruitName].nameI18N);
 				else

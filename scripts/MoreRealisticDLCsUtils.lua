@@ -3,6 +3,18 @@ local ceil = math.ceil;
 
 --------------------------------------------------
 
+if table.map == nil then
+	function table.map(t, func)
+		local newArray = {};
+		for i,v in pairs(t) do
+			newArray[i] = func(v);
+		end;
+		return newArray;
+	end;
+end;
+
+--------------------------------------------------
+
 function MoreRealisticDLCs:getFloatNumberFromString(str)
 	local point = str:find('%.');
 	if not point then

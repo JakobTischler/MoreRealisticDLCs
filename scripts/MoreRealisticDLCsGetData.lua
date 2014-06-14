@@ -284,7 +284,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		if realCapacityMultipliers then
 			realCapacityMultipliers = Utils.splitString(',', realCapacityMultipliers);
 			for i=1, #realCapacityMultipliers do
-				local data = Utils.splitString(':', realCapacityMultipliers[i]);
+				local data = Utils.splitString(':', Utils.trim(realCapacityMultipliers[i]));
 				workTool.realCapacityMultipliers[i] = {
 					fillType = data[1];
 					multiplier = tonumber(data[2]);
@@ -374,9 +374,9 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local combine = {};
 		if subCategory == 'combine' then
 			combine.realAiWorkingSpeed = {
-				baseSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingBaseSpeed');
-				minSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMinSpeed');
-				maxSpeed 							 =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMaxSpeed');
+				baseSpeed									  =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingBaseSpeed');
+				minSpeed									  =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMinSpeed');
+				maxSpeed									  =  getXMLFloat(xmlFile, key .. '.combine#realAiWorkingMaxSpeed');
 			};
 			combine.realAiMinDistanceBeforeTurning 			  =  getXMLFloat(xmlFile, key .. '.combine#realAiMinDistanceBeforeTurning');
 			combine.realTurnStage1DistanceThreshold		 	  =  getXMLFloat(xmlFile, key .. '.combine#realTurnStage1DistanceThreshold');
