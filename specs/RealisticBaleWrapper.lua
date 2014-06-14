@@ -46,10 +46,9 @@ function RealisticBaleWrapper:updateTick(dt)
 			return;
 		end;
 
-		for _, anim in pairs(self.activeAnimations) do
-			-- at least one animation playing
+		-- at least one animation playing
+		if next(self.activeAnimations) ~= nil then
 			self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
-			break;
 		end;
 	end;
 end;
