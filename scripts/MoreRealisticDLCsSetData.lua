@@ -533,16 +533,31 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 					local startTime = getXMLFloat(xmlFile, partKey .. '#startTime');
 					local endTime   = getXMLFloat(xmlFile, partKey .. '#endTime');
-					if animScale then
-						startTime = startTime / animScale;
-						endTime = endTime / animScale;
+					local duration  = getXMLFloat(xmlFile, partKey .. '#duration');
+
+					if startTime and (endTime or duration) then
+						if animScale then
+							startTime = startTime / animScale;
+							if endTime then
+								endTime = endTime / animScale;
+							elseif duration then
+								duration = duration / animScale;
+							end;
+						end;
+						if animOffset then
+							startTime = startTime + animOffset;
+							if endTime then
+								endTime = endTime + animOffset;
+							end;
+						end;
+
+						setValue(xmlFile, partKey .. '#startTime', 'flt', startTime);
+						if endTime then
+							setValue(xmlFile, partKey .. '#endTime', 'flt', endTime);
+						elseif duration then
+							setValue(xmlFile, partKey .. '#duration', 'flt', duration);
+						end;
 					end;
-					if animOffset then
-						startTime = startTime + animOffset;
-						endTime = endTime + animOffset;
-					end;
-					setValue(xmlFile, partKey .. '#startTime', 'flt', startTime);
-					setValue(xmlFile, partKey .. '#endTime',   'flt', endTime);
 
 					p = p + 1;
 				end;
@@ -550,15 +565,15 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 				if animOffset then
 					-- add additional part with time 0 -> offset and no movement so the new anim duration will be correct
 					local firstNode		  = getXMLString(xmlFile, animKey .. '.part(0)#node');
-					local firstStartRot	  =  getXMLFloat(xmlFile, animKey .. '.part(0)#startRot');
-					local firstStartTrans =  getXMLFloat(xmlFile, animKey .. '.part(0)#startTrans');
+					local firstStartRot	  = getXMLString(xmlFile, animKey .. '.part(0)#startRot');
+					local firstStartTrans = getXMLString(xmlFile, animKey .. '.part(0)#startTrans');
 
 					local newPartKey = ('%s.part(%d)'):format(animKey, p);
 					setValue(xmlFile, newPartKey .. '#node',	   'str', firstNode);
-					setValue(xmlFile, newPartKey .. '#startRot',   'flt', firstStartRot);
-					setValue(xmlFile, newPartKey .. '#endRot',	   'flt', firstStartRot);
-					setValue(xmlFile, newPartKey .. '#startTrans', 'flt', firstStartTrans);
-					setValue(xmlFile, newPartKey .. '#endTrans',   'flt', firstStartTrans);
+					setValue(xmlFile, newPartKey .. '#startRot',   'str', firstStartRot);
+					setValue(xmlFile, newPartKey .. '#endRot',	   'str', firstStartRot);
+					setValue(xmlFile, newPartKey .. '#startTrans', 'str', firstStartTrans);
+					setValue(xmlFile, newPartKey .. '#endTrans',   'str', firstStartTrans);
 					setValue(xmlFile, newPartKey .. '#startTime',  'int', 0);
 					setValue(xmlFile, newPartKey .. '#endTime',	   'flt', animOffset);
 				end;

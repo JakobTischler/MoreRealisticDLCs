@@ -155,7 +155,7 @@
 	<!-- (2.1) URSUS T-127 bale loader --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="false">
 		<store workSpeedMax="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" author="Jakob Tischler" />
-		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" />
+		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:0.6,baleGrabberWorkToDrop:0.25" />
 		<workTool realWorkingSpeedLimit="20" realAutoStackerWorkingPowerConsumption="20" />
 		<dimensions width="2.5" height="2.5" /> <!-- in m -->
 		<weights weight="2.62" maxWeight="6.22" realBrakeMaxMovingMass="8" /> <!-- in t -->
@@ -172,7 +172,7 @@
 	<!-- (2.2) URSUS Z-594 round baler --> <!-- AUTHOR: Jakob Tischler --> <!-- MAYBE DONE (wheels?) -->
 	<vehicle category="tool" subCategory="baler" configFileName="pdlc/ursusAddon/ursus/ursusZ594.xml" mrVehicleType="moreRealistic.roundBalerEnhanced" debug="false">
 		<store workSpeedMax="20" weight="2770" capacity="3700" capacityUnit="L" requiredPowerKwMin="60" fruits="wheat_windrow,dryGrass_windrow" author="Jakob Tischler" />
-		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" animationSpeedScale="unloadBale:0.5,closeDoor:0.5" /> <!--animationTimeOffset="unloadBale:6"-->
+		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" animationSpeedScale="unloadBale:0.5,closeDoor:0.5" /> <!-- animationTimeOffset="unloadBale:3" -->
 		<workTool capacity="3700" realBalerWorkingSpeedLimit="17" realBalerPowerConsumption="25" realBalerRoundingPowerConsumptionInc="20" realBalerPickUpPowerConsumptionInc="25" realBalerOverFillingRatio="1.05" realCapacityMultipliers="wheat_windrow:1,barley_windrow:1,dryGrass_windrow:1.25" />
 		<dimensions width="2.4" height="2.2" /> <!-- in m -->
 		<weights weight="2.77" maxWeight="3.1" /> <!-- in t -->
