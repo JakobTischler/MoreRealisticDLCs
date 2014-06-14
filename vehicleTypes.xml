@@ -298,7 +298,7 @@
 			<specialization name="foldable" />
 			<specialization name="pdlc_titaniumAddon.augerWagon" />
 
-			<specialization name="augerWagonPowerConsumption" />
+			<specialization name="realisticAugerWagon" />
 		</type>
 
 		<type name="mr_swadro2000_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">

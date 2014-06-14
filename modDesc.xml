@@ -30,12 +30,13 @@
 	</extraSourceFiles>
 
 	<customSpecializations>
-		<specialization name="augerWagonPowerConsumption" className="AugerWagonPowerConsumption" filename="specs/AugerWagonPowerConsumption.lua" />
-		<specialization name="dynamicExhaustingSystem" 	  className="DynamicExhaustingSystem"	 filename="specs/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustPower" 			  className="ExhaustPower" 				 filename="specs/ExhaustPower.lua" />
-		<specialization name="realisticBaleWrapper"		  className="RealisticBaleWrapper"		 filename="specs/RealisticBaleWrapper.lua" />
-		<specialization name="realisticMovingTool" 		  className="RealisticMovingTool" 		 filename="specs/RealisticMovingTool.lua" />
-		<specialization name="variableSprayUsage"		  className="VariableSprayUsage"		 filename="specs/VariableSprayUsage.lua" />
+		<specialization name="dynamicExhaustingSystem"	className="DynamicExhaustingSystem"	filename="specs/mrDynamicExhaustingSystem.lua" />
+		<specialization name="exhaustPower" 			className="ExhaustPower" 			filename="specs/ExhaustPower.lua" />
+		<specialization name="realisticAugerWagon" 		className="RealisticAugerWagon"		filename="specs/RealisticAugerWagon.lua" />
+		<specialization name="realisticBaleWrapper"		className="RealisticBaleWrapper"	filename="specs/RealisticBaleWrapper.lua" />
+		<specialization name="realisticMovingTool" 		className="RealisticMovingTool" 	filename="specs/RealisticMovingTool.lua" />
+		<specialization name="urfSeeder"				className="UrfSeeder"				filename="specs/urfSeeder.lua" />
+		<specialization name="variableSprayUsage"		className="VariableSprayUsage"		filename="specs/VariableSprayUsage.lua" />
 	</customSpecializations>
 
 	<l10n>

@@ -1,4 +1,4 @@
--- AugerWagonPowerConsumption
+-- RealisticAugerWagon
 -- adds power consumption to the AugerWagon when the pipe is (un)folding / when it's unloading
 
 -- @author: Jakob Tischler
@@ -8,28 +8,19 @@
 --
 -- Copyright (C) 2014 Jakob Tischler
 
-AugerWagonPowerConsumption = {};
+RealisticAugerWagon = {};
 
-function AugerWagonPowerConsumption.prerequisitesPresent(specializations)
-	return SpecializationUtil.hasSpecialization(RealisticVehicle, specializations) and SpecializationUtil.hasSpecialization(Cylindered, specializations);
+function RealisticAugerWagon.prerequisitesPresent(specializations)
+	return SpecializationUtil.hasSpecialization(RealisticVehicle, specializations) and SpecializationUtil.hasSpecialization(Cylindered, specializations) and SpecializationUtil.hasSpecialization(pdlc_titaniumAddon.AugerWagon, specializations);
 end;
 
-function AugerWagonPowerConsumption:load(xmlFile)
+function RealisticAugerWagon:load(xmlFile)
 	self.realOverloaderUnloadingPowerConsumption = getXMLFloat(xmlFile, 'vehicle.realOverloaderUnloadingPowerConsumption');
 	self.realWorkingPowerConsumption = getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption');
 	self.realCurrentPowerConsumption = 0;
 end;
 
-function AugerWagonPowerConsumption:delete()
-end;
-
-function AugerWagonPowerConsumption:mouseEvent(posX, posY, isDown, isUp, button)
-end;
-
-function AugerWagonPowerConsumption:keyEvent(unicode, sym, modifier, isDown)
-end;
-
-function AugerWagonPowerConsumption:updateTick(dt)
+function RealisticAugerWagon:updateTick(dt)
 	if self.isServer and self.isActive then
 		self.realCurrentPowerConsumption = 0;
 		if self.realOverloaderUnloadingPowerConsumption and self.pipeIsUnloading then
@@ -40,8 +31,8 @@ function AugerWagonPowerConsumption:updateTick(dt)
 	end;
 end;
 
-function AugerWagonPowerConsumption:update(dt)
-end;
-
-function AugerWagonPowerConsumption:draw()
-end;
+function RealisticAugerWagon:update(dt) end;
+function RealisticAugerWagon:draw() end;
+function RealisticAugerWagon:delete() end;
+function RealisticAugerWagon:mouseEvent(posX, posY, isDown, isUp, button) end;
+function RealisticAugerWagon:keyEvent(unicode, sym, modifier, isDown) end;
