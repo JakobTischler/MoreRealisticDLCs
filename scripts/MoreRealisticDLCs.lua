@@ -73,6 +73,8 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 				return false;
 			end;
 
+			dlcData.upToDateVersionExists = true;
+
 			dlcData.dir = g_modNameToDirectory[ingameDlcName]; 
 			dlcData.containingDir = dlcData.dir:sub(1, dlcData.dir:len() - dlcData.dlcName:len() - 1);
 			-- print(('DLC %q: ingameDlcName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, ingameDlcName, dlcData.dir, dlcData.containingDir));

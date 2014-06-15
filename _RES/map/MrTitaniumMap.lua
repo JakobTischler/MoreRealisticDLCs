@@ -23,7 +23,26 @@ function MrTitaniumMap:loadMap(name)
 	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
 
 	-- overwrite default vehicle xml path
-	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/mrTitaniumMap_defaultVehicles.xml', MrTitaniumMap.modDir);
+	local vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
+	if not MoreRealisticDLCs.mrVehiclesPackInstalled then
+		vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
+		local startingMoney = 99837;
+
+		if MoreRealisticDLCs.dlcsData.Ursus.upToDateVersionExists then
+			vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack_inclUrsus.xml';
+			startingMoney = 89941;
+		end;
+
+		-- add extra money if vehicle pack isn't installed
+		local setStartingMoney = function(self)
+			g_currentMission.missionStats.money = startingMoney;
+		end;
+		RealisticGlobalListener.setMissionInfosForNewGame = Utils.appendedFunction(RealisticGlobalListener.setMissionInfosForNewGame, setStartingMoney);
+
+		print('*** MoreRealisticDLCs: Warning: you don\'t have the "moreRealisticVehicles" pack installed. Many of the starting vehicles won\'t be available. As a compensation, your account will be credited with a bit of starting money. ***');
+	end;
+
+	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
 end;
 
 function MrTitaniumMap:deleteMap() end;
@@ -40,6 +59,7 @@ for i, mapItem in ipairs(MapsUtil.mapList) do
 		-- print(('mapItem %d: title=%q, customEnvironment=%q -> set title to %q'):format(i, tostring(mapItem.title), tostring(mapItem.customEnvironment), 'MR ' .. tostring(mapItem.title)));
 		mapItem.title = 'MR ' .. mapItem.title;
 		mapItem.titleMRized = true;
+		break;
 	end;
 end;
 
@@ -49,7 +69,7 @@ local setTitaniumMapParameters = function(self, mapName)
 
 		RealisticGlobalListener.priceBalancing = 1;
 		RealisticGlobalListener.silagePriceBalancing = 1;
-		RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;	
+		RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;
 		--[[
 		RealisticGlobalListener.seedPriceBalancing
 		RealisticGlobalListener.balePriceBalancing
