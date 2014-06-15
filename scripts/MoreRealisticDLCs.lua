@@ -1,7 +1,7 @@
 ﻿--
 -- MoreRealisticDLCs
 --
--- @authors: modelleicher, Jakob Tischler, Satis
+-- @authors: Jakob Tischler, modelleicher, Satis
 -- @contributors: dj, dural, Grisu118, Xentro
 -- @version: 0.2b
 -- @date: 06 Jun 2014
@@ -173,6 +173,8 @@ function MoreRealisticDLCs:setStoreData(configFileNameShort, dlcNameClean, store
 	local path = Utils.getFilename(configFileNameShort:sub(6, configFileNameShort:len()), pdlcDir);
 	local storeItem = StoreItemsUtil.storeItemsByXMLFilename[path:lower()];
 	if not storeItem then return; end;
+
+	storeItem.isMoreRealisticDLC = true;
 
 	if not storeItem.nameMRized then
 		storeItem.name = 'MR ' .. storeItem.name;
