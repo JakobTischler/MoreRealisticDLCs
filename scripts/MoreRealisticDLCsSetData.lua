@@ -38,6 +38,10 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	local returnData = {};
 
 	removeProperty(xmlFile, 'vehicle.motor');
+	
+	-- downForce, brakeForce
+	setValue(xmlFile, 'vehicle.downForce',  'int', 0);
+	setValue(xmlFile, 'vehicle.brakeForce', 'int', 0);
 
 
 	-- relevant MR values
@@ -61,10 +65,8 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		setValue(xmlFile, 'vehicle.accelerationSpeed#brakeSpeed',		'int', 3);
 		removeProperty(xmlFile, 'vehicle.accelerationSpeed#backwardDeceleration');
 
-		-- fuel usage, downForce, brakeForce
+		-- fuel usage
 		setValue(xmlFile, 'vehicle.fuelUsage',  'int', 0);
-		setValue(xmlFile, 'vehicle.downForce',  'int', 0);
-		setValue(xmlFile, 'vehicle.brakeForce', 'int', 0);
 
 		-- general
 		setValue(xmlFile, 'vehicle.realDisplaySlip', 'bool', mrData.general.realDisplaySlip);
