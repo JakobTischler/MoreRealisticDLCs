@@ -305,6 +305,23 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 				workTool.realMaxDischargeSpeeds = Utils.getVectorNFromString(tasStr, nil);
 			end;
 
+			-- tip animation particle planes
+			--[[
+			workTool.tipAnimPlaneNodes = {};
+			local str = getXMLString(xmlFile, key .. '.workTool#tipAnimPlaneNodes');
+			if str then
+				str = Utils.splitString(',', Utils.trim(str));
+				for i=1,#str do
+					local data = Utils.splitString(':', Utils.trim(str[i]));
+					workTool.tipAnimPlaneNodes[#workTool.tipAnimPlaneNodes + 1] = {
+						animName = data[1];
+						index = data[2];
+						planeType = data[3] or 'big';
+					};
+				end;
+			end;
+			]]
+
 		-- forageWagon
 		elseif subCategory == 'forageWagon' then
 			workTool.realForageWagonWorkingPowerConsumption	   = getXMLFloat(xmlFile, key .. '.workTool#realForageWagonWorkingPowerConsumption');
@@ -402,6 +419,24 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			combine.pipeState2Rotation				 		  = getXMLString(xmlFile, key .. '.combine#pipeState2Rotation');
 		end;
 
+
+		-- create extra nodes
+		local createExtraNodes = {};
+		local n = 0;
+		while true do
+			local nodeKey = key .. ('.createExtraNodes.node(%d)'):format(n);
+			if not hasXMLProperty(xmlFile, nodeKey) then break; end;
+
+			createExtraNodes[n + 1] = {
+				index		= getXMLString(xmlFile, nodeKey .. '#index');
+				translation	= Utils.getVectorNFromString(getXMLString(xmlFile, nodeKey .. '#translation') or '0 0 0');
+				rotation	= Utils.getVectorNFromString(getXMLString(xmlFile, nodeKey .. '#rotation') or '0 0 0');
+				scale		= Utils.getVectorNFromString(getXMLString(xmlFile, nodeKey .. '#scale') or '1 1 1');
+			};
+
+			n = n + 1;
+		end;
+
 		--------------------------------------------------
 
 		-- STORE DATA
@@ -464,7 +499,8 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			trailerAttacherJoints = trailerAttacherJoints,
 			workTool = workTool,
 			combine = combine,
-			components = components
+			components = components,
+			createExtraNodes = createExtraNodes
 		};
 
 		--------------------------------------------------

@@ -13,6 +13,22 @@ if table.map == nil then
 	end;
 end;
 
+function MoreRealisticDLCs:nodeIndexToPath(nodeIndex)
+	local componentIndex, childrenStart = 0, 0;
+	local a = nodeIndex:find('>');
+	if a then
+		componentIndex = tonumber(nodeIndex:sub(1, a - 1))
+		childrenStart = a + 1;
+	end;
+
+	local path;
+	if childrenStart <= nodeIndex:len() then
+		path = table.map(Utils.splitString('|', nodeIndex:sub(childrenStart, nodeIndex:len())), tonumber);
+	end;
+
+	return componentIndex, path;
+end;
+
 --------------------------------------------------
 
 function MoreRealisticDLCs:getFloatNumberFromString(str)

@@ -215,7 +215,7 @@
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/ursusAddon/ursus/ursusT610A.xml" mrVehicleType="moreRealistic.trailer" debug="false">
 		<store capacity="9.64" capacityUnit="M3" weight="2760" requiredPowerKwMin="35" fruits="wheat,barley,rape,maize,chaff,potato,sugarBeet" removeSpecsPerLang="ru:weight" author="Jakob Tischler" />
 		<general realBrakingDeceleration="4" realMaxVehicleSpeed="40" realRollingResistance="0.017" />
-		<workTool capacity="8000" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" realMaxDischargeSpeeds="3000 4000 4000 1000" />
+		<workTool capacity="8000" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" realMaxDischargeSpeeds="3000 4000 4000 1000" /> <!-- tipAnimPlaneNodes="tipAnimationBack:0>3|0|0|0|2|0,tipAnimationLeft:0>3|0|0|1|1|0,tipAnimationRight:0>3|0|0|2|1|0,tipAnimationGrainDoor:0>3|0|0|0|1|0|0:small" -->
 		<dimensions width="2.3" height="2" /> <!-- in m -->
 		<weights weight="2.56" maxWeight="10.6" /> <!-- in t -->
 		<wheels>
@@ -229,6 +229,18 @@
 			<component2 centerOfMass="0 0 0" realMassWanted="0.75" />
 			<component3 centerOfMass="0 0 0" realMassWanted="0.25" />
 		</components>
+		<!--
+		<createExtraNodes>
+			<node index="0>3|0|0|0|2"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
+			<node index="0>3|0|0|0|2|0"	translation="0 0 0"		   rotation="0 0 0" scale="1.175 1 1" />
+			<node index="0>3|0|0|1|1"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
+			<node index="0>3|0|0|1|1|0"	translation="0 0 0"		   rotation="0 0 0" scale="1.96 1 1" />
+			<node index="0>3|0|0|2|1"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
+			<node index="0>3|0|0|2|1|0"	translation="0 0 0"		   rotation="0 0 0" scale="1.96 1 1" />
+			<node index="0>3|0|0|0|1|0"	  translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
+			<node index="0>3|0|0|0|1|0|0" translation="0 0 0"		 rotation="0 0 0" scale="1 1 1" />
+		</createExtraNodes>
+		-->
 	</vehicle>
 
 	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->

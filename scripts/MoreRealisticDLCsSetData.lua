@@ -35,6 +35,8 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	local mrData = MoreRealisticDLCs.mrData;
 	if not mrData then return; end;
 
+	local returnData = {};
+
 	removeProperty(xmlFile, 'vehicle.motor');
 
 
@@ -598,4 +600,12 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			end;
 		end;
 	end;
+
+-- ##################################################
+
+	if #mrData.createExtraNodes > 0 then
+		return mrData.createExtraNodes;
+	end;
+
+	return;
 end;
