@@ -49,7 +49,7 @@ function MoreRealisticDLCs:getModVersion(modName)
 	return '0', 0;
 end;
 
-local minVersionMr	  = '1.3.44';
+local minVersionMr	  = '1.3.48';
 local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
