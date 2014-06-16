@@ -519,6 +519,22 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		end;
 	end;
 
+	-- animation values
+	if mrData.general.hasAnimationValues then
+		for i,data in ipairs(mrData.general.animationValues) do
+			local partKey = ('vehicle.animations.animation(%d).part(%d)'):format(data.animIndex, data.partIndex);
+			if not hasXMLProperty(xmlFile, partKey .. '#node') then break; end;
+
+			set(partKey .. '#startRot',		   'str', data.startRot);
+			set(partKey .. '#startRotLimit',   'str', data.startRotLimit);
+			set(partKey .. '#startTrans',	   'str', data.startTrans);
+			set(partKey .. '#startTransLimit', 'str', data.startTransLimit);
+			set(partKey .. '#endRot',		   'str', data.endRot);
+			set(partKey .. '#endRotLimit',	   'str', data.endRotLimit);
+			set(partKey .. '#endTrans',		   'str', data.endTrans);
+			set(partKey .. '#endTransLimit',   'str', data.endTransLimit);
+		end;
+	end;
 
 	-- animation speed scale / time offset
 	if mrData.general.hasAnimationsSpeedScale or mrData.general.hasAnimationsTimeOffset then

@@ -48,6 +48,33 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			waitForTurnTime						  = get('flt',  key .. '.general#waitForTurnTime');
 		};
 
+		-- animation values
+		general.animationValues = {};
+		local p = 0;
+		while true do
+			local partKey = key .. ('.animationValues.part(%d)'):format(p);
+			if not hasXMLProperty(xmlFile, partKey) then break; end;
+
+			local animIndex = get('int', partKey .. '#animIndex');
+			local partIndex = get('int', partKey .. '#partIndex');
+			if not animIndex or not partIndex then break; end;
+
+			general.animationValues[#general.animationValues + 1] = {
+				animIndex = animIndex;
+				partIndex = partIndex;
+				startRot		= get('str', partKey .. '#startRot');
+				startRotLimit	= get('str', partKey .. '#startRotLimit');
+				startTrans		= get('str', partKey .. '#startTrans');
+				startTransLimit	= get('str', partKey .. '#startTransLimit');
+				endRot			= get('str', partKey .. '#endRot');
+				endRotLimit		= get('str', partKey .. '#endRotLimit');
+				endTrans		= get('str', partKey .. '#endTrans');
+				endTransLimit	= get('str', partKey .. '#endTransLimit');
+			};
+			general.hasAnimationValues = true;
+
+			p = p + 1;
+		end;
 
 		-- animation speed scale
 		general.animationSpeedScale = {};
