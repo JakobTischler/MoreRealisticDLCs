@@ -152,18 +152,32 @@
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/titaniumAddon/horsch/horschMaestro12SW.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_t" debug="false">
 		<store price="106000" dailyUpkeep="28" capacity="2000" capacityUnit="L" weight="7300" workWidth="9" requiredPowerKwMin="129" fruits="maize,sugarBeet" author="dural" />
 		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" />
-		<workTool realPowerConsumption="20" realWorkingSpeedLimit="17" realResistanceOnlyWhenActive="false" caRealTractionResistance="5" caRealTractionResistanceWithLoadMass="0" capacity="2000" realAiWorkingSpeed="12" />
+		<workTool realPowerConsumption="20" realWorkingSpeedLimit="17" realResistanceOnlyWhenActive="false" caRealTractionResistance="14" caRealTractionResistanceWithLoadMass="0" capacity="2000" realAiWorkingSpeed="12" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="7.3" maxWeight="17" realBrakeMaxMovingMass="10" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="300" suspTravel="0.08" radius="0.865" />
 			<wheel driveMode="0" deltaY="0.1" brakeRatio="1" damper="20" spring="300" suspTravel="0.08" radius="0.865" />
 		</wheels>
+		<additionalWheels>			
+			<wheel repr="2>0" radius="0.5" deltaY="0" suspTravel="0.5" spring="5" damper="5" brakeRatio="1" antiRollFx="0" lateralStiffness="1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="3>0" radius="0.5" deltaY="0" suspTravel="0.5" spring="5" damper="5" brakeRatio="1" antiRollFx="0" lateralStiffness="1" continousBrakeForceWhenNotActive="100" />
+		</additionalWheels>
+		<createExtraNodes>			
+			<node index="2>0" translation="1.25 0.5 0" />
+			<node index="3>0" translation="-1.25 0.5 0" />
+		</createExtraNodes>
+		<animationValues>
+			<part animIndex="0" partIndex="0" startRotLimit="10 0 20" />
+			<part animIndex="0" partIndex="1" startTransLimit="0 0.3 0" />
+			<part animIndex="0" partIndex="2" startRot="25 0 0" />
+			<part animIndex="0" partIndex="3" startRot="-25 0 0" />
+		</animationValues>
 		<components>
-			<component1 realMassWanted="6.3" centerOfMass="0 0.9 0.4" />
-			<component2 realMassWanted="0.3" centerOfMass="0 0 -1" />
-			<component3 realMassWanted="0.3" centerOfMass="0 0 -1" />
-			<component4 realMassWanted="0.3" centerOfMass="0 0 -1" />
+			<component1 realMassWanted="6.3" centerOfMass="0 0.9 0.4" /> <!-- body -->
+			<component2 realMassWanted="0.3" centerOfMass="0 0 0" /> <!-- middle -->
+			<component3 realMassWanted="0.3" centerOfMass="0 0 0" /> <!-- left -->
+			<component4 realMassWanted="0.3" centerOfMass="0 0 0" /> <!-- right -->
 			<component5 realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
