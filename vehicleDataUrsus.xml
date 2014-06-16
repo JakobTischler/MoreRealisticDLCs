@@ -155,7 +155,7 @@
 	<!-- (2.1) URSUS T-127 bale loader --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="false">
 		<store workSpeedMax="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" author="Jakob Tischler" />
-		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:0.6,baleGrabberWorkToDrop:0.25" />
+		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:0.8,baleGrabberWorkToDrop:0.65" />
 		<workTool realWorkingSpeedLimit="20" realAutoStackerWorkingPowerConsumption="20" />
 		<dimensions width="2.5" height="2.5" /> <!-- in m -->
 		<weights weight="2.62" maxWeight="6.22" realBrakeMaxMovingMass="8" /> <!-- in t -->
