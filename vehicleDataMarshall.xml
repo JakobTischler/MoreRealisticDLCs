@@ -37,7 +37,7 @@
 		</wheels>
 		
 		<components>
-			<component1 centerOfMass="0 0.66 -0.82" realMassWanted="5.8" realTransWithMass="0 0.02 0" />
+			<component1 centerOfMass="0 0.66 -0.75" realMassWanted="5.8" realTransWithMass="0 0.02 0" />
 		</components>
 	</vehicle>
 
@@ -70,7 +70,7 @@
 			<wheel radius="0.78" deltaY="0.07" suspTravel="0.1" spring="250" brakeRatio="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.8 -0.9" realMassWanted="4.2" realTransWithMass="0 0.03 0" />
+			<component1 centerOfMass="0 0.8 -0.65" realMassWanted="4.2" realTransWithMass="0 0.03 0" />
 		</components>
 	</vehicle>
 
@@ -86,7 +86,7 @@
 			<wheel radius="0.61" deltaY="0.07" suspTravel="0.1" spring="170" brakeRatio="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.65 -0.05" realMassWanted="2.54" realTransWithMass="0 0.035 -0.01" />
+			<component1 centerOfMass="0 0.65 -0.15" realMassWanted="2.54" realTransWithMass="0 0.035 -0.01" />
 		</components>
 	</vehicle>
 </vehicles>
