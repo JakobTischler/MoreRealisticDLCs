@@ -56,7 +56,7 @@
 
 	<!-- (1.3) Ursus C45 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC45.xml" mrVehicleType="mr_oldtimer_u" debug="true">
-		<store price="12500" dailyUpkeep="50" powerKW="33" maxSpeed="16.7" weight="3750" author="Grisu118" />
+		<store price="15300" dailyUpkeep="70" powerKW="33" maxSpeed="16.7" weight="3750" author="Grisu118" />
 		<general fuelCapacity="100" realMaxVehicleSpeed="16.7" realBrakingDeceleration="2" /> 
 		<engine kW="33" realMaxReverseSpeed="8" realMaxFuelUsage="12.56" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.99" /> 
 		<dimensions width="1.8" height="2.3" /> <!-- in m --> 
