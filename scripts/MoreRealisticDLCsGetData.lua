@@ -18,20 +18,26 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		return prmGetXMLFn[prmType](xmlFile, key);
 	end;
 
+	local has = function(key)
+		return hasXMLProperty(xmlFile, key);
+	end;
+
+	--------------------------------------------------
+
 	local i = 0;
 	while true do
 		local key = ('vehicles.vehicle(%d)'):format(i);
-		if not hasXMLProperty(xmlFile, key) then break; end;
+		if not has(key) then break; end;
 
 		-- base
-		local configFileName = get('str', key .. '#configFileName');
+		local configFileName = get('str',  key .. '#configFileName');
+		local vehicleTyp	 = get('str',  key .. '#mrVehicleType');
+		local category		 = get('str',  key .. '#category');
+		local subCategory	 = get('str',  key .. '#subCategory') or '';
+		local doDebug		 = get('bool', key .. '#debug');
 		assert(configFileName, ('ERROR: "configFileName" missing for %q'):format(key));
-		local vehicleType = get('str', key .. '#mrVehicleType');
 		assert(vehicleType, ('ERROR: "mrVehicleType" missing for %q'):format(configFileName));
-		local category = get('str', key .. '#category');
 		assert(category, ('ERROR: "category" missing for %q'):format(configFileName));
-		local subCategory = get('str', key .. '#subCategory') or '';
-		local doDebug = get('bool', key .. '#debug');
 
 
 		-- general
@@ -53,7 +59,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local p = 0;
 		while true do
 			local partKey = key .. ('.animationValues.part(%d)'):format(p);
-			if not hasXMLProperty(xmlFile, partKey) then break; end;
+			if not has(partKey) then break; end;
 
 			local animIndex = get('int', partKey .. '#animIndex');
 			local partIndex = get('int', partKey .. '#partIndex');
@@ -169,7 +175,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local w = 0;
 		while true do
 			local wheelKey = key .. ('.wheels.wheel(%d)'):format(w);
-			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
+			if not has(wheelKey) then break; end;
 
 			wheels[#wheels + 1] = {
 				repr			   = get('str', wheelKey .. '#repr'),
@@ -188,6 +194,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 				antiRollFx		   = get('flt', wheelKey .. '#antiRollFx'),
 				realMaxMassAllowed = get('flt', wheelKey .. '#realMaxMassAllowed'),
 				tirePressureFx	   = get('flt', wheelKey .. '#tirePressureFx')
+				steeringAxleScale  = get('flt', wheelKey .. '#steeringAxleScale')
 			};
 
 			w = w + 1;
@@ -198,18 +205,19 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		w = 0;
 		while true do
 			local wheelKey = key .. ('.additionalWheels.wheel(%d)'):format(w);
-			if not hasXMLProperty(xmlFile, wheelKey) then break; end;
+			if not has(wheelKey) then break; end;
 
 			additionalWheels[#additionalWheels + 1] = {
-				repr	   						 = get('str', wheelKey .. '#repr'),
-				radius	   						 = get('flt', wheelKey .. '#radius'),
-				deltaY	   						 = get('flt', wheelKey .. '#deltaY'),
-				suspTravel 						 = get('flt', wheelKey .. '#suspTravel'),
-				spring	   						 = get('flt', wheelKey .. '#spring'),
-				damper	   						 = get('int', wheelKey .. '#damper') or 20,
-				brakeRatio 						 = get('flt', wheelKey .. '#brakeRatio') or 1,
+				repr							 = get('str', wheelKey .. '#repr'),
+				radius							 = get('flt', wheelKey .. '#radius'),
+				deltaY							 = get('flt', wheelKey .. '#deltaY'),
+				suspTravel						 = get('flt', wheelKey .. '#suspTravel'),
+				spring							 = get('flt', wheelKey .. '#spring'),
+				damper							 = get('int', wheelKey .. '#damper') or 20,
+				brakeRatio						 = get('flt', wheelKey .. '#brakeRatio') or 1,
 				antiRollFx						 = get('flt', wheelKey .. '#antiRollFx'),
-				lateralStiffness 				 = get('flt', wheelKey .. '#lateralStiffness'),
+				lateralStiffness				 = get('flt', wheelKey .. '#lateralStiffness'),
+				steeringAxleScale				 = get('flt', wheelKey .. '#steeringAxleScale'),
 				continousBrakeForceWhenNotActive = get('flt', wheelKey .. '#continousBrakeForceWhenNotActive')
 			};
 
@@ -222,7 +230,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local a = 0;
 		while true do
 			local ajKey = key .. ('.attacherJoints.attacherJoint(%d)'):format(a);
-			if not hasXMLProperty(xmlFile, ajKey) then break; end;
+			if not has(ajKey) then break; end;
 
 			local ajData = {};
 			local jointType = get('str', ajKey .. '#jointType');
@@ -262,7 +270,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		a = 0;
 		while true do
 			local tajKey = key .. ('.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
-			if not hasXMLProperty(xmlFile, tajKey) then break; end;
+			if not has(tajKey) then break; end;
 
 			trailerAttacherJoints[#trailerAttacherJoints + 1] = {
 				index 		  = get('str',  tajKey .. '#index');
@@ -286,7 +294,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local c = 1;
 		while true do
 			local compKey = key .. ('.components.component%d'):format(c);
-			if not hasXMLProperty(xmlFile, compKey) then break; end;
+			if not has(compKey) then break; end;
 
 			components[#components + 1] = {
 				centerOfMass		 = get('str', compKey .. '#centerOfMass'),
@@ -446,7 +454,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 		local n = 0;
 		while true do
 			local nodeKey = key .. ('.createExtraNodes.node(%d)'):format(n);
-			if not hasXMLProperty(xmlFile, nodeKey) then break; end;
+			if not has(nodeKey) then break; end;
 
 			createExtraNodes[n + 1] = {
 				index		= get('str', nodeKey .. '#index');

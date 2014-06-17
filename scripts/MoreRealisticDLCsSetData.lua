@@ -2,6 +2,12 @@
 
 --------------------------------------------------
 
+local prmGetXMLFn = {
+	bool = getXMLBool,
+	flt = getXMLFloat,
+	int = getXMLInt,
+	str = getXMLString
+};
 local prmSetXMLFn = {
 	bool = setXMLBool,
 	flt = setXMLFloat,
@@ -15,6 +21,10 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	local mrData = MoreRealisticDLCs.mrData;
 	if not mrData then return; end;
 
+	local get = function(prmType, key)
+		return prmGetXMLFn[prmType](xmlFile, key);
+	end;
+
 	local set = function(parameter, prmType, value, extraIndent)
 		if value == nil then return; end;
 
@@ -25,8 +35,12 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		end;
 	end;
 
+	local has = function(key)
+		return hasXMLProperty(xmlFile, key);
+	end;
+
 	local removePrm = function(property, extraIndent)
-		if getXMLString(xmlFile, property) ~= nil or hasXMLProperty(xmlFile, property) then
+		if get('str', property) ~= nil or has(property) then
 			removeXMLProperty(xmlFile, property);
 			if MoreRealisticDLCs.mrData and MoreRealisticDLCs.mrData.doDebug then
 				extraIndent = extraIndent or '';
@@ -82,7 +96,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			local i = 0;
 			while true do
 				local cKey = ('vehicle.crawlers.crawler(%d)'):format(i);
-				if not hasXMLProperty(xmlFile, cKey) or not mrData.wheelStuff.crawlersRealWheel[i + 1] then break; end;
+				if not has(cKey) or not mrData.wheelStuff.crawlersRealWheel[i + 1] then break; end;
 				set(cKey .. '#realWheel', 'int', mrData.wheelStuff.crawlersRealWheel[i + 1]);
 				i = i + 1;
 			end;
@@ -136,7 +150,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 		-- exhaust PS
 		if mrData.engine.newExhaustPS then
-			local node = getXMLString(xmlFile, 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#node');
+			local node = get('str', 'vehicle.exhaustParticleSystems.exhaustParticleSystem1#node');
 			if node then
 				-- remove old PS
 				set('vehicle.exhaustParticleSystems.exhaustParticleSystem1#file', 'str', self.exhaustPsOldPath);
@@ -161,8 +175,8 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 				-- exhaust cap
 				if mrData.engine.newExhaustCapAxis then
-					local capNode	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#flap');
-					local capMaxRot	= getXMLString(xmlFile, 'vehicle.exhaustParticleSystems#maxRot');
+					local capNode	= get('str', 'vehicle.exhaustParticleSystems#flap');
+					local capMaxRot	= get('str', 'vehicle.exhaustParticleSystems#maxRot');
 
 					if capNode and capMaxRot then
 						set(desKey .. '#cap',		'str', capNode);
@@ -197,7 +211,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	while true do
 		local wheelKey = ('vehicle.wheels.wheel(%d)'):format(wheelI);
 		if not mrData.wheelStuff.overwriteWheels then
-			local repr = getXMLString(xmlFile, wheelKey .. '#repr');
+			local repr = get('str', wheelKey .. '#repr');
 			if not repr or repr == '' then break; end;
 		end;
 		local wheelMrData = mrData.wheels[wheelI + 1];
@@ -225,8 +239,9 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		set(wheelKey .. '#antiRollFx',		   'flt', wheelMrData.antiRollFx, '\t');
 		set(wheelKey .. '#realMaxMassAllowed', 'flt', wheelMrData.realMaxMassAllowed, '\t');
 		set(wheelKey .. '#tirePressureFx',	   'flt', wheelMrData.tirePressureFx, '\t');
+		set(wheelKey .. '#steeringAxleScale',  'flt', wheelMrData.steeringAxleScale, '\t');
 
-		local suspTravel = wheelMrData.suspTravel or getXMLFloat(xmlFile, wheelKey .. '#suspTravel');
+		local suspTravel = wheelMrData.suspTravel or get('flt', wheelKey .. '#suspTravel');
 		if not wheelMrData.realMaxMassAllowed and suspTravel < 0.05 then
 			suspTravel = 0.05;
 		end;
@@ -259,6 +274,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		set(wheelKey .. '#brakeRatio',						 'flt', wheelMrData.brakeRatio, '\t');
 		set(wheelKey .. '#antiRollFx',						 'flt', wheelMrData.antiRollFx, '\t');
 		set(wheelKey .. '#lateralStiffness',				 'flt', wheelMrData.lateralStiffness, '\t');
+		set(wheelKey .. '#steeringAxleScale',				 'flt', wheelMrData.steeringAxleScale, '\t');
 		set(wheelKey .. '#continousBrakeForceWhenNotActive', 'flt', wheelMrData.continousBrakeForceWhenNotActive, '\t');
 
 		wheelI = wheelI + 1;
@@ -270,12 +286,12 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		local a = 0;
 		while true do
 			local ajKey = ('vehicle.attacherJoints.attacherJoint(%d)'):format(a);
-			if not hasXMLProperty(xmlFile, ajKey) then break; end;
+			if not has(ajKey) then break; end;
 
 			local ajMrData = mrData.attacherJoints[a + 1];
-			local jointType = getXMLString(xmlFile, ajKey .. '#jointType');
+			local jointType = get('str', ajKey .. '#jointType');
 			-- if jointType and (jointType == 'implement' or jointType == 'cutter') then
-			local rotationNode = getXMLString(xmlFile, ajKey .. '#rotationNode');
+			local rotationNode = get('str', ajKey .. '#rotationNode');
 			if rotationNode then
 				removePrm(ajKey .. '#maxRotLimit');
 				removePrm(ajKey .. '#minRot2');
@@ -318,17 +334,17 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	while true do
 		local tajKey = ('vehicle.trailerAttacherJoints.trailerAttacherJoint(%d)'):format(a);
 		local isAdditional = false;
-		if not hasXMLProperty(xmlFile, tajKey) then
+		if not has(tajKey) then
 			isAdditional = true;
 		end;
 
 		local tajData = mrData.trailerAttacherJoints[a + 1];
 		if tajData then
 			if mrData.doDebug then
-				local index 		= tostring(getXMLString(xmlFile, tajKey .. '#index'));
-				local low 			= tostring(getXMLString(xmlFile, tajKey .. '#low'));
-				local ptoOutputNode = tostring(getXMLString(xmlFile, tajKey .. '#ptoOutputNode'));
-				local ptoFilename 	= tostring(getXMLString(xmlFile, tajKey .. '#ptoFilename'));
+				local index 		= tostring(get('str', tajKey .. '#index'));
+				local low 			= tostring(get('str', tajKey .. '#low'));
+				local ptoOutputNode = tostring(get('str', tajKey .. '#ptoOutputNode'));
+				local ptoFilename 	= tostring(get('str', tajKey .. '#ptoFilename'));
 				local printStr = ('\ttrailerAttacherJoints: %d'):format(a);
 				if isAdditional then printStr = printStr .. ' (additional)'; end;
 				printStr = ('%s\n\t\tindex=%q, low=%q, ptoOutputNode=%q, ptoFilename=%q'):format(printStr, index, low, ptoOutputNode, ptoFilename);
@@ -356,7 +372,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 
 	-- components
-	for i=1, getXMLInt(xmlFile, 'vehicle.components#count') do
+	for i=1, get('int', 'vehicle.components#count') do
 		if mrData.components[i] then
 			local compKey = ('vehicle.components.component%d'):format(i);
 			set(compKey .. '#centerOfMass',			'str', mrData.components[i].centerOfMass);
@@ -392,7 +408,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			set('vehicle.realTilledGroundBonus#powerConsumptionWhenWorkingDecreaseFx', 'flt',  mrData.workTool.powerConsumptionWhenWorkingDecreaseFx);
 
 			if mrData.workTool.caRealTractionResistance then
-				local caCount = getXMLInt(xmlFile, 'vehicle.cuttingAreas#count');
+				local caCount = get('int', 'vehicle.cuttingAreas#count');
 				local tractionResistancePerCa = mrData.workTool.caRealTractionResistance / caCount;
 				local tractionResistanceWithLoadMassPerCa = mrData.workTool.caRealTractionResistanceWithLoadMass / caCount;
 				for i=1, caCount do
@@ -412,10 +428,10 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 				local numEntries = #mrData.workTool.realMaxDischargeSpeeds;
 				for ta=1, numEntries do
 					local taKey = ('vehicle.tipAnimations.tipAnimation(%d)'):format(ta - 1);
-					if not hasXMLProperty(xmlFile, taKey) then
+					if not has(taKey) then
 						if numEntries == 1 and ta == 1 then
 							taKey = 'vehicle.tipAnimation';
-							if not hasXMLProperty(xmlFile, taKey) then break; end;
+							if not has(taKey) then break; end;
 						else
 							break;
 						end;
@@ -482,26 +498,26 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			-- shovel
 			elseif mrData.subCategory == 'shovel' then
 				if mrData.workTool.replaceParticleSystem and self.mrVehiclesPackInstalled then
-					local i = 0;
+					local eps = 0;
 					while true do
-						local key = ('vehicle.emptyParticleSystems.emptyParticleSystem(%d)'):format(i);
-						if not hasXMLProperty(xmlFile, key) then break; end;
+						local key = ('vehicle.emptyParticleSystems.emptyParticleSystem(%d)'):format(eps);
+						if not has(key) then break; end;
 
-						local fillType = getXMLString(xmlFile, key .. '#type');
+						local fillType = get('str', key .. '#type');
 						if fillType and self.shovelPS[fillType] then
 							-- PS file
 							set(key .. '#file', 'str', self.shovelPS[fillType]);
 
 							-- position
 							local posX, posY, posZ = unpack(mrData.workTool.addParticleSystemPos);
-							local posStr = getXMLString(xmlFile, key .. '#position');
+							local posStr = get('str', key .. '#position');
 							if posStr then
 								local x, y, z = Utils.getVectorFromString(posStr);
 								posX, posY, posZ = posX + x, posY + y, posZ + z;
 							end;
 							set(key .. '#position', 'str', posX .. ' ' .. posY .. ' ' .. posZ);
 						end;
-						i = i + 1;
+						eps = eps + 1;
 					end;
 				end;
 			end;
@@ -510,10 +526,10 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			if SpecializationUtil.hasSpecialization(Fillable, vehicle.specializations) then
 				set('vehicle.capacity', 'int', mrData.workTool.capacity);
 
-				for i=1, #mrData.workTool.realCapacityMultipliers do
-					local rcmKey = ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)'):format(i-1);
-					set(rcmKey .. '#fillType',   'str', mrData.workTool.realCapacityMultipliers[i].fillType);
-					set(rcmKey .. '#multiplier', 'flt', mrData.workTool.realCapacityMultipliers[i].multiplier);
+				for rcm=1, #mrData.workTool.realCapacityMultipliers do
+					local rcmKey = ('vehicle.realCapacityMultipliers.realCapacityMultiplier(%d)'):format(rcm-1);
+					set(rcmKey .. '#fillType',   'str', mrData.workTool.realCapacityMultipliers[rcm].fillType);
+					set(rcmKey .. '#multiplier', 'flt', mrData.workTool.realCapacityMultipliers[rcm].multiplier);
 				end;
 			end;
 		end;
@@ -523,7 +539,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	if mrData.general.hasAnimationValues then
 		for i,data in ipairs(mrData.general.animationValues) do
 			local partKey = ('vehicle.animations.animation(%d).part(%d)'):format(data.animIndex, data.partIndex);
-			if not hasXMLProperty(xmlFile, partKey .. '#node') then break; end;
+			if not has(partKey .. '#node') then break; end;
 
 			set(partKey .. '#startRot',		   'str', data.startRot);
 			set(partKey .. '#startRotLimit',   'str', data.startRotLimit);
@@ -541,20 +557,20 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		local a = 0;
 		while true do
 			local animKey = ('vehicle.animations.animation(%d)'):format(a);
-			if not hasXMLProperty(xmlFile, animKey) then break; end;
+			if not has(animKey) then break; end;
 
-			local animName = getXMLString(xmlFile, animKey .. '#name');
+			local animName = get('str', animKey .. '#name');
 			local animScale = mrData.general.animationSpeedScale[animName];
 			local animOffset = mrData.general.animationTimeOffset[animName];
 			if animScale or animOffset then
 				local p = 0;
 				while true do
 					local partKey = ('%s.part(%d)'):format(animKey, p);
-					if not hasXMLProperty(xmlFile, partKey) then break; end;
+					if not has(partKey) then break; end;
 
-					local startTime = getXMLFloat(xmlFile, partKey .. '#startTime');
-					local endTime   = getXMLFloat(xmlFile, partKey .. '#endTime');
-					local duration  = getXMLFloat(xmlFile, partKey .. '#duration');
+					local startTime = get('flt', partKey .. '#startTime');
+					local endTime   = get('flt', partKey .. '#endTime');
+					local duration  = get('flt', partKey .. '#duration');
 
 					if startTime and (endTime or duration) then
 						if animScale then
@@ -585,9 +601,9 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 				if animOffset then
 					-- add additional part with time 0 -> offset and no movement so the new anim duration will be correct
-					local firstNode		  = getXMLString(xmlFile, animKey .. '.part(0)#node');
-					local firstStartRot	  = getXMLString(xmlFile, animKey .. '.part(0)#startRot');
-					local firstStartTrans = getXMLString(xmlFile, animKey .. '.part(0)#startTrans');
+					local firstNode		  = get('str', animKey .. '.part(0)#node');
+					local firstStartRot	  = get('str', animKey .. '.part(0)#startRot');
+					local firstStartTrans = get('str', animKey .. '.part(0)#startTrans');
 
 					local newPartKey = ('%s.part(%d)'):format(animKey, p);
 					set(newPartKey .. '#node',		 'str', firstNode);
@@ -607,13 +623,13 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	for mtNum, scale in ipairs(mrData.general.movingToolSpeedScale) do
 		if scale ~= 1 then
 			local mtKey = ('vehicle.movingTools.movingTool(%d)'):format(mtNum - 1);
-			if not hasXMLProperty(xmlFile, mtKey) then break; end;
+			if not has(mtKey) then break; end;
 
-			local curRotSpeed = getXMLFloat(xmlFile, mtKey .. '#rotSpeed');
+			local curRotSpeed = get('flt', mtKey .. '#rotSpeed');
 			if curRotSpeed then
 				set(mtKey .. '#rotSpeed', 'flt', curRotSpeed * scale);
 			end;
-			local curTransSpeed = getXMLFloat(xmlFile, mtKey .. '#transSpeed');
+			local curTransSpeed = get('flt', mtKey .. '#transSpeed');
 			if curTransSpeed then
 				set(mtKey .. '#transSpeed', 'flt', curTransSpeed * scale);
 			end;

@@ -374,13 +374,20 @@ function MoreRealisticDLCs.createExtraNodes(self, i3dNode, arguments)
 		local componentIndex, childrenPath = MoreRealisticDLCs:nodeIndexToPath(nodeData.index);
 		local component = getChildAt(i3dNode, componentIndex);
 		local nodeParent = component;
-		if childrenPath then
+		local validNodeParent = nodeParent ~= nil;
+		if not validNodeParent then break; end;
+		if childrenPath and #childrenPath > 1 then
 			for j,childIndex in ipairs(childrenPath) do
 				if j < #childrenPath then
 					nodeParent = getChildAt(nodeParent, childIndex);
+					if not nodeParent then
+						validNodeParent = false;
+						break;
+					end;
 				end;
 			end;
 		end;
+		if not validNodeParent then break; end;
 
 		local node = createTransformGroup('extraNode_' .. i);
 		link(nodeParent, node);
