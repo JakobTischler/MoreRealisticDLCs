@@ -455,22 +455,8 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			local nodeKey = key .. ('.createExtraNodes.node(%d)'):format(n);
 			if not has(nodeKey) then break; end;
 
-			local index = get('str', nodeKey .. '#index');
+			local index, translation, rotation, scale = self:getNodePropertiesFromXML(xmlFile, nodeKey)
 			if not index then break; end;
-
-			local translation = get('str', nodeKey .. '#translation');
-			local rotation	  = get('str', nodeKey .. '#rotation');
-			local scale		  = get('str', nodeKey .. '#scale');
-
-			if translation then
-				translation = Utils.getVectorNFromString(translation);
-			end;
-			if rotation then
-				rotation = Utils.getRadiansFromString(rotation, 3);
-			end;
-			if scale then
-				scale = Utils.getVectorNFromString(scale);
-			end;
 
 			general.createExtraNodes[n + 1] = {
 				index = index;
@@ -489,23 +475,8 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			local nodeKey = ('%s.nodeProperties.node(%d)'):format(key, nI);
 			if not has(nodeKey) then break; end;
 
-			local index = get('str', nodeKey .. '#index');
-			if not index then break; end;
-
-			local translation = get('str', nodeKey .. '#translation');
-			local rotation	  = get('str', nodeKey .. '#rotation');
-			local scale		  = get('str', nodeKey .. '#scale');
-			if not translation and not rotation and not scale then break; end;
-
-			if translation then
-				translation = Utils.getVectorNFromString(translation);
-			end;
-			if rotation then
-				rotation = Utils.getRadiansFromString(rotation, 3);
-			end;
-			if scale then
-				scale = Utils.getVectorNFromString(scale);
-			end;
+			local index, translation, rotation, scale = self:getNodePropertiesFromXML(xmlFile, nodeKey)
+			if not index or (not translation and not rotation and not scale) then break; end;
 
 			general.nodeProperties[#general.nodeProperties + 1] = {
 				index = index;

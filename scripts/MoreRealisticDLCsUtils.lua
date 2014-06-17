@@ -29,6 +29,28 @@ function MoreRealisticDLCs.nodeIndexToPath(nodeIndex)
 	return componentIndex, path;
 end;
 
+
+function MoreRealisticDLCs:getNodePropertiesFromXML(xmlFile, nodeKey)
+	local index = getXMLString(xmlFile, nodeKey .. '#index');
+	if not index then return; end;
+
+	local translation = getXMLString(xmlFile, nodeKey .. '#translation');
+	local rotation	  = getXMLString(xmlFile, nodeKey .. '#rotation');
+	local scale		  = getXMLString(xmlFile, nodeKey .. '#scale');
+
+	if translation then
+		translation = Utils.getVectorNFromString(translation);
+	end;
+	if rotation then
+		rotation = Utils.getRadiansFromString(rotation, 3);
+	end;
+	if scale then
+		scale = Utils.getVectorNFromString(scale);
+	end;
+
+	return index, translation, rotation, scale;
+end;
+
 function MoreRealisticDLCs.setNodeProperties(node, translation, rotation, scale)
 	if translation then
 		setTranslation(node, unpack(translation));
