@@ -335,22 +335,30 @@
 
 	<!-- (2.12) URSUS N-270 MANURE SPREADER --> <!-- AUTHOR: Satis --> <!-- DONE -->
 	<vehicle category="tool" subCategory="sprayer" configFileName="pdlc/ursusAddon/ursus/ursusN270.xml" mrVehicleType="moreRealistic.manureSpreader" debug="false">
-		<store capacity="15.5" capacityUnit="M3" weight="6300" workWidth="10" workSpeedMin="10" workSpeedMax="18" requiredPowerKwMin="111" requiredPowerKwMax="147.5" author="Satis" />
-		<dimensions width="2.48" height="1.25" /> <!-- in m -->
-		<weights weight="6.3" realBrakeMaxMovingMass="21" /> <!-- in t -->
-		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" realWorkingPowerConsumption="75" />
-		<workTool capacity="15500" realCapacityMultipliers="manure:1.10" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="85.3" />
+		<store price="22500" dailyUpkeep="18" capacity="15.5" capacityUnit="M3" weight="6300" workWidth="8.4" workSpeedMin="7" workSpeedMax="15" requiredPowerKwMin="111" author="Satis" />
+		<dimensions width="2.48" height="3.42" /> <!-- in m -->
+		<weights weight="6.3" realBrakeMaxMovingMass="20" /> <!-- in t -->
+		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5.7" realWorkingPowerConsumption="50" />
+		<workTool capacity="15500" realCapacityMultipliers="manure:1.11" realWorkingSpeedLimit="20" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="72" />
 		<wheels>
-			<!-- Front Axel -->
-			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
-			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
-			<!-- Rear Axel -->
-			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
-			<wheel driveMode="0" deltaY="0.13" suspTravel="0.15" spring="110" damper="20" />
+			<!-- Front Axle -->
+			<wheel radius="0.586" deltaY="0.185" suspTravel="0.25" spring="60" damper="20" brakeRatio="1" />
+			<wheel radius="0.586" deltaY="0.185" suspTravel="0.25" spring="60" damper="20" brakeRatio="1" />
+			<!-- Rear Axle -->
+			<wheel radius="0.586" deltaY="0.18" suspTravel="0.25" spring="80" damper="20" brakeRatio="1" steeringAxleScale="0" />
+			<wheel radius="0.586" deltaY="0.18" suspTravel="0.25" spring="80" damper="20" brakeRatio="1" steeringAxleScale="0" />
 		</wheels>
+		
+		<nodeProperties>
+			<node index="0>13" translation="0 0 -4" />
+			<node index="0>14" translation="4.2 0 -6.5" />
+			<node index="0>15" translation="-4.2 0 -6.5" />
+			<node index="0>16|0|0" translation="0 0 0" rotation="-12 0 0" />
+		</nodeProperties>
+		
 		<components>
-			<component1 centerOfMass="0 0.4 -0.8" realMassWanted="6.0" realTransWithMass="0 0.05 0" realTransWithMassMax="0 0.55 0" /> <!-- Trailer -->
-			<component2 centerOfMass="0 0 0" realMassWanted="0.3" /> <!-- Support -->
+			<component1 centerOfMass="0 0.6 -0.83" realMassWanted="6.2" realTransWithMass="0 0.04 0.025" /> <!-- body -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 </vehicles>
