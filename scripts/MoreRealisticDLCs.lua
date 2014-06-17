@@ -336,9 +336,9 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	local xmlFile = loadXMLFile('TempConfig', configFile);
 
 	-- ADD MR DATA
-	local createExtraNodes;
+	local createExtraNodes, nodeProperties;
 	if addMrData then
-		createExtraNodes = MoreRealisticDLCs:setMrData(self, xmlFile);
+		createExtraNodes, nodeProperties = MoreRealisticDLCs:setMrData(self, xmlFile);
 	end;
    
 	for i=1, #self.specializations do
@@ -353,10 +353,10 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	offsetY = offsetY + additionnalOffsetY;
 
 	if asyncCallbackFunction ~= nil then
-		Utils.loadSharedI3DFile(getXMLString(xmlFile, 'vehicle.filename'), baseDirectory, true, true, self.loadFinished, self, {xmlFile, positionX, offsetY, positionZ, yRot, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments, createExtraNodes});
+		Utils.loadSharedI3DFile(getXMLString(xmlFile, 'vehicle.filename'), baseDirectory, true, true, self.loadFinished, self, {xmlFile, positionX, offsetY, positionZ, yRot, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments, createExtraNodes, nodeProperties});
 	else
 		local i3dNode = Utils.loadSharedI3DFile(getXMLString(xmlFile, 'vehicle.filename'), baseDirectory, true, true);
-		self:loadFinished(i3dNode, {xmlFile, positionX, offsetY, positionZ, yRot, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments, createExtraNodes});
+		self:loadFinished(i3dNode, {xmlFile, positionX, offsetY, positionZ, yRot, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments, createExtraNodes, nodeProperties});
 	end;
 
 	MoreRealisticDLCs.mrData = nil;
@@ -367,37 +367,49 @@ function MoreRealisticDLCs.createExtraNodes(self, i3dNode, arguments)
 	if not self.isMoreRealisticDLC then return; end;
 
 	local createExtraNodes = arguments[9];
-	if not createExtraNodes or not next(createExtraNodes) then return; end;
-
-	for i,nodeData in ipairs(createExtraNodes) do
-		-- TODO: use parent instead of index, then use indexToObject()
-		local componentIndex, childrenPath = MoreRealisticDLCs:nodeIndexToPath(nodeData.index);
-		local component = getChildAt(i3dNode, componentIndex);
-		local nodeParent = component;
-		local validNodeParent = nodeParent ~= nil;
-		if not validNodeParent then break; end;
-		if childrenPath and #childrenPath > 1 then
-			for j,childIndex in ipairs(childrenPath) do
-				if j < #childrenPath then
-					nodeParent = getChildAt(nodeParent, childIndex);
-					if not nodeParent then
-						validNodeParent = false;
-						break;
+	if createExtraNodes and next(createExtraNodes) then
+		for i,nodeData in ipairs(createExtraNodes) do
+			-- TODO: use parent instead of index, then use indexToObject()
+			local componentIndex, childrenPath = MoreRealisticDLCs.nodeIndexToPath(nodeData.index);
+			local component = getChildAt(i3dNode, componentIndex);
+			local nodeParent = component;
+			local validNodeParent = nodeParent ~= nil and nodeParent ~= 0;
+			if not validNodeParent then break; end;
+			if childrenPath and #childrenPath > 1 then
+				for j,childIndex in ipairs(childrenPath) do
+					if j < #childrenPath then
+						nodeParent = getChildAt(nodeParent, childIndex);
+						if not nodeParent  or nodeParent == 0 then
+							validNodeParent = false;
+							break;
+						end;
 					end;
 				end;
 			end;
+			if not validNodeParent then break; end;
+
+			local node = createTransformGroup('extraNode_' .. i);
+			link(nodeParent, node);
+
+			MoreRealisticDLCs.setNodeProperties(node, nodeData.translation, nodeData.rotation, nodeData.scale);
 		end;
-		if not validNodeParent then break; end;
-
-		local node = createTransformGroup('extraNode_' .. i);
-		link(nodeParent, node);
-
-		setRotation(node, unpack(table.map(nodeData.rotation, math.rad)));
-		setTranslation(node, unpack(nodeData.translation));
-		setScale(node, unpack(nodeData.scale));
 	end;
 end;
 Vehicle.loadFinished = Utils.prependedFunction(Vehicle.loadFinished, MoreRealisticDLCs.createExtraNodes);
+
+-- SET NODE PROPERTIES
+function MoreRealisticDLCs.setNodesProperties(self, i3dNode, arguments)
+	local nodeProperties = arguments[10];
+	if nodeProperties and next(nodeProperties) then
+		for i,nodeData in ipairs(nodeProperties) do
+			local node = Utils.indexToObject(self.components, nodeData.index);
+			if not node or node == 0 then break; end;
+
+			MoreRealisticDLCs.setNodeProperties(node, nodeData.translation, nodeData.rotation, nodeData.scale);
+		end;
+	end;
+end;
+Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.setNodesProperties);
 
 -- ANGULAR + LINEAR DAMPING
 function MoreRealisticDLCs.setMoreRealisticDamping(self, i3dNode, arguments)

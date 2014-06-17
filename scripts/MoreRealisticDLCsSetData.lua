@@ -72,7 +72,6 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	set('vehicle.realMotorizedWheelsDriveLossFx',		 'flt',  mrData.general.realMotorizedWheelsDriveLossFx);
 	set('vehicle.realVehicleOnFieldRollingResistanceFx', 'flt',  mrData.general.realVehicleOnFieldRollingResistanceFx);
 
-
 	if mrData.category == 'steerable' then
 		-- accelerationSpeed
 		set('vehicle.accelerationSpeed#maxAcceleration', 'flt', mrData.engine.accelerationSpeedMaxAcceleration);
@@ -638,9 +637,5 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 
 -- ##################################################
 
-	if #mrData.createExtraNodes > 0 then
-		return mrData.createExtraNodes;
-	end;
-
-	return;
+	return mrData.general.createExtraNodes, mrData.general.nodeProperties;
 end;

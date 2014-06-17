@@ -13,7 +13,7 @@ if table.map == nil then
 	end;
 end;
 
-function MoreRealisticDLCs:nodeIndexToPath(nodeIndex)
+function MoreRealisticDLCs.nodeIndexToPath(nodeIndex)
 	local componentIndex, childrenStart = 0, 0;
 	local a = nodeIndex:find('>');
 	if a then
@@ -27,6 +27,18 @@ function MoreRealisticDLCs:nodeIndexToPath(nodeIndex)
 	end;
 
 	return componentIndex, path;
+end;
+
+function MoreRealisticDLCs.setNodeProperties(node, translation, rotation, scale)
+	if translation then
+		setTranslation(node, unpack(translation));
+	end;
+	if rotation then
+		setRotation(node, unpack(rotation));
+	end;
+	if scale then
+		setScale(node, unpack(scale));
+	end;
 end;
 
 --------------------------------------------------

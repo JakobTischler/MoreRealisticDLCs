@@ -113,7 +113,6 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			general.movingToolSpeedScale = Utils.getVectorNFromString(mtString, nil);
 		end;
 
-
 		-- engine
 		local engine = {
 			kW 									= get('flt',  key .. '.engine#kW');
@@ -450,20 +449,72 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 
 
 		-- create extra nodes
-		local createExtraNodes = {};
+		general.createExtraNodes = {};
 		local n = 0;
 		while true do
 			local nodeKey = key .. ('.createExtraNodes.node(%d)'):format(n);
 			if not has(nodeKey) then break; end;
 
-			createExtraNodes[n + 1] = {
-				index		= get('str', nodeKey .. '#index');
-				translation	= Utils.getVectorNFromString(get('str', nodeKey .. '#translation') or '0 0 0');
-				rotation	= Utils.getVectorNFromString(get('str', nodeKey .. '#rotation') or '0 0 0');
-				scale		= Utils.getVectorNFromString(get('str', nodeKey .. '#scale') or '1 1 1');
+			local index = get('str', nodeKey .. '#index');
+			if not index then break; end;
+
+			local translation = get('str', nodeKey .. '#translation');
+			local rotation	  = get('str', nodeKey .. '#rotation');
+			local scale		  = get('str', nodeKey .. '#scale');
+
+			if translation then
+				translation = Utils.getVectorNFromString(translation);
+			end;
+			if rotation then
+				rotation = Utils.getRadiansFromString(rotation, 3);
+			end;
+			if scale then
+				scale = Utils.getVectorNFromString(scale);
+			end;
+
+			general.createExtraNodes[n + 1] = {
+				index = index;
+				translation = translation;
+				rotation = rotation;
+				scale = scale;
 			};
 
 			n = n + 1;
+		end;
+
+		-- node properties
+		general.nodeProperties = {};
+		local nI = 0;
+		while true do
+			local nodeKey = ('%s.nodeProperties.node(%d)'):format(key, nI);
+			if not has(nodeKey) then break; end;
+
+			local index = get('str', nodeKey .. '#index');
+			if not index then break; end;
+
+			local translation = get('str', nodeKey .. '#translation');
+			local rotation	  = get('str', nodeKey .. '#rotation');
+			local scale		  = get('str', nodeKey .. '#scale');
+			if not translation and not rotation and not scale then break; end;
+
+			if translation then
+				translation = Utils.getVectorNFromString(translation);
+			end;
+			if rotation then
+				rotation = Utils.getRadiansFromString(rotation, 3);
+			end;
+			if scale then
+				scale = Utils.getVectorNFromString(scale);
+			end;
+
+			general.nodeProperties[#general.nodeProperties + 1] = {
+				index = index;
+				translation = translation;
+				rotation = rotation;
+				scale = scale;
+			};
+
+			nI = nI + 1;
 		end;
 
 		--------------------------------------------------
@@ -528,8 +579,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			trailerAttacherJoints = trailerAttacherJoints,
 			workTool = workTool,
 			combine = combine,
-			components = components,
-			createExtraNodes = createExtraNodes
+			components = components
 		};
 
 		--------------------------------------------------
