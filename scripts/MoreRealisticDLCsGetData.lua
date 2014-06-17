@@ -416,27 +416,6 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			end;
 		end;
 
-		-- cuttingAreas
-		workTool.cuttingAreas = {};
-		local caI = 1;
-		while true do
-			local caKey = key .. '.cuttingAreas.cuttingArea' .. caI;
-			if not has(caKey) then break; end;
-
-			local startIndex  = get('str', caKey .. '#startIndex');
-			local widthIndex  = get('str', caKey .. '#widthIndex');
-			local heightIndex = get('str', caKey .. '#heightIndex');
-			if not startIndex or not widthIndex or not heightIndex then break; end;
-
-			workTool.cuttingAreas[caI] = {
-				startIndex = startIndex;
-				widthIndex = widthIndex;
-				heightIndex = heightIndex;
-			};
-
-			caI = caI + 1;
-		end;
-
 		-- combine
 		local combine = {};
 		if subCategory == 'combine' then

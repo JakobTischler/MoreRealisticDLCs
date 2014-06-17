@@ -391,18 +391,6 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			set('vehicle.groundReferenceNode#threshold', 'flt', mrData.workTool.groundReferenceNodeThreshold);
 		end;
 
-		-- cuttingAreas
-		if next(mrData.workTool.cuttingAreas) then
-			for caI,caData in pairs(mrData.workTool.cuttingAreas) do
-				local caKey = 'vehicle.cuttingAreas.cuttingArea' .. caI;
-				if not has(caKey) then break; end;
-
-				set(caKey .. '#startIndex',	 'str', caData.startIndex);
-				set(caKey .. '#widthIndex',	 'str', caData.widthIndex);
-				set(caKey .. '#heightIndex', 'str', caData.heightIndex);
-			end;
-		end;
-
 		-- cutter
 		if mrData.subCategory == 'cutter' then
 			set('vehicle.realCutterPowerConsumption',	 'flt', mrData.workTool.realCutterPowerConsumption);
