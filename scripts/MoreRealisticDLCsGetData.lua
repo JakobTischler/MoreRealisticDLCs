@@ -31,7 +31,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 
 		-- base
 		local configFileName = get('str',  key .. '#configFileName');
-		local vehicleTyp	 = get('str',  key .. '#mrVehicleType');
+		local vehicleType	 = get('str',  key .. '#mrVehicleType');
 		local category		 = get('str',  key .. '#category');
 		local subCategory	 = get('str',  key .. '#subCategory') or '';
 		local doDebug		 = get('bool', key .. '#debug');
@@ -192,7 +192,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 				lateralStiffness   = get('flt', wheelKey .. '#lateralStiffness'),
 				antiRollFx		   = get('flt', wheelKey .. '#antiRollFx'),
 				realMaxMassAllowed = get('flt', wheelKey .. '#realMaxMassAllowed'),
-				tirePressureFx	   = get('flt', wheelKey .. '#tirePressureFx')
+				tirePressureFx	   = get('flt', wheelKey .. '#tirePressureFx'),
 				steeringAxleScale  = get('flt', wheelKey .. '#steeringAxleScale')
 			};
 
