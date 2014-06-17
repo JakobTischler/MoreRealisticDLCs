@@ -3,23 +3,28 @@
 	<!-- (1) STEERABLES -->
 	<!-- (1.1) URSUS 15014 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
-		<store powerKW="111" maxSpeed="40" weight="6900" author="Grisu118" />
-		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="6" /> 
-		<engine kW="111" realMaxReverseSpeed="40" realMaxFuelUsage="30" newExhaustPS="true" /> 
-		<dimensions width="2.9" height="2.44" /> <!-- in m --> 
-		<weights weight="6.9" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
+		<store price="84000" dailyUpkeep="190" powerKW="111" maxSpeed="40" weight="6900" author="Grisu118" />
+		<general fuelCapacity="200" realMaxVehicleSpeed="40" realBrakingDeceleration="5.6" /> 
+		<engine kW="111" realMaxFuelUsage="31" newExhaustPS="true" /> 
+		<dimensions width="2.44" height="2.9" /> <!-- in m --> 
+		<weights weight="7.1" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
 		<wheels>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-26" rotMax="21" rotSpeed="60"/>
-			<wheel driveMode="1" deltaY="0.18" brakeRatio="1" suspTravel="0.25" rotMin="-21" rotMax="26" rotSpeed="60"/>
-			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
-			<wheel radius="0.9" driveMode="2" deltaY="0.094" brakeRatio="1" spring="150" suspTravel="0.10" />
+			<wheel driveMode="1" radius="0.745" deltaY="0.17" suspTravel="0.25" spring="50" brakeRatio="1" rotMin="-33" rotMax="29" rotSpeed="60"/>
+			<wheel driveMode="1" radius="0.745" deltaY="0.17" suspTravel="0.25" spring="50" brakeRatio="1" rotMin="-29" rotMax="33" rotSpeed="60"/>
+			<wheel driveMode="2" radius="0.930" deltaY="0.041" suspTravel="0.10" spring="150" brakeRatio="1" />
+			<wheel driveMode="2" radius="0.930" deltaY="0.041" suspTravel="0.10" spring="150" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-19.769 0 0" maxRot2="19.769 0 0" minRotDistanceToGround="0.99361419677734" /> 
-			<attacherJoint jointType="implement" maxRot="32.669 0 0" maxRot2="-32.669 0 0" minRotDistanceToGround="1.0237503051758" /> 
+			<attacherJoint jointType="implement" maxRot="-21 0 0" maxRot2="21 0 0" minRotDistanceToGround="1.0175" /> 
+			<attacherJoint jointType="implement" maxRot="35.41 0 0" maxRot2="-35.41 0 0" minRotDistanceToGround="1.055" /> 
 		</attacherJoints>
+		<trailerAttacherJoints>
+			<trailerAttacherJoint maxRotLimit="40 63 40" /> <!-- rear high -->				
+			<trailerAttacherJoint maxRotLimit="30 87 30" /> <!-- rear low -->
+			<trailerAttacherJoint maxRotLimit="60 90 60" /> <!-- front -->
+		</trailerAttacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.5 -0.1" realMassWanted="6.9" />
+			<component1 centerOfMass="0 0.52 -0.02" realMassWanted="7" />
 		</components>
 	</vehicle>
 	
