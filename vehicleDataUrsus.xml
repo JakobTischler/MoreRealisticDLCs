@@ -158,7 +158,7 @@
 	</vehicle>
 	
 	<!-- (1.7) URSUS C-330 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
-	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC330.xml" mrVehicleType="mr_tractor_cylindered_u" debug="true">
+	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC330.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="15000" dailyUpkeep="45" powerKW="22.4" maxSpeed="23" weight="1901" author="Grisu118" /> 
 		<general fuelCapacity="35" realMaxVehicleSpeed="23" realBrakingDeceleration="3.5" realDisplaySlip="false" /> 
 		<engine kW="22.4" realMaxReverseSpeed="12" realMaxFuelUsage="6.5" newExhaustPS="true" realPtoDriveEfficiency="0.88" realTransmissionEfficiency="0.98" />
