@@ -318,6 +318,8 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
 		local ajMrData = mrData.attacherJoints[1];
 		removePrm('vehicle.attacherJoint#upperDistanceToGround');
+		removePrm('vehicle.attacherJoint#rotLimitScale');
+		removePrm('vehicle.attacherJoint#transLimitScale');
 		set('vehicle.attacherJoint#lowerDistanceToGround',		 'flt', ajMrData.lowerDistanceToGround);
 		set('vehicle.attacherJoint#upperDistanceToGround',		 'flt', ajMrData.upperDistanceToGround);
 		set('vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
