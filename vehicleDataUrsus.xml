@@ -278,24 +278,24 @@
 	</vehicle>
 
 	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->
-	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="false">
-		<store weight="400" workSpeedMax="15" workWidth="3.5" requiredPowerKwMin="15" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" author="Grisu118" />
-		<workTool  realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="25"/> <!--not correct values-->
-		<dimensions width="2" height="1.5" /> <!-- in m -->
-		<weights weight="0.400" maxWeight="0.400" /> <!-- in t -->
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="true">
+		<store price="4300" dailyUpkeep="8" weight="400" workSpeedMin="6" workSpeedMax="10" workWidth="3.5" requiredPowerKwMin="15" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" author="Grisu118" />
+		<workTool  realWorkingSpeedLimit="15" realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="40"/>
+		<dimensions width="2" height="1" /> <!-- in m -->
+		<weights weight="0.4" maxWeight="0.4" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
-			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
-			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
-			<wheel driveMode="0" deltaY="0" suspTravel="0.05" brakeRatio="0" antiRollFx="0"/>
+			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
+			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
+			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
+			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>			
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" lowerDistanceToGround="0.6" realWantedLoweredRotLimit="2 0 30" />
+			<attacherJoint jointType="implement" lowerDistanceToGround="0.62" upperDistanceToGround="0.8" realWantedLoweredRotLimit="2 0 15" realWantedLoweredTransLimit="0 0.05 0" realWantedRaisedRotInc="-0.5" />
 		</attacherJoints>
 		<components>
-			<component1 centerOfMass="0 0.5 0.2" realMassWanted="0.3"/>
-			<component2 centerOfMass="0 0 0" realMassWanted="0.07" />
-			<component3 centerOfMass="0 0 0" realMassWanted="0.03" />
+			<component1 centerOfMass="0 0.5 0.5" realMassWanted="0.15"/> <!-- body -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.15" /> <!-- head -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 
