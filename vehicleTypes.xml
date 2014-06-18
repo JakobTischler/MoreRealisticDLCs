@@ -18,7 +18,7 @@
 
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
-			<specialization name="exhaustPower" />
+			<specialization name="realisticLastMotorRpm" />
 		</type>
 
 		<type name="mr_extendedTipper_l" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -165,7 +165,7 @@
 
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
-			<specialization name="exhaustPower" />
+			<specialization name="realisticLastMotorRpm" />
 		</type>
 	
 		<type name="mr_tractor_wheelExtension_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -185,7 +185,7 @@
 
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
-			<specialization name="exhaustPower" />
+			<specialization name="realisticLastMotorRpm" />
 		</type>
 
 		<type name="mr_sowingMachine_foldableRidgeMarker_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -226,7 +226,7 @@
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
 			<specialization name="realisticCombine" />
-			<specialization name="exhaustPower" />
+			<specialization name="realisticLastMotorRpm" />
 		</type>
 		
 		<type name="mr_combine_extended_crawler_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -252,7 +252,7 @@
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
 			<specialization name="realisticCombine" />
-			<specialization name="exhaustPower" />
+			<specialization name="realisticLastMotorRpm" />
 		</type>
 
 		<type name="mr_cutter_mouseControlled_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -344,7 +344,7 @@
 
 			<specialization name="realisticMotorized" />
 			<specialization name="realisticSteerable" />
-			<specialization name="exhaustPower" />
+			<specialization name="realisticLastMotorRpm" />
 		</type>
 		
 		<type name="mr_dynamicMountAttacherTrailer_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">

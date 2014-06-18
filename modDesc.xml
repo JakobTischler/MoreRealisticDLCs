@@ -31,10 +31,10 @@
 
 	<customSpecializations>
 		<specialization name="dynamicExhaustingSystem"	className="DynamicExhaustingSystem"	filename="specs/mrDynamicExhaustingSystem.lua" />
-		<specialization name="exhaustPower" 			className="ExhaustPower" 			filename="specs/ExhaustPower.lua" />
-		<specialization name="realisticAugerWagon" 		className="RealisticAugerWagon"		filename="specs/RealisticAugerWagon.lua" />
+		<specialization name="realisticAugerWagon"		className="RealisticAugerWagon"		filename="specs/RealisticAugerWagon.lua" />
 		<specialization name="realisticBaleWrapper"		className="RealisticBaleWrapper"	filename="specs/RealisticBaleWrapper.lua" />
-		<specialization name="realisticMovingTool" 		className="RealisticMovingTool" 	filename="specs/RealisticMovingTool.lua" />
+		<specialization name="realisticLastMotorRpm"	className="RealisticLastMotorRpm"	filename="specs/RealisticLastMotorRpm.lua" />
+		<specialization name="realisticMovingTool"		className="RealisticMovingTool"		filename="specs/RealisticMovingTool.lua" />
 		<specialization name="variableSprayUsage"		className="VariableSprayUsage"		filename="specs/VariableSprayUsage.lua" />
 	</customSpecializations>
 

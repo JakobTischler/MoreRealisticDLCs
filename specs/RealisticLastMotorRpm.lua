@@ -1,5 +1,5 @@
--- ExhaustPower
--- sets lastMotorRpm to MoreRealistic value, so that the exhaust system actually works with MR
+-- RealisticLastMotorRpm
+-- sets lastMotorRpm to MoreRealistic value, so that the Titanium exhaust system actually works with MR
 
 -- @author: Jakob Tischler
 -- @date: 18 May 2014
@@ -8,13 +8,13 @@
 --
 -- Copyright (C) 2014 Jakob Tischler
 
-ExhaustPower = {};
+RealisticLastMotorRpm = {};
 
-function ExhaustPower.prerequisitesPresent(specializations)
+function RealisticLastMotorRpm.prerequisitesPresent(specializations)
 	return SpecializationUtil.hasSpecialization(RealisticVehicle, specializations) and SpecializationUtil.hasSpecialization(Motorized, specializations);
 end;
 
-function ExhaustPower:load(xmlFile)
+function RealisticLastMotorRpm:load(xmlFile)
 	self.fuckTheEarth = self.exhaustParticleSystems ~= nil;
 	if self.fuckTheEarth then
 		self.exhaustParticleSystems.maxRpm = 1;
@@ -23,16 +23,7 @@ function ExhaustPower:load(xmlFile)
 	end;
 end;
 
-function ExhaustPower:delete()
-end;
-
-function ExhaustPower:mouseEvent(posX, posY, isDown, isUp, button)
-end;
-
-function ExhaustPower:keyEvent(unicode, sym, modifier, isDown)
-end;
-
-function ExhaustPower:update(dt)
+function RealisticLastMotorRpm:update(dt)
 	if self.isServer and self.isActive and self.fuckTheEarth then
 		if not self.isMotorStarted and self.motor.lastMotorRpm ~= 0 then
 			self.motor.lastMotorRpm = 0;
@@ -43,8 +34,9 @@ function ExhaustPower:update(dt)
 	end;
 end;
 
-function ExhaustPower:updateTick(dt)
-end;
+function RealisticLastMotorRpm:updateTick(dt) end;
+function RealisticLastMotorRpm:draw() end;
+function RealisticLastMotorRpm:delete() end;
+function RealisticLastMotorRpm:mouseEvent(posX, posY, isDown, isUp, button) end;
+function RealisticLastMotorRpm:keyEvent(unicode, sym, modifier, isDown) end;
 
-function ExhaustPower:draw()
-end;
