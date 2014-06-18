@@ -240,7 +240,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 				ajData.maxRot2				  = get('str', ajKey .. '#maxRot2');
 				ajData.maxRotDistanceToGround = get('flt', ajKey .. '#maxRotDistanceToGround');
 				ajData.minRotDistanceToGround = get('flt', ajKey .. '#minRotDistanceToGround');
-				ajData.moveTime				  = get('flt', ajKey .. '#moveTime');
+				ajData.moveTime				  = get('flt', ajKey .. '#moveTime') or 2.5;
 
 				-- cutter attacher joint
 				ajData.lowerDistanceToGround 	   = get('flt', ajKey .. '#lowerDistanceToGround');
