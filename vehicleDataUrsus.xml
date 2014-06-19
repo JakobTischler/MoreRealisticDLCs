@@ -187,19 +187,21 @@
 
 	<!-- (2) TOOLS -->
 	<!-- (2.1) URSUS T-127 bale loader --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
-	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="false">
-		<store workSpeedMax="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" author="Jakob Tischler" />
-		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:0.8,baleGrabberWorkToDrop:0.65" />
-		<workTool realWorkingSpeedLimit="20" realAutoStackerWorkingPowerConsumption="20" />
-		<dimensions width="2.5" height="2.5" /> <!-- in m -->
-		<weights weight="2.62" maxWeight="6.22" realBrakeMaxMovingMass="8" /> <!-- in t -->
+	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="true">
+		<store price="13500" dailyUpkeep="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" maxSpeed="25" author="Jakob Tischler" />
+		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:1.2,baleGrabberWorkToDrop:0.55" />
+		
+		<workTool realWorkingSpeedLimit="20" realAutoStackerWorkingPowerConsumption="15" />
+		<dimensions width="2.5" height="1" /> <!-- in m -->
+		<weights weight="2.62" maxWeight="6.22" realBrakeMaxMovingMass="7" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" radius="0.43" deltaY="-0.025" damper="20" realMaxMassAllowed="5" suspTravel="0" spring="5" brakeRatio="1" />
-			<wheel driveMode="0" radius="0.43" deltaY="-0.025" damper="20" realMaxMassAllowed="5" suspTravel="0" spring="5" brakeRatio="1" />
+			<wheel radius="0.443" deltaY="0.05" suspTravel="0.1" spring="120" brakeRatio="1" damper="20" />
+			<wheel radius="0.443" deltaY="0.05" suspTravel="0.1" spring="120" brakeRatio="1" damper="20" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.4 0" realMassWanted="2.52" realTransWithMass="0 0.1 -0.2" />
+			<component1 centerOfMass="0 0.6 -0.6" realMassWanted="2.42" realTransWithMass="0 0.1 -0.05" />
 			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- back col -->
 		</components>
 	</vehicle>
 
