@@ -3,10 +3,10 @@
 
 -- @author: Jakob Tischler
 -- @date: 20 May 2014
--- @version: 0.2
+-- @version: 0.3
 -- @history: 0.1 (20 May 2014) - power consumption
 --           0.2 (23 May 2014) - adjust silage bale fillLevel depending on wrapped bale fillType
---			 0.3 (19 June 2014) - adjust wrapper weight depending on the current bale being wrapped
+--           0.3 (19 June 2014) - adjust wrapper weight depending on the current bale being wrapped
 --
 -- Copyright (C) 2014 Jakob Tischler
 
@@ -23,13 +23,14 @@ function RealisticBaleWrapper:load(xmlFile)
 	-- power consumption
 	self.realWorkingPowerConsumption = getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption');
 	self.realCurrentPowerConsumption = 0;
-	
+
+	self.updateLoadedBaleMass = RealisticBaleWrapper.updateLoadedBaleMass;
 	self.realBaleWrapperLastBaleId = nil;
 
 	-- fillType to silage ratio
 	self.fillTypeRatio = {};
-	local exists, silageDensity = RealisticUtils.getFillTypeInfosV2('silage');
-	if not exists then return; end;
+	local silageExists, silageDensity = RealisticUtils.getFillTypeInfosV2('silage');
+	if not silageExists then return; end;
 
 	for fillType,_ in pairs(self.allowedBaleTypes) do
 		local fillTypeName = Fillable.fillTypeIntToName[fillType];
@@ -37,8 +38,7 @@ function RealisticBaleWrapper:load(xmlFile)
 		if exists then
 			self.fillTypeRatio[fillType] = density / silageDensity;
 		end;
-	end;	
-	
+	end;
 end;
 
 function RealisticBaleWrapper:updateTick(dt)
@@ -52,11 +52,10 @@ function RealisticBaleWrapper:updateTick(dt)
 				self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
 			end;
 		end;
-		
-		local currentBaleId = self.wrapper.currentBale;	
-		--print(self.time .. " currentBaleId="..tostring(currentBaleId) .." - realBaleWrapperLastBaleId="..tostring(self.realBaleWrapperLastBaleId));		
-		if currentBaleId~=self.realBaleWrapperLastBaleId then		
-			RealisticBaleWrapper.updateLoadedBaleMass(self, currentBaleId);
+
+		local currentBaleId = self.wrapper.currentBale;
+		if currentBaleId ~= self.realBaleWrapperLastBaleId then
+			self:updateLoadedBaleMass(currentBaleid);
 			self.realBaleWrapperLastBaleId = currentBaleId;
 		end;
 	end;
@@ -64,19 +63,16 @@ function RealisticBaleWrapper:updateTick(dt)
 end;
 
 function RealisticBaleWrapper:updateLoadedBaleMass(baleId) 
-
 	local newBaleMass = 0;
-	
-	if baleId~=nil then
+
+	if baleId ~= nil then
 		local baleObject = networkGetObject(self.wrapper.currentBale);
-		if baleObject~=nil and baleObject.realCurrentMass~=nil then
+		if baleObject ~= nil and baleObject.realCurrentMass ~= nil then
 			newBaleMass = baleObject.realCurrentMass;
 		end;
 	end;
-	
-	--print(self.time .. " RealisticBaleWrapper:updateLoadedBaleMass  newBaleMass="..tostring(newBaleMass));		
+
 	self.realFillableFillMass = newBaleMass;
-		
 end;
 
 local origGetBaleInRange = pdlc_ursusAddon.BaleWrapper.getBaleInRange;
@@ -91,11 +87,8 @@ function RealisticBaleWrapper.getBaleInRange(self, node)
 					fillType = Fillable.fillTypeNameToInt[realFillType];
 				end;
 			end;
-			-- print(('getBaleInRange: bale=%s, silageBaleData=%s'):format(tostring(bale), tostring(silageBaleData)));
-			-- print(('\tfillType=%d (%s), fillLevel=%.2f'):format(fillType, Fillable.fillTypeIntToName[fillType], bale.fillLevel));
 
 			bale.fillLevel = bale.fillLevel * (self.fillTypeRatio[fillType] or 1);
-			-- print(('\tratio=%.5f -> set fillLevel to %.2f'):format(self.fillTypeRatio[fillType], bale.fillLevel));
 		end;
 	end;
 

@@ -288,6 +288,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			if not has(ajKey) then break; end;
 
 			local ajMrData = mrData.attacherJoints[a + 1];
+			if not ajMrData then break; end;
 			local jointType = get('str', ajKey .. '#jointType');
 			-- if jointType and (jointType == 'implement' or jointType == 'cutter') then
 			local rotationNode = get('str', ajKey .. '#rotationNode');
@@ -315,15 +316,14 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			a = a + 1;
 		end;
 
-        elseif mrData.category == 'tool' then
-		
+	elseif mrData.category == 'tool' then
 		removePrm('vehicle.attacherJoint#rotLimitScale');
 		removePrm('vehicle.attacherJoint#transLimitScale');
-		
+
 		if #mrData.attacherJoints == 1 then
 			local ajMrData = mrData.attacherJoints[1];
-			removePrm('vehicle.attacherJoint#upperDistanceToGround');		
-			
+			removePrm('vehicle.attacherJoint#upperDistanceToGround');
+
 			set('vehicle.attacherJoint#lowerDistanceToGround',		 'flt', ajMrData.lowerDistanceToGround);
 			set('vehicle.attacherJoint#upperDistanceToGround',		 'flt', ajMrData.upperDistanceToGround);
 			set('vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
