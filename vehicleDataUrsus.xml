@@ -224,8 +224,8 @@
 
 	<!-- (2.3) URSUS Z-586 bale wrapper --> <!-- AUTHOR: Jakob Tischler --> <!-- MOSTLY DONE -->
 	<vehicle category="tool" subCategory="baleWrapper" configFileName="pdlc/ursusAddon/ursus/ursusZ586.xml" mrVehicleType="mr_baleWrapper_u" debug="false">
-		<store workSpeedMax="20" weight="1200" requiredPowerKwMin="35" author="Jakob Tischler" />
-		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" realWorkingPowerConsumption="22" animationSpeedScale="unfold:0.2,moveBaleToWrapper:0.8,dropBaleFromWrapper:0.8,resetWrapperAfterBaleDrop:0.8" />
+		<store price="12700" dailyUpkeep="20" weight="1200" requiredPowerKwMin="35" maxSpeed="25" author="Jakob Tischler" />
+		<general realBrakingDeceleration="1" realMaxVehicleSpeed="35" realWorkingPowerConsumption="22" animationSpeedScale="unfold:0.2,moveBaleToWrapper:0.8,dropBaleFromWrapper:0.8,resetWrapperAfterBaleDrop:0.8" />
 		<!-- 
 			wrappingTime="80" animationSpeedScale="unfold:0.2,moveBaleToWrapper:0.15,dropBaleFromWrapper:0.2733333,resetWrapperAfterBaleDrop:0.3333333"
 			* wrapping time: IRL=80, Giants=20 sec -> scale = 0.25
@@ -234,16 +234,16 @@
 			* reset wrapper: name=resetWrapperAfterBaleDrop, IRL=10 sec, Giants=3 sec -> scale = 0.3333333
 		-->
 		<workTool realWorkingSpeedLimit="20" />
-		<dimensions width="2.8" height="0.4" /> <!-- in m -->
+		<dimensions width="2.2" height="0.4" /> <!-- in m -->
 		<weights weight="1.2" maxWeight="2.2" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" radius="0.446" deltaY="0.22" damper="20" suspTravel="0.25" brakeRatio="1" />
-			<wheel driveMode="0" radius="0.446" deltaY="0.22" damper="20" suspTravel="0.25" brakeRatio="1" />
+			<wheel radius="0.44" deltaY="0.05" suspTravel="0.1" spring="50" brakeRatio="0.1" damper="10" lateralStiffness="1" /> <!-- should have no brake on this wrapper -->
+			<wheel radius="0.44" deltaY="0.05" suspTravel="0.1" spring="50" brakeRatio="0.1" damper="10" lateralStiffness="1" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0 -1" realMassWanted="1" />
-			<component2 centerOfMass="0 0 0" realMassWanted="0.1" />
-			<component3 centerOfMass="0 0 0" realMassWanted="0.1" />
+			<component1 centerOfMass="0 0.75 -0.9" realMassWanted="0.8" /> <!-- body -->
+			<component2 centerOfMass="0 0 -1" realMassWanted="0.3" /> <!-- arm -->
+			<component3 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 
