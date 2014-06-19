@@ -204,19 +204,19 @@
 	</vehicle>
 
 	<!-- (2.2) URSUS Z-594 round baler --> <!-- AUTHOR: Jakob Tischler --> <!-- MAYBE DONE (wheels?) -->
-	<vehicle category="tool" subCategory="baler" configFileName="pdlc/ursusAddon/ursus/ursusZ594.xml" mrVehicleType="moreRealistic.roundBalerEnhanced" debug="false">
-		<store workSpeedMax="20" weight="2770" capacity="3700" capacityUnit="L" requiredPowerKwMin="60" fruits="wheat_windrow,dryGrass_windrow" author="Jakob Tischler" />
-		<general realBrakingDeceleration="5.2" realMaxVehicleSpeed="35" animationSpeedScale="unloadBale:0.5,closeDoor:0.5" /> <!-- animationTimeOffset="unloadBale:3" -->
-		<workTool capacity="3700" realBalerWorkingSpeedLimit="17" realBalerPowerConsumption="25" realBalerRoundingPowerConsumptionInc="20" realBalerPickUpPowerConsumptionInc="25" realBalerOverFillingRatio="1.05" realCapacityMultipliers="wheat_windrow:1,barley_windrow:1,dryGrass_windrow:1.25" />
+	<vehicle category="tool" subCategory="baler" configFileName="pdlc/ursusAddon/ursus/ursusZ594.xml" mrVehicleType="moreRealistic.baler" debug="false">
+		<store price="21000" dailyUpkeep="25" weight="2770" capacity="3700" capacityUnit="L" requiredPowerKwMin="60" maxSpeed="20" fruits="wheat_windrow,dryGrass_windrow" author="Jakob Tischler" />
+		<general realBrakingDeceleration="1" realMaxVehicleSpeed="20" animationSpeedScale="rotatePickup:1.7,unloadBale:0.6,closeDoor:0.6" /> <!-- animationTimeOffset="unloadBale:3" -->
+		<workTool capacity="3700" realBalerWorkingSpeedLimit="21" realBalerPowerConsumption="14" realBalerRoundingPowerConsumptionInc="20" realBalerPickUpPowerConsumptionInc="25" realBalerOverFillingRatio="1.06" realCapacityMultipliers="wheat_windrow:1,barley_windrow:1,dryGrass_windrow:1.25" />
 		<dimensions width="2.4" height="2.2" /> <!-- in m -->
 		<weights weight="2.77" maxWeight="3.1" /> <!-- in t -->
-		<wheels>
-			<wheel driveMode="0" deltaY="0.22" damper="20" suspTravel="0.25" brakeRatio="1" />
-			<wheel driveMode="0" deltaY="0.22" damper="20" suspTravel="0.25" brakeRatio="1" />
+		<wheels>			
+			<wheel radius="0.435" deltaY="0.05" suspTravel="0.1" spring="60" brakeRatio="0.1" damper="10" /> <!-- should have no brake on this baler -->
+			<wheel radius="0.435" deltaY="0.05" suspTravel="0.1" spring="60" brakeRatio="0.1" damper="10" />
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.25 0.25" realMassWanted="2.67" />
-			<component2 centerOfMass="0 0 0" realMassWanted="0.1" />
+			<component1 centerOfMass="0 0.7 -0.14" realMassWanted="2.67" /> <!-- baler -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->
 		</components>
 	</vehicle>
 
