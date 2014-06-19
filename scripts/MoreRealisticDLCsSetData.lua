@@ -315,18 +315,25 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			a = a + 1;
 		end;
 
-	elseif mrData.category == 'tool' and #mrData.attacherJoints == 1 then
-		local ajMrData = mrData.attacherJoints[1];
-		removePrm('vehicle.attacherJoint#upperDistanceToGround');
+        elseif mrData.category == 'tool' then
+		
 		removePrm('vehicle.attacherJoint#rotLimitScale');
 		removePrm('vehicle.attacherJoint#transLimitScale');
-		set('vehicle.attacherJoint#lowerDistanceToGround',		 'flt', ajMrData.lowerDistanceToGround);
-		set('vehicle.attacherJoint#upperDistanceToGround',		 'flt', ajMrData.upperDistanceToGround);
-		set('vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
-		set('vehicle.attacherJoint#realWantedLoweredRotLimit',	 'str', ajMrData.realWantedLoweredRotLimit);
-		set('vehicle.attacherJoint#realWantedRaisedRotLimit',	 'str', ajMrData.realWantedRaisedRotLimit);
-		set('vehicle.attacherJoint#realWantedLoweredRot2',		 'flt', ajMrData.realWantedLoweredRot2);
-		set('vehicle.attacherJoint#realWantedRaisedRotInc',		 'flt', ajMrData.realWantedRaisedRotInc);
+		
+		if #mrData.attacherJoints == 1 then
+			local ajMrData = mrData.attacherJoints[1];
+			removePrm('vehicle.attacherJoint#upperDistanceToGround');		
+			
+			set('vehicle.attacherJoint#lowerDistanceToGround',		 'flt', ajMrData.lowerDistanceToGround);
+			set('vehicle.attacherJoint#upperDistanceToGround',		 'flt', ajMrData.upperDistanceToGround);
+			set('vehicle.attacherJoint#realWantedLoweredTransLimit', 'str', ajMrData.realWantedLoweredTransLimit);
+			set('vehicle.attacherJoint#realWantedLoweredRotLimit',	 'str', ajMrData.realWantedLoweredRotLimit);
+			set('vehicle.attacherJoint#realWantedRaisedRotLimit',	 'str', ajMrData.realWantedRaisedRotLimit);
+			set('vehicle.attacherJoint#realWantedLoweredRot2',		 'flt', ajMrData.realWantedLoweredRot2);
+			set('vehicle.attacherJoint#realWantedRaisedRotInc',		 'flt', ajMrData.realWantedRaisedRotInc);		
+			set('vehicle.attacherJoint#rotLimitScale',				 'str', ajMrData.rotLimitScale);			
+		end;
+		
 	end;
 
 
