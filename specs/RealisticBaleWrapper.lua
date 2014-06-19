@@ -56,19 +56,21 @@ end;
 local origGetBaleInRange = pdlc_ursusAddon.BaleWrapper.getBaleInRange;
 function RealisticBaleWrapper.getBaleInRange(self, node)
 	local bale, silageBaleData = origGetBaleInRange(self, node);
-	if bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
-		local fillType = bale.fillType;
-		if bale.nodeId and bale.nodeId ~= 0 then
-			local realFillType = getUserAttribute(bale.nodeId, 'realFillType');
-			if realFillType then
-				fillType = Fillable.fillTypeNameToInt[realFillType];
+	if self.isRealistic then
+		if bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
+			local fillType = bale.fillType;
+			if bale.nodeId and bale.nodeId ~= 0 then
+				local realFillType = getUserAttribute(bale.nodeId, 'realFillType');
+				if realFillType then
+					fillType = Fillable.fillTypeNameToInt[realFillType];
+				end;
 			end;
+			-- print(('getBaleInRange: bale=%s, silageBaleData=%s'):format(tostring(bale), tostring(silageBaleData)));
+			-- print(('\tfillType=%d (%s), fillLevel=%.2f'):format(fillType, Fillable.fillTypeIntToName[fillType], bale.fillLevel));
+	
+			bale.fillLevel = bale.fillLevel * (self.fillTypeRatio[fillType] or 1);
+			-- print(('\tratio=%.5f -> set fillLevel to %.2f'):format(self.fillTypeRatio[fillType], bale.fillLevel));
 		end;
-		-- print(('getBaleInRange: bale=%s, silageBaleData=%s'):format(tostring(bale), tostring(silageBaleData)));
-		-- print(('\tfillType=%d (%s), fillLevel=%.2f'):format(fillType, Fillable.fillTypeIntToName[fillType], bale.fillLevel));
-
-		bale.fillLevel = bale.fillLevel * (self.fillTypeRatio[fillType] or 1);
-		-- print(('\tratio=%.5f -> set fillLevel to %.2f'):format(self.fillTypeRatio[fillType], bale.fillLevel));
 	end;
 
 	return bale, silageBaleData;
