@@ -247,22 +247,25 @@
 
 	<!-- (2.4) URSUS T-610A trailer --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/ursusAddon/ursus/ursusT610A.xml" mrVehicleType="moreRealistic.trailer" debug="false">
-		<store capacity="9.64" capacityUnit="M3" weight="2760" requiredPowerKwMin="35" fruits="wheat,barley,rape,maize,chaff,potato,sugarBeet" removeSpecsPerLang="ru:weight" author="Jakob Tischler" />
-		<general realBrakingDeceleration="4" realMaxVehicleSpeed="40" realRollingResistance="0.017" />
-		<workTool capacity="8000" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" realMaxDischargeSpeeds="3000 4000 4000 1000" /> <!-- tipAnimPlaneNodes="tipAnimationBack:0>3|0|0|0|2|0,tipAnimationLeft:0>3|0|0|1|1|0,tipAnimationRight:0>3|0|0|2|1|0,tipAnimationGrainDoor:0>3|0|0|0|1|0|0:small" -->
-		<dimensions width="2.3" height="2" /> <!-- in m -->
-		<weights weight="2.56" maxWeight="10.6" /> <!-- in t -->
+		<store price="9900" dailyUpkeep="12" capacity="9.64" capacityUnit="M3" weight="2700" requiredPowerKwMin="35" fruits="wheat,barley,rape,maize,chaff,potato,sugarBeet" removeSpecsPerLang="ru:weight" author="Jakob Tischler" />
+		<general realBrakingDeceleration="5" realMaxVehicleSpeed="40" realRollingResistance="0.011" />
+		<workTool capacity="9640" realTippingPowerConsumption="20" realCapacityMultipliers="wheat:1,barley:1,rape:1,maize:1,chaff:1.08,potato:1.04,sugarBeet:1.06" realMaxDischargeSpeeds="3000 4000 4000 1000" /> <!-- tipAnimPlaneNodes="tipAnimationBack:0>3|0|0|0|2|0,tipAnimationLeft:0>3|0|0|1|1|0,tipAnimationRight:0>3|0|0|2|1|0,tipAnimationGrainDoor:0>3|0|0|0|1|0|0:small" -->
+		<dimensions width="2.55" height="2.23" /> <!-- in m -->
+		<weights weight="2.7" maxWeight="10.76" realBrakeMaxMovingMass="11" /> <!-- in t -->
 		<wheels>
-			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
-			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
-			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
-			<wheel driveMode="0" radius="0.435" deltaY="0.03" suspTravel="0.05" spring="160" brakeRatio="1" />
+			<wheel radius="0.43" deltaY="0.1" suspTravel="0.15" spring="60" brakeRatio="1.2" damper="15" /> <!-- rear -->
+			<wheel radius="0.43" deltaY="0.1" suspTravel="0.15" spring="60" brakeRatio="1.2" damper="15" /> <!-- rear -->
+			<wheel radius="0.43" deltaY="0.1" suspTravel="0.15" spring="60" brakeRatio="0.75" damper="20" /> <!-- front -->
+			<wheel radius="0.43" deltaY="0.1" suspTravel="0.15" spring="60" brakeRatio="0.75" damper="20" /> <!-- front -->
 		</wheels>
 		<components>
-			<component1 centerOfMass="0 0.6 -0.4" realMassWanted="1.56" realTransWithMass="0 0.05 0.07" realTransWithMassMax="0 0.4 0.56" />
-			<component2 centerOfMass="0 0 0" realMassWanted="0.75" />
+			<component1 centerOfMass="0 0.5 -0.5" realMassWanted="1.7" realTransWithMass="0 0.05 0.06" /> <!-- body -->
+			<component2 centerOfMass="0 0 0" realMassWanted="0.75" /> 
 			<component3 centerOfMass="0 0 0" realMassWanted="0.25" />
 		</components>
+		<attacherJoints>
+			<attacherJoint jointType="trailer" rotLimitScale="1 0.95 1" />
+		</attacherJoints>
 		<!--
 		<createExtraNodes>
 			<node index="0>3|0|0|0|2"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
