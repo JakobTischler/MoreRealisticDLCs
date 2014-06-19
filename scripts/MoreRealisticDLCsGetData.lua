@@ -256,6 +256,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 				ajData.maxTransLimit			= get('str',  ajKey .. '#maxTransLimit');
 				ajData.allowsJointLimitMovement = get('bool', ajKey .. '#allowsJointLimitMovement');
 				ajData.allowsLowering			= get('bool', ajKey .. '#allowsLowering');
+				ajData.rotLimitScale			= get('str',  ajKey .. '#rotLimitScale');
 			end;
 
 			attacherJoints[#attacherJoints + 1] = ajData;
