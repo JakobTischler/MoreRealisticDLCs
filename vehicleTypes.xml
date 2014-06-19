@@ -481,7 +481,7 @@
 			<specialization name="attachable" />
 			<specialization name="cylindered" />
 			<specialization name="mouseControlsVehicle" />
-			<specialization name="pdlc_ursusAddon.baleGrab" />
+			<!-- <specialization name="pdlc_ursusAddon.baleGrab" /> -->
 
 			<specialization name="realisticMovingTool" />
 		</type>
