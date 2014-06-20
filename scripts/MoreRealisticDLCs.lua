@@ -14,18 +14,26 @@ TODO:
 ]]
 
 
+-- ##################################################
+
 MoreRealisticDLCs = {};
 local modDir, modName = g_currentModDirectory, g_currentModName;
 
-source(Utils.getFilename('scripts/GetFilenameFix.lua', modDir));
-source(Utils.getFilename('scripts/MoreRealisticDLCsGetData.lua', modDir));
-source(Utils.getFilename('scripts/MoreRealisticDLCsSetData.lua', modDir));
 source(Utils.getFilename('scripts/MoreRealisticDLCsUtils.lua', modDir));
+
+-- ASSERT MIN GAME VERSION (a.k.a. REALLY, REALLY MAKE SURE)
+if not MoreRealisticDLCs:assertGameVersion() then
+	return;
+end;
 
 -- ASSERT MOREREALISTIC MOD COMPATIBILITY
 if not MoreRealisticDLCs:assertMrVersions() then
 	return;
 end;
+
+source(Utils.getFilename('scripts/GetFilenameFix.lua', modDir));
+source(Utils.getFilename('scripts/MoreRealisticDLCsGetData.lua', modDir));
+source(Utils.getFilename('scripts/MoreRealisticDLCsSetData.lua', modDir));
 
 -- ##################################################
 

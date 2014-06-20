@@ -30,7 +30,7 @@ function RealisticBaleWrapper:load(xmlFile)
 	-- fillType to silage ratio
 	self.fillTypeRatio = {};
 	local silageExists, silageDensity = RealisticUtils.getFillTypeInfosV2('silage');
-	if not silageExists then return; end;
+	if not silageExists or not silageDensity or silageDensity == 0 then return; end;
 
 	for fillType,_ in pairs(self.allowedBaleTypes) do
 		local fillTypeName = Fillable.fillTypeIntToName[fillType];
@@ -42,7 +42,6 @@ function RealisticBaleWrapper:load(xmlFile)
 end;
 
 function RealisticBaleWrapper:updateTick(dt)
-
 	if self.isServer and self.isActive then
 		if self.realWorkingPowerConsumption then
 			self.realCurrentPowerConsumption = 0;
@@ -59,7 +58,6 @@ function RealisticBaleWrapper:updateTick(dt)
 			self.realBaleWrapperLastBaleId = currentBaleId;
 		end;
 	end;
-	
 end;
 
 function RealisticBaleWrapper:updateLoadedBaleMass(baleId) 
@@ -78,18 +76,16 @@ end;
 local origGetBaleInRange = pdlc_ursusAddon.BaleWrapper.getBaleInRange;
 function RealisticBaleWrapper.getBaleInRange(self, node)
 	local bale, silageBaleData = origGetBaleInRange(self, node);
-	if self.isRealistic then
-		if bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
-			local fillType = bale.fillType;
-			if bale.nodeId and bale.nodeId ~= 0 then
-				local realFillType = getUserAttribute(bale.nodeId, 'realFillType');
-				if realFillType then
-					fillType = Fillable.fillTypeNameToInt[realFillType];
-				end;
+	if self.isRealistic and bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
+		local fillType = bale.fillType;
+		if bale.nodeId and bale.nodeId ~= 0 then
+			local realFillType = getUserAttribute(bale.nodeId, 'realFillType');
+			if realFillType then
+				fillType = Fillable.fillTypeNameToInt[realFillType];
 			end;
-
-			bale.fillLevel = bale.fillLevel * (self.fillTypeRatio[fillType] or 1);
 		end;
+
+		bale.fillLevel = bale.fillLevel * (self.fillTypeRatio[fillType] or 1);
 	end;
 
 	return bale, silageBaleData;

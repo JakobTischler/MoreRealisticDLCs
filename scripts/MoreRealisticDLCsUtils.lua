@@ -83,6 +83,16 @@ function MoreRealisticDLCs:getModVersion(modName)
 	return '0', 0;
 end;
 
+-- ASSERT GAME VERSION
+function MoreRealisticDLCs:assertGameVersion()
+	if not setAngularDamping or not setLinearDamping then
+		print(('%s: your game version (v%s) is too outdated. Update to v2.1.1 or higher. Script will now be aborted!'):format(modName, g_gameVersionDisplay));
+		return false;
+	end;
+	return true;
+end;
+
+-- ASSERT MOREREALISTIC VERSIONS
 local minVersionMr	  = '1.3.48';
 local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
