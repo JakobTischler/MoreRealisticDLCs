@@ -170,8 +170,8 @@
 		<animationValues>
 			<part animIndex="0" partIndex="0" startRotLimit="10 0 20" />
 			<part animIndex="0" partIndex="1" startTransLimit="0 0.3 0" />
-			<part animIndex="0" partIndex="2" startRot="25 0 0" />
-			<part animIndex="0" partIndex="3" startRot="-25 0 0" />
+			<part animIndex="0" partIndex="2" startRot="25 0 0" endRot="34 0 0" />
+			<part animIndex="0" partIndex="3" startRot="-25 0 0" endRot="-29 0 0" />
 		</animationValues>
 		<components>
 			<component1 realMassWanted="6.3" centerOfMass="0 0.9 0.4" /> <!-- body -->
