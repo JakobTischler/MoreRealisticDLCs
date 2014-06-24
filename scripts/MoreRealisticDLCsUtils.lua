@@ -3,6 +3,23 @@ local ceil = math.ceil;
 
 --------------------------------------------------
 
+function MoreRealisticDLCs:infoPrint(str, prologue, indent)
+	str = tostring(str);
+	if prologue then
+		if indent then
+			print(('%s%s %s: %s'):format(tostring(indent), tostring(prologue), modName, str));
+		else
+			print(('%s %s: %s'):format(tostring(prologue), modName, str));
+		end;
+	else
+		if indent then
+			print(('%s%s: %s'):format(tostring(indent), modName, str));
+		else
+			print(('%s: %s'):format(modName, str));
+		end;
+	end;
+end;
+
 if table.map == nil then
 	function table.map(t, func)
 		local newArray = {};
@@ -86,7 +103,7 @@ end;
 -- ASSERT GAME VERSION
 function MoreRealisticDLCs:assertGameVersion()
 	if not setAngularDamping or not setLinearDamping then
-		print(('%s: your game version (v%s) is too outdated. Update to v2.1.1 or higher. Script will now be aborted!'):format(modName, g_gameVersionDisplay));
+		self:infoPrint(('your game version (v%s) is too outdated. Update to v2.1.1 or higher. Script will now be aborted!'):format(g_gameVersionDisplay));
 		return false;
 	end;
 	return true;
@@ -98,20 +115,20 @@ local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not RealisticUtils then
-		print(('%s: you don\'t have MoreRealistic installed. Script will now be aborted!'):format(modName));
+		self:infoPrint('you don\'t have MoreRealistic installed. Script will now be aborted!');
 		return false;
 	end;
 
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTIC VERSION NUMBER
 	local mrVersionStr, mrVersionFlt = self:getModVersion(RealisticUtils.modName);
 	if mrVersionFlt == 0 then
-		print(('%s: no correct version could be found for "MoreRealistic". Script will now be aborted!'):format(modName));
+		self:infoPrint('no correct version could be found for "MoreRealistic". Script will now be aborted!');
 		return false;
 	elseif mrVersionFlt < self:getFloatNumberFromString(minVersionMr) then
-		print(('%s: your MoreRealistic version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVersionStr, minVersionMr));
+		self:infoPrint(('your MoreRealistic version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(mrVersionStr, minVersionMr));
 		return false;
 	else
-		print(('%s: MoreRealistic v%s installed, minimum version requirement met --> OK'):format(modName, mrVersionStr));
+		self:infoPrint(('MoreRealistic v%s installed, minimum version requirement met --> OK'):format(mrVersionStr));
 	end;
 
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
@@ -119,13 +136,13 @@ function MoreRealisticDLCs:assertMrVersions()
 	if self.mrVehiclesPackInstalled then
 		local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
 		if mrVehVersionFlt == 0 then
-			print(('%s: no correct version could be found for "MoreRealisticVehicles". Script will now be aborted!'):format(modName));
+			self:infoPrint('no correct version could be found for "MoreRealisticVehicles". Script will now be aborted!');
 			return false;
 		elseif mrVehVersionFlt < self:getFloatNumberFromString(minVersionMrVeh) then
-			print(('%s: your MoreRealisticVehicles version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(modName, mrVehVersionStr, minVersionMrVeh));
+			self:infoPrint(('your MoreRealisticVehicles version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(mrVehVersionStr, minVersionMrVeh));
 			return false;
 		else
-			print(('%s: MoreRealisticVehicles v%s installed, minimum version requirement met --> OK'):format(modName, mrVehVersionStr));
+			self:infoPrint(('MoreRealisticVehicles v%s installed, minimum version requirement met --> OK'):format(mrVehVersionStr));
 		end;
 	end;
 

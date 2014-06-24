@@ -65,6 +65,9 @@ function MoreRealisticDLCs:setGeneralData()
 			-- sugarBeet = '$moddir$moreRealisticVehicles/_RES/particleSystems/shovelDpsSugarBeet.i3d'
 		};
 	end;
+
+	local version, _ = self:getModVersion(modName);
+	self:infoPrint(('v%s loaded'):format(version), '###');
 end;
 
 -- ##################################################
@@ -93,7 +96,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 
 
 			local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
-			print(('%s: %q DLC v%s exists --> get data from %q'):format(modName, dlcNameClean, vStr, dlcData.dataFile));
+			self:infoPrint(('%q DLC v%s exists --> get data from %q'):format(dlcNameClean, vStr, dlcData.dataFile));
 			self:registerVehicleTypes(dlcNameClean);
 			self:getMrData(vehicleDataPath, dlcNameClean);
 		end;
@@ -109,7 +112,7 @@ end;
 function MoreRealisticDLCs:registerCustomSpecs()
 	if self.customSpecsRegistered then return; end;
 
-	print(('%s: registerCustomSpecs()'):format(modName));
+	self:infoPrint('registerCustomSpecs()');
 	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
 	local specsKey = 'modDesc.customSpecializations';
 	local i = 0;
@@ -325,13 +328,17 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 		self.configFileNameShort = configFile:sub(cfnStart + 1, configFile:len());
 		MoreRealisticDLCs.mrData = MoreRealisticDLCs.vehicleData[self.configFileNameShort];
 		if MoreRealisticDLCs.mrData then
-			self.typeName = MoreRealisticDLCs.mrData.vehicleType;
 			self.isMoreRealisticDLC = true;
 			self.moreRealisticDLCdebug = MoreRealisticDLCs.mrData.doDebug;
+			if self.moreRealisticDLCdebug then
+				self:infoPrint(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
+			end;
+			self.typeName = MoreRealisticDLCs.mrData.vehicleType;
 			self.dlcNameClean = MoreRealisticDLCs.mrData.dlcName;
 			addMrData = true;
-			print(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
-			print(('\tVehicleType changed to: %q'):format(tostring(self.typeName)));
+			if self.moreRealisticDLCdebug then
+				print(('\tVehicleType changed to: %q'):format(tostring(self.typeName)));
+			end;
 		end;
 	end;
 	--
@@ -387,7 +394,7 @@ function MoreRealisticDLCs.createExtraNodes(self, i3dNode, arguments)
 				for j,childIndex in ipairs(childrenPath) do
 					if j < #childrenPath then
 						nodeParent = getChildAt(nodeParent, childIndex);
-						if not nodeParent  or nodeParent == 0 then
+						if not nodeParent or nodeParent == 0 then
 							validNodeParent = false;
 							break;
 						end;
@@ -435,7 +442,7 @@ Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisti
 
 -- DEBUG PRINT WHEELS POSITION
 function MoreRealisticDLCs.debugPrintWheelsPosition(self, i3dNode, arguments)
-	if not self.isMoreRealisticDLC or not self.wheels then return; end;
+	if not self.isMoreRealisticDLC or not self.wheels or not self.moreRealisticDLCdebug then return; end;
 
 	local rx,ry,rz = getWorldTranslation(self.rootNode);
 	print(('%s: wheels / rootNode: rx=%.1f, rz=%.1f'):format(tostring(self.name), rx, rz));

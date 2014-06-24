@@ -187,7 +187,7 @@
 
 	<!-- (2) TOOLS -->
 	<!-- (2.1) URSUS T-127 bale loader --> <!-- AUTHOR: Jakob Tischler --> <!-- DONE -->
-	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="true">
+	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="false">
 		<store price="13500" dailyUpkeep="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" maxSpeed="25" author="Jakob Tischler" />
 		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:0.8,baleGrabberWorkToDrop:0.65" />
 		
@@ -283,7 +283,7 @@
 	</vehicle>
 
 	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->
-	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="true">
+	<vehicle category="tool" subCategory="rake" configFileName="pdlc/ursusAddon/ursus/ursusZ554.xml" mrVehicleType="moreRealistic.rake" debug="false">
 		<store price="4300" dailyUpkeep="8" weight="400" workSpeedMin="6" workSpeedMax="10" workWidth="3.5" requiredPowerKwMin="15" fruits="grass_windrow,dryGrass_windrow,wheat_windrow" author="Grisu118" />
 		<workTool  realWorkingSpeedLimit="15" realRakeWorkingPowerConsumption="4" realRakeWorkingPowerConsumptionInc="40"/>
 		<dimensions width="2" height="1" /> <!-- in m -->
