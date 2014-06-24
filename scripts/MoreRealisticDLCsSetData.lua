@@ -406,6 +406,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			set('vehicle.realCutterPowerConsumption',	 'flt', mrData.workTool.realCutterPowerConsumption);
 			set('vehicle.realCutterPowerConsumptionInc', 'flt', mrData.workTool.realCutterPowerConsumptionInc);
 			set('vehicle.realCutterSpeedLimit',			 'int', mrData.workTool.realCutterSpeedLimit);
+			set('vehicle.realAiMaxOverlap',				 'flt', mrData.workTool.realAiMaxOverlap);
 
 		-- others
 		else

@@ -363,6 +363,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			workTool.realCutterPowerConsumption	   = get('flt', key .. '.workTool#realCutterPowerConsumption') or 25;
 			workTool.realCutterPowerConsumptionInc = get('flt', key .. '.workTool#realCutterPowerConsumptionInc') or 2.5;
 			workTool.realCutterSpeedLimit		   = get('flt', key .. '.workTool#realCutterSpeedLimit') or 14;
+			workTool.realAiMaxOverlap			   = get('flt', key .. '.workTool#realAiMaxOverlap');
 
 		-- rake
 		elseif subCategory == 'rake' then
