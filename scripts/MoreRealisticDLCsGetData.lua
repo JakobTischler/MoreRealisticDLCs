@@ -425,6 +425,8 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 				maxSpeed									  = get('flt',  key .. '.combine#realAiWorkingMaxSpeed');
 			};
 			combine.realAiMinDistanceBeforeTurning 			  = get('flt',  key .. '.combine#realAiMinDistanceBeforeTurning');
+			combine.aiTurnThreshWidthMaxDifference 			  = get('flt',  key .. '.combine#aiTurnThreshWidthMaxDifference');
+			combine.aiTurnThreshWidthScale 					  = get('flt',  key .. '.combine#aiTurnThreshWidthScale');
 			combine.realTurnStage1DistanceThreshold		 	  = get('flt',  key .. '.combine#realTurnStage1DistanceThreshold');
 			combine.realTurnStage1AngleThreshold 			  = get('flt',  key .. '.combine#realTurnStage1AngleThreshold');
 			combine.realTurnStage2MinDistanceBeforeTurnStage3 = get('flt',  key .. '.combine#realTurnStage2MinDistanceBeforeTurnStage3');

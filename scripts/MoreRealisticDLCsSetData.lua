@@ -124,6 +124,8 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 			set('vehicle.realAiWorkingSpeed#maxSpeed',	'int', mrData.combine.realAiWorkingSpeed.maxSpeed);
 
 			set('vehicle.realAiMinDistanceBeforeTurning',			 'flt', mrData.combine.realAiMinDistanceBeforeTurning);
+			set('vehicle.aiTurnThreshWidthMaxDifference',			 'flt', mrData.combine.aiTurnThreshWidthMaxDifference);
+			set('vehicle.aiTurnThreshWidthScale',					 'flt', mrData.combine.aiTurnThreshWidthScale);
 			set('vehicle.realTurnStage1DistanceThreshold',			 'flt', mrData.combine.realTurnStage1DistanceThreshold);
 			set('vehicle.realTurnStage1AngleThreshold',				 'flt', mrData.combine.realTurnStage1AngleThreshold);
 			set('vehicle.realTurnStage2MinDistanceBeforeTurnStage3', 'flt', mrData.combine.realTurnStage2MinDistanceBeforeTurnStage3);
