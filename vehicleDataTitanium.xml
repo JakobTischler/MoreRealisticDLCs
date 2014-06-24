@@ -209,12 +209,23 @@
 		<dimensions width="2" height="1.5" /> <!-- in m -->
 		<weights weight="3.066" maxWeight="3.066" /> <!-- in t -->
 		<additionalWheels>
-			<wheel repr="0>2" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
-			<wheel repr="0>3" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>14" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>15" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
 		</additionalWheels>
 		<attacherJoints>
 			<attacherJoint jointType="cutter" lowerDistanceToGround="1.07" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="0" realWantedRaisedRotInc="0" />
-		</attacherJoints>
+		</attacherJoints>	
+		<createExtraNodes>
+			<node index="0>0" translation="-5.25 0.6 0.1" /> <!-- additional wheel left -->
+			<node index="0>0" translation="5.1 0.6 0.1" /> <!-- additional wheel right -->
+		</createExtraNodes>
+		<nodeProperties>
+			<node index="0>2" translation="-5.18 0.3 0" /> <!-- cutting area start -->
+			<node index="0>3" translation="5.18 0.3 0" /> <!-- cutting area width -->
+			<node index="0>4" translation="-5.19 0.3 -1" /> <!-- cutting area height -->			
+			<node index="0>6" translation="-5.18 0.3 -0.7" /> <!-- ai left marker -->
+			<node index="0>7" translation="5.18 0.3 -0.7" /> <!-- ai right marker -->			
+		</nodeProperties>
 		<components>
 			<component1 centerOfMass="0 0.4 -0.5" realMassWanted="3.066" />
 		</components>
@@ -234,16 +245,27 @@
 			<wheel driveMode="0" deltaY="0.1" brakeRatio="0.1" damper="20" spring="500" suspTravel="0.1" radius="0.28" /> <!-- front wheel -->
 		</wheels>
 		<additionalWheels>
-			<wheel repr="0>3" radius="0.5" deltaY="0.5" suspTravel="0.3" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
-			<wheel repr="0>4" radius="0.5" deltaY="0.5" suspTravel="0.3" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>10" radius="0.5" deltaY="0.5" suspTravel="0.3" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>11" radius="0.5" deltaY="0.5" suspTravel="0.3" spring="20" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
 		</additionalWheels>
 		<attacherJoints>
 			<attacherJoint jointType="cutter" lowerDistanceToGround="1.15" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="0" realWantedRaisedRotInc="0" />
 		</attacherJoints>
+		<createExtraNodes>
+			<node index="0>0" translation="-6.85 0.8 -0.6" /> <!-- additional wheel left -->
+			<node index="0>0" translation="6.85 0.8 -0.6" /> <!-- additional wheel right -->
+		</createExtraNodes>
+		<nodeProperties>
+			<node index="0>2" translation="-6.87 0.77 1" /> <!-- cutting area start -->
+			<node index="0>3" translation="6.86 0.77 1" /> <!-- cutting area width -->
+			<node index="0>4" translation="-6.87 0.77 -0.2" /> <!-- cutting area height -->			
+			<node index="0>5" translation="6.86 0.8 0.6" /> <!-- ai left marker -->
+			<node index="0>6" translation="-6.87 0.8 0.6" /> <!-- ai right marker -->			
+		</nodeProperties>
 		<components>
-			<component1 centerOfMass="0 0 -0.5" realMassWanted="3" /> <!-- body -->
-			<component2 centerOfMass="0 0 0" realMassWanted="0.95" /> <!-- rear wheels -->
-			<component3 centerOfMass="0 0 0" realMassWanted="0.2" /> <!-- front wheel -->
+			<component1 centerOfMass="0 0.8 -0.6" realMassWanted="3" /> <!-- body -->
+			<component2 centerOfMass="0 -0.5 0" realMassWanted="0.95" /> <!-- rear wheels -->
+			<component3 centerOfMass="0 -0.2 0" realMassWanted="0.2" /> <!-- front wheel -->
 			<component4 centerOfMass="0 0 0" realMassWanted="0.2" /> <!-- attacher bar -->
 		</components>
 	</vehicle>
@@ -251,16 +273,27 @@
 	<!-- (2.5) CASE 3412 CORN HEADER --> <!-- AUTHOR: dural --> <!-- DONE -->
 	<vehicle category="tool" subCategory="cutter" configFileName="pdlc/titaniumAddon/caseIH/caseIH3412Corn.xml" mrVehicleType="moreRealistic.cutter" debug="false">
 		<store price="68000" dailyUpkeep="28" weight="3868" workWidth="9" author="dural" />
-		<workTool realCutterPowerConsumption="48" realCutterPowerConsumptionInc="1.2" realCutterSpeedLimit="17" />
+		<workTool realCutterPowerConsumption="48" realCutterPowerConsumptionInc="1.2" realCutterSpeedLimit="17" realAiMaxOverlap="0" />
 		<dimensions width="2.2" height="1.2" /> <!-- in m -->
 		<weights weight="3.87" maxWeight="3.87" /> <!-- in t -->
 		<additionalWheels>
-			<wheel repr="0>2" radius="0.5" deltaY="0.55" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
-			<wheel repr="0>3" radius="0.5" deltaY="0.55" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>10" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
+			<wheel repr="0>11" radius="0.5" deltaY="0" suspTravel="0.3" spring="50" damper="20" brakeRatio="1" antiRollFx="0" lateralStiffness="0.1" continousBrakeForceWhenNotActive="100" />
 		</additionalWheels>
 		<attacherJoints>
 			<attacherJoint jointType="cutter" lowerDistanceToGround="1.25" realWantedLoweredRotLimit="15 0 1" realWantedLoweredTransLimit="0 0.1 0" realWantedRaisedRotLimit="0.1 0 0.1" realWantedLoweredRot2="12" realWantedRaisedRotInc="0" />
 		</attacherJoints>
+		<createExtraNodes>
+			<node index="0>0" translation="-4.5 0.5 -1" /> <!-- additional wheel left -->
+			<node index="0>0" translation="4.5 0.5 -1" /> <!-- additional wheel right -->
+		</createExtraNodes>
+		<nodeProperties>
+			<node index="0>1" translation="-4.55 0.1 0.55" /> <!-- cutting area start -->
+			<node index="0>2" translation="4.55 0.1 0.55" /> <!-- cutting area width -->
+			<node index="0>3" translation="-4.55 0.1 -0.5" /> <!-- cutting area height -->			
+			<node index="0>5" translation="4.55 0.1 0.2" /> <!-- ai left marker -->
+			<node index="0>6" translation="-4.55 0.1 0.2" /> <!-- ai right marker -->			
+		</nodeProperties>
 		<components>
 			<component1 centerOfMass="0 0.4 -0.5" realMassWanted="3.87" />
 		</components>
@@ -353,7 +386,7 @@
 		<store price="247000" dailyUpkeep="610" powerKW="305" maxSpeed="30" weight="17000" capacity="10570" author="dural" />
 		<general realMaxVehicleSpeed="32" realBrakingDeceleration="5" fuelCapacity="950" />
 		<engine kW="305" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="76" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="250" realHydrostaticTransmission="true" realSpeedLevel="3 4 5.5" />
-		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -100 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
+		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="25" realThreshingPowerConsumption="120" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.98" grainTankUnloadingCapacity="226" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="100" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -100 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" aiTurnThreshWidthMaxDifference="0.25" aiTurnThreshWidthScale="0.5" />
 		<dimensions width="3.85" height="4" /> <!-- in m -->
 		<weights weight="17" maxWeight="29" realBrakeMaxMovingMass="25" /> <!-- in t -->
 		<wheels>
@@ -376,7 +409,7 @@
 		<store price="326000" dailyUpkeep="800" powerKW="420" maxSpeed="40" weight="19300" capacity="12330" author="dural" />
 		<general realBrakingDeceleration="5" realMaxVehicleSpeed="43" fuelCapacity="1000" />
 		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
-		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
+		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" aiTurnThreshWidthMaxDifference="0.25" aiTurnThreshWidthScale="0.5" />
 		<dimensions width="4" height="4" /> <!-- in m -->
 		<weights weight="19.1" maxWeight="30" realBrakeMaxMovingMass="25" /> <!-- in t -->
 		<wheels>
@@ -401,7 +434,7 @@
 		<store price="335000" dailyUpkeep="810" powerKW="420" maxSpeed="30" weight="19850" capacity="12330" author="dural" />
 		<general realBrakingDeceleration="5" realMaxVehicleSpeed="34" fuelCapacity="1000" />
 		<engine kW="420" realMaxReverseSpeed="14" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="103" realAiManeuverSpeed="8.5" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="3.75 5 6.5" />
-		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" />
+		<combine realAiWorkingBaseSpeed="5" realAiWorkingMinSpeed="3" realAiWorkingMaxSpeed="12" realAiMinDistanceBeforeTurning="5" realUnloadingPowerBoost="0" realUnloadingPowerConsumption="32" realThreshingPowerConsumption="130" realThreshingPowerConsumptionInc="1.7" realChopperPowerConsumption="5" realChopperPowerConsumptionInc="0.3" realThreshingScale="0.99" grainTankUnloadingCapacity="318" realCombineLossesAllowed="true" realCombineLossesMaxSqmBeingThreshedBeforeLosses="140" realCombineLossesDisplayLosses="true" pipeRotationSpeeds="0 25 0" pipeState2Rotation="0 -110 0" realTurnStage1DistanceThreshold="7" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="8" aiTurnThreshWidthMaxDifference="0.25" aiTurnThreshWidthScale="0.5" />
 		<dimensions width="4" height="4" /> <!-- in m -->
 		<weights weight="19.6" maxWeight="30" realBrakeMaxMovingMass="25" /> <!-- in t -->
 		<wheels realTyreGripFx="1.1" realIsTracked="true" crawlersRealWheel="1 3">
@@ -429,7 +462,7 @@
 		<store price="390000" dailyUpkeep="680" powerKW="793" maxSpeed="40" weight="14800" author="dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" fuelCapacity="1290" waitForTurnTime="0" />
 		<engine kW="793" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="196" realAiManeuverSpeed="9" realMaxPowerToTransmission="400" realHydrostaticTransmission="true" realSpeedLevel="6 9 12" accelerationSpeedMaxAcceleration="0.8" />
-		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="4" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="180" realThreshingPowerConsumptionInc="3" realThreshingScale="0.97" realCombineCycleDuration="1" realTurnStage1DistanceThreshold="9" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="9" />
+		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="4" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="180" realThreshingPowerConsumptionInc="3" realThreshingScale="0.97" realCombineCycleDuration="1" realTurnStage1DistanceThreshold="9" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="9" aiTurnThreshWidthMaxDifference="0.2" aiTurnThreshWidthScale="0.5" />
 		<dimensions width="3.5" height="4" /> <!-- in m -->
 		<weights weight="14.8" maxWeight="15.5" realBrakeMaxMovingMass="20" /> <!-- in t -->
 		<wheels>
