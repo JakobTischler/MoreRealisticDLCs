@@ -338,6 +338,13 @@
 		<attacherJoints>
 			<attacherJoint jointType="cutter" lowerDistanceToGround="0.844" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-12" realWantedRaisedRotInc="0" />
 		</attacherJoints>
+		<nodeProperties>
+			<node index="0>0" translation="5.2 0.3 -0.15" /> <!-- cutting area start -->
+			<node index="0>1" translation="-5.2 0.3 -0.15" /> <!-- cutting area width -->
+			<node index="0>2" translation="5.2 0.3 0.7" /> <!-- cutting area height -->			
+			<node index="0>4" translation="5.2 0.3 0.5" /> <!-- ai left marker -->
+			<node index="0>5" translation="-5.2 0.3 0.5" /> <!-- ai right marker -->			
+		</nodeProperties>
 		<components>
 			<component1 centerOfMass="0 0.4 0" realMassWanted="3.3" /> <!-- body -->
 			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- left -->
