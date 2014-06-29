@@ -23,7 +23,7 @@ function MrTitaniumMap:loadMap(name)
 	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
 
 	-- overwrite default vehicle xml path
-	local vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
+	local vehFile = 'mrTitaniumMap_defaultVehicles.xml';
 	if not MoreRealisticDLCs.mrVehiclesPackInstalled then
 		vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
 		local startingMoney = 99837;
