@@ -16,6 +16,10 @@ MrTitaniumMap.modDir = g_currentModDirectory;
 addModEventListener(MrTitaniumMap);
 
 function MrTitaniumMap:loadMap(name)
+	
+	-- ONLY SERVER SIDE
+	if g_server==nil then return; end;	
+	
 	-- NOT TITANIUM MAP -> ABORT
 	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;
 
