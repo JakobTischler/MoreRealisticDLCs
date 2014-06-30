@@ -104,7 +104,7 @@
 	<vehicle category="tool" subCategory="seeder" configFileName="pdlc/vaderstadPack/vaderstad/vaderstadTempoF8.xml" mrVehicleType="mr_sowingMachine_foldableRidgeMarker_v" debug="false">
 		<store price="68000" dailyUpkeep="16" capacity="560" capacityUnit="L" weight="4200" workWidth="6" requiredPowerKwMin="88" fruits="maize,sugarBeet" author="Xentro,_dj_,dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="4" />
-		<workTool capacity="560" realPowerConsumption="12" realWorkingSpeedLimit="18" realRollingResistance="0.013" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.2" caRealTractionResistance="11" caRealTractionResistanceWithLoadMass="0.3" realAiWorkingSpeed="14" />
+		<workTool capacity="560" realPowerConsumption="12" realWorkingSpeedLimit="18" realRollingResistance="0.013" realResistanceOnlyWhenActive="true" resistanceDecreaseFx="0.2" caRealTractionResistance="11" caRealTractionResistanceWithLoadMass="0.3" realAiWorkingSpeed="14" realAiTurnRadius="6.4" />
 		<dimensions width="3" height="0.6" /> <!-- in m -->
 		<weights weight="4.2" maxWeight="6.5" realBrakeMaxMovingMass="6.5" /> <!-- in t --> <!-- capacity 400l -->
 		<wheels> 
