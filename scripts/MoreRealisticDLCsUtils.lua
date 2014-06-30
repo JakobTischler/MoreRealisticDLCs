@@ -227,7 +227,7 @@ function MoreRealisticDLCs:setShopBanner()
 		local shopBanner = Overlay:new('mrDLCsShopBanner', shopBannerFilePath, 0.247519 + 0.15099, 0.243, 0.31797 + 0.2105, 0.106);
 
 		local drawShopBanner = function(self)
-			if self.isOpen and self.selectedStoreItem and self.selectedStoreItem.nameMRized then
+			if self.isOpen and self.selectedStoreItem and self.selectedStoreItem.isMoreRealisticDLC then
 				shopBanner:render();
 			end;
 		end;

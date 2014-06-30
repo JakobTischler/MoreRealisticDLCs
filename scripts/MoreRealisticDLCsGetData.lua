@@ -320,6 +320,7 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			caRealTractionResistance				= get('flt',  key .. '.workTool#caRealTractionResistance');
 			caRealTractionResistanceWithLoadMass	= get('flt',  key .. '.workTool#caRealTractionResistanceWithLoadMass') or 0;
 			realAiWorkingSpeed						= get('int',  key .. '.workTool#realAiWorkingSpeed');
+			realAiTurnRadius						= get('flt',  key .. '.workTool#realAiTurnRadius');
 			groundReferenceNodeIndex				= get('str',  key .. '.workTool#groundReferenceNodeIndex');
 			groundReferenceNodeThreshold			= get('flt',  key .. '.workTool#groundReferenceNodeThreshold');
 		};

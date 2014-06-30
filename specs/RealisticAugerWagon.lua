@@ -11,7 +11,10 @@
 RealisticAugerWagon = {};
 
 function RealisticAugerWagon.prerequisitesPresent(specializations)
-	return SpecializationUtil.hasSpecialization(RealisticVehicle, specializations) and SpecializationUtil.hasSpecialization(Cylindered, specializations) and SpecializationUtil.hasSpecialization(pdlc_titaniumAddon.AugerWagon, specializations);
+	if RealisticVehicle and pdlc_titaniumAddon and pdlc_titaniumAddon.AugerWagon then
+		return SpecializationUtil.hasSpecialization(RealisticVehicle, specializations) and SpecializationUtil.hasSpecialization(Cylindered, specializations) and SpecializationUtil.hasSpecialization(pdlc_titaniumAddon.AugerWagon, specializations);
+	end;
+	return false;
 end;
 
 function RealisticAugerWagon:load(xmlFile)

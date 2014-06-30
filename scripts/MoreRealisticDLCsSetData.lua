@@ -396,6 +396,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	-- workTool
 	if mrData.category == 'tool' then
 		set('vehicle.realAiWorkingSpeed', 'int', mrData.workTool.realAiWorkingSpeed);
+		set('vehicle.realAiTurnRadius',	  'flt', mrData.workTool.realAiTurnRadius);
 		if mrData.workTool.groundReferenceNodeIndex and mrData.workTool.groundReferenceNodeThreshold then
 			set('vehicle.groundReferenceNode#index',	 'str', mrData.workTool.groundReferenceNodeIndex);
 			set('vehicle.groundReferenceNode#threshold', 'flt', mrData.workTool.groundReferenceNodeThreshold);
