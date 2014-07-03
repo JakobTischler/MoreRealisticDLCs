@@ -336,7 +336,7 @@
 		<dimensions width="1.5" height="1.5" /> <!-- in m, only for the SCx-->
 		<weights weight="3.6" maxWeight="3.6" /> <!-- in t -->
 		<attacherJoints>
-			<attacherJoint jointType="cutter" lowerDistanceToGround="0.844" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-12" realWantedRaisedRotInc="0" />
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0.83" upperDistanceToGround="1.06" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-12" realWantedRaisedRotInc="0" />
 		</attacherJoints>
 		<nodeProperties>
 			<node index="0>0" translation="5.2 0.3 -0.15" /> <!-- cutting area start -->
@@ -360,7 +360,7 @@
 		<dimensions width="1.5" height="1" /> <!-- in m, only for the SCx-->
 		<weights weight="2.35" maxWeight="2.35" /> <!-- in t -->
 		<attacherJoints>
-			<attacherJoint jointType="cutter" lowerDistanceToGround="0.844" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-12" realWantedRaisedRotInc="0" />
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0.9" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-17" realWantedRaisedRotInc="0" />
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 -0.1 0" realMassWanted="2.35" />
@@ -374,7 +374,7 @@
 		<dimensions width="1.5" height="1" /> <!-- in m, only for the SCx-->
 		<weights weight="1.25" maxWeight="1.25" /> <!-- in t -->
 		<attacherJoints>
-			<attacherJoint jointType="cutter" lowerDistanceToGround="0.9" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-18" realWantedRaisedRotInc="0" />
+			<attacherJoint jointType="cutter" lowerDistanceToGround="0.8" upperDistanceToGround="1.1" realWantedLoweredRotLimit="0.01 0 0.01" realWantedLoweredTransLimit="0 0 0" realWantedRaisedRotLimit="0.01 0 0.01" realWantedLoweredRot2="-18" realWantedRaisedRotInc="0" />
 		</attacherJoints>
 		<components>
 			<component1 centerOfMass="0 0 0" realMassWanted="0.95" />
@@ -468,18 +468,18 @@
 	<vehicle category="steerable" subCategory="combine" configFileName="pdlc/titaniumAddon/krone/kroneBigX1100.xml" mrVehicleType="mr_combine_extended_t" debug="false">
 		<store price="390000" dailyUpkeep="680" powerKW="793" maxSpeed="40" weight="14800" author="dural" />
 		<general realMaxVehicleSpeed="40" realBrakingDeceleration="5" fuelCapacity="1290" waitForTurnTime="0" />
-		<engine kW="793" realMaxReverseSpeed="20" realTransmissionEfficiency="0.8" realPtoDriveEfficiency="1" realMaxFuelUsage="196" realAiManeuverSpeed="9" realMaxPowerToTransmission="400" realHydrostaticTransmission="true" realSpeedLevel="6 9 12" accelerationSpeedMaxAcceleration="0.8" />
+		<engine kW="793" realMaxReverseSpeed="20" realTransmissionEfficiency="0.75" realPtoDriveEfficiency="1" realMaxFuelUsage="196" realAiManeuverSpeed="9" realMaxPowerToTransmission="300" realHydrostaticTransmission="true" realSpeedLevel="6 9 12" accelerationSpeedMaxAcceleration="0.7" />
 		<combine realAiWorkingBaseSpeed="7.2" realAiWorkingMinSpeed="4" realAiWorkingMaxSpeed="15" realAiMinDistanceBeforeTurning="4" realUnloadingPowerConsumption="10" realThreshingPowerConsumption="180" realThreshingPowerConsumptionInc="3" realThreshingScale="0.97" realCombineCycleDuration="1" realTurnStage1DistanceThreshold="9" realTurnStage1AngleThreshold="45" realTurnStage2MinDistanceBeforeTurnStage3="9" aiTurnThreshWidthMaxDifference="0.2" aiTurnThreshWidthScale="0.5" />
 		<dimensions width="3.5" height="4" /> <!-- in m -->
 		<weights weight="14.8" maxWeight="15.5" realBrakeMaxMovingMass="20" /> <!-- in t -->
 		<wheels>
 			<wheel rotSpeed="-55" rotMax="30" rotMin="-45" driveMode="1" damper="40" spring="120" suspTravel="0.15" radius="0.83" deltaY="0.11" brakeRatio="1" />
 			<wheel rotSpeed="-55" rotMax="45" rotMin="-30" driveMode="1" damper="40" spring="120" suspTravel="0.15" radius="0.83" deltaY="0.11" brakeRatio="1" />
-			<wheel rotSpeed="0" 						   driveMode="2" damper="20" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.07" brakeRatio="1" />
-			<wheel rotSpeed="0" 						   driveMode="2" damper="20" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.07" brakeRatio="1" />
+			<wheel rotSpeed="0" 						   driveMode="2" damper="30" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.02" brakeRatio="1" />
+			<wheel rotSpeed="0" 						   driveMode="2" damper="30" spring="260" suspTravel="0.08" radius="0.95" deltaY="0.02" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="cutter" minRot="8 0 0" maxRot="18 0 0" maxRot2="-18 0 0" moveTime="1.2" maxRotDistanceToGround="0.844" minRotDistanceToGround="1.86" />
+			<attacherJoint jointType="cutter" minRot="5 0 0" maxRot="18 0 0" maxRot2="-18 0 0" moveTime="1.2" maxRotDistanceToGround="0.844" minRotDistanceToGround="1.2045" />
 			<attacherJoint jointType="trailer" maxRotLimit="40 85 50" />
 		</attacherJoints>
 		<components>
