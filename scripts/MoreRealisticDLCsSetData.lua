@@ -1,4 +1,4 @@
-﻿local modDir, modName = g_currentModDirectory, g_currentModName;
+﻿local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 
 --------------------------------------------------
 
@@ -17,8 +17,7 @@ local prmSetXMLFn = {
 -- ##################################################
 
 -- SET VEHICLE MR DATA
-function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
-	local mrData = MoreRealisticDLCs.mrData;
+function MoreRealisticDLCs:setMrData(vehicle, xmlFile, mrData)
 	if not mrData then return; end;
 
 	local get = function(prmType, key)
@@ -29,7 +28,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 		if value == nil then return; end;
 
 		prmSetXMLFn[prmType](xmlFile, parameter, value);
-		if MoreRealisticDLCs.mrData and MoreRealisticDLCs.mrData.doDebug then
+		if mrData.doDebug then
 			extraIndent = extraIndent or '';
 			print(('\t%sset parameter %q (type %s) to %q'):format(extraIndent, parameter, prmType, tostring(value)));
 		end;
@@ -42,7 +41,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile)
 	local removePrm = function(property, extraIndent)
 		if get('str', property) ~= nil or has(property) then
 			removeXMLProperty(xmlFile, property);
-			if MoreRealisticDLCs.mrData and MoreRealisticDLCs.mrData.doDebug then
+			if mrData.doDebug then
 				extraIndent = extraIndent or '';
 				print(('\t%sremove property %q'):format(extraIndent, tostring(property)));
 			end;

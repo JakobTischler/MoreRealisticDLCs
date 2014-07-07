@@ -1,4 +1,4 @@
-local modDir, modName = g_currentModDirectory, g_currentModName;
+local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 
 --------------------------------------------------
 

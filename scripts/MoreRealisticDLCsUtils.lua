@@ -1,4 +1,4 @@
-﻿local modDir, modName = g_currentModDirectory, g_currentModName;
+﻿local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 local ceil = math.ceil;
 
 --------------------------------------------------
@@ -110,7 +110,7 @@ function MoreRealisticDLCs:assertGameVersion()
 end;
 
 -- ASSERT MOREREALISTIC VERSIONS
-local minVersionMr	  = '1.3.51';
+local minVersionMr	  = '1.3.58';
 local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED

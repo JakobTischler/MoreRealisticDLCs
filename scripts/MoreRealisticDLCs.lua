@@ -3,8 +3,11 @@
 --
 -- @authors: Jakob Tischler, modelleicher, Satis
 -- @contributors: dj, dural, Grisu118, Xentro
--- @version: 0.2b
--- @date: 06 Jun 2014
+-- @version: 0.3
+-- @date: 07 Jul 2014
+-- @history: 0.1 (08 May 2014): initial implementation
+--           0.2 (06 Jun 2014): usage of main handler class instead of local functions
+--           0.3 (07 Jul 2014): move main script execution to loadMap event, in order to prevent loading order errors in MP
 --
 -- Copyright (C) 2014 Jakob Tischler
 
@@ -17,23 +20,93 @@ TODO:
 -- ##################################################
 
 MoreRealisticDLCs = {};
-local modDir, modName = g_currentModDirectory, g_currentModName;
+MoreRealisticDLCs.modDir = g_currentModDirectory;
+MoreRealisticDLCs.modName = g_currentModName;
+local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 
-source(Utils.getFilename('scripts/MoreRealisticDLCsUtils.lua', modDir));
+function MoreRealisticDLCs.addModEventListener(listener)
+	listener.modEventListenerIndex = #g_modEventListeners + 1;
+	g_modEventListeners[listener.modEventListenerIndex] = listener;
+end;
+addModEventListener = Utils.overwrittenFunction(addModEventListener, MoreRealisticDLCs.addModEventListener);
 
--- ASSERT MIN GAME VERSION (a.k.a. REALLY, REALLY MAKE SURE)
-if not MoreRealisticDLCs:assertGameVersion() then
-	return;
+function removeModEventListener(listener)
+	local index = listener.modEventListenerIndex;
+	if not index then
+		for i,class in ipairs(g_modEventListeners) do
+			if class == listener then
+				index = i;
+				break;
+			end;
+		end;
+	end;
+	if index then
+		g_modEventListeners[index] = nil;
+		if listener == MoreRealisticDLCs then
+			print(('%s removed from game'):format(modName));
+		end;
+	end;
 end;
 
--- ASSERT MOREREALISTIC MOD COMPATIBILITY
-if not MoreRealisticDLCs:assertMrVersions() then
-	return;
+addModEventListener(MoreRealisticDLCs);
+
+function MoreRealisticDLCs:loadMap(name)
+	if self.initialized then return; end;
+
+	source(Utils.getFilename('scripts/MoreRealisticDLCsUtils.lua', modDir));
+
+	-- ASSERT MIN GAME VERSION (a.k.a. REALLY, REALLY MAKE SURE)
+	if not self:assertGameVersion() then
+		removeModEventListener(MoreRealisticDLCs);
+		return;
+	end;
+
+	-- ASSERT MOREREALISTIC MOD COMPATIBILITY
+	if not self:assertMrVersions() then
+		removeModEventListener(MoreRealisticDLCs);
+		return;
+	end;
+
+	source(Utils.getFilename('scripts/GetFilenameFix.lua', modDir));
+	source(Utils.getFilename('scripts/MoreRealisticDLCsGetData.lua', modDir));
+	source(Utils.getFilename('scripts/MoreRealisticDLCsSetData.lua', modDir));
+
+	-- ##################################################
+
+	-- SET GENERAL DATA
+	self:setGeneralData();
+
+	-- HANDLE DLCs
+	if not self:checkDLCsAndGetData() then
+		delete(self.vehicleTypesFile);
+		removeModEventListener(MoreRealisticDLCs);
+		return;
+	end;
+
+	-- SET SHOP BANNER
+	self:setShopBanner();
+
+	-- ##################################################
+
+	-- OVERWRITE VEHICLE FUNCTIONS
+	local origVehicleLoad = Vehicle.load;
+	Vehicle.load = MoreRealisticDLCs.vehicleLoad; -- Vehicle.load = Utils.overwrittenFunction(Vehicle.load, MoreRealisticDLCs.vehicleLoad);
+	Vehicle.loadFinished = Utils.prependedFunction(Vehicle.loadFinished, MoreRealisticDLCs.createExtraNodes);
+	Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.setNodesProperties);
+	Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.setMoreRealisticDamping);
+	-- Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.debugPrintWheelsPosition);
+	Vehicle.update = Utils.appendedFunction(Vehicle.update, MoreRealisticDLCs.drawComponents);
+	Vehicle.developmentReloadFromXML = MoreRealisticDLCs.developmentReloadFromXML; -- Vehicle.developmentReloadFromXML = Utils.overwrittenFunction(Vehicle.developmentReloadFromXML, MoreRealisticDLCs.developmentReloadFromXML);
+	Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, MoreRealisticDLCs.setBaleMrData);
+
+	self.initialized = true;
 end;
 
-source(Utils.getFilename('scripts/GetFilenameFix.lua', modDir));
-source(Utils.getFilename('scripts/MoreRealisticDLCsGetData.lua', modDir));
-source(Utils.getFilename('scripts/MoreRealisticDLCsSetData.lua', modDir));
+function MoreRealisticDLCs:deleteMap() end;
+function MoreRealisticDLCs:update(dt) end;
+function MoreRealisticDLCs:draw() end;
+function MoreRealisticDLCs:mouseEvent(posX, posY, isDown, isUp, button) end;
+function MoreRealisticDLCs:keyEvent(unicode, sym, modifier, isDown) end;
 
 -- ##################################################
 
@@ -74,13 +147,14 @@ end;
 
 -- CHECK WHICH DLCs ARE INSTALLED -> only get MR data for installed and up-to-date ones
 function MoreRealisticDLCs:checkDLCsAndGetData()
+	local anyDlcExists = false;
 	for dlcNameClean, dlcData in pairs(self.dlcsData) do
 		local ingameDlcName = 'pdlc_' .. dlcData.dlcName;
 		if g_modNameToDirectory[ingameDlcName] ~= nil then
+			anyDlcExists = true;
 			local vStr, vFlt = self:getModVersion(ingameDlcName);
 			if vFlt < self:getFloatNumberFromString(dlcData.minVersion) then
-				print(('%s: DLC %q (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(modName, dlcNameClean, vStr, dlcData.minVersion));
-				delete(self.vehicleTypesFile);
+				self:infoPrint(('DLC %q (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(dlcNameClean, vStr, dlcData.minVersion));
 				return false;
 			end;
 
@@ -102,7 +176,11 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 		end;
 	end;
 
-	delete(self.vehicleTypesFile);
+	if not anyDlcExists then
+		self:infoPrint('you don\'t have any DLCs installed. Script will now be aborted!');
+		return false;
+	end;
+
 	return true;
 end;
 
@@ -298,22 +376,8 @@ end;
 
 -- ##################################################
 
--- SET GENERAL DATA
-MoreRealisticDLCs:setGeneralData();
-
--- HANDLE DLCs
-if not MoreRealisticDLCs:checkDLCsAndGetData() then
-	print(('%s: you don\'t have any DLCs installed. Script will now be aborted!'):format(modName));
-	return;
-end;
-
--- SET SHOP BANNER
-MoreRealisticDLCs:setShopBanner();
-
--- ##################################################
-
 local origVehicleLoad = Vehicle.load;
-Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
+function MoreRealisticDLCs.vehicleLoad(self, configFile, positionX, offsetY, positionZ, yRot, typeName, isVehicleSaved, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments)
 	local vehicleModName, baseDirectory = Utils.getModNameAndBaseDirectory(configFile);
  	self.configFileName = configFile;
 	self.baseDirectory = baseDirectory;
@@ -321,21 +385,20 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 	self.typeName = typeName;
 
 	-- SET VEHICLE TYPE
-	local addMrData = false;
+	local mrData;
 	local cfnStart, _ = configFile:find('/pdlc/');
 	if cfnStart then
 		-- print(('\tmodName=%q, baseDirectory=%q'):format(tostring(vehicleModName), tostring(baseDirectory)));
 		self.configFileNameShort = configFile:sub(cfnStart + 1, configFile:len());
-		MoreRealisticDLCs.mrData = MoreRealisticDLCs.vehicleData[self.configFileNameShort];
-		if MoreRealisticDLCs.mrData then
+		mrData = MoreRealisticDLCs.vehicleData[self.configFileNameShort];
+		if mrData then
 			self.isMoreRealisticDLC = true;
-			self.moreRealisticDLCdebug = MoreRealisticDLCs.mrData.doDebug;
+			self.moreRealisticDLCdebug = mrData.doDebug;
 			if self.moreRealisticDLCdebug then
-				self:infoPrint(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
+				MoreRealisticDLCs:infoPrint(('load(): typeName=%q, configFileName=%q'):format(tostring(self.typeName), tostring(self.configFileName)));
 			end;
-			self.typeName = MoreRealisticDLCs.mrData.vehicleType;
-			self.dlcNameClean = MoreRealisticDLCs.mrData.dlcName;
-			addMrData = true;
+			self.typeName = mrData.vehicleType;
+			self.dlcNameClean = mrData.dlcName;
 			if self.moreRealisticDLCdebug then
 				print(('\tVehicleType changed to: %q'):format(tostring(self.typeName)));
 			end;
@@ -352,8 +415,8 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 
 	-- ADD MR DATA
 	local createExtraNodes, nodeProperties;
-	if addMrData then
-		createExtraNodes, nodeProperties = MoreRealisticDLCs:setMrData(self, xmlFile);
+	if mrData then
+		createExtraNodes, nodeProperties = MoreRealisticDLCs:setMrData(self, xmlFile, mrData);
 	end;
    
 	for i=1, #self.specializations do
@@ -373,8 +436,6 @@ Vehicle.load = function(self, configFile, positionX, offsetY, positionZ, yRot, t
 		local i3dNode = Utils.loadSharedI3DFile(getXMLString(xmlFile, 'vehicle.filename'), baseDirectory, true, true);
 		self:loadFinished(i3dNode, {xmlFile, positionX, offsetY, positionZ, yRot, asyncCallbackFunction, asyncCallbackObject, asyncCallbackArguments, createExtraNodes, nodeProperties});
 	end;
-
-	MoreRealisticDLCs.mrData = nil;
 end;
 
 -- CREATE EXTRA NODES
@@ -410,7 +471,6 @@ function MoreRealisticDLCs.createExtraNodes(self, i3dNode, arguments)
 		end;
 	end;
 end;
-Vehicle.loadFinished = Utils.prependedFunction(Vehicle.loadFinished, MoreRealisticDLCs.createExtraNodes);
 
 -- SET NODE PROPERTIES
 function MoreRealisticDLCs.setNodesProperties(self, i3dNode, arguments)
@@ -424,7 +484,6 @@ function MoreRealisticDLCs.setNodesProperties(self, i3dNode, arguments)
 		end;
 	end;
 end;
-Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.setNodesProperties);
 
 -- ANGULAR + LINEAR DAMPING
 function MoreRealisticDLCs.setMoreRealisticDamping(self, i3dNode, arguments)
@@ -438,7 +497,6 @@ function MoreRealisticDLCs.setMoreRealisticDamping(self, i3dNode, arguments)
 		end;
 	end;
 end;
-Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.setMoreRealisticDamping);
 
 -- DEBUG PRINT WHEELS POSITION
 function MoreRealisticDLCs.debugPrintWheelsPosition(self, i3dNode, arguments)
@@ -454,7 +512,6 @@ function MoreRealisticDLCs.debugPrintWheelsPosition(self, i3dNode, arguments)
 		print(('\twheel %d: wx=%.1f, wz=%.1f, dx=%.1f, dz=%.1f -> position = %s %s // rotMax=%s, rotMin=%s'):format(i, wx, wz, dx, dz, posX, posZ, tostring(wheel.rotMax), tostring(wheel.rotMin)));
 	end;
 end;
--- Vehicle.loadFinished = Utils.appendedFunction(Vehicle.loadFinished, MoreRealisticDLCs.debugPrintWheelsPosition);
 
 -- DEBUG DRAW COMPONENT POSITIONS / CENTER OF MASS
 function MoreRealisticDLCs.drawComponents(self, dt)
@@ -471,7 +528,6 @@ function MoreRealisticDLCs.drawComponents(self, dt)
 		end;
 	end;
 end;
-Vehicle.update = Utils.appendedFunction(Vehicle.update, MoreRealisticDLCs.drawComponents);
 
 -- BALES
 function MoreRealisticDLCs.setBaleMrData(self, nodeId)
@@ -482,11 +538,10 @@ function MoreRealisticDLCs.setBaleMrData(self, nodeId)
 		setUserAttribute(self.nodeId, 'baleValueScale', 'Float', 1.6);
 	end;
 end;
-Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, MoreRealisticDLCs.setBaleMrData);
 
 -- RELOAD FROM XML
 local origVehicleDevelopmentReloadFromXML = Vehicle.developmentReloadFromXML;
-Vehicle.developmentReloadFromXML = function(self)
+function MoreRealisticDLCs.developmentReloadFromXML(self)
 	if not self.isMoreRealisticDLC or not self.configFileNameShort or not self.dlcNameClean then
 		return origVehicleDevelopmentReloadFromXML(self);
 	end;
@@ -499,10 +554,10 @@ Vehicle.developmentReloadFromXML = function(self)
 
 	local xmlFile = loadXMLFile('configFileTmp', self.configFileName);
 	-- print(('\ttypeName=%q, configFileNameShort=%q'):format(tostring(self.typeName), tostring(self.configFileNameShort)));
-	MoreRealisticDLCs.mrData = MoreRealisticDLCs.vehicleData[self.configFileNameShort];
-	if MoreRealisticDLCs.mrData then
+	local mrData = MoreRealisticDLCs.vehicleData[self.configFileNameShort];
+	if mrData then
 		print('\tsetMrData()');
-		MoreRealisticDLCs:setMrData(self, xmlFile);
+		MoreRealisticDLCs:setMrData(self, xmlFile, mrData);
 	end;
 
 	self.maxRotTime = 0;
