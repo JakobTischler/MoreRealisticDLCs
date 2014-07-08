@@ -114,7 +114,7 @@ local minVersionMr	  = '1.3.58';
 local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
-	if not RealisticUtils then
+	if not g_modIsLoaded['moreRealistic'] then
 		self:infoPrint('you don\'t have MoreRealistic installed. Script will now be aborted!');
 		return false;
 	end;
@@ -132,7 +132,7 @@ function MoreRealisticDLCs:assertMrVersions()
 	end;
 
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
-	self.mrVehiclesPackInstalled = g_modIsLoaded['moreRealisticVehicles']==true;
+	self.mrVehiclesPackInstalled = g_modIsLoaded['moreRealisticVehicles'] == true;
 	if self.mrVehiclesPackInstalled then
 		local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
 		if mrVehVersionFlt == 0 then
@@ -171,6 +171,8 @@ if g_languageShort then
 		numberSeparator		   = numberSeparators[g_languageShort][1];
 		numberDecimalSeparator = numberSeparators[g_languageShort][2];
 	end;
+
+	-- fix Japanese speed unit display
 	if g_languageShort == 'jp' then
 		g_i18n:setText('speedometer', 'kph');
 		g_i18n.globalI18N.texts['speedometer'] = 'kph';

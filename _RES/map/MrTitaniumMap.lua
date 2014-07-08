@@ -13,16 +13,15 @@ MrTitaniumMap.modDir = g_currentModDirectory;
 addModEventListener(MrTitaniumMap);
 
 function MrTitaniumMap:loadMap(name)
-	
 	-- ONLY SERVER SIDE
-	if g_server==nil then return; end;	
-	
+	if g_server == nil then return; end;
+
 	-- NOT TITANIUM MAP -> ABORT
 	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;
 
 	-- EXISTING SAVEGAME -> ABORT
 	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
-	
+
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not g_modIsLoaded['moreRealistic'] then return; end;
 
@@ -47,8 +46,8 @@ function MrTitaniumMap:loadMap(name)
 	end;
 
 	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
-	
-	
+
+
 	-- SET BALANCING VALUES
 	local setTitaniumMapParameters = function(self, mapName)
 		if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
