@@ -19,35 +19,9 @@ function MrTitaniumMap:loadMap(name)
 	-- NOT TITANIUM MAP -> ABORT
 	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;
 
-	-- EXISTING SAVEGAME -> ABORT
-	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
-
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not g_modIsLoaded['moreRealistic'] then return; end;
-
-	-- overwrite default vehicle xml path
-	local vehFile = 'mrTitaniumMap_defaultVehicles.xml';
-	if not MoreRealisticDLCs.mrVehiclesPackInstalled then
-		vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
-		local startingMoney = 99837;
-
-		if MoreRealisticDLCs.dlcsData.Ursus.upToDateVersionExists then
-			vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack_inclUrsus.xml';
-			startingMoney = 89941;
-		end;
-
-		-- add extra money if vehicle pack isn't installed
-		local setStartingMoney = function(self)
-			g_currentMission.missionStats.money = startingMoney;
-		end;
-		RealisticGlobalListener.setMissionInfosForNewGame = Utils.appendedFunction(RealisticGlobalListener.setMissionInfosForNewGame, setStartingMoney);
-
-		print('*** MoreRealisticDLCs: Warning: you don\'t have the "moreRealisticVehicles" pack installed. Many of the starting vehicles won\'t be available. As a compensation, your account will be credited with a bit of starting money. ***');
-	end;
-
-	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
-
-
+	
 	-- SET BALANCING VALUES
 	local setTitaniumMapParameters = function(self, mapName)
 		if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
@@ -71,6 +45,32 @@ function MrTitaniumMap:loadMap(name)
 		end;
 	end;
 	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
+
+	-- EXISTING SAVEGAME -> ABORT
+	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
+
+	-- overwrite default vehicle xml path
+	local vehFile = 'mrTitaniumMap_defaultVehicles.xml';
+	if not MoreRealisticDLCs.mrVehiclesPackInstalled then
+		vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
+		local startingMoney = 99837;
+
+		if MoreRealisticDLCs.dlcsData.Ursus.upToDateVersionExists then
+			vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack_inclUrsus.xml';
+			startingMoney = 89941;
+		end;
+
+		-- add extra money if vehicle pack isn't installed
+		local setStartingMoney = function(self)
+			g_currentMission.missionStats.money = startingMoney;
+		end;
+		RealisticGlobalListener.setMissionInfosForNewGame = Utils.appendedFunction(RealisticGlobalListener.setMissionInfosForNewGame, setStartingMoney);
+
+		print('*** MoreRealisticDLCs: Warning: you don\'t have the "moreRealisticVehicles" pack installed. Many of the starting vehicles won\'t be available. As a compensation, your account will be credited with a bit of starting money. ***');
+	end;
+
+	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
+
 end;
 
 function MrTitaniumMap:deleteMap() end;
