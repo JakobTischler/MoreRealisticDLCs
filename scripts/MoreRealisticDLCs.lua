@@ -1,4 +1,4 @@
-﻿--
+--
 -- MoreRealisticDLCs
 --
 -- @authors: Jakob Tischler, modelleicher, Satis
@@ -150,7 +150,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 	local anyDlcExists = false;
 	for dlcNameClean, dlcData in pairs(self.dlcsData) do
 		local ingameDlcName = 'pdlc_' .. dlcData.dlcName;
-		if g_modNameToDirectory[ingameDlcName] ~= nil then
+		if g_modIsLoaded[ingameDlcName] then
 			anyDlcExists = true;
 			local vStr, vFlt = self:getModVersion(ingameDlcName);
 			if vFlt < self:getFloatNumberFromString(dlcData.minVersion) then
