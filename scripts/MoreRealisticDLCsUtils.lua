@@ -1,4 +1,4 @@
-﻿local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
+local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 local ceil = math.ceil;
 
 --------------------------------------------------
@@ -132,7 +132,7 @@ function MoreRealisticDLCs:assertMrVersions()
 	end;
 
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
-	self.mrVehiclesPackInstalled = ModsUtil.findModItemByModName('moreRealisticVehicles') ~= nil;
+	self.mrVehiclesPackInstalled = g_modIsLoaded['moreRealisticVehicles']==true;
 	if self.mrVehiclesPackInstalled then
 		local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
 		if mrVehVersionFlt == 0 then
