@@ -8,9 +8,6 @@
 -- Copyright (C) 2014 Jakob Tischler
 
 
--- MORE REALISTIC NOT INSTALLED -> ABORT
-if not RealisticGlobalListener or not RealisticUtils then return; end;
-
 MrTitaniumMap = {}
 MrTitaniumMap.modDir = g_currentModDirectory;
 addModEventListener(MrTitaniumMap);
@@ -25,6 +22,9 @@ function MrTitaniumMap:loadMap(name)
 
 	-- EXISTING SAVEGAME -> ABORT
 	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
+	
+	-- ABORT IF MOREREALISTIC NOT INSTALLED
+	if not g_modIsLoaded['moreRealistic'] then return; end;
 
 	-- overwrite default vehicle xml path
 	local vehFile = 'mrTitaniumMap_defaultVehicles.xml';
@@ -47,6 +47,8 @@ function MrTitaniumMap:loadMap(name)
 	end;
 
 	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
+	
+	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
 end;
 
 function MrTitaniumMap:deleteMap() end;
@@ -89,4 +91,3 @@ local setTitaniumMapParameters = function(self, mapName)
 		]]
 	end;
 end;
-RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
