@@ -48,6 +48,29 @@ function MrTitaniumMap:loadMap(name)
 
 	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
 	
+	
+	-- SET BALANCING VALUES
+	local setTitaniumMapParameters = function(self, mapName)
+		if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
+
+			RealisticGlobalListener.priceBalancing = 1;
+			RealisticGlobalListener.silagePriceBalancing = 1;
+			RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;
+			--[[
+			RealisticGlobalListener.seedPriceBalancing
+			RealisticGlobalListener.balePriceBalancing
+			RealisticGlobalListener.woolPriceBalancing
+			RealisticGlobalListener.eggPriceBalancing
+			RealisticGlobalListener.milkPriceBalancing
+			RealisticGlobalListener.fuelPriceBalancing
+			RealisticGlobalListener.fertilizerPriceBalancing
+			RealisticGlobalListener.windrowPriceBalancing
+			RealisticGlobalListener.startingSilosBaseAmount
+			RealisticGlobalListener.startingMoney
+			RealisticGlobalListener.realFieldTractionFx
+			]]
+		end;
+	end;
 	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
 end;
 
@@ -66,28 +89,5 @@ for i, mapItem in ipairs(MapsUtil.mapList) do
 		mapItem.title = 'MR ' .. mapItem.title;
 		mapItem.titleMRized = true;
 		break;
-	end;
-end;
-
--- SET BALANCING VALUES
-local setTitaniumMapParameters = function(self, mapName)
-	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
-
-		RealisticGlobalListener.priceBalancing = 1;
-		RealisticGlobalListener.silagePriceBalancing = 1;
-		RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;
-		--[[
-		RealisticGlobalListener.seedPriceBalancing
-		RealisticGlobalListener.balePriceBalancing
-		RealisticGlobalListener.woolPriceBalancing
-		RealisticGlobalListener.eggPriceBalancing
-		RealisticGlobalListener.milkPriceBalancing
-		RealisticGlobalListener.fuelPriceBalancing
-		RealisticGlobalListener.fertilizerPriceBalancing
-		RealisticGlobalListener.windrowPriceBalancing
-		RealisticGlobalListener.startingSilosBaseAmount
-		RealisticGlobalListener.startingMoney
-		RealisticGlobalListener.realFieldTractionFx
-		]]
 	end;
 end;
