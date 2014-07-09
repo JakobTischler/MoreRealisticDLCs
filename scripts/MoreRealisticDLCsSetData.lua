@@ -1,4 +1,4 @@
-﻿local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
+local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 
 --------------------------------------------------
 
@@ -232,7 +232,7 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile, mrData)
 		set(wheelKey .. '#rotMin',			   'flt', wheelMrData.rotMin, '\t');
 		set(wheelKey .. '#rotSpeed',		   'flt', wheelMrData.rotSpeed, '\t');
 		set(wheelKey .. '#radius',			   'flt', wheelMrData.radius, '\t');
-		set(wheelKey .. '#brakeRatio',		   'int', wheelMrData.brakeRatio, '\t');
+		set(wheelKey .. '#brakeRatio',		   'flt', wheelMrData.brakeRatio, '\t');
 		set(wheelKey .. '#damper',			   'int', wheelMrData.damper, '\t');
 		set(wheelKey .. '#mass',			   'int', 1, '\t');
 		set(wheelKey .. '#lateralStiffness',   'flt', wheelMrData.lateralStiffness, '\t');
