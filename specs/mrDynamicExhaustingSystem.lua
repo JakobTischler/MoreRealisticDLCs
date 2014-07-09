@@ -9,7 +9,7 @@
 --				v2.0 - converted to 2011 and some bugfixes
 --				v2.1 - [dural] MoreRealistic compatibility
 --				v2.2 - [Jakob Tischler, 20 May 2014] MoreRealisticDLCs compatibility
---
+--				v2.3 - [dural, 9 July 2014] "self.realMotorLoadS" only "streamed" when needed
 
 
 DynamicExhaustingSystem = {};
@@ -66,6 +66,8 @@ function DynamicExhaustingSystem:load(xmlFile)
 		self.sPS.a = false;
 		self.sPS.lastLoad = 0;
 	end;
+	
+	self.exhaustingSystemDirtyFlag = self:getNextDirtyFlag();
 
 end;
 
@@ -83,13 +85,17 @@ end;
 
 function DynamicExhaustingSystem:readUpdateStream(streamId, timestamp, connection)
 	if connection:getIsServer() then
-		self.realMotorLoadS = streamReadUIntN(streamId, 8)/255;
+		if streamReadBool(streamId) then
+			self.realMotorLoadS = streamReadUIntN(streamId, 8)/255;
+		end;
 	end;
 end;
 
 function DynamicExhaustingSystem:writeUpdateStream(streamId, connection, dirtyMask)
 	if not connection:getIsServer() then
-		streamWriteUIntN(streamId, min(255, tonumber(self.realMotorLoadS*255)), 8);
+		if streamWriteBool(streamId, bitAND(dirtyMask, self.exhaustingSystemDirtyFlag) ~= 0) then
+			streamWriteUIntN(streamId, min(255, tonumber(self.realMotorLoadS*255)), 8);
+		end;
 	end;
 end;
 
@@ -112,6 +118,8 @@ end;
 
 function DynamicExhaustingSystem:updateTick(dt)
 	if self:getIsActive() and self.isClient then
+	
+		self:raiseDirtyFlags(self.exhaustingSystemDirtyFlag);
 
 		if self.time <= self.motorStartTime then
 			local time = (self.exhaustingSystem.deltaTime - (self.motorStartTime - self.time)) / self.exhaustingSystem.deltaTime;
