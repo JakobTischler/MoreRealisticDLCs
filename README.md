@@ -12,13 +12,13 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 
 #### Authors:
 * Jakob Tischler
-* modelleicher
-* Satis
+* dural
 
 #### Contributors:
 * dj
-* dural
 * Grisu118
+* modelleicher
+* Satis
 * Xentro
 
 ###### Additional credits:

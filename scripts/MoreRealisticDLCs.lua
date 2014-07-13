@@ -1,11 +1,11 @@
 --
 -- MoreRealisticDLCs
 --
--- @authors: Jakob Tischler, modelleicher, Satis
--- @contributors: dj, dural, Grisu118, Xentro
+-- @authors: Jakob Tischler, dural
+-- @contributors: dj, Grisu118, modelleicher, Satis, Xentro
 -- @version: 0.3
 -- @date: 07 Jul 2014
--- @history: 0.1 (08 May 2014): initial implementation
+-- @history: 0.1 (15 May 2014): initial implementation
 --           0.2 (06 Jun 2014): usage of main handler class instead of local functions
 --           0.3 (07 Jul 2014): move main script execution to loadMap event, in order to prevent loading order errors in MP
 --
@@ -99,6 +99,10 @@ function MoreRealisticDLCs:loadMap(name)
 	Vehicle.developmentReloadFromXML = MoreRealisticDLCs.developmentReloadFromXML; -- Vehicle.developmentReloadFromXML = Utils.overwrittenFunction(Vehicle.developmentReloadFromXML, MoreRealisticDLCs.developmentReloadFromXML);
 	Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, MoreRealisticDLCs.setBaleMrData);
 
+
+	-- ##################################################
+
+	-- prevent double execution on 2nd, 3rd, ... savegame load
 	self.initialized = true;
 end;
 
@@ -170,7 +174,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 
 
 			local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
-			self:infoPrint(('%q DLC v%s exists --> get data from %q'):format(dlcNameClean, vStr, dlcData.dataFile));
+			self:infoPrint(('%s DLC v%s exists --> get data from %q'):format(dlcNameClean, vStr, dlcData.dataFile));
 			self:registerVehicleTypes(dlcNameClean);
 			self:getMrData(vehicleDataPath, dlcNameClean);
 		end;
@@ -181,6 +185,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 		return false;
 	end;
 
+	self:infoPrint('* done * (all vehicle data gathered)');
 	return true;
 end;
 
@@ -426,7 +431,7 @@ function MoreRealisticDLCs.vehicleLoad(self, configFile, positionX, offsetY, pos
 	end;   
 
 	--** DURAL
-	--** checking an additionnal y offset for vehicle which have their wheels under the '0' plane in Giants editor (avoid the vehicle to tip over when spawned)
+	--** checking an additional y offset for vehicle which have their wheels under the '0' plane in Giants editor (avoid the vehicle to tip over when spawned)
 	local additionnalOffsetY = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.size#yOffset'), 0);
 	offsetY = offsetY + additionnalOffsetY;
 

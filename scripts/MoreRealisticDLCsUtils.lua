@@ -214,7 +214,7 @@ end;
 
 -- KW to HP
 function MoreRealisticDLCs:kwToHp(kw)
-	return kw  * 1.35962162;
+	return kw * 1.35962162;
 end;
 
 -- ##################################################

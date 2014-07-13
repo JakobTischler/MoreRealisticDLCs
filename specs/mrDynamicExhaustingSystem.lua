@@ -3,7 +3,7 @@
 -- Specialization for a dynamic exhausting system
 --
 -- @author  	Manuel Leithner (SFM-Modding)
--- @version 	v2.2
+-- @version 	v2.3
 -- @date  		15/10/10
 -- @history:	v1.0 - Initial version
 --				v2.0 - converted to 2011 and some bugfixes
