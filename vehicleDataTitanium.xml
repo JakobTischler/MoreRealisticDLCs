@@ -495,7 +495,7 @@
 	<vehicle category="tool" subCategory="trailer" configFileName="pdlc/titaniumAddon/horsch/horschTitan34UW.xml" mrVehicleType="mr_augerWagon_t" debug="false">
 		<store price="62000" dailyUpkeep="56" capacity="34" capacityUnit="M3" weight="6700" requiredPowerKwMin="148" fruits="wheat,barley,rape,maize,chaff" author="dural" />
 		<general realMaxVehicleSpeed="25" realBrakingDeceleration="5" realWorkingPowerConsumption="18" />
-		<workTool realOverloaderUnloadingPowerConsumption="60" pipeUnloadingCapacity="800" />
+		<workTool realOverloaderUnloadingPowerConsumption="60" pipeUnloadingCapacity="800" realCapacityMultipliers="wheat:0.97,rape:0.985,maize:0.965,barley:0.97,chaff:1.07" />
 		<dimensions width="3" height="4" /> <!-- in m -->
 		<weights weight="6.7" realBrakeMaxMovingMass="28" /> <!-- in t -->
 		<wheels>
