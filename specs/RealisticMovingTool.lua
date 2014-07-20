@@ -19,6 +19,7 @@ end;
 function RealisticMovingTool:load(xmlFile)
 	self.realWorkingPowerConsumption = Utils.getNoNil(getXMLFloat(xmlFile, 'vehicle.realWorkingPowerConsumption'), 0);
 	self.realCurrentPowerConsumption = 0;
+	self.powerConsumptionRequired = false;
 end;
 
 function RealisticMovingTool:delete()
@@ -35,13 +36,9 @@ function RealisticMovingTool:updateTick(dt)
 	if self.isServer and self.isActive and self.realWorkingPowerConsumption > 0 then
 		self.realCurrentPowerConsumption = 0;
 
-		for i=1,#self.movingTools do
-			local mt = self.movingTools[i];
-			if (mt.lastRotSpeed and abs(mt.lastRotSpeed) > 0) or (mt.lastTransSpeed and abs(mt.lastTransSpeed) > 0) then
-				-- print(('%s: movingTool %d: lastRotSpeed=%s -> realCurrentPowerConsumption=%d':format(tostring(self.name), i, tostring(mt.lastRotSpeed), self.realWorkingPowerConsumption));
-				self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
-				break;
-			end;
+		if self.powerConsumptionRequired then
+			self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
+			self.powerConsumptionRequired = false;
 		end;
 	end;
 end;
@@ -51,3 +48,11 @@ end;
 
 function RealisticMovingTool:draw()
 end;
+
+function RealisticMovingTool.setPowerConsumptionRequired(self, part, isInitialUpdate)
+	if self.isServer and part.playSound then
+		self.powerConsumptionRequired = true;
+	end;
+end;
+Cylindered.updateMovingPart = Utils.appendedFunction(Cylindered.updateMovingPart, RealisticMovingTool.setPowerConsumptionRequired);
+
