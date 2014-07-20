@@ -24,7 +24,7 @@ function RealisticLastMotorRpm:load(xmlFile)
 end;
 
 function RealisticLastMotorRpm:update(dt)
-	if self.isServer and self.isActive and self.fuckTheEarth then
+	if self.isActive and self.fuckTheEarth then
 		if not self.isMotorStarted and self.motor.lastMotorRpm ~= 0 then
 			self.motor.lastMotorRpm = 0;
 		else
