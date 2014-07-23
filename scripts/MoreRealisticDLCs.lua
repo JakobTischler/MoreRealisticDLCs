@@ -158,7 +158,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 			anyDlcExists = true;
 			local vStr, vFlt = self:getModVersion(ingameDlcName);
 			if vFlt < self:getFloatNumberFromString(dlcData.minVersion) then
-				self:infoPrint(('DLC %q (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(dlcNameClean, vStr, dlcData.minVersion));
+				self:infoPrint(('%s DLC (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(dlcNameClean, vStr, dlcData.minVersion));
 				return false;
 			end;
 
@@ -185,7 +185,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 		return false;
 	end;
 
-	self:infoPrint('* done * (all vehicle data gathered)');
+	self:infoPrint('* done * (all vehicle data gathered)', '###');
 	return true;
 end;
 
@@ -195,7 +195,7 @@ end;
 function MoreRealisticDLCs:registerCustomSpecs()
 	if self.customSpecsRegistered then return; end;
 
-	self:infoPrint('registerCustomSpecs()');
+	-- self:infoPrint('registerCustomSpecs()');
 	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
 	local specsKey = 'modDesc.customSpecializations';
 	local i = 0;
@@ -210,7 +210,7 @@ function MoreRealisticDLCs:registerCustomSpecs()
 			specName = modName .. '.' .. specName;
 			className = modName .. '.' .. className;
 			fileName = Utils.getFilename(fileName, modDir);
-			print(('\tregisterSpecialization(): %s'):format(className));
+			-- print(('\tregisterSpecialization(): %s'):format(className));
 			SpecializationUtil.registerSpecialization(specName, className, fileName, modName);
 		end;
 		i = i + 1;
