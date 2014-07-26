@@ -51,7 +51,7 @@ body {
   font-size: 1em;
   line-height: 1.5; 
   background: #e7e7e7 url(../images/body-bg.png) 0 0 repeat;
-  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: Roboto, Open Sans, 'Helvetica Neue', Helvetica, Arial, serif;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
   color: #6d6d6d;
 }
@@ -69,7 +69,9 @@ header {
 }
 
 header h1 {
-  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
+  /*font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif;*/
+  font-family:'Adelle-Regular', 'Adelle Regular', 'Adelle', 'Roboto';
+  font-weight: 900;
   letter-spacing: -1px;
   font-size: 48px;
   color: #303030;
@@ -90,7 +92,7 @@ header h2 {
 }
 
 .inner {
-  width: 620px;
+  width: 800px;
   margin: 0 auto;
 }
 
@@ -103,9 +105,9 @@ header h2 {
 }
 
 a.button {
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;                     
-  border-radius: 30px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;                     
+  border-radius: 2px;
   border-top: solid 1px #cbcbcb;
   border-left: solid 1px #b7b7b7;
   border-right: solid 1px #b7b7b7;

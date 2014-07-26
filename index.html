@@ -1,76 +1,173 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>MoreRealisticDLCs by JakobTischler</title>
-  </head>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<!--<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>MoreRealisticDLCs by JakobTischler</title>
+</head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
+<body>
+	<div id="container">
+		<div class="inner">
 
-        <header>
-          <h1>MoreRealisticDLCs</h1>
-          <h2>A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs</h2>
-        </header>
+			<header>
+				<h1>MoreRealisticDLCs</h1>
+				<h2>A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs</h2>
+				<img src="http://jakobtischler.github.io/MoreRealisticDLCs/images/poster_1_small.jpg" alt="MoreRealisticDLCs v1.0" width="800" height="500" style="text-align:center; border:none; margin:20px auto; width:800px;" />
+			</header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/JakobTischler/MoreRealisticDLCs/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/JakobTischler/MoreRealisticDLCs/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/JakobTischler/MoreRealisticDLCs" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+			<section id="downloads" class="clearfix">
+				<a href="https://github.com/JakobTischler/MoreRealisticDLCs/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+				<a href="https://github.com/JakobTischler/MoreRealisticDLCs/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+				<a href="https://github.com/JakobTischler/MoreRealisticDLCs" id="view-on-github" class="button"><span>View on GitHub</span></a>
+			</section>
 
-        <hr>
+			<hr>
 
-        <section id="main_content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+			<section id="main_content">
+				<h3>
+					<a name="functionality" class="anchor" href="#functionality"><span class="octicon octicon-link"></span></a>
+					Functionality
+				</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+				<p>MoreRealisticDLCs automatically converts all Farming Simulator DLC vehicles and tools to MoreRealistic. All vehicle data and values have been set accurately and have been tested extensively.</p>
+				<br />
+				<p>Some vehicles/tools have receiver new realistic functions:</p>
+				<ul>
+					<li>The Ursus tractors now have a realistic exhaust system, based on the engine load.</li>
+					<li>Overloader, frontloader tools, bale wrapper etc. use more power when certain parts are moved.</li>
+					<li>Bales get a fill level adjusted for their weight when they are wrapped.</li>
+					<li>The liquid manure spreaders have different consumption rates depending on which nozzles actively used.</li>
+				</ul>
+				<br />
+				<p>The shop entries have been adjusted: vehicle data like required power, real capacity, maximum speeds and much more are displayed accurately.</p>
+				<br />
+				<p>The Titanium Addon map "Westbridge Hills" has been adjusted: if the MoreRealisticVehicles-Pack is installed, the starting vehicles are all MR vehicles. If it's not installed, the starting capital is increased instead. Furthermore, the MoreRealistic balancing values have been adjusted for the map.</p>
+				<br />
+				<p>The mod has been tested for multi player extensively and works without any problems. Regarding dedicated server: see "known bugs".</p>
+				<br />
+				<p>Warning: if MoreRealisticDLCs is installed and active, the default DLC vehicles will not be available anymore.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+				<br />
+				<hr>
+				<br />
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+				<!-- ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -->
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+				<h3>
+					<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>
+					Installation
+				</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+				<p>Copy the <code>MoreRealisticDLCs.zip</code> archive to your mods folder.</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+				<br />
+				<hr>
+				<br />
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+				<!-- ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -->
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+				<h3>
+					<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>
+					Requirements
+				</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+				<ul>
+					<li>The Farming Simulator <span style="font-style:italic;">v2.1.1.0 beta</span> patch (or higher) must be installed.</li>
+					<li>At least one DLC has to be installed (d'uh!). The DLCs must have the following version numbers (or higher), respectively:
+						<ul>
+							<li><span class="term">Lindner Unitrack DLC:</span> <span class="definition" style="font-style:italic;">v1.0.0.1</span></li>
+							<li><span class="term">Marshall DLC:</span> <span class="definition" style="font-style:italic;">v1.0.0.3</span></li>
+							<li><span class="term">Titanium Addon:</span> <span class="definition" style="font-style:italic;">v1.0.0.5</span></li>
+							<li><span class="term">Ursus Addon:</span> <span class="definition" style="font-style:italic;">v2.0.0.2</span></li>
+							<li><span class="term">Väderstad DLC:</span> <span class="definition" style="font-style:italic;">v1.0.0.3</span></li>
+						</ul>
+					</li>
+					<li><span class="term">MoreRealistic engine:</span> <span class="definition" style="font-style:italic;">v1.3.59</span> or higher</li>
+					<li>
+						<span class="term">MoreRealisticVehicles:</span> <span class="definition" style="font-style:italic;">v1.3.8</span> or higher<br />
+						(optional)
+					</li>
+				</ul>
+				<p>If one of those requirements hasn't been met, the script will abort and no vehicles will be converted. An info message will be printed to the log.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+				<br />
+				<hr>
+				<br />
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
+				<!-- ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -->
 
-        <footer>
-          MoreRealisticDLCs is maintained by <a href="https://github.com/JakobTischler">JakobTischler</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+				<h3>
+					<a name="known-bugs" class="anchor" href="#known-bugs"><span class="octicon octicon-link"></span></a>
+					Known bugs
+				</h3>
 
-        
-      </div>
-    </div>
-  </body>
+				<ul>
+					<li>MoreRealisticDLCs funktioniert nicht auf dedicated Servern, da Giants den benötigten Patch (v2.1.1.0 beta) nicht dafür released hat.</li>
+				</ul>
+				<p class="warning-1" style="background:#FFF689; border:1px dashed #CCC; opacity:0.9; padding:10px; border-radius:2px;">No support or inquiries of any sort via PM!</p>
+
+				<br />
+				<hr>
+				<br />
+
+				<!-- ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -->
+
+				<h3>
+					<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>
+					Team
+				</h3>
+
+				<h4>Authors</h4>
+				<ul>
+					<li>Jakob Tischler</li>
+					<li>dural</li>
+				</ul>
+
+				<h4>Contributors</h4>
+				<ul>
+					<li>_dj_</li>
+					<li>Grisu118</li>
+					<li>modelleicher</li>
+					<li>Satis</li>
+					<li>Xentro</li>
+				</ul>
+
+				<h4>Additional credits</h4>
+				<ul>
+					<li>Manuel Leithner: original author of <span style="font-style:italic;">DynamicExhaustingSystem</span></li>
+					<li>caba kosmotesto from <span style="font-style:italic;">The Noun Project</span>: Unicorn icon <span style="font-style:italic;">(under "CC BY 3.0" license)</span></li>
+				</ul>
+
+				<br />
+				<hr>
+				<br />
+
+				<!-- ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -->
+
+				<h3>
+					<a name="copyright" class="anchor" href="#copyright"><span class="octicon octicon-link"></span></a>
+					Copyright
+				</h3>
+
+				<p>No modification without the author's written permission. No re-upload by anyone but the original author. No commercial usage.</p>
+				<p>Copyright © Jakob Tischler, 2014</p>
+			</section>
+
+			<footer>
+				MoreRealisticDLCs is maintained by <a href="https://github.com/JakobTischler">JakobTischler</a><br>
+				This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+			</footer>
+
+		</div>
+	</div>
+</body>
 </html>
