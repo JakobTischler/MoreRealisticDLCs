@@ -51,6 +51,7 @@ function MoreRealisticDLCs:getNodePropertiesFromXML(xmlFile, nodeKey)
 	local index = getXMLString(xmlFile, nodeKey .. '#index');
 	if not index then return; end;
 
+	local name		  = getXMLString(xmlFile, nodeKey .. '#name');
 	local translation = getXMLString(xmlFile, nodeKey .. '#translation');
 	local rotation	  = getXMLString(xmlFile, nodeKey .. '#rotation');
 	local scale		  = getXMLString(xmlFile, nodeKey .. '#scale');
@@ -65,10 +66,13 @@ function MoreRealisticDLCs:getNodePropertiesFromXML(xmlFile, nodeKey)
 		scale = Utils.getVectorNFromString(scale);
 	end;
 
-	return index, translation, rotation, scale;
+	return index, name, translation, rotation, scale;
 end;
 
-function MoreRealisticDLCs.setNodeProperties(node, translation, rotation, scale)
+function MoreRealisticDLCs.setNodeProperties(node, name, translation, rotation, scale)
+	if name then
+		setName(node, name);
+	end;
 	if translation then
 		setTranslation(node, unpack(translation));
 	end;
@@ -110,7 +114,7 @@ function MoreRealisticDLCs:assertGameVersion()
 end;
 
 -- ASSERT MOREREALISTIC VERSIONS
-local minVersionMr	  = '1.3.58';
+local minVersionMr	  = '1.3.59';
 local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED

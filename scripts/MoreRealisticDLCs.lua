@@ -168,9 +168,6 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 			dlcData.containingDir = dlcData.dir:sub(1, dlcData.dir:len() - dlcData.dlcName:len() - 1);
 			-- print(('DLC %q: ingameDlcName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, ingameDlcName, dlcData.dir, dlcData.containingDir));
 			-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(dlcData.minVersion, dlcVersionStr));
-			if not self.customSpecsRegistered then
-				self:registerCustomSpecs();
-			end;
 
 
 			local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
@@ -218,6 +215,11 @@ function MoreRealisticDLCs:registerCustomSpecs()
 	delete(modDesc);
 	self.customSpecsRegistered = true;
 end;
+
+if not MoreRealisticDLCs.customSpecsRegistered then
+	MoreRealisticDLCs:registerCustomSpecs();
+end;
+
 
 -- ##################################################
 
@@ -450,6 +452,9 @@ function MoreRealisticDLCs.createExtraNodes(self, i3dNode, arguments)
 	local createExtraNodes = arguments[9];
 	if createExtraNodes and next(createExtraNodes) then
 		for i,nodeData in ipairs(createExtraNodes) do
+			if self.moreRealisticDLCdebug then
+				print(('\ttrying to create node %q'):format(tostring(nodeData.name)));
+			end;
 			-- TODO: use parent instead of index, then use indexToObject()
 			local componentIndex, childrenPath = MoreRealisticDLCs.nodeIndexToPath(nodeData.index);
 			local component = getChildAt(i3dNode, componentIndex);
@@ -471,8 +476,11 @@ function MoreRealisticDLCs.createExtraNodes(self, i3dNode, arguments)
 
 			local node = createTransformGroup('extraNode_' .. i);
 			link(nodeParent, node);
+			if self.moreRealisticDLCdebug then
+				print(('\t\tnode %q created -> id = %d'):format(tostring(nodeData.name), node));
+			end;
 
-			MoreRealisticDLCs.setNodeProperties(node, nodeData.translation, nodeData.rotation, nodeData.scale);
+			MoreRealisticDLCs.setNodeProperties(node, nodeData.name, nodeData.translation, nodeData.rotation, nodeData.scale);
 		end;
 	end;
 end;
@@ -485,7 +493,7 @@ function MoreRealisticDLCs.setNodesProperties(self, i3dNode, arguments)
 			local node = Utils.indexToObject(self.components, nodeData.index);
 			if not node or node == 0 then break; end;
 
-			MoreRealisticDLCs.setNodeProperties(node, nodeData.translation, nodeData.rotation, nodeData.scale);
+			MoreRealisticDLCs.setNodeProperties(node, nodeData.name, nodeData.translation, nodeData.rotation, nodeData.scale);
 		end;
 	end;
 end;

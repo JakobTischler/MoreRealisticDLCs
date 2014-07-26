@@ -409,6 +409,42 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			workTool.sprayUsageLitersPerSecondFolded = get('flt', key .. '.workTool#sprayUsageLitersPerSecondFolded');
 			workTool.fillLitersPerSecond			 = get('int', key .. '.workTool#fillLitersPerSecond');
 
+			-- HoseRef
+			workTool.hoseRef = {};
+			local hasPump    = get('bool', key .. '.hoseRef#hasPump');
+			local fillSpeed  = get('flt',  key .. '.hoseRef#fillSpeed');
+			local emptySpeed = get('flt',  key .. '.hoseRef#emptySpeed');
+			if hasPump ~= nil and fillSpeed ~= nil and emptySpeed ~= nil then
+				workTool.hoseRef = {
+					hasPump = hasPump;
+					fillSpeed = fillSpeed;
+					emptySpeed = emptySpeed;
+					refs = {};
+				};
+
+				local r = 0;
+				while true do 
+					local refKey = key .. ('.hoseRef.ref(%d)'):format(r);
+					if not has(refKey) then break; end;
+
+					local index = get('str', refKey .. '#index');
+					if index == nil then break; end;
+
+					local index2  = get('str', refKey .. '#index2');
+					local refType = get('str', refKey .. '#type');
+					local compIdx = get('str', refKey .. '#compIdx');
+
+					r = r + 1;
+
+					workTool.hoseRef.refs[r] = {
+						index = index;
+						index2 = index2;
+						refType = refType;
+						compIdx = compIdx;
+					};
+				end;
+			end;
+
 		-- shovel
 		elseif subCategory == 'shovel' then
 			workTool.replaceParticleSystem			 = get('bool', key .. '.workTool#replaceParticleSystem');
@@ -460,11 +496,12 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			local nodeKey = key .. ('.createExtraNodes.node(%d)'):format(n);
 			if not has(nodeKey) then break; end;
 
-			local index, translation, rotation, scale = self:getNodePropertiesFromXML(xmlFile, nodeKey)
+			local index, name, translation, rotation, scale = self:getNodePropertiesFromXML(xmlFile, nodeKey)
 			if not index then break; end;
 
 			general.createExtraNodes[n + 1] = {
 				index = index;
+				name = name;
 				translation = translation;
 				rotation = rotation;
 				scale = scale;
@@ -473,6 +510,9 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			n = n + 1;
 		end;
 
+		-- nodeTest
+		general.nodeTest = get('str', key .. '.nodeTest#index');
+
 		-- node properties
 		general.nodeProperties = {};
 		local nI = 0;
@@ -480,11 +520,12 @@ function MoreRealisticDLCs:getMrData(vehicleDataPath, dlcName)
 			local nodeKey = ('%s.nodeProperties.node(%d)'):format(key, nI);
 			if not has(nodeKey) then break; end;
 
-			local index, translation, rotation, scale = self:getNodePropertiesFromXML(xmlFile, nodeKey)
+			local index, name, translation, rotation, scale = self:getNodePropertiesFromXML(xmlFile, nodeKey)
 			if not index or (not translation and not rotation and not scale) then break; end;
 
 			general.nodeProperties[#general.nodeProperties + 1] = {
 				index = index;
+				name = name;
 				translation = translation;
 				rotation = rotation;
 				scale = scale;

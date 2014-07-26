@@ -328,6 +328,7 @@
 
 			<specialization name="realisticSprayer"/>
 			<specialization name="variableSprayUsage" />
+			<specialization name="hoseRef" />
 		</type>
 
 		<type name="mr_truck_t" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">

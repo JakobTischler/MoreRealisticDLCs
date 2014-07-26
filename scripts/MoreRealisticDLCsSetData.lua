@@ -506,6 +506,21 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile, mrData)
 				set('vehicle.sprayUsageLitersPerSecondFolded',		  'flt', mrData.workTool.sprayUsageLitersPerSecondFolded);
 				set('vehicle.fillLitersPerSecond',					  'int', mrData.workTool.fillLitersPerSecond);
 
+				-- hoseRef
+				if mrData.workTool.hoseRef.refs and #mrData.workTool.hoseRef.refs > 0 then
+					set('vehicle.hoseRef#hasPump',	  'bool', mrData.workTool.hoseRef.hasPump);
+					set('vehicle.hoseRef#fillSpeed',  'flt',  mrData.workTool.hoseRef.fillSpeed);
+					set('vehicle.hoseRef#emptySpeed', 'flt',  mrData.workTool.hoseRef.emptySpeed);
+
+					for i,hr in ipairs(mrData.workTool.hoseRef.refs) do
+						local refKey = ('vehicle.hoseRef.ref(%d)'):format(i - 1);
+						set(refKey .. '#index',   'str', hr.index);
+						set(refKey .. '#index2',  'str', hr.index2);
+						set(refKey .. '#type',	  'str', hr.refType);
+						set(refKey .. '#compIdx', 'str', hr.compIdx);
+					end;
+				end;
+
 			-- shovel
 			elseif mrData.subCategory == 'shovel' then
 				if mrData.workTool.replaceParticleSystem and self.mrVehiclesPackInstalled then
@@ -646,6 +661,9 @@ function MoreRealisticDLCs:setMrData(vehicle, xmlFile, mrData)
 			end;
 		end;
 	end;
+
+	set('vehicle.nodeTest#index', 'str', mrData.general.nodeTest);
+
 
 -- ##################################################
 
