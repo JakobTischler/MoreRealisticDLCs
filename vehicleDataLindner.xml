@@ -74,11 +74,11 @@
 		<general realWorkingPowerConsumption="25" />
 		<workTool capacity="3220" realCapacityMultipliers="liquidManure:0.98" fillLitersPerSecond="300" realFillingPowerConsumption="25" realWorkingSpeedLimit="13" realSprayingReferenceSpeed="10" sprayUsageLitersPerSecond="22.3" sprayUsageLitersPerSecondFolded="33.5" />
 		<createExtraNodes>
-			<node index="0>14" name="hoseRef_left_1" translation="0.53 1.31 -2.01" rotation="-164 24 180" /> <!-- hoseRef left 1 -->
-			<node index="0>15" name="hoseRef_left_2" translation="0.53 1.31 -2.01" rotation="-16 -24 0" /> <!-- hoseRef left 2 -->
+			<node index="0>14" name="hoseRef_left_1" translation="0.53 1.31 -2.01" rotation="-164 25.6 180" /> <!-- hoseRef left 1 -->
+			<node index="0>15" name="hoseRef_left_2" translation="0.53 1.31 -2.01" rotation="-16 -25.6 0" /> <!-- hoseRef left 2 -->
 			<node index="0>16" name="hoseRef_park_left" translation="-0.67 1.84 -2.4" /> <!-- hoseRef park left -->
 		</createExtraNodes>
-		<hoseRef hasPump="true" fillSpeed="0.15" emptySpeed="0.1"> <!-- 1.0 = 1000 l/s -->
+		<hoseRef hasPump="true" fillSpeed="0.3" emptySpeed="0.2"> <!-- 1.0 = 1000 l/s -->
 			<ref type="conn" compIdx="1" index="0>14" index2="0>15" /> <!-- hoseRef left -->
 			<ref type="park" compIdx="1" index="0>16"  /> <!-- park left -->
 		</hoseRef>

@@ -46,9 +46,13 @@ function RealisticBaleWrapper:updateTick(dt)
 	if self.isServer and self.isActive then
 		if self.realWorkingPowerConsumption then
 			self.realCurrentPowerConsumption = 0;
-			-- wrapping, or at least one animation playing
-			if self.baleWrapperState == pdlc_ursusAddon.BaleWrapper.STATE_WRAPPER_WRAPPING_BALE or next(self.activeAnimations) ~= nil then
+			-- wrapping power consumption
+			if self.baleWrapperState == pdlc_ursusAddon.BaleWrapper.STATE_WRAPPER_WRAPPING_BALE then
 				self.realCurrentPowerConsumption = self.realWorkingPowerConsumption;
+
+			-- at least one animation playing
+			elseif next(self.activeAnimations) ~= nil then
+				self.realCurrentPowerConsumption = self.realWorkingPowerConsumption * 0.5;
 			end;
 		end;
 

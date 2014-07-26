@@ -90,7 +90,7 @@
 			<node index="0>15" name="hoseRef_left_2" translation="0.895 1.04 1.38" rotation="0 -90 -25" /> <!-- hoseRef left 2 -->
 			<node index="0>16" name="hoseRef_park_left" translation="0.86 1.78 -2.1" rotation="0.75 0 0" /> <!-- hoseRef park left -->
 		</createExtraNodes>
-		<hoseRef hasPump="true" fillSpeed="0.3" emptySpeed="0.25"> <!-- 1.0 = 1000 l/s -->
+		<hoseRef hasPump="true" fillSpeed="0.53" emptySpeed="0.4"> <!-- 1.0 = 1000 l/s -->
 			<ref type="conn" compIdx="1" index="0>14" index2="0>15" /> <!-- hoseRef left -->
 			<ref type="park" compIdx="1" index="0>16"  /> <!-- park left -->
 		</hoseRef>

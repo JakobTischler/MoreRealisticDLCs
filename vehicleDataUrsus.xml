@@ -268,18 +268,6 @@
 		<attacherJoints>
 			<attacherJoint jointType="trailer" rotLimitScale="1 0.95 1" />
 		</attacherJoints>
-		<!--
-		<createExtraNodes>
-			<node index="0>3|0|0|0|2"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
-			<node index="0>3|0|0|0|2|0"	translation="0 0 0"		   rotation="0 0 0" scale="1.175 1 1" />
-			<node index="0>3|0|0|1|1"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
-			<node index="0>3|0|0|1|1|0"	translation="0 0 0"		   rotation="0 0 0" scale="1.96 1 1" />
-			<node index="0>3|0|0|2|1"	translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
-			<node index="0>3|0|0|2|1|0"	translation="0 0 0"		   rotation="0 0 0" scale="1.96 1 1" />
-			<node index="0>3|0|0|0|1|0"	  translation="0 -1.13 3.16" rotation="0 0 0" scale="1 1 1" />
-			<node index="0>3|0|0|0|1|0|0" translation="0 0 0"		 rotation="0 0 0" scale="1 1 1" />
-		</createExtraNodes>
-		-->
 	</vehicle>
 
 	<!-- (2.5) URSUS Z-554 rake --> <!-- AUTHOR: Grisu118 --> <!-- Not Done -->

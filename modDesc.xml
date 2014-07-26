@@ -294,13 +294,20 @@
 		<input name="HOSEREF_FILL"  category="VEHICLE" key1="KEY_m" key2="" button="" device="0" mouse="" />
 		<input name="HOSEREF_EMPTY" category="VEHICLE" key1="KEY_n" key2="" button="" device="0" mouse="" />
 
-		<!--
-		<input name="MOREREALISTICDLCS_NODETEST_MOVE_X_POS" category="VEHICLE" key1="KEY_KP_4" key2="" button="" device="0" mouse="" />
-		<input name="MOREREALISTICDLCS_NODETEST_MOVE_X_NEG" category="VEHICLE" key1="KEY_KP_6" key2="" button="" device="0" mouse="" />
-		<input name="MOREREALISTICDLCS_NODETEST_MOVE_Y_POS" category="VEHICLE" key1="KEY_KP_8" key2="" button="" device="0" mouse="" />
-		<input name="MOREREALISTICDLCS_NODETEST_MOVE_Y_NEG" category="VEHICLE" key1="KEY_KP_2" key2="" button="" device="0" mouse="" />
-		<input name="MOREREALISTICDLCS_NODETEST_MOVE_Z_POS" category="VEHICLE" key1="KEY_KP_9" key2="" button="" device="0" mouse="" />
-		<input name="MOREREALISTICDLCS_NODETEST_MOVE_Z_NEG" category="VEHICLE" key1="KEY_KP_7" key2="" button="" device="0" mouse="" />
-		-->
+		<!-- ->
+		<input name="NODETEST_MOD" category="VEHICLE" key1="KEY_lctrl" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_MOVE_X_POS"   category="VEHICLE" key1="1" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_MOVE_X_NEG"   category="VEHICLE" key1="2" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_MOVE_Y_POS"   category="VEHICLE" key1="3" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_MOVE_Y_NEG"   category="VEHICLE" key1="4" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_MOVE_Z_POS"   category="VEHICLE" key1="5" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_MOVE_Z_NEG"   category="VEHICLE" key1="6" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_ROTATE_X_POS" category="VEHICLE" key1="KEY_KP_4" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_ROTATE_X_NEG" category="VEHICLE" key1="KEY_KP_6" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_ROTATE_Y_POS" category="VEHICLE" key1="KEY_KP_8" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_ROTATE_Y_NEG" category="VEHICLE" key1="KEY_KP_2" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_ROTATE_Z_POS" category="VEHICLE" key1="KEY_KP_9" key2="" button="" device="0" mouse="" />
+		<input name="NODETEST_ROTATE_Z_NEG" category="VEHICLE" key1="KEY_KP_7" key2="" button="" device="0" mouse="" />
+		<!- -->
 	</inputBindings>
 </modDesc>
