@@ -120,7 +120,7 @@ a.button {
   cursor: pointer;
   -moz-border-radius: 0.3em;
   -webkit-border-radius: 0.3em;
-  border-radius: 0.3em;
+  border-radius: 3px;
   border: 1px solid;
   border-color: #bbbbbb #a2a2a2 #888888;
   background-color: #eeeeee;
@@ -159,12 +159,13 @@ a.button:active {
   -webkit-transition: all 10ms;
   transition: all 10ms;
   top:0.1em;
-  color:#666;
+  /*color:#666;*/
 }
+a.button:active img, a.button:active span { opacity:0.75; }
 
 a.button:nth-of-type(even) { margin-right:0; }
 a.button:nth-of-type(n+3) { left:-2px; }
-#download-zip-fs-uk { margin-bottom:1.4em; }
+#download-fs-uk { margin-bottom:1.4em; }
 
 a.button img {
 	margin-right: 1em;
@@ -172,7 +173,9 @@ a.button img {
 	top:4px;
 }
 a.button img.noMoveDown { top:0; }
-a.button span {}
+a.button span {
+	text-shadow:0 1px 0 rgba(255,255,255,0.8);
+}
 
 code, pre {
 	font-family: Consolas, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
@@ -404,9 +407,11 @@ footer a:hover {
 	#downloads {
 		margin-bottom: 25px;
 	}
-	#download-zip, #download-tar-gz {
+	/*
+	#download-zip, #download-modhoster, #download-fs-uk {
 		display: none;
 	}
+	*/
 	.inner {
 		width: 100%;
 		margin: 0 auto;
