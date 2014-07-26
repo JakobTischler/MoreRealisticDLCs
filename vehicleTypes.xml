@@ -67,6 +67,7 @@
 
 			<specialization name="realisticSprayer" />
 			<specialization name="variableSprayUsage" />
+			<specialization name="hoseRef" />
 		</type>
 
 		<type name="mr_extendedForageWagon_l" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
@@ -144,6 +145,7 @@
 			<specialization name="pdlc_marshallPack.extendedSprayer" />
 
 			<specialization name="realisticSprayer" />
+			<specialization name="hoseRef" />
 		</type>
 	</Marshall>
 

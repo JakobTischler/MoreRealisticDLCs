@@ -85,6 +85,15 @@
 			<wheel radius="0.61" deltaY="0.07" suspTravel="0.1" spring="170" brakeRatio="1" />
 			<wheel radius="0.61" deltaY="0.07" suspTravel="0.1" spring="170" brakeRatio="1" />
 		</wheels>
+		<createExtraNodes>
+			<node index="0>14" name="hoseRef_left_1" translation="0.895 1.04 1.38" rotation="0 90 -25" /> <!-- hoseRef left 1 -->
+			<node index="0>15" name="hoseRef_left_2" translation="0.895 1.04 1.38" rotation="0 -90 -25" /> <!-- hoseRef left 2 -->
+			<node index="0>16" name="hoseRef_park_left" translation="0.86 1.78 -2.1" rotation="0.75 0 0" /> <!-- hoseRef park left -->
+		</createExtraNodes>
+		<hoseRef hasPump="true" fillSpeed="0.3" emptySpeed="0.25"> <!-- 1.0 = 1000 l/s -->
+			<ref type="conn" compIdx="1" index="0>14" index2="0>15" /> <!-- hoseRef left -->
+			<ref type="park" compIdx="1" index="0>16"  /> <!-- park left -->
+		</hoseRef>
 		<components>
 			<component1 centerOfMass="0 0.65 -0.15" realMassWanted="2.54" realTransWithMass="0 0.035 -0.01" />
 		</components>

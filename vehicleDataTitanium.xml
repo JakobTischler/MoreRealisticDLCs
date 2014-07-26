@@ -532,13 +532,13 @@
 		<createExtraNodes>
 			<node index="0>28" name="hoseRef_left_1" translation="1.22 0.85 4.1" rotation="0 90 0" /> <!-- hoseRef left 1 -->
 			<node index="0>29" name="hoseRef_left_2" translation="1.22 0.85 4.1" rotation="0 -90 0" /> <!-- hoseRef left 2 -->
-			<node index="0>30" name="hoseRef_right_1" translation="-1.22 0.85 4.08" rotation="0 -90 10" /> <!-- hoseRef right 1 -->
+			<node index="0>30" name="hoseRef_right_1" translation="-1.22 0.85 4.08" rotation="0 -90 -10" /> <!-- hoseRef right 1 -->
 			<node index="0>31" name="hoseRef_right_2" translation="-1.22 0.85 4.08" rotation="0 90 -10" /> <!-- hoseRef right 2 -->
 			<node index="0>32" name="hoseRef_park_left"  translation="1.28 1.89 3.15" rotation="0 180 0" /> <!-- hoseRef park left -->
 			<node index="0>33" name="hoseRef_park_right" translation="-1.28 1.89 3.15" rotation="0 180 0" /> <!-- hoseRef park right -->
 			<node index="0>34" name="hoseRef_dock" translation="0 0.65 5" /> <!-- hoseRef dock -->
 		</createExtraNodes>
-		<hoseRef hasPump="true" fillSpeed="0.6" emptySpeed="0.5" > <!-- 1.0 = 1000 l/s -->
+		<hoseRef hasPump="true" fillSpeed="0.6" emptySpeed="0.5"> <!-- 1.0 = 1000 l/s -->
 			<ref type="conn" compIdx="1" index="0>28" index2="0>29" /> <!-- hoseRef left -->
 			<ref type="conn" compIdx="1" index="0>30" index2="0>31" /> <!-- hoseRef right -->
 			<ref type="park" compIdx="1" index="0>32"  /> <!-- park left -->
