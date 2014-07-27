@@ -182,7 +182,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 		return false;
 	end;
 
-	self:infoPrint('* done * (all vehicle data gathered)', '###');
+	self:infoPrint('all vehicle data gathered', '###');
 	return true;
 end;
 

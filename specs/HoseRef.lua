@@ -24,26 +24,26 @@ end;
 
 function HoseRef:load(xmlFile)
 	self.printTable = HoseRef.printTable;
-	
+
 	self.setRefState = HoseRef.setRefState;
-	
-	self.hoseRef = {};	
+
+	self.hoseRef = {};
 
 	self.isTrailer = not SpecializationUtil.hasSpecialization(Steerable, self.specializations);
-	
+
 	--#
 	self.hoseRef.refs = {};
 	local i = 0;
-	while true do 
+	while true do
 		local str = getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#index",i));
-		if str == nil then 
+		if str == nil then
 			break;
 		end;
 		local rt = getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#type",i));
 		local compIdx = getXMLFloat(xmlFile, string.format("vehicle.hoseRef.ref(%d)#compIdx",i));
 		local id = i + 1;
-		local node = Utils.indexToObject(self.components, str);			
-		local node2 = Utils.indexToObject(self.components, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#index2",i)));			
+		local node = Utils.indexToObject(self.components, str);
+		local node2 = Utils.indexToObject(self.components, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#index2",i)));
 		local delta = getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#deltaFill",i));
 		local isUsed = false;
 		local hose = 0;
@@ -51,31 +51,31 @@ function HoseRef:load(xmlFile)
 		if getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animIndex",i)) ~= nil then
 			anim.idx = Utils.indexToObject(self.components, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animIndex",i)));
 			anim.charset = getAnimCharacterSet(anim.idx);
-			anim.clipIdx = getAnimClipIndex(anim.charset, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animClip",i)));	
+			anim.clipIdx = getAnimClipIndex(anim.charset, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animClip",i)));
 			assignAnimTrackClip(anim.charset, 0, anim.clipIdx);
 			setAnimTrackLoopState(anim.charset, 0, false);
-			anim.duration = getAnimClipDuration(anim.charset, anim.clipIdx);				
+			anim.duration = getAnimClipDuration(anim.charset, anim.clipIdx);
 			setAnimTrackTime(anim.charset, 0, anim.duration, true);
 		end;
 		local animOpen = {};
 		if getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animOpenIndex",i)) ~= nil then
 			animOpen.idx = Utils.indexToObject(self.components, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animOpenIndex",i)));
 			animOpen.charset = getAnimCharacterSet(animOpen.idx);
-			animOpen.clipIdx = getAnimClipIndex(animOpen.charset, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animOpenClip",i)));	
+			animOpen.clipIdx = getAnimClipIndex(animOpen.charset, getXMLString(xmlFile, string.format("vehicle.hoseRef.ref(%d)#animOpenClip",i)));
 			assignAnimTrackClip(animOpen.charset, 0, animOpen.clipIdx);
 			setAnimTrackLoopState(animOpen.charset, 0, false);
-			animOpen.duration = getAnimClipDuration(animOpen.charset, animOpen.clipIdx);				
+			animOpen.duration = getAnimClipDuration(animOpen.charset, animOpen.clipIdx);
 			setAnimTrackTime(animOpen.charset, 0, 0, true);
-		end;		
+		end;
 		table.insert( self.hoseRef.refs, {rt=rt, compIdx=compIdx, id=id, node=node, node2=node2, delta=delta, isUsed=isUsed, hose=hose, anim=anim, animOpen=animOpen} );
 		i = i + 1;
-	end	
-	
+	end
+
 	--#
 	self.hoseRef.odc = {};
 	self.hoseRef.odc.trigger = Utils.indexToObject(self.components, getXMLString(xmlFile, "vehicle.hoseRef.outDoorControl#trigger"));
-	self.playerCallback = SpecializationUtil.callSpecializationsFunction("playerCallback"); 
-	
+	self.playerCallback = SpecializationUtil.callSpecializationsFunction("playerCallback");
+
 	if self.hoseRef.odc.trigger ~= nil then
 		addTrigger(self.hoseRef.odc.trigger, "playerCallback", self);
 		self.hoseRef.odc.pit = false;
@@ -104,17 +104,17 @@ function HoseRef:load(xmlFile)
 	self.pumpSpeed = Utils.getNoNil( getXMLFloat(xmlFile, "vehicle.hoseRef#pumpSpeed"), 0.25);
 	self.fillSpeed = Utils.getNoNil( getXMLFloat(xmlFile, "vehicle.hoseRef#fillSpeed"), 0.25);
 	self.emptySpeed = Utils.getNoNil( getXMLFloat(xmlFile, "vehicle.hoseRef#emptySpeed"), 0.25);
-	
+
 	--###
 	self.setVehicleIncreaseRpm = SpecializationUtil.callSpecializationsFunction("setVehicleIncreaseRpm");
-    self.saveMinimumRpm = 0;	
+    self.saveMinimumRpm = 0;
 	self.rpmInc = {};
-	self.rpmInc.drawbar = 0;	
+	self.rpmInc.drawbar = 0;
 	self.rpmInc.turnOn = 0;
-	self.rpmInc.turnOnDefault = 1000;				
+	self.rpmInc.turnOnDefault = 1000;
 	self.rpmInc.fillarm = 0;
 	self.attacherVehicleMinRpm = 0;
-	
+
 	self.doLoadCheck = -1;
 end;
 
@@ -125,7 +125,7 @@ function HoseRef:readStream(streamId, connection)
 	--print("function HoseRef:readStream(streamId, connection)")
 	for i,ref in pairs(self.hoseRef.refs) do
 		ref.isUsed = streamReadBool(streamId);
-		local v = streamReadInt32(streamId);		
+		local v = streamReadInt32(streamId);
 		if v ~= 0 then
 			ref.hoseToLoad = v;
 		else
@@ -153,7 +153,7 @@ function HoseRef:loadFromAttributesAndNodes(xmlFile, key, resetVehicles)
 	self.doLoadCheck = self.time + 1000;
 	return BaseMission.VEHICLE_LOAD_OK;
 end;
-  
+
 function HoseRef:getSaveAttributesAndNodes(nodeIdent)
 	return nil, nil;
 end;
@@ -164,30 +164,30 @@ end;
 function HoseRef:keyEvent(unicode, sym, modifier, isDown)
 end;
 
-function HoseRef:update(dt)	
+function HoseRef:update(dt)
 
 	--###
 	if self.attVeh ~= nil and self.doLoadCheck > self.time then
 		while self.attVeh.attacherVehicle ~= nil do
 			self.attVeh = self.attVeh.attacherVehicle;
-		end;	
+		end;
 	end;
-	
+
 	--###
 	for i,ref in pairs(self.hoseRef.refs) do
-		if ref.hoseToLoad ~= nil then 
+		if ref.hoseToLoad ~= nil then
 			ref.hose = networkGetObject(ref.hoseToLoad);
 			ref.hoseToLoad = nil;
 		end;
 	end;
-	
+
 	local act = true;
 	if self.isTrailer then
 		act = self.attacherVehicleSteer ~= nil and self.attacherVehicleSteer.isMotorStarted;
 	else
 		act = self.isMotorStarted;
 	end
-	
+
 	if self.isClient and self:getIsActiveForInput(true) and not self:hasInputConflictWithSelection() then
 		if self.conToFillable then
 			if InputBinding.hasEvent(InputBinding.HOSEREF_FILL) then
@@ -196,7 +196,7 @@ function HoseRef:update(dt)
 					while self.attacherVehicleSteer.attacherVehicle ~= nil do
 						self.attacherVehicleSteer = self.attacherVehicleSteer.attacherVehicle;
 					end;
-				end;			
+				end;
 				if self.attacherVehicleSteer ~= nil and self.attacherVehicleSteer.isMotorStarted then
 					if self.pumpDir ~= 1 then
 						self:setPumpDir(1);
@@ -210,8 +210,8 @@ function HoseRef:update(dt)
 					while self.attacherVehicleSteer.attacherVehicle ~= nil do
 						self.attacherVehicleSteer = self.attacherVehicleSteer.attacherVehicle;
 					end;
-				end;			
-				if self.attacherVehicleSteer ~= nil and self.attacherVehicleSteer.isMotorStarted then			
+				end;
+				if self.attacherVehicleSteer ~= nil and self.attacherVehicleSteer.isMotorStarted then
 					if self.pumpDir ~= -1 then
 						self:setPumpDir(-1);
 					else
@@ -221,17 +221,17 @@ function HoseRef:update(dt)
 			end;
 		end;
 	end;
-	
+
 	if self.pumpDir ~= 0 then
-		if self.attVeh == nil then 
+		if self.attVeh == nil then
 			self:setPumpDir(0);
 		else
-			if not self.attVeh.isMotorStarted then 
+			if not self.attVeh.isMotorStarted then
 				self:setPumpDir(0);
 			end;
 		end;
 	end;
-	
+
 	--###
     if self.hasPump and self.hoseRef.odc.trigger ~= nil then
 		if self.hoseRef.odc.pit then
@@ -250,15 +250,15 @@ function HoseRef:update(dt)
 					else
 						self:setPumpDir(0);
 					end;
-				end;				
-			end;					
+				end;
+			end;
 		end;
 	end;
 
-	
+
 end;
 
-function HoseRef:updateTick(dt)	
+function HoseRef:updateTick(dt)
 
 	--#
 	if self.attacherVehicleCopy ~= nil then
@@ -293,12 +293,12 @@ function HoseRef:updateTick(dt)
 					disableAnimTrack(ref.animOpen.charset, 0);
 				end
 			end;
-		end		
+		end
 	end
-	
+
 	--###
 	if self.hasPump then
-		
+
 		self.conToFillable = false;
 
 		local sId;
@@ -319,25 +319,25 @@ function HoseRef:updateTick(dt)
 						sId2 = 1;
 						refId = i;
 						break;
-					end;	
+					end;
 				end;
 			end;
 		end;
 		--print("sId = " ..tostring(sId).." <-?! ");
-		
-		if sId ~= nil then			
+
+		if sId ~= nil then
 			local veh2;
 			veh2 = self.hoseRef.refs[refId].hose.ctors[sId2].veh;
-			if veh2 ~= nil then				
+			if veh2 ~= nil then
 				if veh2 ~= 0 then
 					if not SpecializationUtil.hasSpecialization(Fillable, veh2.specializations) then
 						veh2 = 0;
 					end;
 				end
 			end;
-			
+
 			local pa = true;
-			if veh2 ~= nil then	
+			if veh2 ~= nil then
 				if veh2 ~= 0 then
 					if veh2.hoseRef ~= nil then
 						if veh2.hasPump == true then
@@ -352,7 +352,7 @@ function HoseRef:updateTick(dt)
 			local isTrigger = false;
 			if veh2 ~= 0 then
 				self.conToFillable = pa;
-			else				
+			else
 				--check station
 				if self.hoseRef.refs[refId].hose.ctors[sId2].station ~= nil and self.hoseRef.refs[refId].hose.ctors[sId2].station ~= 0 then
 					if self.hoseRef.refs[refId].hose.ctors[sId2].station.manureTriggerRef ~= nil then
@@ -362,14 +362,14 @@ function HoseRef:updateTick(dt)
 					end;
 				end;
 			end;
-			
+
 			if (veh2 == nil or veh2 == 0) and self.pumpDir ~= 0 then
 				self:setPumpDir(0);
 				--print("!! STOP_PUMP (ZU)HoseRef:updateTick() veh2="..tostring(veh2));
 				return;
-			end;			
-			
-			if self.pumpDir ~= 0 and self.isServer then 
+			end;
+
+			if self.pumpDir ~= 0 and self.isServer then
 				local delta = dt*self.pumpSpeed;
 				local fillType = Fillable.FILLTYPE_LIQUIDMANURE;
 				if self.pumpDir == -1 then
@@ -393,34 +393,35 @@ function HoseRef:updateTick(dt)
 					veh2:setFillLevel( veh2.fillLevel-delta, fillType );
 				end;
 			end;
-			
+
 		elseif self.pumpDir ~= 0 then
 			--for i,ref in pairs(self.hoseRef.refs) do
 			--	if ref.hose ~= 0 then
 			--		print(i.."   ref.hose.ctors[1].isAttached = "..tostring(ref.hose.ctors[1].isAttached));
 			--		print(i.."   ref.hose.ctors[2].isAttached = "..tostring(ref.hose.ctors[2].isAttached));
-			--		print(i.."   ref.hose.ctors[1].station = "..tostring(ref.hose.ctors[1].station));			
-			--		print(i.."   ref.hose.ctors[2].station = "..tostring(ref.hose.ctors[2].station));			
+			--		print(i.."   ref.hose.ctors[1].station = "..tostring(ref.hose.ctors[1].station));
+			--		print(i.."   ref.hose.ctors[2].station = "..tostring(ref.hose.ctors[2].station));
 			--		print(i.."   ref.hose.ctors[1].veh = "..tostring(ref.hose.ctors[1].veh));
 			--		print(i.."   ref.hose.ctors[2].veh = "..tostring(ref.hose.ctors[2].veh));
-			--		print(i.."   self = "..tostring(self));			
+			--		print(i.."   self = "..tostring(self));
 			--	end;
-			--end;	
+			--end;
 			self:setPumpDir(0);
 		end
 
 	end;
-	
-		
+
+
 	--### moved to zunhammer18500.lua
 	--if self.pumpDir ~= 0 then
-	--	self:setVehicleIncreaseRpm(dt, 800, true);	
+	--	self:setVehicleIncreaseRpm(dt, 800, true);
 	--else
-	--	self:setVehicleIncreaseRpm(dt, 0, false);	
-	--end	
+	--	self:setVehicleIncreaseRpm(dt, 0, false);
+	--end
 
 	-- MoreRealistic pump power consumption [Jakob Tischler, 26 Jul 2014]
 	if self.isServer and self.realFillingPowerConsumption and self.realFillingPowerConsumption > 0 and self.attacherVehicle then
+		self.realCurrentPowerConsumption = 0;
 		if self.pumpDir ~= 0 and not self.isSprayerFilling then
 			self.realCurrentPowerConsumption = self.realCurrentPowerConsumption + self.realFillingPowerConsumption;
 		end;
@@ -429,7 +430,7 @@ function HoseRef:updateTick(dt)
 end;
 
 function HoseRef:draw()
-	if self.hasPump and not self:hasInputConflictWithSelection() then 
+	if self.hasPump and not self:hasInputConflictWithSelection() then
 		if self.attacherVehicleSteer ~= nil and self.attacherVehicleSteer.isMotorStarted then
 			if self.conToFillable then
 				g_currentMission:addHelpButtonText(g_i18n:getText("HOSEREF_FILL"), InputBinding.HOSEREF_FILL);
@@ -454,14 +455,14 @@ function HoseRef:onAttach(attacherVehicle)
 		else
 			self.attVeh.saveMinimumRpm  = 100;
 		end;
-	end;	
+	end;
 	self.attacherVehicleSteer = attacherVehicle;
 	while self.attacherVehicleSteer.attacherVehicle ~= nil do
 		self.attacherVehicleSteer = self.attacherVehicleSteer.attacherVehicle;
-	end;	
+	end;
 end;
 
-function HoseRef:onDetach()	
+function HoseRef:onDetach()
 	for k, steerable in pairs(g_currentMission.steerables) do
 		if self.attVeh == steerable then
 			steerable.motor.minRpm = self.saveMinimumRpm;
@@ -471,17 +472,17 @@ function HoseRef:onDetach()
 				end;
 			end;
 		end;
-	end;	
+	end;
 	self.attVeh = nil;
 	self.attacherVehicleSteer = nil;
 end;
 
-function HoseRef:updateMesh()	
+function HoseRef:updateMesh()
 end;
 
 --###
-function HoseRef:setRefState(refId, state, hose, noEventSend)		
---print("function HoseRef:setRefState("..tostring(refId)..", "..tostring(state)..", "..tostring(noEventSend));		
+function HoseRef:setRefState(refId, state, hose, noEventSend)
+--print("function HoseRef:setRefState("..tostring(refId)..", "..tostring(state)..", "..tostring(noEventSend));
 	SetRefStateEvent.sendEvent(self, refId, state, hose, noEventSend);
 	if self.hoseRef.refs[refId] ~= nil then
 		self.hoseRef.refs[refId].isUsed = state;
@@ -491,9 +492,9 @@ function HoseRef:setRefState(refId, state, hose, noEventSend)
 				--print("play anim!");
 				enableAnimTrack(self.hoseRef.refs[refId].anim.charset, 0);
 				if state then
-					setAnimTrackSpeedScale(self.hoseRef.refs[refId].anim.charset, 0, -2);					
+					setAnimTrackSpeedScale(self.hoseRef.refs[refId].anim.charset, 0, -2);
 				else
-					setAnimTrackSpeedScale(self.hoseRef.refs[refId].anim.charset, 0, 2);					
+					setAnimTrackSpeedScale(self.hoseRef.refs[refId].anim.charset, 0, 2);
 				end;
 			end;
 		end;
@@ -502,14 +503,14 @@ function HoseRef:setRefState(refId, state, hose, noEventSend)
 				--print("play animOpen!");
 				enableAnimTrack(self.hoseRef.refs[refId].animOpen.charset, 0);
 				if state then
-					setAnimTrackSpeedScale(self.hoseRef.refs[refId].animOpen.charset, 0, 1);					
+					setAnimTrackSpeedScale(self.hoseRef.refs[refId].animOpen.charset, 0, 1);
 				else
-					setAnimTrackSpeedScale(self.hoseRef.refs[refId].animOpen.charset, 0, -1);					
+					setAnimTrackSpeedScale(self.hoseRef.refs[refId].animOpen.charset, 0, -1);
 				end;
 			end;
-		end;		
+		end;
 	end;
-		
+
 end;
 
 
@@ -518,16 +519,16 @@ function HoseRef:setPumpDir(dir, noEventSend)
 --print("function HoseRef:setPumpDir("..tostring(dir)..", "..tostring(noEventSend));
 	SetPumpDirEvent.sendEvent(self, dir, noEventSend);
 	self.pumpDir = dir;
-	
+
 	if self.hoseRef.odc.trigger ~= nil then
 		if self.hoseRef.odc.enable ~= nil and self.hoseRef.odc.dir ~= nil then
-			
+
 			if dir ~= 0 then
 				setRotation(self.hoseRef.odc.enable.node, self.hoseRef.odc.enable.rMax[1], self.hoseRef.odc.enable.rMax[2], self.hoseRef.odc.enable.rMax[3]);
 			else
 				setRotation(self.hoseRef.odc.enable.node, self.hoseRef.odc.enable.rMin[1], self.hoseRef.odc.enable.rMin[2], self.hoseRef.odc.enable.rMin[3]);
 			end;
-			
+
 			if dir == -1 then
 				setRotation(self.hoseRef.odc.dir.node, self.hoseRef.odc.dir.rMax[1], self.hoseRef.odc.dir.rMax[2], self.hoseRef.odc.dir.rMax[3]);
 			elseif dir == 1 then
@@ -535,10 +536,10 @@ function HoseRef:setPumpDir(dir, noEventSend)
 			elseif dir == 0 then
 				setRotation(self.hoseRef.odc.dir.node, self.hoseRef.odc.dir.rNeut[1], self.hoseRef.odc.dir.rNeut[2], self.hoseRef.odc.dir.rNeut[3]);
 			end;
-			
+
 		end;
 	end;
-	
+
 	-- and re-check for attacherVehicle due to 'trailer in between'-situation
 	self.attVeh = self.attacherVehicleSteer;
 	while self.attVeh.attacherVehicle ~= nil do
@@ -554,9 +555,9 @@ function HoseRef:setPumpDir(dir, noEventSend)
 		else
 			self.attVeh.saveMinimumRpm  = 100;
 		end;
-	end;		
+	end;
 	]]--
-	
+
 end;
 
 
@@ -579,7 +580,7 @@ function HoseRef:setVehicleIncreaseRpm(dt, increase, isActive)
 --print("function HoseRef:setVehicleIncreaseRpm("..tostring(dt)..", "..tostring(increase)..", "..tostring(isActive));
 
 	if self.attVeh ~= nil and self.saveMinimumRpm ~= 0 and self.attVeh.motor ~= nil then
-	
+
 		if dt ~= nil then
 			if isActive == true then
 				--self.attacherVehicle.motor.minRpm = math.max(self.attacherVehicle.motor.minRpm-(dt*2), -increase);
@@ -594,14 +595,14 @@ function HoseRef:setVehicleIncreaseRpm(dt, increase, isActive)
 		end;
 		self.attVeh.motor.minRpm = self.attacherVehicleMinRpm;
 		--print("self.attacherVehicle.motor.minRpm="..tostring(self.attacherVehicle.motor.minRpm));
-		
+
 		if self.attVeh.motor.rpmIncByImplement == nil then
 			self.attVeh.motor.rpmIncByImplement = {};
 			self.attVeh.motor.rpmIncByImplement[self] = 2*math.abs(self.attVeh.motor.minRpm);
 		else
 			self.attVeh.motor.rpmIncByImplement[self] = 2*math.abs(self.attVeh.motor.minRpm);
 		end;
-		
+
 		if self.attVeh.isMotorStarted then
 			local fuelUsed = 0.0000012*math.abs(self.attVeh.motor.minRpm);
 			self.attVeh:setFuelFillLevel(self.attVeh.fuelFillLevel-fuelUsed);
@@ -647,15 +648,15 @@ function SetRefStateEvent:readStream(streamId, connection)
 end;
 
 function SetRefStateEvent:writeStream(streamId, connection)
-    streamWriteInt32(streamId, networkGetObjectId(self.vehicle));	
+    streamWriteInt32(streamId, networkGetObjectId(self.vehicle));
 	streamWriteInt8(streamId, self.refId);
 	streamWriteBool(streamId, self.state);
-	streamWriteInt32(streamId, networkGetObjectId(self.hose));	
+	streamWriteInt32(streamId, networkGetObjectId(self.hose));
 end;
 
 function SetRefStateEvent:run(connection)
 	self.vehicle:setRefState(self.refId, self.state, self.hose, true);
-	if not connection:getIsServer() then				
+	if not connection:getIsServer() then
 		g_server:broadcastEvent(SetRefStateEvent:new(self.vehicle, self.refId, self.state, self.hose), nil, connection, self.vehicle);
 	end;
 end;
@@ -702,13 +703,13 @@ function SetPumpDirEvent:readStream(streamId, connection)
 end;
 
 function SetPumpDirEvent:writeStream(streamId, connection)
-    streamWriteInt32(streamId, networkGetObjectId(self.vehicle));	
+    streamWriteInt32(streamId, networkGetObjectId(self.vehicle));
 	streamWriteInt32(streamId, self.state);
 end;
 
 function SetPumpDirEvent:run(connection)
 	self.vehicle:setPumpDir(self.state, true);
-	if not connection:getIsServer() then				
+	if not connection:getIsServer() then
 		g_server:broadcastEvent(SetPumpDirEvent:new(self.vehicle, self.state), nil, connection, self.vehicle);
 	end;
 end;
