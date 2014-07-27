@@ -420,13 +420,9 @@ function HoseRef:updateTick(dt)
 	--end
 
 	-- MoreRealistic pump power consumption [Jakob Tischler, 26 Jul 2014]
-	if self.isServer and self.realFillingPowerConsumption and self.realFillingPowerConsumption > 0 and self.attacherVehicle then
-		self.realCurrentPowerConsumption = 0;
-		if self.pumpDir ~= 0 and not self.isSprayerFilling then
-			self.realCurrentPowerConsumption = self.realCurrentPowerConsumption + self.realFillingPowerConsumption;
-		end;
+	if self.isServer and self.realFillingPowerConsumption and self.realFillingPowerConsumption > 0 and self.attacherVehicle and not self.isSprayerFilling and self.pumpDir ~= 0 then
+		self.realCurrentPowerConsumption = self.realCurrentPowerConsumption + self.realFillingPowerConsumption;
 	end;
-
 end;
 
 function HoseRef:draw()
