@@ -27,7 +27,39 @@ time, mark, audio, video {
 *, *:before, *:after {
 	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
- 
+
+/*** TRANSITIONS ***/
+a, button, button:before, fieldset, figure, img, input, label, li, span, textarea {
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+/* text selection */
+::selection {
+	background:#FFE666;
+	color:#555;
+}
+::-moz-selection {
+	background:#FFE666;
+	color:#555;
+}
+::-webkit-selection {
+	background:#FFE666;
+	color:#555;
+}
+header, #downloads {
+	cursor:default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -64,15 +96,38 @@ body {
 
 a {
 	color: #d5000d;
+	text-shadow:none;
 }
 a:hover {
-	color: #c5000c;
+	background-color: #d5000d;
+	color:#F0F0F0;
 }
 
 header {
 	padding-top: 35px;
 	padding-bottom: 25px;
 }
+
+header nav {
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	align-items:stretch;
+	align-content:center;
+	margin:1em 0;
+}
+header nav a {
+	flex-grow:1;
+	border-right:1px solid #BBB;
+	border-radius:2px;
+	font-size:0.8em;
+	font-weight:700;
+	padding:0.2em 0;
+	text-align:center;
+	text-transform:uppercase;
+}
+header nav a:last-of-type { border:0; }
+header nav a:hover { border-color:#d5000d; }
 
 header h1 {
 	/*font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif;*/
@@ -83,7 +138,6 @@ header h1 {
 	color: #303030;
 	line-height: 1.2;
 }
-
 header h2 {
 	letter-spacing: -1px;
 	font-size: 1.5em;
@@ -135,7 +189,7 @@ a.button {
   -webkit-transition: all 100ms;
   transition: all 100ms;
 
-  margin-right:1em;
+  margin:0 3em 1em 0;
   padding:0.4em 0;
   position:relative;
   text-align:center;
@@ -162,10 +216,6 @@ a.button:active {
   /*color:#666;*/
 }
 a.button:active img, a.button:active span { opacity:0.75; }
-
-a.button:nth-of-type(even) { margin-right:0; }
-a.button:nth-of-type(n+3) { left:-2px; }
-#download-fs-uk { margin-bottom:1.4em; }
 
 a.button img {
 	margin-right: 1em;
@@ -214,8 +264,7 @@ ul, ol, dl {
 hr {
 	height: 1px;
 	line-height: 1px;
-	margin-top: 1em;
-	padding-bottom: 1em;
+	margin:3em 0;
 	border: none;
 	background: transparent url('../images/hr.png') 50% 0 no-repeat;
 }
@@ -264,10 +313,11 @@ h2 {
 } 
 
 h3 {
+	border-bottom: 1px solid #d5000d;
 	color: #d5000d;
 	font-size: 1.1em;
 	font-weight: bold;
-	margin-bottom: 8px;
+	margin-bottom: 0.5em;
 } 
  
 h4 {
@@ -288,8 +338,10 @@ h6 {
 
 p {
 	font-weight: 300;
-	margin-bottom: 20px;
+	margin:1.5em 0;
 }
+
+p.noMargin { margin:0; }
 
 p.warning-1 {
 	background:#FFF689;
@@ -302,6 +354,7 @@ p.warning-1 {
 	);
 	border:1px dashed #CCC;
 	border-radius:2px; 
+	font-style:italic;
 	opacity:0.9;
 	padding:10px;
 }
@@ -310,6 +363,7 @@ p.warning-2 {
 	background: #ddd;
 	border: 1px solid #c5c5c5;
 	border-radius: 2px;
+	font-style:italic;
 	padding: 0.5em 1em;
 }
  
@@ -328,6 +382,7 @@ span.term {
 }
 span.definition {
 	background: rgba(0,255,102,0.1);
+	border: 1px solid rgba(55, 161, 31, 0.5);
 	border-radius: 2px;
 	font-size: 0.9em;
 	font-family: Consolas;
@@ -404,14 +459,14 @@ footer a:hover {
 		padding-top: 10px;
 		padding-bottom: 10px;
 	}
-	#downloads {
-		margin-bottom: 25px;
-	}
-	/*
+	header h1 { font-size:2em; }
+	header h2 { font-size:1em; }
+	header nav { display:none; }
+	/* /
 	#download-zip, #download-modhoster, #download-fs-uk {
 		display: none;
 	}
-	*/
+	/* */
 	.inner {
 		width: 100%;
 		margin: 0 auto;
