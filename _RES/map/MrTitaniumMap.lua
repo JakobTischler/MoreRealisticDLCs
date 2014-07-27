@@ -10,6 +10,7 @@
 
 MrTitaniumMap = {}
 MrTitaniumMap.modDir = g_currentModDirectory;
+MrTitaniumMap.modName = g_currentModName;
 addModEventListener(MrTitaniumMap);
 
 function MrTitaniumMap:loadMap(name)
@@ -20,8 +21,16 @@ function MrTitaniumMap:loadMap(name)
 	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;
 
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
-	if not g_modIsLoaded['moreRealistic'] then return; end;
-	
+	if not g_modIsLoaded['moreRealistic'] then
+		self:infoPrint('you don\'t have "moreRealistic" installed. The Titanium map will not be MRized.', '###');
+		return;
+	end;
+
+	-- MOREREALISTICGENUINEMAP NOT INSTALLED
+	if not g_modIsLoaded['moreRealisticGenuineMap'] then
+		self:infoPrint('you don\'t have "moreRealisticGenuineMap" installed. The wool pallets will not work correctly!', '###');
+	end;
+
 	-- SET BALANCING VALUES
 	local setTitaniumMapParameters = function(self, mapName)
 		if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
@@ -66,11 +75,18 @@ function MrTitaniumMap:loadMap(name)
 		end;
 		RealisticGlobalListener.setMissionInfosForNewGame = Utils.appendedFunction(RealisticGlobalListener.setMissionInfosForNewGame, setStartingMoney);
 
-		print('*** MoreRealisticDLCs: Warning: you don\'t have the "moreRealisticVehicles" pack installed. Many of the starting vehicles won\'t be available. As a compensation, your account will be credited with a bit of starting money. ***');
+		self:infoPrint('Warning: you don\'t have the "moreRealisticVehicles" pack installed. Many of the starting vehicles won\'t be available. As a compensation, your account will be credited with a bit of starting money.', '###');
 	end;
 
 	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
+end;
 
+function MrTitaniumMap:infoPrint(str, prologue)
+	if prologue then
+		print(('%s %s: %s'):format(tostring(prologue), MrTitaniumMap.modName, tostring(str)));
+	else
+		print(('%s: %s'):format(MrTitaniumMap.modName, tostring(str)));
+	end;
 end;
 
 function MrTitaniumMap:deleteMap() end;
