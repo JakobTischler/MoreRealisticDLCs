@@ -2,11 +2,12 @@
 -- adds power consumption and correct silage fill levels to the Ursus MR bale wrapper
 
 -- @author: Jakob Tischler
--- @date: 19 Jun 2014
--- @version: 0.3
+-- @date: 27 Jul 2014
+-- @version: 0.4
 -- @history: 0.1 (20 May 2014) - power consumption
 --           0.2 (23 May 2014) - adjust silage bale fillLevel depending on wrapped bale fillType
 --           0.3 (19 Jun 2014) - adjust wrapper weight depending on the current bale being wrapped
+--           0.4 (27 Jul 2014) - make sure Ursus DLC exists when overwriting getBaleInRange function
 --
 -- Copyright (C) 2014 Jakob Tischler
 
@@ -40,6 +41,28 @@ function RealisticBaleWrapper:load(xmlFile)
 			self.fillTypeRatio[fillType] = density / silageDensity;
 		end;
 	end;
+
+	if pdlc_ursusAddon.BaleWrapper.origGetBaleInRange == nil then
+		pdlc_ursusAddon.BaleWrapper.origGetBaleInRange = pdlc_ursusAddon.BaleWrapper.getBaleInRange;
+		pdlc_ursusAddon.BaleWrapper.getBaleInRange = RealisticBaleWrapper.getBaleInRange;
+	end;
+end;
+
+function RealisticBaleWrapper.getBaleInRange(self, node)
+	local bale, silageBaleData = pdlc_ursusAddon.BaleWrapper.origGetBaleInRange(self, node);
+	if self.isRealistic and bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
+		local fillType = bale:getFillType();
+		if bale.nodeId and bale.nodeId ~= 0 then
+			local realFillType = getUserAttribute(bale.nodeId, 'realFillType');
+			if realFillType then
+				fillType = Fillable.fillTypeNameToInt[realFillType];
+			end;
+		end;
+
+		bale:setFillLevel(bale:getFillLevel() * (self.fillTypeRatio[fillType] or 1)); --TODO: MP? fillLevel event?
+	end;
+
+	return bale, silageBaleData;
 end;
 
 function RealisticBaleWrapper:updateTick(dt)
@@ -76,25 +99,6 @@ function RealisticBaleWrapper:updateLoadedBaleMass(baleId)
 
 	self.realFillableFillMass = newBaleMass;
 end;
-
-local origGetBaleInRange = pdlc_ursusAddon.BaleWrapper.getBaleInRange;
-function RealisticBaleWrapper.getBaleInRange(self, node)
-	local bale, silageBaleData = origGetBaleInRange(self, node);
-	if self.isRealistic and bale and silageBaleData and bale.fillLevel and bale.fillType and (bale.isRealistic or bale.realSleepingMode1 ~= nil) then
-		local fillType = bale:getFillType();
-		if bale.nodeId and bale.nodeId ~= 0 then
-			local realFillType = getUserAttribute(bale.nodeId, 'realFillType');
-			if realFillType then
-				fillType = Fillable.fillTypeNameToInt[realFillType];
-			end;
-		end;
-
-		bale:setFillLevel(bale:getFillLevel() * (self.fillTypeRatio[fillType] or 1)); --TODO: MP? fillLevel event?
-	end;
-
-	return bale, silageBaleData;
-end;
-pdlc_ursusAddon.BaleWrapper.getBaleInRange = RealisticBaleWrapper.getBaleInRange;
 
 function RealisticBaleWrapper:delete() end;
 function RealisticBaleWrapper:mouseEvent(posX, posY, isDown, isUp, button) end;
