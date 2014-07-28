@@ -458,6 +458,12 @@ footer a:hover {
 
 /* All Mobile Sizes (devices and browser) */
 @media (max-width: 816px) {
+	.inner {
+		width:100%;
+		margin:0 auto;
+		padding:0 1em;
+	}
+
 	header {
 		padding-top: 10px;
 		padding-bottom: 10px;
@@ -470,10 +476,6 @@ footer a:hover {
 		display: none;
 	}
 	/* */
-	.inner {
-		width: 100%;
-		margin: 0 auto;
-	}
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
