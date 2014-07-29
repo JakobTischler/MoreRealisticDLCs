@@ -41,13 +41,13 @@
 				<h2>A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs</h2>
 
 				<nav>
-					<a class="internal" href="#functionality" title="Jump to the functionality section">Functionality</a>
-					<a class="internal" href="#installation" title="Jump to the installation section">Installation</a>
-					<a class="internal" href="#requirements" title="Jump to the requirements section">Requirements</a>
-					<a class="internal" href="#known-bugs" title="Jump to the known bugs section">Known bugs</a>
-					<a class="internal" href="#authors-and-contributors" title="Jump to the team section">Team</a>
-					<a class="internal" href="#download" title="Jump to the download section">Download</a>
-					<a class="internal" href="#copyright" title="Jump to the copyright section">Copyright</a>
+					<a class="internal" data-scroll href="#functionality" title="Jump to the functionality section">Functionality</a>
+					<a class="internal" data-scroll href="#installation" title="Jump to the installation section">Installation</a>
+					<a class="internal" data-scroll href="#requirements" title="Jump to the requirements section">Requirements</a>
+					<a class="internal" data-scroll href="#known-bugs" title="Jump to the known bugs section">Known bugs</a>
+					<a class="internal" data-scroll href="#authors-and-contributors" title="Jump to the team section">Team</a>
+					<a class="internal" data-scroll href="#download" title="Jump to the download section">Download</a>
+					<a class="internal" data-scroll href="#copyright" title="Jump to the copyright section">Copyright</a>
 				</nav>
 
 				<img src="http://jakobtischler.github.io/MoreRealisticDLCs/images/poster_1_small.jpg" alt="MoreRealisticDLCs v1.0" style="text-align:center; border:none; margin:20px auto;" />
@@ -222,5 +222,17 @@
 
 		</div>
 	</div>
+
+	<script src="js/smooth-scroll.js"></script>
+	<script>
+		smoothScroll.init({
+			speed: 400, // Integer. How fast to complete the scroll in milliseconds
+			easing: 'easeInOutCubic', // Easing pattern to use
+			updateURL: false, // Boolean. Whether or not to update the URL with the anchor hash on scroll
+			offset: 0 // Integer. How far to offset the scrolling anchor location in pixels
+			// callbackBefore: function ( toggle, anchor ) {}, // Function to run before scrolling
+			// callbackAfter: function ( toggle, anchor ) {} // Function to run after scrolling
+		});
+	</script>
 </body>
 </html>

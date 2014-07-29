@@ -158,6 +158,7 @@ header h2 {
 }
 
 #container .inner img {
+	height: auto;
 	max-width: 100%;
 }
 
