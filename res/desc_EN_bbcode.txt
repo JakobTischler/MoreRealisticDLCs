@@ -39,7 +39,7 @@ Copy the [COLOR=#1f497d]MoreRealisticDLCs.zip[/COLOR] archive to your mods folde
 			[li][b]Väderstad DLC:[/b] [COLOR=#00b046]v1.0.0.3[/COLOR][/li]
 		[/list]
 	[/li]
-	[li][b]MoreRealistic engine:[/b] [COLOR=#00b046]v1.0.0.1[/COLOR] or higher[/li]
+	[li][b]MoreRealistic engine:[/b] [COLOR=#00b046]v1.3.60[/COLOR] or higher[/li]
 	[li][b]MoreRealisticVehicles pack:[/b] [COLOR=#00b046]v1.3.8[/COLOR] or higher [i](optional)[/i][/li]
 	[li][b]MoreRealisticGenuineMap:[/b] [COLOR=#00b046]v1.0.10[/COLOR] or higher [i](optional: only needed if playing the Titanium Map)[/i][/li]
 [/list]
