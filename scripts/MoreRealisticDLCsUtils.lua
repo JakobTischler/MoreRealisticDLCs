@@ -114,8 +114,6 @@ function MoreRealisticDLCs:assertGameVersion()
 end;
 
 -- ASSERT MOREREALISTIC VERSIONS
-local minVersionMr	  = '1.3.60';
-local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not g_modIsLoaded['moreRealistic'] then
@@ -124,6 +122,7 @@ function MoreRealisticDLCs:assertMrVersions()
 	end;
 
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTIC VERSION NUMBER
+	local minVersionMr = '1.3.60';
 	local mrVersionStr, mrVersionFlt = self:getModVersion(RealisticUtils.modName);
 	if mrVersionFlt == 0 then
 		self:infoPrint('no correct version could be found for "MoreRealistic". Script will now be aborted!');
@@ -138,6 +137,7 @@ function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTICVEHICLES VERSION NUMBER
 	self.mrVehiclesPackInstalled = g_modIsLoaded['moreRealisticVehicles'] == true;
 	if self.mrVehiclesPackInstalled then
+		local minVersionMrVeh = '1.3.8';
 		local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
 		if mrVehVersionFlt == 0 then
 			self:infoPrint('no correct version could be found for "MoreRealisticVehicles". Script will now be aborted!');
