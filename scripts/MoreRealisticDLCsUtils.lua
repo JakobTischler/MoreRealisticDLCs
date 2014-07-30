@@ -114,7 +114,7 @@ function MoreRealisticDLCs:assertGameVersion()
 end;
 
 -- ASSERT MOREREALISTIC VERSIONS
-local minVersionMr	  = '1.3.59';
+local minVersionMr	  = '1.3.60';
 local minVersionMrVeh = '1.3.8';
 function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
