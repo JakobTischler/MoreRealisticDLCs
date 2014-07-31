@@ -8,6 +8,10 @@ A lua/xml project that adds MoreRealistic to the Farming Simulator DLCs.
 
 ---
 
+For more information and instructions, visit the [**MoreRealisticDLCs website**](http://jakobtischler.github.io/MoreRealisticDLCs).
+
+---
+
 #### Authors:
 * Jakob Tischler
 * dural
