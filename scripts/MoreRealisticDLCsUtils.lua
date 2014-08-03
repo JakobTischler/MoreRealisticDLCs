@@ -122,7 +122,7 @@ function MoreRealisticDLCs:assertMrVersions()
 	end;
 
 	-- ABORT IF FAULTY OR TOO LOW MOREREALISTIC VERSION NUMBER
-	local minVersionMr = '1.3.60';
+	local minVersionMr = '1.3.61';
 	local mrVersionStr, mrVersionFlt = self:getModVersion(RealisticUtils.modName);
 	if mrVersionFlt == 0 then
 		self:infoPrint('no correct version could be found for "MoreRealistic". Script will now be aborted!');
