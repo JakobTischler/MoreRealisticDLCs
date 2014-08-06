@@ -176,64 +176,70 @@ header img {
 	text-align:center;
 }
 
-a.button {
-  color: rgba(0, 0, 0, 0.8);
-  text-shadow: 0 0.1em 0 rgba(255, 255, 255, 0.5);
-  display: inline-block;
-  outline: none;
-  cursor: pointer;
-  -moz-border-radius: 0.3em;
-  -webkit-border-radius: 0.3em;
-  border-radius: 3px;
-  border: 1px solid;
-  border-color: #bbbbbb #a2a2a2 #888888;
-  background-color: #eeeeee;
-  background-image: -moz-linear-gradient(#eeeeee, #d4d4d4);
-  background-image: -webkit-linear-gradient(#eeeeee, #d4d4d4);
-  background-image: linear-gradient(#eeeeee, #d4d4d4);
-  -moz-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.1), 0 0.1em 0.2em rgba(0, 0, 0, 0.3), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
-  -webkit-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.1), 0 0.1em 0.2em rgba(0, 0, 0, 0.3), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
-  box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.1), 0 0.1em 0.2em rgba(0, 0, 0, 0.3), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
-  -moz-transition: all 100ms;
-  -o-transition: all 100ms;
-  -webkit-transition: all 100ms;
-  transition: all 100ms;
+.button {
+	color: rgba(0, 0, 0, 0.8);
+	text-shadow: 0 0.1em 0 rgba(255, 255, 255, 0.5);
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	border-radius: 3px;
+	border: 1px solid;
+	border-color: #bbbbbb #a2a2a2 #888888;
+	background-color: #eeeeee;
+	background-image: -moz-linear-gradient(#eeeeee, #d4d4d4);
+	background-image: -webkit-linear-gradient(#eeeeee, #d4d4d4);
+	background-image: linear-gradient(#eeeeee, #d4d4d4);
+	-moz-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.1), 0 0.1em 0.2em rgba(0, 0, 0, 0.3), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+	-webkit-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.1), 0 0.1em 0.2em rgba(0, 0, 0, 0.3), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+	box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.1), 0 0.1em 0.2em rgba(0, 0, 0, 0.3), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+	-moz-transition: all 100ms;
+	-o-transition: all 100ms;
+	-webkit-transition: all 100ms;
+	transition: all 100ms;
 
-  margin:0 3em 1em 0;
-  padding:0.4em 0;
-  position:relative;
-  text-align:center;
-  width:15em;
+	margin:0 3em 1em 0;
+	padding:0.4em 0;
+	position:relative;
+	text-align:center;
+	width:15em;
 }
-a.button:hover {
-  -moz-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4), 0 0.1em 0.2em rgba(0, 0, 0, 0.4), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
-  -webkit-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4), 0 0.1em 0.2em rgba(0, 0, 0, 0.4), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
-  box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4), 0 0.1em 0.2em rgba(0, 0, 0, 0.4), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+.button.disabled {
+	cursor: not-allowed;
+	opacity:0.5;
 }
-a.button:active {
-  border-color: #a2a2a2 #bbbbbb #eeeeee;
-  background-image: -moz-linear-gradient(#e1e1e1, #eeeeee);
-  background-image: -webkit-linear-gradient(#e1e1e1, #eeeeee);
-  background-image: linear-gradient(#e1e1e1, #eeeeee);
-  -moz-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.1) inset, 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset, -0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset;
-  -webkit-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.1) inset, 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset, -0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset;
-  box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.1) inset, 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset, -0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset;
-  -moz-transition: all 10ms;
-  -o-transition: all 10ms;
-  -webkit-transition: all 10ms;
-  transition: all 10ms;
-  top:0.1em;
-  /*color:#666;*/
+.button.enabled:hover {
+	-moz-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4), 0 0.1em 0.2em rgba(0, 0, 0, 0.4), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+	-webkit-box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4), 0 0.1em 0.2em rgba(0, 0, 0, 0.4), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+	box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4), 0 0.1em 0.2em rgba(0, 0, 0, 0.4), 0 -0.1em 0.07em rgba(0, 0, 0, 0.3) inset, 0 0.1em 0.07em rgba(255, 255, 255, 0.2) inset;
+	color: rgba(0, 0, 0, 0.95);
 }
-a.button:active img, a.button:active span { opacity:0.75; }
+.button.enabled:active {
+	border-color: #a2a2a2 #bbbbbb #eeeeee;
+	background-image: -moz-linear-gradient(#e1e1e1, #eeeeee);
+	background-image: -webkit-linear-gradient(#e1e1e1, #eeeeee);
+	background-image: linear-gradient(#e1e1e1, #eeeeee);
+	-moz-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.1) inset, 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset, -0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset;
+	-webkit-box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.1) inset, 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset, -0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset;
+	box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.1) inset, 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset, -0.05em 0 0.07em rgba(0, 0, 0, 0.2) inset;
+	-moz-transition: all 10ms;
+	-o-transition: all 10ms;
+	-webkit-transition: all 10ms;
+	transition: all 10ms;
+	top:0.1em;
+	/*color:#666;*/
+}
+.button.enabled:active img, .button.enabled span { opacity:0.75; }
 
-a.button img {
+
+.button img {
 	margin-right: 1em;
 	position:relative;
 	top:4px;
 }
-a.button img.noMoveDown { top:0; }
-a.button span {
+.button img.noMoveDown { top:0; }
+.button span {
 	text-shadow:0 1px 0 rgba(255,255,255,0.8);
 }
 
