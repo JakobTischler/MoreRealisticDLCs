@@ -3,18 +3,14 @@
 --
 -- @authors: Jakob Tischler, dural
 -- @contributors: dj, Grisu118, modelleicher, Satis, Xentro
--- @version: 0.3
--- @date: 07 Jul 2014
+-- @version: 1.0
+-- @date: 06 Aug 2014
 -- @history: 0.1 (15 May 2014): initial implementation
 --           0.2 (06 Jun 2014): usage of main handler class instead of local functions
 --           0.3 (07 Jul 2014): move main script execution to loadMap event, in order to prevent loading order errors in MP
+--           1.0 (06 Aug 2014): finalize release version
 --
 -- Copyright (C) 2014 Jakob Tischler
-
---[[
-TODO:
-* delete most prints before public release / convert to debug function
-]]
 
 
 -- ##################################################
@@ -54,6 +50,9 @@ function MoreRealisticDLCs:loadMap(name)
 	if self.initialized then return; end;
 
 	source(Utils.getFilename('scripts/MoreRealisticDLCsUtils.lua', modDir));
+
+	local version, _ = self:getModVersion(modName);
+	self:infoPrint(('v%s initializing'):format(version), '###');
 
 	-- ASSERT MIN GAME VERSION (a.k.a. REALLY, REALLY MAKE SURE)
 	if not self:assertGameVersion() then
@@ -99,11 +98,14 @@ function MoreRealisticDLCs:loadMap(name)
 	Vehicle.developmentReloadFromXML = MoreRealisticDLCs.developmentReloadFromXML; -- Vehicle.developmentReloadFromXML = Utils.overwrittenFunction(Vehicle.developmentReloadFromXML, MoreRealisticDLCs.developmentReloadFromXML);
 	Bale.setNodeId = Utils.appendedFunction(Bale.setNodeId, MoreRealisticDLCs.setBaleMrData);
 
-
 	-- ##################################################
 
 	-- prevent double execution on 2nd, 3rd, ... savegame load
 	self.initialized = true;
+
+	-- ##################################################
+
+	self:infoPrint(('v%s loaded'):format(version), '###');
 end;
 
 function MoreRealisticDLCs:deleteMap() end;
@@ -142,9 +144,6 @@ function MoreRealisticDLCs:setGeneralData()
 			-- sugarBeet = '$moddir$moreRealisticVehicles/_RES/particleSystems/shovelDpsSugarBeet.i3d'
 		};
 	end;
-
-	local version, _ = self:getModVersion(modName);
-	self:infoPrint(('v%s loaded'):format(version), '###');
 end;
 
 -- ##################################################
@@ -182,7 +181,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 		return false;
 	end;
 
-	self:infoPrint('all vehicle data gathered', '###');
+	self:infoPrint('all vehicle data gathered');
 	return true;
 end;
 
@@ -194,15 +193,14 @@ function MoreRealisticDLCs:registerCustomSpecs()
 
 	-- self:infoPrint('registerCustomSpecs()');
 	local modDesc = loadXMLFile('modDesc', Utils.getFilename('modDesc.xml', modDir));
-	local specsKey = 'modDesc.customSpecializations';
 	local i = 0;
 	while true do
-		local key = ('%s.specialization(%d)'):format(specsKey, i);
+		local key = ('modDesc.customSpecializations.specialization(%d)'):format(i);
 		if not hasXMLProperty(modDesc, key) then break; end;
 
-		local specName = getXMLString(modDesc, key .. '#name');
-		local className = getXMLString(modDesc, key .. '#className');
-		local fileName = getXMLString(modDesc, key .. '#filename');
+		local specName	= getXMLString(modDesc, key .. '#name');
+		local className	= getXMLString(modDesc, key .. '#className');
+		local fileName	= getXMLString(modDesc, key .. '#filename');
 		if specName and className and fileName then
 			specName = modName .. '.' .. specName;
 			className = modName .. '.' .. className;
