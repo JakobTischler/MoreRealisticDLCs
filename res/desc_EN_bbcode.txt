@@ -9,7 +9,7 @@ Some vehicles/tools have received new realistic functions:
 	[li]Overloader, frontloader tools, bale wrapper etc. use more power when certain parts are moved.[/li]
 	[li]The liquid manure spreaders have received HoseRef connectors, so they're now compatible with MapHoseRefStations, hoses, the front dock (Kotte only) etc.[/li]
 	[li]Bales get a fill level adjusted for their weight when they are wrapped.[/li]
-	[li]The liquid manure spreaders have different consumption rates depending on which nozzles actively used.[/li]
+	[li]The liquid manure spreaders have different consumption rates depending on which nozzles are active.[/li]
 [/list]
 
 The shop entries have been adjusted: vehicle data like required power, real capacity, maximum speeds and much more are displayed accurately.
