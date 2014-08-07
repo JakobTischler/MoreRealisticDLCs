@@ -58,13 +58,18 @@ function MrTitaniumMap:loadMap(name)
 	-- EXISTING SAVEGAME -> ABORT
 	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
 
+	-- MOREREALISTICDLCS NOT FOUND -> ABORT
+	if not MoreRealisticDLCs then return; end;
+
+	-- ##################################################
+
 	-- overwrite default vehicle xml path
 	local vehFile = 'mrTitaniumMap_defaultVehicles.xml';
 	if not MoreRealisticDLCs.mrVehiclesPackInstalled then
 		vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack.xml';
 		local startingMoney = 99837;
 
-		if MoreRealisticDLCs.dlcsData.Ursus.upToDateVersionExists then
+		if MoreRealisticDLCs.dlcsData and MoreRealisticDLCs.dlcsData.Ursus and MoreRealisticDLCs.dlcsData.Ursus.upToDateVersionExists then
 			vehFile = 'mrTitaniumMap_defaultVehicles_nonMrVehiclePack_inclUrsus.xml';
 			startingMoney = 89941;
 		end;
