@@ -1,5 +1,5 @@
 local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
-local ceil = math.ceil;
+local ceil, pow = math.ceil, math.pow;
 
 --------------------------------------------------
 
@@ -91,9 +91,25 @@ function MoreRealisticDLCs:getFloatNumberFromString(str)
 	if not point then
 		return tonumber(str);
 	end;
+	--[[
 	local base = str:sub(1, point - 1);
 	local dec = str:sub(point + 1, str:len()):gsub('%.', '');
 	return tonumber(base .. '.' .. dec);
+	]]
+
+	-- n . n n n . n n n . n n n
+	local spl = table.map(Utils.splitString('.', str), tonumber);
+
+	local n = 0;
+	for i=1,#spl do
+		if spl[i] then
+			n = n + spl[i] * pow(0.001, i - 1);
+		else
+			break;
+		end;
+	end;
+
+	return n;
 end;
 
 function MoreRealisticDLCs:getModVersion(modName)
