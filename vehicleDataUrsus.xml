@@ -4,10 +4,10 @@
 	<!-- (1.1) URSUS 15014 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="84000" dailyUpkeep="190" powerKW="111" maxSpeed="40" weight="6900" author="Grisu118" />
-		<general fuelCapacity="200" realMaxVehicleSpeed="41" realBrakingDeceleration="5.6" realDisplaySlip="false" /> 
-		<engine kW="111" realMaxFuelUsage="31" newExhaustPS="true" /> 
-		<dimensions width="2.44" height="2.9" /> <!-- in m --> 
-		<weights weight="7.1" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
+		<general fuelCapacity="200" realMaxVehicleSpeed="41" realBrakingDeceleration="5.6" realDisplaySlip="false" />
+		<engine kW="111" realMaxFuelUsage="31" newExhaustPS="true" />
+		<dimensions width="2.44" height="2.9" /> <!-- in m -->
+		<weights weight="7.1" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="1" radius="0.745" deltaY="0.17" suspTravel="0.25" spring="50" brakeRatio="1" rotMin="-33" rotMax="29" rotSpeed="60"/>
 			<wheel driveMode="1" radius="0.745" deltaY="0.17" suspTravel="0.25" spring="50" brakeRatio="1" rotMin="-29" rotMax="33" rotSpeed="60"/>
@@ -15,11 +15,11 @@
 			<wheel driveMode="2" radius="0.930" deltaY="0.041" suspTravel="0.10" spring="150" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-21 0 0" maxRot2="21 0 0" minRotDistanceToGround="1.0175" /> 
-			<attacherJoint jointType="implement" maxRot="35.41 0 0" maxRot2="-35.41 0 0" minRotDistanceToGround="1.055" /> 
+			<attacherJoint jointType="implement" maxRot="-21 0 0" maxRot2="21 0 0" minRotDistanceToGround="1.0175" />
+			<attacherJoint jointType="implement" maxRot="35.41 0 0" maxRot2="-35.41 0 0" minRotDistanceToGround="1.055" />
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="40 63 40" /> <!-- rear high -->				
+			<trailerAttacherJoint maxRotLimit="40 63 40" /> <!-- rear high -->
 			<trailerAttacherJoint maxRotLimit="30 87 30" /> <!-- rear low -->
 			<trailerAttacherJoint maxRotLimit="60 90 60" /> <!-- front -->
 		</trailerAttacherJoints>
@@ -27,14 +27,14 @@
 			<component1 centerOfMass="0 0.52 -0.02" realMassWanted="7" />
 		</components>
 	</vehicle>
-	
+
 	<!-- (1.2) URSUS 15014 FL --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus15014FL.xml" mrVehicleType="mr_dlcFrontloader_u" debug="false">
 		<store price="91000" dailyUpkeep="200" powerKW="111" maxSpeed="40" weight="7600" author="Grisu118" />
-		<general fuelCapacity="200" realMaxVehicleSpeed="41" realBrakingDeceleration="5.6" realWorkingPowerConsumption="25" realDisplaySlip="false" /> 
-		<engine kW="111" realMaxFuelUsage="31" newExhaustPS="true" /> 
-		<dimensions width="2.44" height="2.9" /> <!-- in m --> 
-		<weights weight="7.8" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t --> 
+		<general fuelCapacity="200" realMaxVehicleSpeed="41" realBrakingDeceleration="5.6" realWorkingPowerConsumption="25" realDisplaySlip="false" />
+		<engine kW="111" realMaxFuelUsage="31" newExhaustPS="true" />
+		<dimensions width="2.44" height="2.9" /> <!-- in m -->
+		<weights weight="7.8" maxWeight="11" realBrakeMaxMovingMass="14" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="1" radius="0.745" deltaY="0.175" suspTravel="0.25" spring="50" brakeRatio="1" rotMin="-33" rotMax="29" rotSpeed="60"/>
 			<wheel driveMode="1" radius="0.745" deltaY="0.175" suspTravel="0.25" spring="50" brakeRatio="1" rotMin="-29" rotMax="33" rotSpeed="60"/>
@@ -42,11 +42,11 @@
 			<wheel driveMode="2" radius="0.930" deltaY="0.052" suspTravel="0.10" spring="150" brakeRatio="1" />
 		</wheels>
 		<attacherJoints>
-			<attacherJoint jointType="implement" maxRot="-20.17 0 0" maxRot2="20.17 0 0" minRotDistanceToGround="1.0054" /> 			
+			<attacherJoint jointType="implement" maxRot="-20.17 0 0" maxRot2="20.17 0 0" minRotDistanceToGround="1.0054" /> 
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="40 63 40" /> <!-- rear high -->				
-			<trailerAttacherJoint maxRotLimit="30 87 30" /> <!-- rear low -->			
+			<trailerAttacherJoint maxRotLimit="40 63 40" /> <!-- rear high -->
+			<trailerAttacherJoint maxRotLimit="30 87 30" /> <!-- rear low -->
 		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.35 0" realMassWanted="7.3" /> <!-- reduced COM y for better stability with loader implements -->
@@ -57,10 +57,10 @@
 	<!-- (1.3) Ursus C45 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC45.xml" mrVehicleType="mr_oldtimer_u" debug="false">
 		<store price="15300" dailyUpkeep="70" powerKW="33" maxSpeed="16.7" weight="3750" author="Grisu118" />
-		<general fuelCapacity="100" realMaxVehicleSpeed="16.5" realBrakingDeceleration="2" realDisplaySlip="false" /> 
-		<engine kW="33" realMaxReverseSpeed="8" realMaxFuelUsage="12.56" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.99" /> 
-		<dimensions width="1.8" height="2.3" /> <!-- in m --> 
-		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t --> 
+		<general fuelCapacity="100" realMaxVehicleSpeed="16.5" realBrakingDeceleration="2" realDisplaySlip="false" />
+		<engine kW="33" realMaxReverseSpeed="8" realMaxFuelUsage="12.56" newExhaustPS="true" newExhaustMinAlpha="0.5" capAxis="z" realPtoDriveEfficiency="1" realTransmissionEfficiency="0.99" />
+		<dimensions width="1.8" height="2.3" /> <!-- in m -->
+		<weights weight="3.75" maxWeight="5" realBrakeMaxMovingMass="7" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="0" radius="0.425" deltaY="0.065" suspTravel="0.1" spring="100" brakeRatio="0.1" rotMax="32" rotMin="-39" rotSpeed="45" />
 			<wheel driveMode="0" radius="0.425" deltaY="0.065" suspTravel="0.1" spring="100" brakeRatio="0.1" rotMax="39" rotMin="-32" rotSpeed="45" />
@@ -76,7 +76,7 @@
 			<component1 centerOfMass="0 0.75 -0.04" realMassWanted="3.75" />
 		</components>
 	</vehicle>
-	
+
 	<!-- (1.4) URSUS 11024 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus11024.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="43000" dailyUpkeep="140" powerKW="81" maxSpeed="40" weight="4100" author="Grisu118" />
@@ -95,7 +95,7 @@
 			<attacherJoint jointType="implement" maxRot="21.582 0 0" maxRot2="-21.582 0 0" minRotDistanceToGround="1.0316" /> <!--Done-->
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="40 72 40" /> <!-- rear high -->			
+			<trailerAttacherJoint maxRotLimit="40 72 40" /> <!-- rear high -->
 			<trailerAttacherJoint maxRotLimit="30 84 30" /> <!-- rear low -->
 			<trailerAttacherJoint maxRotLimit="60 90 60" /> <!-- front -->
 		</trailerAttacherJoints>
@@ -121,7 +121,7 @@
 			<attacherJoint jointType="implement" maxRot="-27.884 0 0" maxRot2="27.884 0 0" minRotDistanceToGround="0.95375" /> <!--Done-->
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="40 76 40" /> <!-- rear high -->			
+			<trailerAttacherJoint maxRotLimit="40 76 40" /> <!-- rear high -->
 			<trailerAttacherJoint maxRotLimit="30 87 30" /> <!-- rear low -->
 			<trailerAttacherJoint maxRotLimit="20 90 20" /> <!-- front -->
 		</trailerAttacherJoints>
@@ -129,14 +129,14 @@
 			<component1 centerOfMass="0 0.4 -0.1" realMassWanted="4.8" />
 		</components>
 	</vehicle>
-	
+
 	<!-- (1.6) URSUS 5044 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursus5044.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
 		<store price="25000" dailyUpkeep="75" powerKW="36.9" maxSpeed="30" weight="2420" author="Grisu118" /> <!--Done-->
-		<general fuelCapacity="50" realMaxVehicleSpeed="31" realBrakingDeceleration="5.4" realDisplaySlip="false" /> 
+		<general fuelCapacity="50" realMaxVehicleSpeed="31" realBrakingDeceleration="5.4" realDisplaySlip="false" />
 		<engine kW="36.9" realMaxReverseSpeed="29" realMaxFuelUsage="11" newExhaustPS="true" />
-		<dimensions width="1.64" height="2.35" /> <!-- in m --> 
-		<weights weight="2.7" maxWeight="4" realBrakeMaxMovingMass="6" /> <!-- in t --> 
+		<dimensions width="1.64" height="2.35" /> <!-- in m -->
+		<weights weight="2.7" maxWeight="4" realBrakeMaxMovingMass="6" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="1" radius="0.45" deltaY="0.18" suspTravel="0.25" brakeRatio="0.5" spring="20" rotMin="-32" rotMax="26" rotSpeed="60"/> <!-- collide with body when fully rotated, but otherwise, this tractor is "useless" -->
 			<wheel driveMode="1" radius="0.45" deltaY="0.18" suspTravel="0.25" brakeRatio="0.5" spring="20" rotMin="-26" rotMax="32" rotSpeed="60"/>
@@ -148,7 +148,7 @@
 			<attacherJoint jointType="implement" maxRot="13.611 0 0" maxRot2="-13.611 0 0" minRotDistanceToGround="1.0107" />
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="40 80 40" /> <!-- rear high -->			
+			<trailerAttacherJoint maxRotLimit="40 80 40" /> <!-- rear high -->
 			<trailerAttacherJoint maxRotLimit="30 100 30" /> <!-- rear low -->
 			<trailerAttacherJoint maxRotLimit="20 90 20" /> <!-- front -->
 		</trailerAttacherJoints>
@@ -156,14 +156,14 @@
 			<component1 centerOfMass="0 0.38 -0.02" realMassWanted="2.67" />
 		</components>
 	</vehicle>
-	
+
 	<!-- (1.7) URSUS C-330 --> <!-- AUTHOR: Grisu118 --> <!-- Done -->
 	<vehicle category="steerable" configFileName="pdlc/ursusAddon/ursus/ursusC330.xml" mrVehicleType="mr_tractor_cylindered_u" debug="false">
-		<store price="15000" dailyUpkeep="45" powerKW="22.4" maxSpeed="23" weight="1901" author="Grisu118" /> 
-		<general fuelCapacity="35" realMaxVehicleSpeed="23" realBrakingDeceleration="3.5" realDisplaySlip="false" /> 
+		<store price="15000" dailyUpkeep="45" powerKW="22.4" maxSpeed="23" weight="1901" author="Grisu118" />
+		<general fuelCapacity="35" realMaxVehicleSpeed="23" realBrakingDeceleration="3.5" realDisplaySlip="false" />
 		<engine kW="22.4" realMaxReverseSpeed="12" realMaxFuelUsage="6.5" newExhaustPS="true" realPtoDriveEfficiency="0.88" realTransmissionEfficiency="0.98" />
 		<dimensions width="1.8" height="1.6" /> <!-- in m -->
-		<weights weight="2" maxWeight="3" realBrakeMaxMovingMass="4" /> <!-- in t --> 
+		<weights weight="2" maxWeight="3" realBrakeMaxMovingMass="4" /> <!-- in t -->
 		<wheels>
 			<wheel driveMode="0" radius="0.545" deltaY="0.063" suspTravel="0.1" brakeRatio="0.1" spring="50" rotMin="-43" rotMax="38" rotSpeed="60" />
 			<wheel driveMode="0" radius="0.545" deltaY="0.063" suspTravel="0.1" brakeRatio="0.1" spring="50" rotMin="-38" rotMax="43" rotSpeed="60" />
@@ -174,9 +174,9 @@
 			<attacherJoint jointType="implement" maxRot="-18.727 0 0" maxRot2="18.727 0 0" minRotDistanceToGround="0.9993" />
 		</attacherJoints>
 		<trailerAttacherJoints>
-			<trailerAttacherJoint maxRotLimit="40 66 40" /> <!-- rear high -->	
+			<trailerAttacherJoint maxRotLimit="40 66 40" /> <!-- rear high -->
 			<trailerAttacherJoint maxRotLimit="20 90 20" /> <!-- front -->
-			<trailerAttacherJoint maxRotLimit="30 78 30" /> <!-- rear low -->			
+			<trailerAttacherJoint maxRotLimit="30 78 30" /> <!-- rear low -->
 		</trailerAttacherJoints>
 		<components>
 			<component1 centerOfMass="0 0.5 -0.02" realMassWanted="2" />
@@ -190,7 +190,7 @@
 	<vehicle category="tool" subCategory="baleLoader" configFileName="pdlc/ursusAddon/ursus/ursusT127.xml" mrVehicleType="mr_dlcBaleLoader_u" debug="false">
 		<store price="13500" dailyUpkeep="20" weight="2620" capacity="8" capacityUnit="BALES" requiredPowerKwMin="50" maxSpeed="25" author="Jakob Tischler" />
 		<general realBrakingDeceleration="4" realMaxVehicleSpeed="25" animationSpeedScale="baleGrabberTransportToWork:0.8,baleGrabberWorkToDrop:0.65" />
-		
+
 		<workTool realWorkingSpeedLimit="20" realAutoStackerWorkingPowerConsumption="15" />
 		<dimensions width="2.5" height="1" /> <!-- in m -->
 		<weights weight="2.62" maxWeight="6.22" realBrakeMaxMovingMass="7" /> <!-- in t -->
@@ -212,7 +212,7 @@
 		<workTool capacity="3700" realBalerWorkingSpeedLimit="21" realBalerPowerConsumption="14" realBalerRoundingPowerConsumptionInc="20" realBalerPickUpPowerConsumptionInc="25" realBalerOverFillingRatio="1.06" realCapacityMultipliers="wheat_windrow:1,barley_windrow:1,dryGrass_windrow:1.25" />
 		<dimensions width="2.4" height="2.2" /> <!-- in m -->
 		<weights weight="2.77" maxWeight="3.1" /> <!-- in t -->
-		<wheels>			
+		<wheels>
 			<wheel radius="0.435" deltaY="0.05" suspTravel="0.1" spring="60" brakeRatio="0.1" damper="10" /> <!-- should have no brake on this baler -->
 			<wheel radius="0.435" deltaY="0.05" suspTravel="0.1" spring="60" brakeRatio="0.1" damper="10" />
 		</wheels>
@@ -226,13 +226,6 @@
 	<vehicle category="tool" subCategory="baleWrapper" configFileName="pdlc/ursusAddon/ursus/ursusZ586.xml" mrVehicleType="mr_baleWrapper_u" debug="false">
 		<store price="12700" dailyUpkeep="20" weight="1200" requiredPowerKwMin="35" maxSpeed="25" author="Jakob Tischler" />
 		<general realBrakingDeceleration="1" realMaxVehicleSpeed="35" realWorkingPowerConsumption="22" animationSpeedScale="unfold:0.2,moveBaleToWrapper:0.8,dropBaleFromWrapper:0.8,resetWrapperAfterBaleDrop:0.8" />
-		<!-- 
-			wrappingTime="80" animationSpeedScale="unfold:0.2,moveBaleToWrapper:0.15,dropBaleFromWrapper:0.2733333,resetWrapperAfterBaleDrop:0.3333333"
-			* wrapping time: IRL=80, Giants=20 sec -> scale = 0.25
-			* loading bale:  name=moveBaleToWrapper,   IRL=11 + 5 sec, Giants=2.4 sec -> scale = 0.15
-			* dropping bale: name=dropBaleFromWrapper, IRL=15 sec, Giants=4.1 sec -> scale = 0.2733333
-			* reset wrapper: name=resetWrapperAfterBaleDrop, IRL=10 sec, Giants=3 sec -> scale = 0.3333333
-		-->
 		<workTool realWorkingSpeedLimit="20" />
 		<dimensions width="2.2" height="0.4" /> <!-- in m -->
 		<weights weight="1.2" maxWeight="2.2" /> <!-- in t -->
@@ -262,7 +255,7 @@
 		</wheels>
 		<components>
 			<component1 centerOfMass="0 0.5 -0.5" realMassWanted="1.7" realTransWithMass="0 0.05 0.06" /> <!-- body -->
-			<component2 centerOfMass="0 0 0" realMassWanted="0.75" /> 
+			<component2 centerOfMass="0 0 0" realMassWanted="0.75" />
 			<component3 centerOfMass="0 0 0" realMassWanted="0.25" />
 		</components>
 		<attacherJoints>
@@ -280,7 +273,7 @@
 			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
 			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
 			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
-			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>			
+			<wheel radius="0.235" deltaY="0.02" suspTravel="0.05" spring="100" brakeRatio="0" antiRollFx="0"/>
 		</wheels>
 		<attacherJoints>
 			<attacherJoint jointType="implement" lowerDistanceToGround="0.62" upperDistanceToGround="0.8" realWantedLoweredRotLimit="2 0 15" realWantedLoweredTransLimit="0 0.05 0" realWantedRaisedRotInc="-0.5" />
@@ -375,14 +368,14 @@
 			<wheel radius="0.586" deltaY="0.18" suspTravel="0.25" spring="80" damper="20" brakeRatio="1" steeringAxleScale="0" />
 			<wheel radius="0.586" deltaY="0.18" suspTravel="0.25" spring="80" damper="20" brakeRatio="1" steeringAxleScale="0" />
 		</wheels>
-		
+
 		<nodeProperties>
 			<node index="0>13" translation="0 0 -4" />
 			<node index="0>14" translation="4.2 0 -6.5" />
 			<node index="0>15" translation="-4.2 0 -6.5" />
 			<node index="0>16|0|0" translation="0 0 0" rotation="-12 0 0" />
 		</nodeProperties>
-		
+
 		<components>
 			<component1 centerOfMass="0 0.6 -0.83" realMassWanted="6.2" realTransWithMass="0 0.04 0.025" /> <!-- body -->
 			<component2 centerOfMass="0 0 0" realMassWanted="0.1" /> <!-- support -->

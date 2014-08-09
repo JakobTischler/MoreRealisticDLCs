@@ -20,11 +20,11 @@ MoreRealisticDLCs.modDir = g_currentModDirectory;
 MoreRealisticDLCs.modName = g_currentModName;
 local modDir, modName = MoreRealisticDLCs.modDir, MoreRealisticDLCs.modName;
 
-function MoreRealisticDLCs.addModEventListener(listener)
-	listener.modEventListenerIndex = #g_modEventListeners + 1;
-	g_modEventListeners[listener.modEventListenerIndex] = listener;
+function MoreRealisticDLCs.addModEventListener(listener, index)
+	listener.modEventListenerIndex = index or #g_modEventListeners + 1;
+	table.insert(g_modEventListeners, listener.modEventListenerIndex, listener);
 end;
-addModEventListener = Utils.overwrittenFunction(addModEventListener, MoreRealisticDLCs.addModEventListener);
+addModEventListener = MoreRealisticDLCs.addModEventListener;
 
 function removeModEventListener(listener)
 	local index = listener.modEventListenerIndex;
@@ -36,7 +36,7 @@ function removeModEventListener(listener)
 			end;
 		end;
 	end;
-	if index then
+	if index and g_modEventListeners[index] == listener then
 		g_modEventListeners[index] = nil;
 		if listener == MoreRealisticDLCs then
 			print(('%s removed from game'):format(modName));
@@ -44,7 +44,8 @@ function removeModEventListener(listener)
 	end;
 end;
 
-addModEventListener(MoreRealisticDLCs);
+addModEventListener(MoreRealisticDLCs, 1);
+-- NOTE: MoreRealisticDLCs should be loaded first before other specs (other than MoreRealistic) are registered in loadMap, so that the newly created vehicleTypes are recognized by those specs' registering functions
 
 function MoreRealisticDLCs:loadMap(name)
 	if self.initialized then return; end;
@@ -127,7 +128,6 @@ function MoreRealisticDLCs:setGeneralData()
 
 	self.vehicleData = {};
 
-	self.customSpecsRegistered = false;
 	self.vehicleTypesPath = Utils.getFilename('vehicleTypes.xml', modDir);
 	assert(fileExists(self.vehicleTypesPath), ('ERROR: %q could not be found'):format(self.vehicleTypesPath));
 	self.vehicleTypesFile = loadXMLFile('vehicleTypesFile', self.vehicleTypesPath);

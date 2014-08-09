@@ -35,7 +35,7 @@
 			<wheel radius="0.464" deltaY="0.25" suspTravel="0.35" spring="70" damper="20" brakeRatio="1" />
 			<wheel radius="0.464" deltaY="0.25" suspTravel="0.35" spring="70" damper="20" brakeRatio="1" />
 		</wheels>
-		
+
 		<components>
 			<component1 centerOfMass="0 0.66 -0.75" realMassWanted="5.8" realTransWithMass="0 0.02 0" />
 		</components>
