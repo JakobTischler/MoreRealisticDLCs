@@ -42,12 +42,12 @@
 
 				<nav>
 					<a class="internal" data-scroll href="#functionality" title="Jump to the functionality section">Functionality</a>
+					<a class="internal" data-scroll href="#gallery" title="Jump to the gallery">Gallery</a>
 					<a class="internal" data-scroll href="#installation" title="Jump to the installation section">Installation</a>
 					<a class="internal" data-scroll href="#requirements" title="Jump to the requirements section">Requirements</a>
 					<a class="internal" data-scroll href="#known-bugs" title="Jump to the known bugs section">Known bugs</a>
 					<a class="internal" data-scroll href="#authors-and-contributors" title="Jump to the team section">Team</a>
 					<a class="internal" data-scroll href="#download" title="Jump to the download section">Download</a>
-					<a class="internal" data-scroll href="#copyright" title="Jump to the copyright section">Copyright</a>
 				</nav>
 
 				<img src="http://jakobtischler.github.io/MoreRealisticDLCs/images/poster_1_small.jpg" alt="MoreRealisticDLCs v1.0" />
@@ -76,6 +76,25 @@
 					<p>The Titanium Addon map "Westbridge Hills" has been adjusted: if the MoreRealisticVehicles pack is installed, the starting vehicles are all MR vehicles. If it's not installed, the starting capital is increased instead. Furthermore, the MoreRealistic balancing values have been adjusted for the map. <code>moreRealisticGenuineMap.zip</code> needed.</p>
 					<p>The mod has been tested extensively for multi player and works without any problems. Regarding dedicated server: see "known bugs".</p>
 					<p class="warning-2">Warning: if MoreRealisticDLCs is installed and active, the default DLC vehicles will not be available anymore.</p>
+				</article>
+
+				<hr>
+
+				<!-- ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -->
+
+				<article id="gallery" name="gallery">
+					<h3>
+						<a name="gallery" class="anchor" href="#gallery"><span class="octicon octicon-link"></span></a>
+						Gallery
+					</h3>
+
+					<a class="galleryImage" href="images/gallery/05.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/05.jpg" /></a>
+					<a class="galleryImage" href="images/gallery/01.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/01.jpg" /></a>
+					<a class="galleryImage" href="images/gallery/02.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/02.jpg" /></a>
+					<a class="galleryImage" href="images/gallery/03.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/03.jpg" /></a>
+					<a class="galleryImage" href="images/gallery/04.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/04.jpg" /></a>
+					<a class="galleryImage" href="images/gallery/06.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/06.jpg" /></a>
+					<a class="galleryImage" href="images/gallery/07.jpg" data-imagelightbox="e"><img src="images/gallery/thumbs/07.jpg" /></a>
 				</article>
 
 				<hr>
@@ -225,16 +244,9 @@
 		</div>
 	</div>
 
+	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/smooth-scroll.js"></script>
-	<script>
-		smoothScroll.init({
-			speed: 400, // Integer. How fast to complete the scroll in milliseconds
-			easing: 'easeInOutCubic', // Easing pattern to use
-			updateURL: false, // Boolean. Whether or not to update the URL with the anchor hash on scroll
-			offset: 0 // Integer. How far to offset the scrolling anchor location in pixels
-			// callbackBefore: function ( toggle, anchor ) {}, // Function to run before scrolling
-			// callbackAfter: function ( toggle, anchor ) {} // Function to run after scrolling
-		});
-	</script>
+	<script src="js/imagelightbox.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/moreRealisticDLCs.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
