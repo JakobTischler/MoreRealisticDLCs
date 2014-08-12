@@ -31,30 +31,6 @@ function MrTitaniumMap:loadMap(name)
 		self:infoPrint('you don\'t have "moreRealisticGenuineMap" installed. The wool pallets will not work correctly!', '###');
 	end;
 
-	-- SET BALANCING VALUES
-	local setTitaniumMapParameters = function(self, mapName)
-		if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
-
-			RealisticGlobalListener.priceBalancing = 1;
-			RealisticGlobalListener.silagePriceBalancing = 1;
-			RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;
-			--[[
-			RealisticGlobalListener.seedPriceBalancing
-			RealisticGlobalListener.balePriceBalancing
-			RealisticGlobalListener.woolPriceBalancing
-			RealisticGlobalListener.eggPriceBalancing
-			RealisticGlobalListener.milkPriceBalancing
-			RealisticGlobalListener.fuelPriceBalancing
-			RealisticGlobalListener.fertilizerPriceBalancing
-			RealisticGlobalListener.windrowPriceBalancing
-			RealisticGlobalListener.startingSilosBaseAmount
-			RealisticGlobalListener.startingMoney
-			RealisticGlobalListener.realFieldTractionFx
-			]]
-		end;
-	end;
-	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, setTitaniumMapParameters);
-
 	-- EXISTING SAVEGAME -> ABORT
 	if g_currentMission.missionInfo.vehiclesXMLLoad:find('savegame') ~= nil then return; end;
 
@@ -85,6 +61,33 @@ function MrTitaniumMap:loadMap(name)
 
 	g_currentMission.missionInfo.vehiclesXMLLoad = Utils.getFilename('_RES/map/' .. vehFile, MrTitaniumMap.modDir);
 end;
+
+-- SET BALANCING VALUES
+function MrTitaniumMap:setTitaniumMapParameters(mapName)
+	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
+
+		RealisticGlobalListener.priceBalancing = 1;
+		RealisticGlobalListener.silagePriceBalancing = 1;
+		RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;
+		--[[
+		RealisticGlobalListener.seedPriceBalancing
+		RealisticGlobalListener.balePriceBalancing
+		RealisticGlobalListener.woolPriceBalancing
+		RealisticGlobalListener.eggPriceBalancing
+		RealisticGlobalListener.milkPriceBalancing
+		RealisticGlobalListener.fuelPriceBalancing
+		RealisticGlobalListener.fertilizerPriceBalancing
+		RealisticGlobalListener.windrowPriceBalancing
+		RealisticGlobalListener.startingSilosBaseAmount
+		RealisticGlobalListener.startingMoney
+		RealisticGlobalListener.realFieldTractionFx
+		]]
+	end;
+end;
+if RealisticGlobalListener then
+	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, MrTitaniumMap.setTitaniumMapParameters);
+end;
+
 
 function MrTitaniumMap:infoPrint(str, prologue)
 	if prologue then
