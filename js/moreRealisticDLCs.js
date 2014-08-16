@@ -12,6 +12,18 @@ smoothScroll.init({
 	// callbackAfter: function ( toggle, anchor ) {} // Function to run after scrolling
 });
 
+// BACK TO TOP
+var minY = $('header nav').offset().top;
+$(window).scroll(function() {
+	if ($(this).scrollTop() > minY) {
+		$('#backToTop').fadeIn(100).css('display', 'table');
+		// $('#backToTop').removeClass('hidden');
+	} else {
+		$('#backToTop').fadeOut(100);
+		// $('#backToTop').addClass('hidden');
+	};
+});
+
 // LIGHTBOX
 var container = $('#container');
 var onLightBoxOpen = function() {

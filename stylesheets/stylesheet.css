@@ -38,6 +38,7 @@ a, button, button:before, fieldset, figure, img, input, label, li, span, textare
 }
 
 html {
+	overflow:auto;
 	/* killing 300ms touch delay in IE */
 	-ms-touch-action: manipulation;
 	touch-action: manipulation;
@@ -90,11 +91,46 @@ table {
 	border-spacing: 0;
 }
 
+/* SCROLL BAR */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: rgba(180,180,180,0.8); 
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(180,180,180,0.4); 
+}
+::-moz-scrollbar { width:6px; }
+::-moz-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+::-moz-scrollbar-thumb {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: rgba(180,180,180,0.8); 
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-moz-scrollbar-thumb:window-inactive {
+	background: rgba(180,180,180,0.4); 
+}
+
 /* LAYOUT STYLES */
+html {
+	background:#E7E7E7 url(../images/body-bg.png) 0 0 repeat;
+}
 body {
 	font-size: 1.1em;
 	line-height: 1.8; 
-	background: #e7e7e7 url(../images/body-bg.png) 0 0 repeat;
+	background:transparent url(../images/highlight-bg.jpg) 50% 0 no-repeat;
 	font-family: Roboto, Open Sans, 'Helvetica Neue', Helvetica, Arial, serif;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 	color: #444;
@@ -161,9 +197,36 @@ header img {
 	text-align:center;
 }
 
+/*
 #container {
-	background: transparent url(../images/highlight-bg.jpg) 50% 0 no-repeat;
+	position:relative;
 	min-height: 595px;
+}
+*/
+
+#backToTop {
+	background-color:rgba(0,0,0, 0.2);
+	border:2px solid #E7E7E7;
+	border-radius:100%;
+	bottom:1.5em;
+	box-sizing:initial;
+	color:#F0F0F0;
+	display:none;
+	height:2.5em;
+	position:fixed;
+	right:1.5em;
+	width:2.5em;
+}
+#backToTop span {
+	display:table-cell;
+	font-weight:bold;
+	text-align:center;
+	vertical-align:middle;
+}
+#backToTop:hover {
+	background-color:rgba(0,0,0, 0.4);
+	border-color:white;
+	color:white;
 }
 
 .inner {
@@ -177,6 +240,8 @@ header img {
 }
 a.galleryImage {
 	display:inline-block;
+	height:256px;
+	margin:0 6px 2px 0;
 }
 a.galleryImage:hover {
 	background-color:transparent !important;
