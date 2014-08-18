@@ -11,21 +11,27 @@
 MrTitaniumMap = {}
 MrTitaniumMap.modDir = g_currentModDirectory;
 MrTitaniumMap.modName = g_currentModName;
+MrTitaniumMap.initParametersNeeded = false;
 addModEventListener(MrTitaniumMap);
 
 function MrTitaniumMap:loadMap(name)
+
 	-- ONLY SERVER SIDE
 	if g_server == nil then return; end;
 
 	-- NOT TITANIUM MAP -> ABORT
-	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;
+	if not Utils.endsWith(name, 'titaniumAddon/map/americanMap.i3d') then return; end;	
 
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not g_modIsLoaded['moreRealistic'] then
 		self:infoPrint('you don\'t have "moreRealistic" installed. The Titanium map will not be MRized.', '###');
 		return;
-	end;
-
+	end;		
+	
+	-- TITANIUM MAP LOADED - NEED PARAMETERS INIT
+	MrTitaniumMap.initParametersNeeded = true;
+	RealisticGlobalListener.update = Utils.prependedFunction(RealisticGlobalListener.update, MrTitaniumMap.setTitaniumMapParameters);	
+	
 	-- MOREREALISTICGENUINEMAP NOT INSTALLED
 	if not g_modIsLoaded['moreRealisticGenuineMap'] then
 		self:infoPrint('you don\'t have "moreRealisticGenuineMap" installed. The wool pallets will not work correctly!', '###');
@@ -63,9 +69,10 @@ function MrTitaniumMap:loadMap(name)
 end;
 
 -- SET BALANCING VALUES
-function MrTitaniumMap:setTitaniumMapParameters(mapName)
-	if mapName:find('/pdlc/titaniumAddon/map/americanMap.i3d') then
-
+function MrTitaniumMap:setTitaniumMapParameters(dt)	
+		
+	if MrTitaniumMap.initParametersNeeded then
+		MrTitaniumMap.initParametersNeeded = false;
 		RealisticGlobalListener.priceBalancing = 1;
 		RealisticGlobalListener.silagePriceBalancing = 1;
 		RealisticGlobalListener.hiredWorkerWageBalancing = 0.05;
@@ -81,13 +88,10 @@ function MrTitaniumMap:setTitaniumMapParameters(mapName)
 		RealisticGlobalListener.startingSilosBaseAmount
 		RealisticGlobalListener.startingMoney
 		RealisticGlobalListener.realFieldTractionFx
-		]]
+		]]	
 	end;
+	
 end;
-if RealisticGlobalListener then
-	RealisticGlobalListener.loadMap = Utils.appendedFunction(RealisticGlobalListener.loadMap, MrTitaniumMap.setTitaniumMapParameters);
-end;
-
 
 function MrTitaniumMap:infoPrint(str, prologue)
 	if prologue then
@@ -97,7 +101,9 @@ function MrTitaniumMap:infoPrint(str, prologue)
 	end;
 end;
 
-function MrTitaniumMap:deleteMap() end;
+function MrTitaniumMap:deleteMap()
+	MrTitaniumMap.initParametersNeeded = false;
+end;
 function MrTitaniumMap:keyEvent(unicode, sym, modifier, isDown) end;
 function MrTitaniumMap:mouseEvent(posX, posY, isDown, isUp, mouseButton) end;
 function MrTitaniumMap:update(dt) end;
