@@ -20,6 +20,13 @@ function MoreRealisticDLCs:infoPrint(str, prologue, indent)
 	end;
 end;
 
+function MoreRealisticDLCs:addIngameWarning(text)
+	local postGcmLoad = function(self)
+		self.inGameMessage:showMessage(modName, '\n' .. text, 0);
+	end;
+	FSBaseMission.load = Utils.appendedFunction(FSBaseMission.load, postGcmLoad);
+end;
+
 if table.map == nil then
 	function table.map(t, func)
 		local newArray = {};
@@ -123,7 +130,9 @@ end;
 -- ASSERT GAME VERSION
 function MoreRealisticDLCs:assertGameVersion()
 	if not setAngularDamping or not setLinearDamping then
-		self:infoPrint(('your game version (v%s) is too outdated. Update to v2.1.1 or higher. Script will now be aborted!'):format(g_gameVersionDisplay));
+		local minGameVersion = '2.1.1';
+		self:infoPrint(('your game version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(g_gameVersionDisplay, minGameVersion));
+		self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_GAME_VERSION_OUTDATED'):format(g_gameVersionDisplay, minGameVersion));
 		return false;
 	end;
 	return true;
@@ -134,6 +143,7 @@ function MoreRealisticDLCs:assertMrVersions()
 	-- ABORT IF MOREREALISTIC NOT INSTALLED
 	if not g_modIsLoaded['moreRealistic'] then
 		self:infoPrint('you don\'t have MoreRealistic installed. Script will now be aborted!');
+		self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_MR_MISSING'));
 		return false;
 	end;
 
@@ -141,10 +151,12 @@ function MoreRealisticDLCs:assertMrVersions()
 	local minVersionMr = '1.3.61';
 	local mrVersionStr, mrVersionFlt = self:getModVersion(RealisticUtils.modName);
 	if mrVersionFlt == 0 then
-		self:infoPrint('no correct version could be found for "MoreRealistic". Script will now be aborted!');
+		self:infoPrint('no correct version could be found for MoreRealistic. Script will now be aborted!');
+		self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_MOD_NO_VERSION'):format('MoreRealistic'));
 		return false;
 	elseif mrVersionFlt < self:getFloatNumberFromString(minVersionMr) then
 		self:infoPrint(('your MoreRealistic version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(mrVersionStr, minVersionMr));
+		self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_MOD_VERSION_OUTDATED'):format('MoreRealistic', mrVersionStr, minVersionMr));
 		return false;
 	else
 		self:infoPrint(('MoreRealistic v%s installed, minimum version requirement met --> OK'):format(mrVersionStr));
@@ -156,10 +168,12 @@ function MoreRealisticDLCs:assertMrVersions()
 		local minVersionMrVeh = '1.3.8';
 		local mrVehVersionStr, mrVehVersionFlt = self:getModVersion('moreRealisticVehicles');
 		if mrVehVersionFlt == 0 then
-			self:infoPrint('no correct version could be found for "MoreRealisticVehicles". Script will now be aborted!');
+			self:infoPrint('no correct version could be found for MoreRealisticVehicles. Script will now be aborted!');
+			self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_MOD_NO_VERSION'):format('MoreRealisticVehicles'));
 			return false;
 		elseif mrVehVersionFlt < self:getFloatNumberFromString(minVersionMrVeh) then
 			self:infoPrint(('your MoreRealisticVehicles version (v%s) is too outdated. Update to v%s or higher. Script will now be aborted!'):format(mrVehVersionStr, minVersionMrVeh));
+			self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_MOD_VERSION_OUTDATED'):format('MoreRealisticVehicles', mrVehVersionStr, minVersionMrVeh));
 			return false;
 		else
 			self:infoPrint(('MoreRealisticVehicles v%s installed, minimum version requirement met --> OK'):format(mrVehVersionStr));

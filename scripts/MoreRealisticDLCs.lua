@@ -155,9 +155,12 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 		local ingameDlcName = 'pdlc_' .. dlcData.dlcName;
 		if g_modIsLoaded[ingameDlcName] then
 			anyDlcExists = true;
+			local dlcNameI18n = g_i18n:getText('MOREREALISTICDLCS_' .. dlcNameClean:upper());
 			local vStr, vFlt = self:getModVersion(ingameDlcName);
 			if vFlt < self:getFloatNumberFromString(dlcData.minVersion) then
-				self:infoPrint(('%s DLC (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(dlcNameClean, vStr, dlcData.minVersion));
+				self:infoPrint(('%s (v%s) is not up to date. Update to v%s or higher. Script will now be aborted!'):format(dlcNameI18n, vStr, dlcData.minVersion));
+				self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_DLC_VERSION_OUTDATED'):format(dlcNameI18n, vStr, dlcData.minVersion));
+				dlcData.upToDateVersionExists = false;
 				return false;
 			end;
 
@@ -165,12 +168,9 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 
 			dlcData.dir = g_modNameToDirectory[ingameDlcName]; 
 			dlcData.containingDir = dlcData.dir:sub(1, dlcData.dir:len() - dlcData.dlcName:len() - 1);
-			-- print(('DLC %q: ingameDlcName=%q, dir=%q, containingDir=%q'):format(dlcData.dlcName, ingameDlcName, dlcData.dir, dlcData.containingDir));
-			-- print(('\tmin DLC version: %s, existing DLC version: %s'):format(dlcData.minVersion, dlcVersionStr));
-
 
 			local vehicleDataPath = Utils.getFilename(dlcData.dataFile, modDir);
-			self:infoPrint(('%s DLC v%s exists --> get data from %q'):format(dlcNameClean, vStr, dlcData.dataFile));
+			self:infoPrint(('%s v%s exists --> get data from %q'):format(dlcNameI18n, vStr, dlcData.dataFile));
 			self:registerVehicleTypes(dlcNameClean);
 			self:getMrData(vehicleDataPath, dlcNameClean);
 		end;
@@ -178,6 +178,7 @@ function MoreRealisticDLCs:checkDLCsAndGetData()
 
 	if not anyDlcExists then
 		self:infoPrint('you don\'t have any DLCs installed. Script will now be aborted!');
+		self:addIngameWarning(g_i18n:getText('MOREREALISTICDLCS_NO_DLCS'));
 		return false;
 	end;
 
@@ -591,3 +592,4 @@ function MoreRealisticDLCs.developmentReloadFromXML(self)
 	end;
 	delete(xmlFile);
 end;
+

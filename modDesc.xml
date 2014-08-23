@@ -287,7 +287,51 @@
 			<fr>Commencer vidange</fr>
 			<it>Iniziare il svuotamento</it>
 		</text>
+
+		<!-- DLC names -->
+		<text name="MOREREALISTICDLCS_LINDNER">
+			<en>Lindner DLC</en>
+		</text>
+		<text name="MOREREALISTICDLCS_MARSHALL">
+			<en>Marshall DLC</en>
+		</text>
+		<text name="MOREREALISTICDLCS_TITANIUM">
+			<en>Titanium Addon</en>
+		</text>
+		<text name="MOREREALISTICDLCS_URSUS">
+			<en>Ursus Addon</en>
+		</text>
+		<text name="MOREREALISTICDLCS_VAEDERSTAD">
+			<en>Väderstad DLC</en>
+		</text>
+
+		<!-- Error messages -->
+		<text name="MOREREALISTICDLCS_GAME_VERSION_OUTDATED">
+			<en>Your game version (v%s) is too outdated. Update to v%s or higher. Script has been aborted!</en>
+			<de>Die Spielversion (v%s) ist nicht aktuell. Aktualisiere auf v%s oder höher. Script wurde abgebrochen!</de>
+		</text>
+		<text name="MOREREALISTICDLCS_MR_MISSING">
+			<en>You don't have MoreRealistic installed. Script has been aborted!</en>
+			<de>MoreRealistic ist nicht installiert. Script wurde abgebrochen!</de>
+		</text>
+		<text name="MOREREALISTICDLCS_MOD_NO_VERSION">
+			<en>No correct version number could be found for %s. Script has been aborted!</en>
+			<de>Es konnte keine korrekte Versionsnummer für %s gefunden werden. Script wurde abgebrochen!</de>
+		</text>
+		<text name="MOREREALISTICDLCS_MOD_VERSION_OUTDATED">
+			<en>Your %s version (v%s) is too outdated. Update to v%s or higher. Script has been aborted!</en>
+			<de>%s (v%s) ist nicht aktuell genug. Aktualisiere auf v%s oder höher. Script wurde abgebrochen!</de>
+		</text>
+		<text name="MOREREALISTICDLCS_NO_DLCS">
+			<en>You don't have any DLCs installed. Script has been aborted!</en>
+			<de>Es sind keine DLCs installiert. Script wurde abgebrochen!</de>
+		</text>
+		<text name="MOREREALISTICDLCS_DLC_VERSION_OUTDATED">
+			<en>%s (v%s) is not up to date. Update to v%s or higher. Script has been aborted!</en>
+			<de>%s (v%s) ist nicht aktuell genug. Aktualisiere auf v%s oder höher. Script wurde abgebrochen!</de>
+		</text>
 	</l10n>
+
 
 	<inputBindings>
 		<input name="HOSEREF_FILL"  category="VEHICLE" key1="KEY_m" key2="" button="" device="0" mouse="" />
